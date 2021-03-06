@@ -23,3 +23,17 @@ Feel free to clone this repo!
 ### you'll need Yay installed for the following ... 
 
 - yay -S cava spotify-tui 
+
+
+
+<br><br/> 
+
+### Pictured: neovim (with some ugly rust), kitty, gotop
+<img src="pics/cap4.png" />
+
+### Pictured: betterdiscord, spotify-tui, cava
+<img src="pics/cap2.png" />
+
+### Pictured: zathura, calcurse, ranger
+<img src="pics/cap3.png" />
+
