@@ -1,0 +1,23 @@
+T 1613176901 19*	Now talking on 22#space
+T 1613176901 22*	Topic for 22#space is: Space, the Final Frontier | Feb 13/14 0442 UTC on 14th (11:42 am EST on 13th) Falcon 9 Starlink 19 | Feb 14/15 0445 GMT on 15th (11:45pm EST on 14th) Soyuz • Progess 77P | Feb 16 0617 UTC (01:17am EST) Falcon 9 Starlink 17 | Feb 18 Perseverance landing | Feb 20 1736 GMT (12:36pm EST) Antares • Cygnus NG-15 | Feb 28 Kuaizhou-1A | logged by Matrix
+T 1613176901 22*	Topic for 22#space set by 26WillPittenger!willpitten@wikimedia-commons/Will-Pittenger (24Fri Feb 12 05:10:45 2021)
+T 1613176902 -18ChanServ-	[#space] Welcome to space.
+T 1613176937 23*	swarfega (~swarfega@unaffiliated/swarfega23) has joined
+T 1613176998 18<SeanHillyer18>	SeanDHHillyer
+T 1613177002 18<SeanHillyer18>	oops ww
+T 1613177013 24*	28SeanHillyer is now known as 18SeanDHHillyer
+T 1613177313 23*	Ahmuck (aefad579@121.sub-174-250-213.myvzw.com23) has joined
+T 1613177400 23*	_io_ (uid351669@gateway/web/irccloud.com/x-rylotluyvaltnpsf23) has joined
+T 1613177981 18<mrdata_18>	cloudevil, so yes stability is the question; i guess i have to understand things like size, centre of mass, and moment of inertia for the rocket; along with roll period and magnitude of the vessel
+T 1613178023 18<cloudevil18>	Paradoxically almost the nose-hanger for superheavy might almost make this easier.
+T 1613178027 18<cloudevil18>	depending on stuff
+T 1613178078 18<mrdata_18>	the empty booster will have a centre of mass about 1/3 of its length (ish); 9 m dia is less than the falcon-9 booster with legs, but fins could stick out just as far
+T 1613178116 18<mrdata_18>	crews will secure the rocket tot he deck after it lands, so it is mainly the landing to worry about
+T 1613178126 18<cloudevil18>	Or octograbber2
+T 1613178334 24*	CryptoDavid has quit (Quit: Connection closed for inactivity)
+T 1613178339 18<mrdata_18>	is that this thing? https://www.youtube.com/watch?v=rhJnaJU6PD0
+T 1613178486 20*	Disconnected (20)
+T 1613178508 19*	Now talking on 22#space
+T 1613178508 22*	Topic for 22#space is: Space, the Final Frontier | Feb 13/14 0442 UTC on 14th (11:42 am EST on 13th) Falcon 9 Starlink 19 | Feb 14/15 0445 GMT on 15th (11:45pm EST on 14th) Soyuz • Progess 77P | Feb 16 0617 UTC (01:17am EST) Falcon 9 Starlink 17 | Feb 18 Perseverance landing | Feb 20 1736 GMT (12:36pm EST) Antares • Cygnus NG-15 | Feb 28 Kuaizhou-1A | logged by Matrix
+T 1613178508 22*	Topic for 22#space set by 26WillPittenger!willpitten@wikimedia-commons/Will-Pittenger (24Fri Feb 12 05:10:45 2021)
+T 1613178509 -18ChanServ-	[#space] Welcome to space.

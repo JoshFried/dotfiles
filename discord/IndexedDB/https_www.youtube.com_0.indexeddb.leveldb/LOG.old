@@ -1,0 +1,15 @@
+2021/02/17-10:57:05.573 552 Reusing MANIFEST /home/dawgears/.config/discord/IndexedDB/https_www.youtube.com_0.indexeddb.leveldb/MANIFEST-000001
+2021/02/17-10:57:05.573 552 Recovering log #7
+2021/02/17-10:57:05.573 552 Reusing old log /home/dawgears/.config/discord/IndexedDB/https_www.youtube.com_0.indexeddb.leveldb/000007.log 
+2021/02/17-11:10:29.978 1015e Level-0 table #12: started
+2021/02/17-11:10:29.980 1015e Level-0 table #12: 702 bytes OK
+2021/02/17-11:10:29.982 1015e Delete type=0 #7
+2021/02/17-11:10:29.982 1015e Manual compaction at level-0 from (begin) .. (end); will stop at (end)
+2021/02/17-11:10:29.982 1015e Manual compaction at level-1 from (begin) .. (end); will stop at '\x00\x01\x01\x02\x01\x16\x00y\x00t\x00-\x00i\x00d\x00b\x00-\x00t\x00e\x00s\x00t\x00-\x00d\x00o\x00-\x00n\x00o\x00t\x00-\x00u\x00s\x00e' @ 92 : 1
+2021/02/17-11:10:29.982 1015e Compacting 1@1 + 1@2 files
+2021/02/17-11:10:29.984 1015e Generated table #13@1: 18 keys, 519 bytes
+2021/02/17-11:10:29.984 1015e Compacted 1@1 + 1@2 files => 519 bytes
+2021/02/17-11:10:29.985 1015e compacted to: files[ 0 0 1 0 0 0 0 ]
+2021/02/17-11:10:29.986 1015e Delete type=2 #9
+2021/02/17-11:10:29.986 1015e Delete type=2 #12
+2021/02/17-11:10:29.986 1015e Manual compaction at level-1 from '\x00\x01\x01\x02\x01\x16\x00y\x00t\x00-\x00i\x00d\x00b\x00-\x00t\x00e\x00s\x00t\x00-\x00d\x00o\x00-\x00n\x00o\x00t\x00-\x00u\x00s\x00e' @ 92 : 1 .. (end); will stop at (end)

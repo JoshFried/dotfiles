@@ -1,0 +1,25 @@
+T 1613231540 19*	Now talking on 22#oracle
+T 1613231540 22*	Topic for 22#oracle is: Welcome to #oracle -  Ask your question, stick around if someone doesn't respond right away - join the  #oracle-database, #oracle-cloud and #oracle-linux channels for specific topics, ask MySQL questions in #mysql. The unofficial Java channel is ##java.
+T 1613231540 22*	Topic for 22#oracle set by 26Djelibeybi!~Djelibeyb@oracle/linux/Djeli (24Thu Aug 10 20:16:46 2017)
+T 1613233744 23*	MrZeus_ (~MrZeus@81.92.205.2323) has joined
+T 1613242917 24*	Xgc has quit (Quit: Leaving)
+T 1613246863 24*	Sajaki has quit (Quit:  zzz)
+T 1613248827 23*	Xgc (~Jon@98.1.126.4223) has joined
+T 1613249706 23*	short-bike (~short-bik@centos/community/short-bike23) has joined
+T 1613250389 24*	_noblegas has quit (Quit: Connection closed for inactivity)
+T 1613252061 24*	short-bike has quit (Quit: Gone...)
+T 1613252902 23*	short-bike (~short-bik@centos/community/short-bike23) has joined
+T 1613261810 24*	Anathonous has quit (Quit: Later %!^@#&)
+T 1613262849 24*	moser has quit (Ping timeout: 264 seconds)
+T 1613263612 23*	moser (~moser@113.68.53.13823) has joined
+T 1613265009 24*	MrZeus_ has quit (Ping timeout: 264 seconds)
+T 1613269289 23*	Anathonous (~Anathonou@67-225-19-4.sktn.hsdb.sasknet.sk.ca23) has joined
+T 1613269467 24*	tm has quit (Ping timeout: 256 seconds)
+T 1613269687 23*	tm (~sinnlos@unaffiliated/tm23) has joined
+T 1613271405 24*	short-bike has quit (Quit: Gone...)
+T 1613288488 23*	_noblegas (uid91066@gateway/web/irccloud.com/x-twmjqwcrorjsfymz23) has joined
+T 1613298058 23*	Hunterkll (~hunterkll@2001:470:8b06:400:215:5dff:fefb:c0423) has joined
+T 1613298129 18<Hunterkll18>	Hey all, I've tried upgrading my oracle cloud account to a paid account multiple times, but after a few hours it just reverts back to the selection screen of pay or have sales call you. Should I open a ticket, and if so, which route? 
+T 1613305105 23*	Sajaki (~Sajaki@ip-213-127-115-48.ip.prioritytelecom.net23) has joined
+T 1613305233 24*	Sajaki has quit (Client Quit)
+T 1613308384 FiSHLiM plugin unloaded

@@ -1,0 +1,12 @@
+[Number]
+NumberOfWindows=1
+
+[WindowProperties1]
+ClassName=MainWindow
+DP-0 DP-2 Height 1080=480
+DP-0 DP-2 Width 1920=640
+DP-0 DP-2 XPosition=0
+DP-0 DP-2 YPosition=0
+ObjectName=MainWindow#1
+State=AAAA/wAAAAD9AAAAAAAAAAAAAAAAAAAABAAAAAQAAAAIAAAACPwAAAAA
+ToolBarsMovable=Disabled

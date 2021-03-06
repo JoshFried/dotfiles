@@ -1,0 +1,34 @@
+**** BEGIN LOGGING AT Sat Feb 13 10:49:20 2021
+
+Feb 13 10:49:20 *	Connecting to irc.irchighway.net (149.56.95.9:6697)
+Feb 13 10:49:20 *	* Subject: /C=AU/ST=Some-State/O=Internet Widgits Pty Ltd
+Feb 13 10:49:20 *	* Issuer: /C=AU/ST=Some-State/O=Internet Widgits Pty Ltd
+Feb 13 10:49:20 *	* Subject: /C=AU/ST=Some-State/O=Internet Widgits Pty Ltd
+Feb 13 10:49:20 *	* Issuer: /C=AU/ST=Some-State/O=Internet Widgits Pty Ltd
+Feb 13 10:49:21 *	* Certification info:
+Feb 13 10:49:21 *	  Subject:
+Feb 13 10:49:21 *	    C=AU
+Feb 13 10:49:21 *	    ST=Some-State
+Feb 13 10:49:21 *	    O=Internet Widgits Pty Ltd
+Feb 13 10:49:21 *	  Issuer:
+Feb 13 10:49:21 *	    C=AU
+Feb 13 10:49:21 *	    ST=Some-State
+Feb 13 10:49:21 *	    O=Internet Widgits Pty Ltd
+Feb 13 10:49:21 *	  Public key algorithm: rsaEncryption (2048 bits)
+Feb 13 10:49:21 *	  Sign algorithm sha256WithRSAEncryption
+Feb 13 10:49:21 *	  Valid since Jan 31 03:29:27 2020 GM to Jan 28 03:29:27 2030 GM
+Feb 13 10:49:21 *	* Cipher info:
+Feb 13 10:49:21 *	  Version: TLSv1.2, cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits)
+Feb 13 10:49:21 *	Connection failed (self signed certificate.? (18))
+Feb 13 10:50:13 *	Looking up chat.freenode.net
+Feb 13 10:50:13 *	Connecting to chat.freenode.net (185.30.166.37:6667)
+Feb 13 10:50:13 *	Connected. Now logging in.
+Feb 13 10:50:13 *	*** Looking up your hostname...
+Feb 13 10:50:13 *	*** Checking Ident
+Feb 13 10:50:14 *	*** Found your hostname
+Feb 13 10:50:21 *	*** No Ident response
+Feb 13 10:50:22 *	Capabilities supported: account-notify away-notify cap-notify chghost extended-join identify-msg multi-prefix sasl tls
+Feb 13 10:50:22 *	Capabilities requested: account-notify away-notify cap-notify chghost extended-join identify-msg multi-prefix 
+Feb 13 10:50:22 *	Capabilities acknowledged: account-notify away-notify cap-notify chghost extended-join identify-msg multi-prefix 
+**** ENDING LOGGING AT Sat Feb 13 10:50:22 2021
+
