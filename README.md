@@ -18,7 +18,7 @@ Feel free to clone this repo!
 - Calendar : Calcurse
 
 ### If you're using an arch based distro 
-- Sudo pacman -S kitty i3-gaps zathura  ranger gotop spotifyd rofi tint2 neovim zsh
+- Sudo pacman -S kitty i3-gaps zathura  ranger gotop spotifyd rofi tint2 neovim zsh feh xrandr 
 
 ### you'll need Yay installed for the following ... 
 
