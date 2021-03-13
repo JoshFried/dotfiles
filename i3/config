@@ -3,19 +3,20 @@
 # This config file will use environment variables such as $BROWSER and $TERMINAL.
 set $firstMonitor DP-0
 set $secondMonitor DP-2
-exec_always --no-startup-id killall tint2; tint2
+exec_always xrandr --output DP-2 --mode 2560x1440 --rate 144.00 
+exec_always xrandr --output DP-0 --mode 1920x1080 --rate 144.00 
+exec_always xrandr --output DP-2 --primary --left-of DP-0 
+exec_always feh --bg-fill ~/Pictures/gruvbox_wallpaperflare-cropped.jpeg
+exec --no-startup-id bluetoothctl power on
+exec_always --no-startup-id ~/.config/polybar/cuts/launch.sh
 exec_always --no-startup-id autotiling
-exec --no-startup-id xrandr --output DP-2 --mode 2560x1440 --rate 144.00 
-exec --no-startup-id xrandr --output DP-0 --mode 1920x1080 --rate 144.00 
-exec --no-startup-id xrandr --output DP-2 --primary --left-of DP-0  
-exec --no-startup-id feh --bg-fill --randomize ~/Pictures/wallpapers/*
-
+exec_always --no-startup-id picom --config ~/.config/picom.conf
 
 #
 # #---Basic Definitions---# #
 smart_gaps on
 smart_borders on
-set $inner_gaps 60
+set $inner_gaps 40
 set $outer_gaps -20
 set $term --no-startup-id kitty
 set $mod Mod4
@@ -42,37 +43,23 @@ bindsym $mod+Shift+Return	       exec $term --working-directory  $(xcwd)
 
 bindsym $mod+Escape	             exec --no-startup-id dm-tool switch-to-greeter
 bindsym $mod+Shift+Escape	       exec --no-startup-id $hibernate
-
+bindsym $mod+Shift+comma             exec pavucontrol
 # bindsym $mod+BackSpace
 # bindsym $mod+Shift+BackSpace	   exec --no-startup-id prompt "Reboot computer?" $reboot
 
 
 # #---Letter Key Bindings---# #
-bindsym $mod+q			            [con_id="__focused__" instance="^(?!dropdown_).*$"] kill
-
-# w
-bindsym $mod+w 			            exec --no-startup-id brave
-
-# r
-bindsym $mod+r 			            exec $term -e ranger
-bindsym $mod+Shift+r		        exec --no-startup-id winresize
-
-
-# i
-bindsym $mod+i                  fullscreen disable; floating enable; resize set 300 200; sticky enable; move position 4792 53
-
-# o
-bindsym $mod+o			        exec --no-startup-id $term -e nvim ~/code
 
 # a
 bindsym $mod+a		              exec $term -e alsamixer
 
-# s
-bindsym $mod+s        			    sticky toggle;
-bindsym $mod+Shift+s			      split toggle
+# b
+bindsym $mod+b			            exec --no-startup-id feh --bg-fill --randomize ~/pictures/wallpapers/*
 
 # d
-bindsym $mod+d                  exec --no-startup-id rofi -no-lazy-grab -show drun -modi drun -theme ~/.config/polybar/grayblocks/scripts/rofi/launcher.rasi  
+bindsym $mod+d                  exec --no-startup-id rofi -no-lazy-grab -show drun -modi drun -theme ~/.config/polybar/cuts/scripts/rofi/launcher.rasi
+bindsym $mod+Shift+d                  exec --no-startup-id rofi -no-lazy-grab -show drun -modi drun -theme ~/.config/polybar/cuts/scripts/rofi/networkmenu.rasi
+
 # f
 bindsym $mod+f			            fullscreen toggle
 bindsym $mod+Shift+f 	          floating toggle
@@ -83,37 +70,55 @@ bindsym $mod+Shift+g		        gaps inner current set 0; gaps outer current set 0
 
 # h
 bindsym $mod+h			            focus left
-bindsym $mod+Shift+h		        move left 30
+bindsym $mod+Shift+h		        move left 20
 bindsym $mod+Ctrl+h		          move workspace to output left
+
+# i
+bindsym $mod+i                  fullscreen disable; floating enable; resize set 300 200; sticky enable; move position 4792 53
 
 # j
 bindsym $mod+j			            focus down
-bindsym $mod+Shift+j		        move down 30
+bindsym $mod+Shift+j		        move down 20
 bindsym $mod+Ctrl+j		          move workspace to output down
 
 # k
 bindsym $mod+k			            focus up
-bindsym $mod+Shift+k		        move up 30
+bindsym $mod+Shift+k		        move up 20
 bindsym $mod+Ctrl+k		          move workspace to output up
 
 # l
 bindsym $mod+l			            focus right
-bindsym $mod+Shift+l		        move right 30
+bindsym $mod+Shift+l		        move right 20
 bindsym $mod+Ctrl+l		          move workspace to output right
 
-# z
-bindsym $mod+z			            exec --no-startup-id $term -e nvim ~/.zshrc
-
-# x
-bindsym $mod+shift+x exec --no-startup-id ~/.config/i3lockblur
+# o
+bindsym $mod+o			        exec --no-startup-id $term -e nvim ~/repos .
 
 
 # p
 bindsym $mod+p			            exec --no-startup-id picom -b
 bindsym $mod+Shift+p		        exec --no-startup-id killall picom
 
-# b
-bindsym $mod+b			            exec --no-startup-id feh --bg-fill --randomize ~/pictures/wallpapers/*
+# q
+bindsym $mod+q			            [con_id="__focused__" instance="^(?!dropdown_).*$"] kill
+
+# r
+bindsym $mod+r 			            exec $term -e ranger
+bindsym $mod+Shift+r		        exec --no-startup-id winresize
+
+# s
+bindsym $mod+s        			    sticky toggle;
+bindsym $mod+Shift+s			      split toggle
+
+# w
+bindsym $mod+u exec tdrop -am -w 60% -y 30% -x 20% kitty
+
+# z
+bindsym $mod+z			            exec --no-startup-id $term -e nvim ~/.zshrc
+bindsym $mod+Shift+z         exec --no-startup-id zoom; 
+
+# x
+bindsym $mod+shift+x exec --no-startup-id betterlockscreen -l blur -t "Ngl I use Arch" -b 0.2
 
 
 # #---Workspace Bindings---# #
@@ -122,7 +127,7 @@ bindsym $mod+Shift+Tab		      workspace previous
 bindsym $mod+apostrophe		      split horizontal ;; exec $term
 bindsym $mod+slash		          split vertical ;; exec $term
 bindsym $mod+Shift+slash	      kill
-bindsym $mod+backslash		      workspace back_and_forth
+bindsym $mod+backslash		      workspace previous
 
 
 
@@ -173,7 +178,6 @@ bindsym $mod+Shift+0	move container to workspace $ws10
 bindsym $mod+F1		        restart
 bindsym $mod+F2		        exec --no-startup-id screenkey -s small --scr 1 -p fixed -g 600x100+2573+1330 --opacity .9 --font-color white
 bindsym $mod+F3	          exec --no-startup-id killall screenkey
-bindsym $mod+F12	        exec $term -e nmtui
 
 # #---Arrow Keys---# #
 bindsym $mod+Left		      focus left
@@ -204,17 +208,21 @@ client.background       #ffffff
 
 
 mode "Applications" {
-  bindsym f exec firefox; mode "default"
-  bindsym v exec --no-startup-id $term -e nvim ~/code; mode "default"
-  bindsym s exec spotify; mode "default"
-  bindsym d exec discord; mode "default"  
-  bindsym g exec google-chrome-stable; mode "default"
-   bindsym Escape mode "default"
+    bindsym f exec firefox; mode "default"
+    bindsym v exec --no-startup-id $term -e nvim ~/code; mode "default"
+    bindsym m exec spotify; mode "default"
+    bindsym i exec --no-startup-id idea; mode "default" 
+    bindsym d exec discord; mode "default"  
+    bindsym g exec google-chrome-stable; mode "default"
+    bindsym s exec postman 
+    bindsym b exec dbeaver
+    bindsym Escape mode "default"
+
 }
 
- bindsym Print exec spectacle -r; mode "default"
- bindsym $mod+F9 exec python ~/.config/polybar/spotify_handler.py previous
- bindsym $mod+Shift+F10 exec python ~/.config/polybar/spotify_handler.py pause
- bindsym $mod+F10 exec python ~/.config/polybar/spotify_handler.py play
- bindsym $mod+F11 exec python ~/.config/polybar/spotify_handler.py next 
+ bindsym Print exec flameshot gui -p ~/Pictures/Screenshots
+
+ bindsym $mod+F9 exec playerctl --player spotify previous 
+ bindsym $mod+F10 exec playerctl --player spotify play-pause
+ bindsym $mod+F11 exec playerctl --player spotify next 
  bindsym $mod+F8 pactl move-sink-input 100 bluez_sink.38_18_4C_3D_EF_48.a2dp_sink
