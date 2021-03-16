@@ -69,41 +69,9 @@ call plug#begin('~/.vim/plugged')
     \ 'ctrl-v': 'vsplit'
     \}
     let g:airline_powerline_fonts = 1
-    " nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
-    " nmap <A-1> :NERDTreeToggle % <CR>
-    " vmap <silent> <C-_> <Plug>NERDCommenterToggle
-    "
-    " nmap <silent> <C-_> <Plug>NERDCommenterToggle
-    "
-    " " Remap keys for applying codeAction to the current line.
-    " nmap <leader>ac  <Plug>(coc-codeaction)
-    " vmap <leader>a <Plug>(coc-codeaction-selected)
-    " " Apply AutoFix to problem on the current line.
-    " nmap <leader>qf  <Plug>(coc-fix-current)
-    "
-    " " GoTo code navigation.
-    " nmap <silent> gd <Plug>(coc-definition)
-    " nmap <silent> gy <Plug>(coc-type-definition)
-    " nmap <silent> gi <Plug>(coc-implementation)
-    " nmap <silent> gr <Plug>(coc-references)
-    " nmap <F2> <Plug>(coc-rename)
-    " nnoremap <silent> <leader>a  :<C-u>CocList diagnostics<CR>
-    "
-    " let g:ale_linters = {
-    " \ 'python': ['flake8'],
-    " \ 'rust': ['analyzer']}
-    " " Write this in your vimrc file
-    " let g:ale_fixers = {
-    " \ 'python': ['yapf'],
-    " \ 'rust' : ['rustfmt']
-    " \ }
-    " let g:ale_set_loclist = 0
-    " let g:ale_set_quickfix = 1
-    " let g:ale_fix_on_save = 1
-    " let g:ale_disable_lsp = 1
-    "
+     let g:ale_disable_lsp = 1
+
     map <C-s> :source ~/.config/nvim/init.vim<CR>
-    " Show all diagnostics
     
     let g:coc_global_extensions = ['coc-rust-analyzer', 'coc-phpls', 'coc-emmet', 'coc-jedi', 'coc-pairs',  'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
     inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
@@ -159,49 +127,6 @@ call plug#begin('~/.vim/plugged')
     " Enable NERDCommenterToggle to check all selected lines is commented or not 
     let g:NERDToggleCheckAllLines = 1
 
-    " startify
-    " let g:startify_session_dir = '~/.config/nvim/session'
-    "
-    " let g:startify_lists = [
-    "       \ { 'type': 'files',     'header': ['   Files']            },
-    "       \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
-    "       \ { 'type': 'sessions',  'header': ['   Sessions']       },
-    "       \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-    "       \ ]
-    "
-    " let g:startify_bookmarks = [
-    "         \ { 'c': '~/.config/i3/config' },
-    "         \ { 'i': '~/.config/nvim/init.vim' },
-    "         \ { 'z': '~/.zshrc' },
-    "         \ '~/Documents/Repos',
-    "         \ ]
-    "
-    " let g:startify_custom_header = [
-    "             \ '                                                                  ',
-    "             \ '██████╗  █████╗ ██╗    ██╗ ██████╗ ███████╗ █████╗ ██████╗ ███████╗',
-    "             \'██╔══██╗██╔══██╗██║    ██║██╔════╝ ██╔════╝██╔══██╗██╔══██╗██╔════╝',
-    "             \'█║  ██║███████║██║ █╗ ██║██║  ███╗█████╗  ███████║██████╔╝███████╗',
-    "             \'██║  ██║██╔══██║██║███╗██║██║   ██║██╔══╝  ██╔══██║██╔══██╗╚════██║',
-    "             \'█████╔╝██║  ██║╚███╔███╔╝╚██████╔╝███████╗██║  ██║██║  ██║███████║',
-    "             \'╚═════╝ ╚═╝  ╚═╝ ╚══╝╚══╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝',
-    "             \ '',
-    "             \'██╗   ██╗ ██████╗ ███████╗██╗   ██╗██╗███╗   ███╗                 ',
-    "             \'███╗  ██║██╔═══██╗██╔════╝██║   ██║██║████╗ ████║                 ',
-    "             \'██╔██╗ ██║██║   ██║█████╗  ██║   ██║██║██╔████╔██║                 ',
-    "             \'█║╚██╗██║██║   ██║██╔══╝  ╚██╗ ██╔╝██║██║╚██╔╝██║                 ',
-    "             \'██║ ╚████║╚██████╔╝███████╗ ╚████╔╝ ██║██║ ╚═╝ ██║                 ',
-    "             \'═╝  ╚═══╝ ╚═════╝ ╚══════╝  ╚═══╝  ╚═╝╚═╝     ╚═╝                 ',
-    "             \]
-    "
-    "
-    "
-    " let g:startify_session_autoload = 1
-    " let g:startify_session_delete_buffers = 1
-    " let g:startify_change_to_vcs_root = 1
-    " let g:startify_fortune_use_unicode = 1
-    " let g:startify_enable_special = 0
-    " let g:startify_session_persistence = 1
-    "
 
     nnoremap <silent> K :call <SID>show_documentation()<CR>
     function! s:show_documentation()
