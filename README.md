@@ -7,7 +7,7 @@ Feel free to clone this repo!
 - Terminal : Kitty 
 - Text Editor : NeoVim 
 - WM : I3-gaps
-- Bar : Tint2
+- Bar : Polybar
 - Shell : Zsh 
 - Application Launcher: Rofi
 - Document Viewer : Zathura
