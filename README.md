@@ -14,7 +14,7 @@ Feel free to clone this repo!
 - Audio Visualizer : Cava 
 - File Manager : Ranger
 - Activity Monitor : Gotop 
-- Music Player : Spotify-TUI
+- Music Player : Spicetify
 - Calendar : Calcurse
 
 ### If you're using an arch based distro 
