@@ -28,5 +28,9 @@ Feel free to clone this repo!
 
 
 <br><br/> 
+<img src="pictures/2021-03-17_11-17.png" />
+<img src="pictures/2021-03-17_11-16.png" />
+<img src="pictures/2021-03-17_11-51.png" />
+<img src="pictures/2021-03-17_11-38.png" />
 
 
