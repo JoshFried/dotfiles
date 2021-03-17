@@ -20,7 +20,19 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <F2> <Plug>(coc-rename)
 nnoremap <silent> <leader>a  :<C-u>CocList diagnostics<CR>
 
-let g:coc_global_extensions = ['coc-rust-analyzer', 'coc-phpls', 'coc-emmet', 'coc-jedi', 'coc-pairs',  'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
+let g:coc_global_extensions = [
+            \ 'coc-rust-analyzer', 
+            \ 'coc-phpls', 
+            \ 'coc-emmet', 
+            \ 'coc-eslint', 
+            \ 'coc-jedi', 
+            \ 'coc-pairs',  
+            \ 'coc-css', 
+            \ 'coc-html', 
+            \ 'coc-json', 
+            \ 'coc-prettier', 
+            \ 'coc-tsserver',
+            \ ]
 
 
 "vista"

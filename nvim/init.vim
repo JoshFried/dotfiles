@@ -4,7 +4,9 @@ call plug#begin('~/.vim/plugged')
         Plug 'RRethy/vim-illuminate'
         Plug 'Xuyuanp/nerdtree-git-plugin'
         Plug 'airblade/vim-gitgutter'
+        Plug 'airblade/vim-rooter'
         Plug 'dense-analysis/ale'
+        Plug 'justinmk/vim-sneak'
         Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
         Plug 'leafgarland/typescript-vim'
         Plug 'liuchengxu/vim-which-key'
@@ -12,6 +14,7 @@ call plug#begin('~/.vim/plugged')
         Plug 'machakann/vim-sandwich'
         Plug 'mbbill/undotree'
         Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+        Plug 'sheerun/vim-polyglot'
         Plug 'mhinz/vim-startify'
         Plug 'morhetz/gruvbox'
         Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -25,7 +28,9 @@ call plug#begin('~/.vim/plugged')
         Plug 'pangloss/vim-javascript'
         Plug 'peitalin/vim-jsx-typescript'
         Plug 'preservim/nerdcommenter'
+        Plug 'psliwka/vim-smoothie'
         Plug 'puremourning/vimspector'
+        Plug 'rhysd/git-messenger.vim'
         Plug 'rust-lang/rust.vim'
         Plug 'ryanoasis/vim-devicons'
         Plug 'sainnhe/gruvbox-material'
@@ -35,6 +40,7 @@ call plug#begin('~/.vim/plugged')
         Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
         Plug 'tpope/vim-fugitive'
         Plug 'tpope/vim-projectionist'        
+        Plug 'tpope/vim-sleuth'
         Plug 'tpope/vim-vinegar'
         Plug 'unblevable/quick-scope'
         Plug 'vim-airline/vim-airline'
@@ -45,10 +51,7 @@ call plug#begin('~/.vim/plugged')
     if (has('termguicolors'))
         set termguicolors
     endif
-  
-    "Vim surround mappings"
-    " let g:surround_no_mappings = 1
-    nmap <leader> as <Plug>Csurround
+
     let mapleader = " "
     source $HOME/.config/nvim/plug-config/sneak.vim
     source $HOME/.config/nvim/plug-config/quickscope.vim
@@ -60,6 +63,8 @@ call plug#begin('~/.vim/plugged')
     source $HOME/.config/nvim/plug-config/nerd-commenter.vim
     source $HOME/.config/nvim/plug-config/nerd-git-status.vim
     source $HOME/.config/nvim/plug-config/telescope.vim 
+    source $HOME/.config/nvim/plug-config/vim-rooter.vim 
+    source $HOME/.config/nvim/plug-config/git-messenger.vim
 
     lua require'nvim-treesitter.configs'.setup {ensure_installed = "all",  highlight = { enable = true } }
 
@@ -87,7 +92,6 @@ call plug#begin('~/.vim/plugged')
 
     let g:vim_jsx_pretty_colorful_config = 1
     let g:prettier#autoformat = 0 
-    autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html, PrettierAsync
 
     let g:python3_host_prog = '/usr/bin/python3'
   
@@ -100,7 +104,7 @@ call plug#begin('~/.vim/plugged')
       endif
     endfunction
 
-
+    
     fun! TrimWhitespace()
         let l:save = winsaveview()
         keeppatterns %s/\s\+$//e
@@ -143,9 +147,9 @@ set tabstop=1
 set hls is
 set ls=2
 set mouse=a
-" syntax enable
 set showmatch
 set wildmenu
 set autoindent
+syntax enable
 filetype plugin on
 " Config Section
