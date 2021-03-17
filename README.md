@@ -2,6 +2,7 @@
 ### Posted this cause i was asked about my setup by a few friends, this is definitely still a WIP. Will update as I go!
 
 
+
 Feel free to clone this repo! 
 
 - Terminal : Kitty 
@@ -25,7 +26,7 @@ Feel free to clone this repo!
 
 - yay -S cava spicetify conky betterlockscreen gotop
 
-
+Shout out to everyone on r/unixporn who shared their dotfiles!
 
 <br><br/> 
 <img src="pictures/2021-03-17_11-17.png" />
