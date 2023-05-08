@@ -3,7 +3,10 @@ local wezterm = require("wezterm")
 return {
 
 	font = wezterm.font_with_fallback({
-		"Monaco",
+		{
+			family = "Monaco",
+			weight = "Bold",
+		},
 		{
 			family = "JetBrainsMono Nerd Font",
 			scale = 1.8,
@@ -15,7 +18,7 @@ return {
 
 	color_scheme_dirs = { "~/.config/wezterm/colors" },
 
-	color_scheme = "tokyonight",
+	color_scheme = "Kanagawa (Gogh)",
 
 	window_padding = {
 		left = 15,
@@ -32,6 +35,7 @@ return {
 	check_for_updates = false,
 
 	keys = {
+		-- this allows us to use option + arrow key for navigation
 		{ key = "LeftArrow", mods = "OPT", action = wezterm.action({ SendString = "\x1bb" }) },
 		{ key = "RightArrow", mods = "OPT", action = wezterm.action({ SendString = "\x1bf" }) },
 	},

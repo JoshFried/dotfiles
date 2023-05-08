@@ -69,3 +69,23 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
 	end,
 })
+
+-- ensure we always have a transparent background when we change themes :)
+vim.api.nvim_create_autocmd("ColorScheme", {
+	callback = function()
+		local highlights = {
+			"Normal",
+			"LineNr",
+			"Folded",
+			"NonText",
+			"SpecialKey",
+			"VertSplit",
+			"SignColumn",
+			"EndOfBuffer",
+			"TablineFill", -- this is specific to how I like my tabline to look like
+		}
+		for _, name in pairs(highlights) do
+			vim.cmd.highlight(name .. " guibg=none ctermbg=none")
+		end
+	end,
+})
