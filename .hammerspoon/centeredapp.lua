@@ -43,7 +43,7 @@ local function centered(app)
 		end
 	end
 
-	local launch = LaunchOrActivateApp(app)
+	local launch = launchOrActivateApp(app)
 
 	if launch then
 		local application = hs.application.get(app)

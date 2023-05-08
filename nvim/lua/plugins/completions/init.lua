@@ -129,7 +129,7 @@ return {
 					keyword_length = 1,
 				},
 				experimental = {
-					ghost_text = true,
+					ghost_text = false, -- NOTE: This is temporarily broken seems like a bug with nvim 0.9 and nvim-cmp..
 					native_menu = false,
 				},
 				window = {

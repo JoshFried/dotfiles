@@ -99,28 +99,12 @@ return {
 						PmenuSbar = { bg = colours.ui.bg_m1 },
 						PmenuThumb = { bg = colours.ui.bg_p2 },
 
-						LspInlayHint = { bg = "none", fg = "7f7f7f" },
+						LspInlayHint = { bg = "none", fg = "#7f7f7f" },
 					}
 				end,
 			})
 
 			vim.cmd.colorscheme("kanagawa")
-
-			-- NOTE: not sure why this is the only way i can get a transparent background while keeping the overrides and compiles arg here....but im fed up of playing around
-			local highlights = {
-				"Normal",
-				"LineNr",
-				"Folded",
-				"NonText",
-				"SpecialKey",
-				"VertSplit",
-				"SignColumn",
-				"EndOfBuffer",
-				"TablineFill", -- this is specific to how I like my tabline to look like
-			}
-			for _, name in pairs(highlights) do
-				vim.cmd.highlight(name .. " guibg=none ctermbg=none")
-			end
 		end,
 	},
 }

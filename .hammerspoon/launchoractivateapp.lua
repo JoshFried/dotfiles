@@ -65,3 +65,7 @@ end)
 hotkey.bind(hyper, "S", function()
 	launchOrActivateApp("Slack")
 end)
+
+hotkey.bind(hyper, "O", function()
+	launchOrActivateApp("Microsoft Outlook")
+end)
