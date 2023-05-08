@@ -1,38 +1,29 @@
 export EDITOR='nvim'
+alias sz='exec zsh'               # alias for Source Zsh
 
 # editing config
 alias ez="$EDITOR ~/.zshrc"       # alias for Edit Zshrc
 alias ea="$EDITOR ~/.alias.zsh"   # alias for Edit Alias
 alias el="$EDITOR ~/.local.zsh"   # alias for Edit Local
-alias sz='exec zsh'               # alias for Source Zsh
 alias ewez="cd ~/.config/wezterm && $EDITOR"
-
 alias eh="cd ~/.hammerspoon && $EDITOR"
 alias ek="cd ~/.config/karabiner/assets/complex_modifications/ && $EDITOR"
 alias eal="cd ~/.config/alacritty && $EDITOR"
-
-alias ex="exa -l -a --grid --git"
+alias envi="cd ~/.config/nvim && $EDITOR ."
 
 # bookmarks
 alias @tmp='cd ~/tmp'
 alias @downloads='cd ~/Downloads'
 alias @repos='cd ~/Documents/repos/'
 alias @documents='cd ~/Documents'
-alias @pulse='cd ~/Documents/repos/pulse'
-alias @tanker='cd ~/Documents/repos/tanker'
-alias @lc="cd ~/Documents/repos/leetcode/"
 alias @config="cd ~/.config"
 alias @dotfiles='cd ~/Documents/repos/dotfiles/'
 
 alias ls='exa -l -a --grid --git'
-
 alias :q='exit'
-
 alias ..='..'
 alias ...='../..'
 alias ....='../../..'
-
-alias envi="cd ~/.config/nvim && $EDITOR ."
 
 # applications
 alias d='docker'
@@ -96,11 +87,9 @@ alias eal="cd ~/.config/alacritty && $EDITOR"
 # Git Diff
 alias gd='git diff HEAD'
 
+# much efficiency
 alias bri='brew install'
 alias bric='brew install --cask'
-
-#
-
 
 # cargo
 alias cb='cargo build'
