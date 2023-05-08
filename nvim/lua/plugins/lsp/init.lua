@@ -35,6 +35,7 @@ return {
 					},
 				},
 				dockerls = {},
+				markman = {},
 			},
 			setup = {
 				lua_ls = function(_, _)
@@ -130,18 +131,4 @@ return {
 			{ "<leader>cD", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics" },
 		},
 	},
-	-- {
-	-- 	"glepnir/lspsaga.nvim",
-	-- 	event = "VeryLazy",
-	-- 	config = {
-	-- 		lightbulb = {
-	-- 			virtual_text = false,
-	-- 		},
-	-- 	},
-	-- 	keys = {
-	-- 		{ "<leader>gp", "<cmd>Lspsaga peek_definition<CR>", desc = "Peek type definition" },
-	-- 		{ "<leader>oc", "<cmd>Lspsaga outgoing_calls<CR>", desc = "Outgoing calls" },
-	-- 		{ "<leader>lc", "<cmd>Lspsaga code_action<CR>", desc = "Code Actions" },
-	-- 	},
-	-- },
 }
