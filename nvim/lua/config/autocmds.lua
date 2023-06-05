@@ -89,3 +89,10 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 		end
 	end,
 })
+
+vim.api.nvim_create_autocmd("VimEnter", {
+	callback = function()
+		-- vim.cmd("<cmd>Telescope diagnostics<cr>")
+		vim.cmd("lua require('telescope.builtin').find_files()")
+	end,
+})

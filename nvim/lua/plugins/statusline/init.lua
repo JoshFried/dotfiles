@@ -13,7 +13,7 @@ return {
 					component_separators = {},
 					section_separators = {},
 					disabled_filetypes = {
-						statusline = { "alpha", "lazy" },
+						statusline = { "alpha", "lazy", "fugitive", "" },
 						winbar = {
 							"help",
 							"alpha",

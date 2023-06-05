@@ -75,7 +75,15 @@ return {
 				commentStyle = { italic = false },
 				keywordStyle = { italic = false },
 				terminalColors = true,
-
+				colors = {
+					theme = {
+						all = {
+							ui = {
+								bg_gutter = "none",
+							},
+						},
+					},
+				},
 				overrides = function(colors)
 					local colours = colors.theme
 					return {

@@ -1,8 +1,17 @@
--- local install_root_dir = vim.fn.stdpath("data") .. "/mason"
-local extension_path = vim.fn.expand("~/.vscode/extensions/vadimcn.vscode-lldb-1.9.0/")
-local codelldb_path = extension_path .. "adapter/codelldb"
-local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib"
-local _, rust_analyzer_cmd = nil, { "rustup", "run", "stable", "rust-analyzer" }
+-- -- local install_root_dir = vim.fn.stdpath("data") .. "/mason"
+-- local extension_path = vim.fn.expand("~/.vscode/extensions/vadimcn.vscode-lldb-1.9.0/")
+-- local codelldb_path = extension_path .. "adapter/codelldb"
+-- local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib"
+-- local _, rust_analyzer_cmd = nil, { "rustup", "run", "stable", "rust-analyzer" }
+
+local function get_codelldb()
+	local mason_registry = require("mason-registry")
+	local codelldb = mason_registry.get_package("codelldb")
+	local extension_path = codelldb:get_install_path() .. "/extension/"
+	local codelldb_path = extension_path .. "adapter/codelldb"
+	local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib"
+	return codelldb_path, liblldb_path
+end
 
 return {
 	{
@@ -34,6 +43,8 @@ return {
 			},
 			setup = {
 				rust_analyzer = function(_, opts)
+					local codelldb_path, liblldb_path = get_codelldb()
+
 					local lsp_utils = require("plugins.lsp.utils")
 					lsp_utils.on_attach(function(client, buffer)
 						if client.name == "rust_analyzer" then
@@ -105,11 +116,11 @@ return {
 		},
 	},
 	{
-		-- NOTE: this is the rust configuration to use dap debugger, we can actually use this for both C and C++ too
 		"mfussenegger/nvim-dap",
 		opts = {
 			setup = {
 				codelldb = function()
+					local codelldb_path, liblldb_path = get_codelldb()
 					local dap = require("dap")
 					dap.adapters.codelldb = {
 						type = "server",
@@ -117,9 +128,6 @@ return {
 						executable = {
 							command = codelldb_path,
 							args = { "--port", "${port}" },
-
-							-- On windows you may have to uncomment this:
-							-- detached = false,
 						},
 					}
 					dap.configurations.cpp = {

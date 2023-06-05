@@ -1,13 +1,16 @@
 local icons = require("config.icons")
 
 local M = {
-	"mfussenegger/nvim-dap",
-	dependencies = {
-		{ "rcarriga/nvim-dap-ui" },
-		{ "theHamsta/nvim-dap-virtual-text" },
-		{ "nvim-telescope/telescope-dap.nvim" },
-		{ "jbyuki/one-small-step-for-vimkind" },
-	},
+	{
+		"mfussenegger/nvim-dap",
+		dependencies = {
+			{ "rcarriga/nvim-dap-ui" },
+			{ "theHamsta/nvim-dap-virtual-text" },
+			{ "nvim-telescope/telescope-dap.nvim" },
+			{ "jay-babu/mason-nvim-dap.nvim" },
+			{ "jbyuki/one-small-step-for-vimkind" },
+			{ "LiadOz/nvim-dap-repl-highlights", opts = {} },
+		},
   -- stylua: ignore
   keys = {
     { "<leader>dR", function() require("dap").run_to_cursor() end, desc = "Run to Cursor", },
@@ -32,29 +35,41 @@ local M = {
     { "<leader>du", function() require("dap").step_out() end, desc = "Step Out", },
     { "<leader>dcb", function() require("dap").clear_breakpoints() end, desc = "Step Out", },
   },
-	config = function(plugin, opts)
-		require("nvim-dap-virtual-text").setup({
-			commented = true,
-		})
+		config = function(plugin, opts)
+			require("nvim-dap-virtual-text").setup({
+				commented = true,
+			})
 
-		local dap, dapui = require("dap"), require("dapui")
-		dapui.setup({})
+			local dap, dapui = require("dap"), require("dapui")
+			dapui.setup({})
 
-		dap.listeners.after.event_initialized["dapui_config"] = function()
-			dapui.open()
-		end
-		dap.listeners.before.event_terminated["dapui_config"] = function()
-			dapui.close()
-		end
-		dap.listeners.before.event_exited["dapui_config"] = function()
-			dapui.close()
-		end
+			dap.listeners.after.event_initialized["dapui_config"] = function()
+				dapui.open()
+			end
+			dap.listeners.before.event_terminated["dapui_config"] = function()
+				dapui.close()
+			end
+			dap.listeners.before.event_exited["dapui_config"] = function()
+				dapui.close()
+			end
 
-		-- set up debugger
-		for k, _ in pairs(opts.setup) do
-			opts.setup[k](plugin, opts)
-		end
-	end,
+			-- set up debugger
+			for k, _ in pairs(opts.setup) do
+				opts.setup[k](plugin, opts)
+			end
+		end,
+	},
+	--TODO: to configure
+	{
+		"jay-babu/mason-nvim-dap.nvim",
+		dependencies = "mason.nvim",
+		cmd = { "DapInstall", "DapUninstall" },
+		opts = {
+			automatic_setup = true,
+			handlers = {},
+			ensure_installed = {},
+		},
+	},
 }
 
 vim.fn.sign_define("DapBreakpoint", { text = icons.ui.DapBreakpoint, texthl = "Error", linehl = "", numhl = "" })

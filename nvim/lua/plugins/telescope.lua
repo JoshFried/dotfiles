@@ -1,42 +1,43 @@
 local transform_mod = require("telescope.actions.mt").transform_mod
-local custom_actions = transform_mod({
-	-- File browser
-	file_browser = function(prompt_bufnr)
-		local content = require("telescope.actions.state").get_selected_entry()
-		if content == nil then
-			return
-		end
+-- local custom_actions = transform_mod({
+-- 	-- File browser
+-- 	file_browser = function(prompt_bufnr)
+-- 		local content = require("telescope.actions.state").get_selected_entry()
+-- 		if content == nil then
+-- 			return
+-- 		end
 
-		local full_path = content.cwd
-		if content.filename then
-			full_path = content.filename
-		elseif content.value then
-			full_path = full_path .. require("plenary.path").path.sep .. content.value
-		end
+-- 		local full_path = content.cwd
+-- 		if content.filename then
+-- 			full_path = content.filename
+-- 		elseif content.value then
+-- 			full_path = full_path .. require("plenary.path").path.sep .. content.value
+-- 		end
 
-		-- Close the Telescope window
-		require("telescope.actions").close(prompt_bufnr)
+-- 		-- Close the Telescope window
+-- 		require("telescope.actions").close(prompt_bufnr)
 
-		-- Open file browser
-		-- vim.cmd("Telescope file_browser select_buffer=true path=" .. vim.fs.dirname(full_path))
-		require("telescope").extensions.file_browser.file_browser({
-			select_buffer = true,
-			path = vim.fs.dirname(full_path),
-		})
-	end,
-})
+-- 		-- Open file browser
+-- 		-- vim.cmd("Telescope file_browser select_buffer=true path=" .. vim.fs.dirname(full_path))
+-- 		require("telescope").extensions.file_browser.file_browser({
+-- 			select_buffer = true,
+-- 			path = vim.fs.dirname(full_path),
+-- 		})
+-- 	end,
+-- })
 
 return {
 	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = {
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-			"nvim-telescope/telescope-file-browser.nvim",
+			-- "nvim-telescope/telescope-file-browser.nvim",
 			"nvim-telescope/telescope-ui-select.nvim",
 			"nvim-telescope/telescope-project.nvim",
 			"ahmedkhalf/project.nvim",
 			"cljoly/telescope-repo.nvim",
 		},
+		lazy = false,
 		cmd = "Telescope",
 		keys = {
 			{
@@ -69,7 +70,7 @@ return {
 			},
 			{ "<leader>?", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
 			{ "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
-			{ "<leader>fR", "<cmd>Telescope file_browser<cr>", desc = "Browser" },
+			-- { "<leader>fR", "<cmd>Telescope file_browser<cr>", desc = "Browser" },
 			{ "<leader>ps", "<cmd>Telescope repo list<cr>", desc = "Search" },
 			{ "<leader>hs", "<cmd>Telescope help_tags<cr>", desc = "Search" },
 			{
@@ -120,7 +121,7 @@ return {
 					["<C-h>"] = actions.select_horizontal,
 					["<C-v>"] = actions.select_vertical,
 					["<A-m>"] = actions_layout.toggle_mirror,
-					["<C-r>"] = custom_actions.file_browser,
+					-- ["<C-r>"] = custom_actions.file_browser,
 				},
 			}
 
@@ -150,12 +151,12 @@ return {
 					},
 				},
 				extensions = {
-					file_browser = {
-						theme = "dropdown",
-						previewer = false,
-						hijack_netrw = true,
-						mappings = mappings,
-					},
+					-- file_browser = {
+					-- 	theme = "dropdown",
+					-- 	previewer = false,
+					-- 	hijack_netrw = true,
+					-- 	mappings = mappings,
+					-- },
 					project = {
 						hidden_files = false,
 						theme = "dropdown",
@@ -182,7 +183,7 @@ return {
 			}
 			telescope.setup(opts)
 			telescope.load_extension("fzf")
-			telescope.load_extension("file_browser")
+			-- telescope.load_extension("file_browser")
 			telescope.load_extension("project")
 			telescope.load_extension("projects")
 			telescope.load_extension("ui-select")

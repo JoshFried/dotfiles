@@ -35,8 +35,11 @@ return {
 	check_for_updates = false,
 
 	keys = {
-		-- this allows us to use option + arrow key for navigation
+		-- NOTE: this is how we keep good natural macos text editing navigation
 		{ key = "LeftArrow", mods = "OPT", action = wezterm.action({ SendString = "\x1bb" }) },
 		{ key = "RightArrow", mods = "OPT", action = wezterm.action({ SendString = "\x1bf" }) },
+		{ key = "Backspace", mods = "CMD", action = wezterm.action({ SendString = "\x15" }) },
+		{ key = "LeftArrow", mods = "CMD", action = wezterm.action({ SendString = "\x1bOH" }) },
+		{ key = "RightArrow", mods = "CMD", action = wezterm.action({ SendString = "\x1bOF" }) },
 	},
 }

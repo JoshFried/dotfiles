@@ -78,3 +78,10 @@ keymap("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic 
 keymap("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
 keymap("n", "<leader>de", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 keymap("n", "<leader>dl", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
+
+-- Stay in visual mode when changing the indent for selection
+keymap("v", "<", "<gv")
+keymap("v", ">", ">gv")
+
+-- Map enter to ciw in normal mode
+keymap("n", "<CR>", "ciw")
