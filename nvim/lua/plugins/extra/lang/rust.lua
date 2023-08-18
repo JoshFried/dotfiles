@@ -2,7 +2,7 @@
 -- local extension_path = vim.fn.expand("~/.vscode/extensions/vadimcn.vscode-lldb-1.9.0/")
 -- local codelldb_path = extension_path .. "adapter/codelldb"
 -- local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib"
--- local _, rust_analyzer_cmd = nil, { "rustup", "run", "stable", "rust-analyzer" }
+local _, rust_analyzer_cmd = nil, { "rustup", "run", "stable", "rust-analyzer" }
 
 local function get_codelldb()
 	local mason_registry = require("mason-registry")
@@ -97,12 +97,15 @@ return {
 								border = "solid",
 							},
 							on_initialized = function()
-								vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "CursorHold", "InsertLeave" }, {
-									pattern = { "*.rs" },
-									callback = function()
-										vim.lsp.codelens.refresh()
-									end,
-								})
+								vim.api.nvim_create_autocmd(
+									{ "BufWritePost", "BufEnter", "CursorHold", "InsertLeave" },
+									{
+										pattern = { "*.rs" },
+										callback = function()
+											vim.lsp.codelens.refresh()
+										end,
+									}
+								)
 							end,
 						},
 						server = opts,

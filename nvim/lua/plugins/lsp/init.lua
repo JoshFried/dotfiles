@@ -35,7 +35,7 @@ return {
 					},
 				},
 				dockerls = {},
-				markman = {},
+				marksman = {},
 				yamlls = {
 					settings = {
 						yaml = {
@@ -43,6 +43,7 @@ return {
 						},
 					},
 				},
+				lemminx = {},
 			},
 			setup = {
 				lua_ls = function(_, _)

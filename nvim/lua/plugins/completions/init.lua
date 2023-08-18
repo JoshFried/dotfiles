@@ -2,8 +2,11 @@ return {
 	{
 		-- autocompletion for cargo.toml soooo nice
 		"saecki/Crates.nvim",
-		event = "InsertEnter",
-		tag = "v0.3.0",
+		event = { "BufRead Cargo.toml" },
+		null_ls = {
+			enabled = true,
+			name = "crates.nvim",
+		},
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			require("crates").setup({
