@@ -88,30 +88,44 @@ return {
 			end
 		end,
 	},
+	-- {
+	-- 	"jose-elias-alvarez/null-ls.nvim",
+	-- 	event = "BufReadPre",
+	-- 	dependencies = { "mason.nvim" },
+	-- 	config = function()
+	-- 		local nls = require("null-ls")
+	-- 		local fmt = nls.builtins.formatting
+	-- 		local root_pattern = require("lspconfig.util").root_pattern
+
+	-- 		local gotest = require("go.null_ls").gotest()
+	-- 		nls.setup({
+	-- 			sources = {
+	-- 				fmt.stylua,
+	-- 				fmt.black,
+	-- 				fmt.shfmt,
+	-- 				fmt.prettierd,
+	-- 				fmt.golines,
+	-- 				nls.builtins.diagnostics.eslint_d.with({
+	-- 					root_dir = root_pattern(".eslintrc.*", "node_modules", ".git"),
+	-- 					diagnostics_format = "[eslint_d] #{m}\n(#{c})",
+	-- 				}),
+	-- 				nls.builtins.diagnostics.ruff.with({ extra_args = { "--max-line-length=180" } }),
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 	{
 		"jose-elias-alvarez/null-ls.nvim",
 		event = "BufReadPre",
 		dependencies = { "mason.nvim" },
-		config = function()
+		opts = function()
 			local nls = require("null-ls")
-			local fmt = nls.builtins.formatting
-			local root_pattern = require("lspconfig.util").root_pattern
-
-			local gotest = require("go.null_ls").gotest()
-			nls.setup({
+			return {
+				root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
 				sources = {
-					fmt.stylua,
-					fmt.black,
-					fmt.shfmt,
-					fmt.prettierd,
-					fmt.golines,
-					nls.builtins.diagnostics.eslint_d.with({
-						root_dir = root_pattern(".eslintrc.*", "node_modules", ".git"),
-						diagnostics_format = "[eslint] #{m}\n(#{c})",
-					}),
-					nls.builtins.diagnostics.ruff.with({ extra_args = { "--max-line-length=180" } }),
+					nls.builtins.formatting.shfmt,
 				},
-			})
+			}
 		end,
 	},
 	{

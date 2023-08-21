@@ -17,6 +17,11 @@ return {
 			lsp_utils.on_attach(function(client, buffer)
 				if client.name ~= "null-ls" then
 					local navbuddy = require("nvim-navbuddy")
+
+					if client.name == "eslint" then
+						return
+					end
+
 					navbuddy.attach(client, buffer)
 				end
 			end)
