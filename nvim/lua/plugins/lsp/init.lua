@@ -127,4 +127,16 @@ return {
             { "<leader>cD", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics" },
         },
     },
+    {
+        "nvimdev/lspsaga.nvim",
+        event = "VeryLazy",
+        opts = {
+            symbol_in_winbar = {
+                enable = false,
+            },
+            lightbulb = {
+                enable = false,
+            },
+        },
+    },
 }
