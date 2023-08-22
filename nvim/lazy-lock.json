@@ -92,6 +92,7 @@
   "tokyonight.nvim": { "branch": "main", "commit": "1ee11019f8a81dac989ae1db1a013e3d582e2033" },
   "trouble.nvim": { "branch": "main", "commit": "40aad004f53ae1d1ba91bcc5c29d59f07c5f01d3" },
   "typescript-tools.nvim": { "branch": "master", "commit": "7f17e00ebc484c7fddbfb17044360f5d8ec08b24" },
+  "venv-selector.nvim": { "branch": "main", "commit": "4c5eec67bc388a61b80202818a2a47e9b9cb6a6f" },
   "vim-dadbod": { "branch": "master", "commit": "7d80bbd11c407a09e0f7b869c38f3dec3902805f" },
   "vim-dadbod-completion": { "branch": "master", "commit": "fc7321a17f4c55db11fae89a884ddf4724020bae" },
   "vim-dadbod-ui": { "branch": "master", "commit": "200aebf70e6fc4b0eb1d3ecf0d57028e198d8dc6" },

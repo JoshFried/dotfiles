@@ -1,7 +1,3 @@
-if not require("config").pde.python then
-    return {}
-end
-
 return {
     {
         "nvim-treesitter/nvim-treesitter",
@@ -109,4 +105,3 @@ return {
         keys = { { "<leader>lv", "<cmd>:VenvSelect<cr>", desc = "Select VirtualEnv" } },
     },
 }
-
