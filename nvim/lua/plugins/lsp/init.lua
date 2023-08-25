@@ -36,13 +36,6 @@ return {
                 },
                 dockerls = {},
                 marksman = {},
-                yamlls = {
-                    settings = {
-                        yaml = {
-                            keyOrdering = false,
-                        },
-                    },
-                },
                 lemminx = {},
             },
             setup = {
