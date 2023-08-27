@@ -1,10 +1,3 @@
-local ignoredNavBuddyClients = {
-    ["eslint"] = true,
-    ["null-ls"] = true,
-    ["golangci_lint_ls"] = true,
-    ["tsserver"] = true
-}
-
 return {
     {
         "SmiteshP/nvim-navbuddy",
@@ -18,11 +11,18 @@ return {
         keys = {
             { "<leader>vo", function() require("nvim-navbuddy").open() end, desc = "Code Outline (navbuddy)", },
         },
-        opts = {},
+        opts = {
+            lsp = {
+                preference = {
+                    "tsserver",
+                }
+            }
+        },
         config = function()
             local lsp_utils = require("plugins.lsp.utils")
             lsp_utils.on_attach(function(client, buffer)
-                if ignoredNavBuddyClients[client.name] == nil then
+                vim.g.navic_silence = true
+                if client.server_capabilities.documentSymbolProvider then
                     local navbuddy = require("nvim-navbuddy")
                     navbuddy.attach(client, buffer)
                 end
