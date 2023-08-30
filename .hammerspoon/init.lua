@@ -1,7 +1,7 @@
 hs.caffeinate.set("displayIdle", true, true)
 
 function awake()
-	hs.caffeinate.set("displayIdle", true, true)
+    hs.caffeinate.set("displayIdle", true, true)
 end
 
 hs.caffeinate.watcher.new(awake):start()
@@ -15,3 +15,4 @@ require("centeredapp")
 require("wifi_watcher")
 require("soundswitch")
 require("cycleapp")
+require("fullscreen")
