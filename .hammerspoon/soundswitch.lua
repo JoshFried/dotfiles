@@ -82,9 +82,7 @@ local headphones = {
     pro = "00-f3-9f-6a-21-47",
 }
 local airpods = function(choice)
-    local cmd = "/opt/homebrew/bin/blueutil --connect " .. headphones[choice]
-    print(cmd)
-    hs.osascript.applescript(string.format("do shell script"), cmd)
+    local res = hs.execute("/opt/homebrew/bin/blueutil --connect " .. headphones[choice])
 
     cache.launchTimer = hs.timer.doAfter(1.0, function()
         outSources()
