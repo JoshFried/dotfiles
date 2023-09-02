@@ -26,6 +26,8 @@ function M.on_attach(client, buffer)
     self:map("]w", M.diagnostic_goto(true, "WARNING"), { desc = "Next Warning" })
     self:map("[w", M.diagnostic_goto(false, "WARNING"), { desc = "Prev Warning" })
     self:map("<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action", mode = { "n", "v" }, has = "codeAction" })
+    local toggle_format = require("plugins.lsp.format").toggle
+    self:map("<leader>TT", toggle_format, { desc = "Toggle Autoformatting On/Off" })
 
     local format = require("plugins.lsp.format").format
     self:map("<leader>cf", format, { desc = "Format Document", has = "documentFormatting" })
