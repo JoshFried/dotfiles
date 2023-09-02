@@ -8,11 +8,10 @@ function M.on_attach(client, buffer)
     self:map("gd", function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end,
         { desc = "Goto Definition" })
 
-    self:map("gD", "Lspsaga peek_definition", { desc = "Peek Definition" })
-
     -- self:map("gI", "Telescope lsp_implementations", { desc = "Goto Implementation" })
     self:map("gb", "Telescope lsp_type_definitions", { desc = "Goto Type Definition" })
-    self:map("K", "Lspsaga hover_doc", { desc = "Hover" })
+    self:map("K", vim.lsp.buf.hover, { desc = "Hover" })
+
     -- stylua: ignore
     self:map("gI", function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end,
         { desc = "Goto Implementation" })
