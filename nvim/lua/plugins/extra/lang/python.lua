@@ -28,7 +28,7 @@ return {
                         python = {
                             analysis = {
                                 autoImportCompletions = true,
-                                typeCheckingMode = "off",
+                                typeCheckingMode = "on",
                                 autoSearchPaths = true,
                                 useLibraryCodeForTypes = true,
                                 diagnosticMode = "openFilesOnly",
