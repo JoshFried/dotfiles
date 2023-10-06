@@ -14,7 +14,19 @@ return {
     {
         "pmizio/typescript-tools.nvim",
         dependencies = { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
-        opts = {},
+        opts = {
+            tsserver_file_preferences = {
+                -- Inlay Hints
+                includeInlayParameterNameHints = "all",
+                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+            },
+        },
         config = function(_, opts)
             require("plugins.lsp.utils").on_attach(function(client, bufnr)
                 if client.name == "tsserver" then
@@ -58,6 +70,8 @@ return {
                 end
             end)
             require("typescript-tools").setup(opts)
+            -- local utils = require("plugins.lsp.utils")
+            -- utils.bemol()
         end,
     },
     {

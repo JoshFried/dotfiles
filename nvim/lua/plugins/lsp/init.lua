@@ -100,25 +100,13 @@ return {
         "jay-babu/mason-null-ls.nvim",
         opts = { ensure_installed = nil, automatic_installation = true, automatic_setup = false },
     },
-    { "numToStr/Comment.nvim", opts = {} },
-    {
-        "utilyre/barbecue.nvim",
-        event = "VeryLazy",
-        dependencies = {
-            "neovim/nvim-lspconfig",
-            "SmiteshP/nvim-navic",
-            "nvim-tree/nvim-web-devicons",
-        },
-        config = true,
-        enable = false,
-    },
     {
         "folke/trouble.nvim",
         cmd = { "TroubleToggle", "Trouble" },
         opts = { use_diagnostic_signs = true },
         keys = {
-            { "<leader>cd", "<cmd>TroubleToggle document_diagnostics<cr>",  desc = "Document Diagnostics" },
-            { "<leader>cD", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics" },
+            { "<leader>td", "<cmd>TroubleToggle document_diagnostics<cr>",  desc = "Document Diagnostics" },
+            { "<leader>tD", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics" },
         },
     },
 }

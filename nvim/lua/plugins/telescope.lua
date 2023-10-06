@@ -41,11 +41,12 @@ return {
                 end,
                 desc = "Colorscheme",
             },
-            { "<leader>?",  "<cmd>Telescope oldfiles<cr>",  desc = "Recent" },
-            { "<leader>fb", "<cmd>Telescope buffers<cr>",   desc = "Buffers" },
+            { "<leader>?",   "<cmd>Telescope oldfiles<cr>",    desc = "Recent" },
+            { "<leader>fb",  "<cmd>Telescope buffers<cr>",     desc = "Buffers" },
             -- { "<leader>fR", "<cmd>Telescope file_browser<cr>", desc = "Browser" },
-            { "<leader>ps", "<cmd>Telescope repo list<cr>", desc = "Search" },
-            { "<leader>hs", "<cmd>Telescope help_tags<cr>", desc = "Search" },
+            { "<leader>ps",  "<cmd>Telescope repo list<cr>",   desc = "Search" },
+            { "<leader>hs",  "<cmd>Telescope help_tags<cr>",   desc = "Search" },
+            { "<leader>tgs", "<cmd> Telescope git_status<cr>", desc = "telescope git status" },
             {
                 "<leader>/",
                 function()
