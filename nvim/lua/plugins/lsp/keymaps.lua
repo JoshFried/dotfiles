@@ -3,12 +3,10 @@ local M = {}
 function M.on_attach(client, buffer)
     local self = M.new(client, buffer)
 
-    -- self:map("gd", "Telescope lsp_definitions", { desc = "Goto Definition" })
     self:map("gr", "Telescope lsp_references", { desc = "References" })
     self:map("gd", function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end,
         { desc = "Goto Definition" })
 
-    -- self:map("gI", "Telescope lsp_implementations", { desc = "Goto Implementation" })
     self:map("gb", "Telescope lsp_type_definitions", { desc = "Goto Type Definition" })
     self:map("K", vim.lsp.buf.hover, { desc = "Hover" })
 

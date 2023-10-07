@@ -26,7 +26,6 @@ return {
         opts = {
             servers = {
                 rust_analyzer = {
-                    -- cmd = rust_analyzer_cmd,
                     settings = {
                         ["rust-analyzer"] = {
                             cargo = { allFeatures = true },

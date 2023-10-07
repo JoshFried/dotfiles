@@ -43,7 +43,6 @@ return {
             },
             { "<leader>?",   "<cmd>Telescope oldfiles<cr>",    desc = "Recent" },
             { "<leader>fb",  "<cmd>Telescope buffers<cr>",     desc = "Buffers" },
-            -- { "<leader>fR", "<cmd>Telescope file_browser<cr>", desc = "Browser" },
             { "<leader>ps",  "<cmd>Telescope repo list<cr>",   desc = "Search" },
             { "<leader>hs",  "<cmd>Telescope help_tags<cr>",   desc = "Search" },
             { "<leader>tgs", "<cmd> Telescope git_status<cr>", desc = "telescope git status" },
@@ -136,12 +135,6 @@ return {
                     },
                 },
                 extensions = {
-                    -- file_browser = {
-                    -- 	theme = "dropdown",
-                    -- 	previewer = false,
-                    -- 	hijack_netrw = true,
-                    -- 	mappings = mappings,
-                    -- },
                     project = {
                         hidden_files = false,
                         theme = "dropdown",
@@ -168,7 +161,6 @@ return {
             }
             telescope.setup(opts)
             telescope.load_extension("fzf")
-            -- telescope.load_extension("file_browser")
             telescope.load_extension("project")
             telescope.load_extension("projects")
             telescope.load_extension("ui-select")
