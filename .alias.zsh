@@ -8,8 +8,8 @@ alias ez="$EDITOR ~/.zshrc"       # alias for Edit Zshrc
 alias ea="$EDITOR ~/.alias.zsh"   # alias for Edit Alias
 alias ew="$EDITOR ~/.work.alias.zsh"
 alias el="$EDITOR ~/.local.zsh"   # alias for Edit Local
-alias sz='exec zsh'               # alias for Source Zsh
 
+alias sz='exec zsh'               # alias for Source Zshj
 alias brew="/opt/homebrew/bin/brew"
 
 alias eh="cd ~/.hammerspoon && $EDITOR"
@@ -28,6 +28,7 @@ alias @repos='cd ~/repos/'
 alias @documents='cd ~/Documents'
 alias @guard='cd ~/repos/cloudformation-guard'
 alias @dotfiles='cd ~/repos/dotfiles/'
+alias @config='cd ~/.config'
 
 alias ..='..'
 alias ...='../..'
@@ -44,7 +45,7 @@ alias dcub='docker-compose up --build'
 alias y='yarn'
 alias m='make'
 alias v='nvim'
-alias nvim="/opt/homebrew/bin/nvim"
+# alias nvim="/opt/homebrew/bin/nvim"
 
 # create and delete files/folders
 alias t='touch'           # create file
@@ -103,3 +104,24 @@ alias bric='brew install --cask'
 # cargo 
 alias cb='cargo build'
 alias ct='cargo test'
+
+function wezterm(){
+    # NOTE: not sure why this isnt working rn
+    # op="$(awk -F= '/^NAME/{print $2}' /etc/os-release)"
+
+    op="$(uname -s)"
+    case $op in 
+    Linux)
+        echo "FKDJSLKJFLKDSJF"
+        flatpak run org.wezfurlong.wezterm
+        ;;
+    *)
+        echo $op
+        ;;
+    esac
+
+}
+
+function keys() {
+    xev | awk -F'[ )]+' '/^KeyPress/ { a[NR+2] } NR in a { printf "%-3s %s\n", $5, $8 }'
+}
