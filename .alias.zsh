@@ -9,7 +9,7 @@ alias ea="$EDITOR ~/.alias.zsh"   # alias for Edit Alias
 alias ew="$EDITOR ~/.work.alias.zsh"
 alias el="$EDITOR ~/.local.zsh"   # alias for Edit Local
 
-alias sz='exec zsh'               # alias for Source Zshj
+alias sz='exec zsh'               # alias for Source Zsh
 alias brew="/opt/homebrew/bin/brew"
 
 alias eh="cd ~/.hammerspoon && $EDITOR"
@@ -116,7 +116,6 @@ function wezterm(){
         flatpak run org.wezfurlong.wezterm
         ;;
     *)
-        echo $op
         ;;
     esac
 
