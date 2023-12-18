@@ -29,6 +29,7 @@ alias @documents='cd ~/Documents'
 alias @guard='cd ~/repos/cloudformation-guard'
 alias @dotfiles='cd ~/repos/dotfiles/'
 alias @config='cd ~/.config'
+alias @pics='cd ~/Pictures'
 
 alias ..='..'
 alias ...='../..'
