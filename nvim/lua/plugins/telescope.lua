@@ -8,6 +8,7 @@ return {
             "nvim-telescope/telescope-ui-select.nvim",
             "nvim-telescope/telescope-project.nvim",
             "ahmedkhalf/project.nvim",
+            "aaronhallaert/advanced-git-search.nvim",
             "cljoly/telescope-repo.nvim",
         },
         lazy = false,
@@ -41,11 +42,12 @@ return {
                 end,
                 desc = "Colorscheme",
             },
-            { "<leader>?",   "<cmd>Telescope oldfiles<cr>",    desc = "Recent" },
-            { "<leader>fb",  "<cmd>Telescope buffers<cr>",     desc = "Buffers" },
-            { "<leader>ps",  "<cmd>Telescope repo list<cr>",   desc = "Search" },
-            { "<leader>hs",  "<cmd>Telescope help_tags<cr>",   desc = "Search" },
-            { "<leader>tgs", "<cmd> Telescope git_status<cr>", desc = "telescope git status" },
+            { "<leader>?",    "<cmd>Telescope oldfiles<cr>",   desc = "Recent" },
+            { "<leader>fb",   "<cmd>Telescope buffers<cr>",    desc = "Buffers" },
+            { "<leader>ps",   "<cmd>Telescope repo list<cr>",  desc = "Search" },
+            { "<leader>hs",   "<cmd>Telescope help_tags<cr>",  desc = "Search" },
+            { "<leader>tgs",  "<cmd>Telescope git_status<cr>", desc = "telescope git status" },
+            { "<leader>tags", "<cmd>AdvancedGitSearch<cr>",    desc = "telescope git status" },
             {
                 "<leader>/",
                 function()
@@ -95,6 +97,9 @@ return {
             local icons = require("config.icons")
             local actions = require("telescope.actions")
             local actions_layout = require("telescope.actions.layout")
+            local action_state = require("telescope.actions.state")
+
+
             local mappings = {
                 i = {
                     ["<C-j>"] = actions.move_selection_next,
@@ -130,8 +135,21 @@ return {
                         previewer = false,
                     },
                     buffers = {
-                        theme = "dropdown",
-                        previewer = false,
+                        theme           = "dropdown",
+                        previewer       = false,
+                        attach_mappings = function(prompt_bufnr, map)
+                            local delete_buf = function()
+                                local selection = action_state.get_selected_entry()
+                                actions.close(prompt_bufnr)
+                                vim.api.nvim_buf_delete(selection.bufnr, { force = true })
+                            end
+
+                            -- mode, key, func
+                            -- this is just an example
+                            map('n', 'd', delete_buf)
+                            map('i', '<c-d>', delete_buf)
+                            return true
+                        end
                     },
                 },
                 extensions = {
@@ -164,6 +182,7 @@ return {
             telescope.load_extension("project")
             telescope.load_extension("projects")
             telescope.load_extension("ui-select")
+            telescope.load_extension("advanced_git_search")
         end,
     },
     {

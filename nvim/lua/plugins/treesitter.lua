@@ -28,6 +28,7 @@ return {
                 "dockerfile",
                 "help",
                 "html",
+                "kotlin",
                 "lua",
                 "markdown",
                 "markdown_inline",

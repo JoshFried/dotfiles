@@ -112,27 +112,27 @@ local function rust_menu()
         heads = {
             {
                 "r",
-                "<cmd>RustRunnables<CR>",
+                "<cmd>RustLsp runnables<CR>",
                 desc = "Conditional Breakpoint",
             },
             {
                 "d",
-                "<cmd>RustDebuggables<CR>",
+                "<cmd>RustLsp debauggables<CR>",
                 desc = "Conditional Breakpoint",
             },
             {
                 "h",
-                "<cmd>RustHoverActions<CR>",
+                "<cmd>RustLsp hoverActions<CR>",
                 desc = "Hover Actions",
             },
             {
                 "O",
-                "<cmd>RustOpenCargo<CR>",
+                "<cmd>RustLsp openCargo<CR>",
                 desc = "Open Cargo Toml",
             },
             {
                 "P",
-                "<cmd>RustParentModule<CR>",
+                "<cmd>RustLsp parentModule<CR>",
                 desc = "Open Parent Modules",
             },
             { "q", nil, { exit = true, nowait = true, desc = "Exit" } },
@@ -182,21 +182,28 @@ local function dap_menu()
             { "b", function() dap.step_back() end,                                   desc = "Step Back", },
             { "c", function() dap.continue() end,                                    desc = "Continue", },
             { "d", function() dap.disconnect() end,                                  desc = "Disconnect", },
-            { "e", function() dapui.eval() end,                                      mode = { "n", "v" },
-                                                                                                                                       desc =
-                "Evaluate", },
-            { "g", function() dap.session() end,                                     desc = "Get Session", },
-            { "h", function() dap_widgets.hover() end,                               desc = "Hover Variables", },
-            { "i", function() dap.step_into() end,                                   desc = "Step Into", },
-            { "o", function() dap.step_over() end,                                   desc = "Step Over", },
-            { "p", function() dap.pause.toggle() end,                                desc = "Pause", },
-            { "r", function() dap.repl.toggle() end,                                 desc = "Toggle REPL", },
-            { "s", function() dap.continue() end,                                    desc = "Start", },
-            { "t", function() dap.toggle_breakpoint() end,                           desc = "Toggle Breakpoint", },
-            { "u", function() dap.step_out() end,                                    desc = "Step Out", },
-            { "x", function() dap.terminate() end,                                   desc = "Terminate", },
-            { "q", nil,                                                              { exit = true, nowait = true,
-                desc = "Exit" } },
+            {
+                "e",
+                function() dapui.eval() end,
+                mode = { "n", "v" },
+                desc =
+                "Evaluate",
+            },
+            { "g", function() dap.session() end,           desc = "Get Session", },
+            { "h", function() dap_widgets.hover() end,     desc = "Hover Variables", },
+            { "i", function() dap.step_into() end,         desc = "Step Into", },
+            { "o", function() dap.step_over() end,         desc = "Step Over", },
+            { "p", function() dap.pause.toggle() end,      desc = "Pause", },
+            { "r", function() dap.repl.toggle() end,       desc = "Toggle REPL", },
+            { "s", function() dap.continue() end,          desc = "Start", },
+            { "t", function() dap.toggle_breakpoint() end, desc = "Toggle Breakpoint", },
+            { "u", function() dap.step_out() end,          desc = "Step Out", },
+            { "x", function() dap.terminate() end,         desc = "Terminate", },
+            { "q", nil, {
+                exit = true,
+                nowait = true,
+                desc = "Exit"
+            } },
         },
     }
 end

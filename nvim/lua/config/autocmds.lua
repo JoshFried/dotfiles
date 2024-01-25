@@ -30,6 +30,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end,
 })
 
+
 -- Auto toggle hlsearch
 local ns = vim.api.nvim_create_namespace("toggle_hlsearch")
 local function toggle_hlsearch(char)

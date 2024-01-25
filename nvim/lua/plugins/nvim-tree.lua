@@ -30,5 +30,15 @@ return {
                 quit_on_open = true,
             },
         },
+        log = {
+            enable = true,
+            truncate = true,
+            types = {
+                diagnostics = true,
+                git = true,
+                profile = true,
+                watcher = true,
+            },
+        },
     },
 }
