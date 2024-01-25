@@ -53,7 +53,6 @@ return {
                         ignore_file_types = { "python", "vim", "lua" },
                     }),
                     ['neotest-rust'] = {}
-                    -- require("neotest-rust"),
                 },
                 -- overseer.nvim
                 consumers = {

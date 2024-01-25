@@ -24,13 +24,6 @@ return {
             vim.g.rustaceanvim = function()
                 return {
                     server = {
-                        on_attach = function(client, bufnr)
-                            local wk = require("which-key")
-                            wk.register({
-                                ["<leader>cR"] = { function() vim.cmd.RustLsp("codeAction") end, "Code Action" },
-                                ["<leader>dr"] = { function() vim.cmd.RustLsp("debuggables") end, "Rust debuggables" },
-                            }, { mode = "n", buffer = bufnr })
-                        end,
                         settings = {
                             -- rust-analyzer language server configuration
                             ["rust-analyzer"] = {
@@ -74,6 +67,16 @@ return {
                                 }
                             )
                         end,
+                        hover_actions = {
+                            auto_focus = true,
+                            border = "solid",
+                        },
+                        runnables = {
+                            use_telescope = true,
+                        },
+                        debuggables = {
+                            use_telescope = true,
+                        },
                     },
                 }
             end

@@ -87,8 +87,6 @@ local function gitsigns_menu()
 end
 
 local function rust_menu()
-    local rt = require("rust-tools")
-
     local hint = [[
     _r_: Runnables                  _O_: Open Cargo.toml
     _d_: Debuggables                _P_: Open Parent Module
