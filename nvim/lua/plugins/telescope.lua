@@ -91,6 +91,27 @@ return {
                 end,
                 desc = "Buffer",
             },
+            {
+                "<leader>sk",
+                function()
+                    require("telescope.builtin").keymaps()
+                end,
+                desc = "Search Keymaps"
+            },
+            {
+                "<leader>sj",
+                function()
+                    require("telescope.builtin").jumplist()
+                end,
+                desc = "Search Keymaps"
+            },
+            {
+                "<leader>sc",
+                function()
+                    require("telescope.builtin").commands()
+                end,
+                desc = "Search Commands"
+            }
         },
         config = function(_, _)
             local telescope = require("telescope")
