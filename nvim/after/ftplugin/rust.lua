@@ -36,3 +36,12 @@ vim.keymap.set(
 vim.keymap.set("n", "<leader>cl", function()
     vim.lsp.codelens.run()
 end, { buffer = bufnr, desc = "Code Lens" })
+
+vim.keymap.set(
+    "n",
+    "<leader>reh",
+    function()
+        require('lsp-inlayhints').toggle()
+    end,
+    { buffer = buffer, desc = "Parent Module" }
+)

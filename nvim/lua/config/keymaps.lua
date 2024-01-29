@@ -4,11 +4,11 @@ keymap("n", "zj", "o<Esc>k", { desc = "Create a line above without insert" })
 keymap("n", "zk", "O<Esc>j", { desc = "Create a line below without insert" })
 keymap("n", "<leader>pv", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle Neo-Tree" })
 
-keymap("n", "<leader>reh", "<cmd>RustEnableInlayHints<CR>")
-keymap("n", "<leader>rdh", "<cmd>RustDisableInlayHints<CR>")
+-- keymap("n", "<leader>reh", "<cmd>RustEnableInlayHints<CR>")
+-- keymap("n", "<leader>rdh", "<cmd>RustDisableInlayHints<CR>")
 
 function EqualizeSplits()
-	vim.cmd("wincmd =") -- Equalize the size of all windows
+    vim.cmd("wincmd =") -- Equalize the size of all windows
 end
 
 keymap("n", "<leader>0", ":lua EqualizeSplits()<CR>", { noremap = true, silent = true })

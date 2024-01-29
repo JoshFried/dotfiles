@@ -18,12 +18,27 @@ return {
         "mrcjkb/rustaceanvim",
         version = "^3", -- Recommended
         ft = { "rust" },
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "mfussenegger/nvim-dap",
+            {
+                "lvimuser/lsp-inlayhints.nvim",
+            },
+        },
         config = function(_, opts)
             local codelldb_path, liblldb_path = get_codelldb()
             local cfg = require('rustaceanvim.config')
             vim.g.rustaceanvim = function()
                 return {
                     server = {
+                        on_attach = function(client, buffer)
+                            local inlays = require('lsp-inlayhints')
+                            inlays.setup()
+                            inlays.on_attach(client, buffer)
+
+
+                            require('lsp_signature').on_attach()
+                        end,
                         settings = {
                             -- rust-analyzer language server configuration
                             ["rust-analyzer"] = {
@@ -51,6 +66,9 @@ return {
                                 },
                             },
                         },
+                    },
+                    inlay_hints = {
+                        highlight = "NonText",
                     },
                     dap = {
                         adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),

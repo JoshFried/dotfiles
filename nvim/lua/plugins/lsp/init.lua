@@ -43,6 +43,7 @@ return {
                 lua_ls = function(_, _)
                     local lsp_utils = require("plugins.lsp.utils")
                     lsp_utils.on_attach(function(client, buffer)
+                        require('lsp_signature').on_attach()
                         if client.name == "lua_ls" then
                             vim.keymap.set("n", "<leader>dX", function()
                                 require("osv").run_this()
