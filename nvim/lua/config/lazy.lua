@@ -18,6 +18,7 @@ require("lazy").setup({
         { import = "plugins" },
         { import = "plugins.extra.lang" },
         { import = "plugins.extra.pde" },
+        { import = "plugins.test" },
     },
     defaults = { lazy = true, version = nil },
     install = { missing = true, colorscheme = { "tokyonight" } },

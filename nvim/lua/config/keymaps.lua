@@ -1,17 +1,35 @@
 local keymap = vim.keymap.set
 
+
+function ToggleFullSize()
+    local current_win = vim.fn.winnr()
+    print(current_win)
+    local win_info = vim.fn.getwininfo(current_win)
+
+    for key, value in ipairs(win_info) do
+        print(key, value)
+    end
+
+
+
+    local max_win_count = vim.fn.winnr('$')
+
+    -- If there are more than one window, toggle full size for the current window
+    if max_win_count > 1 then
+        vim.cmd('wincmd ' .. current_win .. (vim.fn.winheight(current_win) == 1 and 'j' or 'k'))
+    end
+end
+
 keymap("n", "zj", "o<Esc>k", { desc = "Create a line above without insert" })
 keymap("n", "zk", "O<Esc>j", { desc = "Create a line below without insert" })
 keymap("n", "<leader>pv", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle Neo-Tree" })
-
--- keymap("n", "<leader>reh", "<cmd>RustEnableInlayHints<CR>")
--- keymap("n", "<leader>rdh", "<cmd>RustDisableInlayHints<CR>")
 
 function EqualizeSplits()
     vim.cmd("wincmd =") -- Equalize the size of all windows
 end
 
 keymap("n", "<leader>0", ":lua EqualizeSplits()<CR>", { noremap = true, silent = true })
+keymap("n", "<leader>OO", ":lua ToggleFullSize()<CR>", { noremap = true, silent = true })
 
 -- Resize window using <shift> arrow keys since we have remapped cmd + h/j/k/l as arrow keys this is really convenient
 keymap("n", "<S-Up>", "<cmd>resize +2<CR>")
@@ -54,8 +72,6 @@ keymap({ "n", "v" }, "<leader>d", [["_d]])
 
 keymap("n", "Q", "<nop>")
 
--- NOTE: not using tmux anymore...just zellij
--- keymap("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 keymap("n", "<leader>f", vim.lsp.buf.format)
 
 -- search and replace word under cursor

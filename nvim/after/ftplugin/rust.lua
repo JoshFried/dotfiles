@@ -15,10 +15,18 @@ vim.keymap.set(
     "<cmd>RustLsp debuggables<CR>",
     { buffer = bufnr, desc = "Debuggables" }
 )
+
+vim.keymap.set(
+    "n",
+    "<leader>Rt",
+    "<cmd>RustLsp testables<CR>",
+    { buffer = bufnr, desc = "Testables" }
+)
+
 vim.keymap.set(
     "n",
     "<leader>ha",
-    "<cmd>RustLsp hoverActions<CR>",
+    "<cmd>RustLsp hover actions<CR>",
     { buffer = bufnr, desc = "Hover Actions" }
 )
 vim.keymap.set(

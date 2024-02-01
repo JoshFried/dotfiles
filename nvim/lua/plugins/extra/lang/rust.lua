@@ -16,7 +16,7 @@ return {
     },
     {
         "mrcjkb/rustaceanvim",
-        version = "^3", -- Recommended
+        -- version = "^3", -- Recommended
         ft = { "rust" },
         dependencies = {
             "nvim-lua/plenary.nvim",
@@ -35,8 +35,6 @@ return {
                             local inlays = require('lsp-inlayhints')
                             inlays.setup()
                             inlays.on_attach(client, buffer)
-
-
                             require('lsp_signature').on_attach()
                         end,
                         settings = {
@@ -56,6 +54,12 @@ return {
                                     },
                                     prefix = "crate",
                                 },
+                                inlayHints = {
+                                    lifeTimeElisionHints = {
+                                        enable = true,
+                                        useParameterNames = true
+                                    },
+                                },
                                 procMacro = {
                                     enable = true,
                                     ignored = {
@@ -74,6 +78,12 @@ return {
                         adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
                     },
                     tools = {
+                        autoSetHints = true,
+                        inlay_hints = {
+                            show_parameter_hints = true,
+                            parameter_hints_prefix = "in: ", -- "<- ",
+                            other_hints_prefix = "out: "     -- "=> "
+                        },
                         on_initialized = function()
                             vim.api.nvim_create_autocmd(
                                 { "BufWritePost", "BufEnter", "CursorHold", "InsertLeave", },
@@ -90,6 +100,9 @@ return {
                             border = "solid",
                         },
                         runnables = {
+                            use_telescope = true,
+                        },
+                        testables = {
                             use_telescope = true,
                         },
                         debuggables = {
@@ -133,5 +146,13 @@ return {
                 end,
             },
         },
+    },
+    {
+        "nvim-neotest/neotest",
+        opts = function(_, opts)
+            vim.list_extend(opts.adapters, {
+                require('rustaceanvim.neotest')
+            })
+        end,
     },
 }
