@@ -25,7 +25,7 @@ return {
                 "lvimuser/lsp-inlayhints.nvim",
             },
         },
-        config = function(_, opts)
+        config = function(_, _)
             local codelldb_path, liblldb_path = get_codelldb()
             local cfg = require('rustaceanvim.config')
             vim.g.rustaceanvim = function()
@@ -98,15 +98,6 @@ return {
                         hover_actions = {
                             auto_focus = true,
                             border = "solid",
-                        },
-                        runnables = {
-                            use_telescope = true,
-                        },
-                        testables = {
-                            use_telescope = true,
-                        },
-                        debuggables = {
-                            use_telescope = true,
                         },
                     },
                 }

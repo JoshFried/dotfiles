@@ -70,8 +70,6 @@ return {
                 end
             end)
             require("typescript-tools").setup(opts)
-            -- local utils = require("plugins.lsp.utils")
-            -- utils.bemol()
         end,
     },
     {

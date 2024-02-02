@@ -1,6 +1,5 @@
 return {
     {
-        -- autocompletion for cargo.toml soooo nice
         "saecki/Crates.nvim",
         event = { "BufRead Cargo.toml" },
         null_ls = {
