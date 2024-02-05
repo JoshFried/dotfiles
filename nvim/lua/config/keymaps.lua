@@ -30,7 +30,6 @@ keymap("i", ".", ".<c-g>u")
 keymap("i", ";", ";<c-g>u")
 
 keymap("n", "J", "mzJ`z")
-
 -- Center screen after C-d / C-u
 keymap("n", "<C-d>", "<C-d>zz")
 keymap("n", "<C-u>", "<C-u>zz")
@@ -80,3 +79,6 @@ keymap("v", ">", ">gv")
 
 -- Map enter to ciw in normal mode
 keymap("n", "<CR>", "ciw")
+
+keymap({ "n", "o", "x" }, "<s-h>", "^")
+keymap({ "n", "o", "x" }, "<s-l>", "g_")

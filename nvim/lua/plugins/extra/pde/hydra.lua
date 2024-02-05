@@ -213,7 +213,7 @@ return {
         config = function(_, _)
             local Hydra = require("hydra")
             Hydra(gitsigns_menu())
-            Hydra(dap_menu())
+            -- Hydra(dap_menu())
             Hydra(rust_menu())
         end,
     },

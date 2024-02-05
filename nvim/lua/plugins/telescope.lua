@@ -1,5 +1,3 @@
-local transform_mod = require("telescope.actions.mt").transform_mod
-
 return {
     {
         "nvim-telescope/telescope.nvim",

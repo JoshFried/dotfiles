@@ -1,12 +1,3 @@
-local function get_codelldb()
-    local mason_registry = require("mason-registry")
-    local codelldb = mason_registry.get_package("codelldb")
-    local extension_path = codelldb:get_install_path() .. "/extension/"
-    local codelldb_path = extension_path .. "adapter/codelldb"
-    local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib"
-    return codelldb_path, liblldb_path
-end
-
 return {
     "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",
@@ -59,14 +50,6 @@ return {
         },
     },
     {
-        "andymass/vim-matchup",
-        lazy = false,
-        enabled = false,
-        config = function()
-            vim.g.matchup_matchparen_offscreen = { method = "popup" }
-        end,
-    },
-    {
         "kylechui/nvim-surround",
         version = "*", -- Use for stability; omit to use `main` branch for the latest features
         event = "VeryLazy",
@@ -86,13 +69,13 @@ return {
             require("Comment").setup(opts)
         end,
     },
-    {
-        "zeioth/garbage-day.nvim",
-        dependencies = "neovim/nvim-lspconfig",
-        event = { "BufReadPost", "BufWritePost", "BufNewFile" },
-        opts = {
-            notifications = true,
-        },
-    },
+    -- {
+    --     "zeioth/garbage-day.nvim",
+    --     dependencies = "neovim/nvim-lspconfig",
+    --     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+    --     opts = {
+    --         notifications = true,
+    --     },
+    -- },
 
 }
