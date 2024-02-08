@@ -30,6 +30,9 @@ keymap("i", ".", ".<c-g>u")
 keymap("i", ";", ";<c-g>u")
 
 keymap("n", "J", "mzJ`z")
+
+
+
 -- Center screen after C-d / C-u
 keymap("n", "<C-d>", "<C-d>zz")
 keymap("n", "<C-u>", "<C-u>zz")
@@ -59,10 +62,6 @@ keymap("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 keymap("i", "jj", "<esc>")
 keymap("i", "kk", "<esc>")
 
--- keymap("n", "<C-H>", "<C-w>h", { desc = "Shift focus to left pane" })
--- keymap("n", "<C-J>", "<C-w>j", { desc = "Shift focus to bottom pane" })
--- keymap("n", "<C-K>", "<C-w>k", { desc = "Shift focus to top pane" })
--- keymap("n", "<C-L>", "<C-w>l", { desc = "Shift focus to right pane" })
 
 keymap("n", "<leader>sv", "<cmd> vsplit<CR><C-w>w", { desc = "Split pane vertically" })
 keymap("n", "<leader>sh", "<cmd> split<CR><C-w>w", { desc = "Split pane horizontally" })
@@ -85,3 +84,16 @@ keymap({ "n", "o", "x" }, "<s-l>", "g_")
 
 
 keymap("n", "U", "<C-r>")
+keymap("n", "U", "<C-r>")
+
+keymap("n", "<Leader>xo", ":e <C-r>+<CR>", { noremap = true, desc = "Go to location in clipboard" })
+local function smart_dd()
+    if vim.api.nvim_get_current_line():match("^%s*$") then
+        return '"_dd'
+    else
+        return "dd"
+    end
+end
+
+
+keymap({ 'n', 'v', }, "dd", smart_dd())
