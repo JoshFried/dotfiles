@@ -82,3 +82,6 @@ keymap("n", "<CR>", "ciw")
 
 keymap({ "n", "o", "x" }, "<s-h>", "^")
 keymap({ "n", "o", "x" }, "<s-l>", "g_")
+
+
+keymap("n", "U", "<C-r>")
