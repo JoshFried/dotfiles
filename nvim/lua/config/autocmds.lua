@@ -72,6 +72,8 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+vim.api.nvim_command("autocmd VimResized * wincmd =")
+
 -- ensure we always have a transparent background when we change themes :)
 vim.api.nvim_create_autocmd("ColorScheme", {
     callback = function()

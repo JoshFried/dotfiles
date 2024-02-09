@@ -18,7 +18,7 @@ M.config = function(_, _)
                 on_attach = function(client, buffer)
                     local inlays = require('lsp-inlayhints')
                     inlays.setup()
-                    local bufnr = vim.api.nvim_get_current_buf()
+
                     vim.keymap.set(
                         "n",
                         "<leader>a",
@@ -26,44 +26,44 @@ M.config = function(_, _)
                             vim.cmd.RustLsp('codeAction') -- supports rust-analyzer's grouping
                             -- or vim.lsp.buf.codeAction() if you don't want grouping.
                         end,
-                        { silent = true, buffer = bufnr }
+                        { silent = true, buffer = buffer }
                     )
 
                     vim.keymap.set(
                         "n",
                         "<leader>Rd",
                         "<cmd>RustLsp debuggables<CR>",
-                        { buffer = bufnr, desc = "Debuggables" }
+                        { buffer = buffer, desc = "Debuggables" }
                     )
 
                     vim.keymap.set(
                         "n",
                         "<leader>Rt",
                         "<cmd>RustLsp testables<CR>",
-                        { buffer = bufnr, desc = "Testables" }
+                        { buffer = buffer, desc = "Testables" }
                     )
 
                     vim.keymap.set(
                         "n",
                         "<leader>ha",
                         "<cmd>RustLsp hover actions<CR>",
-                        { buffer = bufnr, desc = "Hover Actions" }
+                        { buffer = buffer, desc = "Hover Actions" }
                     )
                     vim.keymap.set(
                         "n",
                         "<leader>roc",
                         "<cmd>RustLsp openCargo<CR>",
-                        { buffer = bufnr, desc = "Open Cargo" }
+                        { buffer = buffer, desc = "Open Cargo" }
                     )
                     vim.keymap.set(
                         "n",
                         "<leader>rpm",
                         "<cmd>RustLsp parentModule<CR>",
-                        { buffer = bufnr, desc = "Parent Module" }
+                        { buffer = buffer, desc = "Parent Module" }
                     )
                     vim.keymap.set("n", "<leader>cl", function()
                         vim.lsp.codelens.run()
-                    end, { buffer = bufnr, desc = "Code Lens" })
+                    end, { buffer = buffer, desc = "Code Lens" })
 
                     vim.keymap.set(
                         "n",

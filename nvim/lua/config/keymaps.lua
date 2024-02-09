@@ -1,14 +1,14 @@
+local utils = require('config.utils')
 local keymap = vim.keymap.set
 
 keymap("n", "zj", "o<Esc>k", { desc = "Create a line above without insert" })
 keymap("n", "zk", "O<Esc>j", { desc = "Create a line below without insert" })
 keymap("n", "<leader>pv", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle Neo-Tree" })
 
-function EqualizeSplits()
-    vim.cmd("wincmd =") -- Equalize the size of all windows
-end
 
-keymap("n", "<leader>0", ":lua EqualizeSplits()<CR>", { noremap = true, silent = true })
+keymap("n", "<leader>0", function()
+    utils.EqualizeSplits()
+end, { noremap = true, silent = true })
 
 -- Resize window using <shift> arrow keys since we have remapped cmd + h/j/k/l as arrow keys this is really convenient
 keymap("n", "<S-Up>", "<cmd>resize +2<CR>")
@@ -87,13 +87,12 @@ keymap("n", "U", "<C-r>")
 keymap("n", "U", "<C-r>")
 
 keymap("n", "<Leader>xo", ":e <C-r>+<CR>", { noremap = true, desc = "Go to location in clipboard" })
-local function smart_dd()
-    if vim.api.nvim_get_current_line():match("^%s*$") then
-        return '"_dd'
-    else
-        return "dd"
-    end
-end
 
+keymap("n", "<leader>x", function()
+    utils.CopyFilePathAndLineNumber()
+end, { noremap = true, desc = "copy file path and line number" })
 
-keymap({ 'n', 'v', }, "dd", smart_dd())
+vim.keymap.set("n", "dd", function()
+    if vim.fn.getline(".") == "" then return '"_dd' end
+    return "dd"
+end, { expr = true })
