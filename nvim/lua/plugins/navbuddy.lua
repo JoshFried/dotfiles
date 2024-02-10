@@ -14,7 +14,7 @@ return {
         opts = {
             lsp = {
                 preference = {
-                    "tsserver",
+                    -- "tsserver",
                 }
             }
         },

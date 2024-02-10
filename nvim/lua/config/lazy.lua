@@ -21,24 +21,8 @@ require("lazy").setup({
         { import = "plugins.test" },
     },
     defaults = { lazy = true, version = nil },
-    install = { missing = true, colorscheme = { "tokyonight" } },
+    install = { colorscheme = { "kanagawa-wave" } },
     checker = { enabled = true },
-    performance = {
-        cache = {
-            enabled = true,
-        },
-        rtp = {
-            disabled_plugins = {
-                "gzip",
-                "matchit",
-                "matchparen",
-                "netrwPlugin",
-                "tarPlugin",
-                "tohtml",
-                "tutor",
-                "zipPlugin",
-            },
-        },
-    },
 })
+
 vim.keymap.set("n", "<leader>z", "<cmd>:Lazy<cr>", { desc = "Plugin Manager" })

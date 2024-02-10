@@ -3,15 +3,20 @@ return {
         "neovim/nvim-lspconfig",
         event = "BufReadPre",
         dependencies = {
-            { "folke/neoconf.nvim",      cmd = "Neoconf", config = true },
+            { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
             {
                 "folke/neodev.nvim",
                 opts = {
                     library = { plugins = { "neotest", "nvim-dap-ui" }, types = true },
                 },
             },
-            { "j-hui/fidget.nvim",       tag = "legacy",  config = true },
-            { "smjonas/inc-rename.nvim", config = true },
+            { "j-hui/fidget.nvim",  tag = "legacy",  config = true },
+            {
+                "smjonas/inc-rename.nvim",
+                config = function()
+                    require('inc_rename').setup({})
+                end
+            },
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
             "hrsh7th/cmp-nvim-lsp",

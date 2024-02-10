@@ -59,6 +59,15 @@ function M:map(lhs, rhs, opts)
 end
 
 function M.rename()
+    for _, client in ipairs(vim.lsp.get_active_clients()) do
+        if client.name == "typescript-tools" then
+            vim.lsp.buf.rename()
+            return
+        end
+    end
+
+
+
     if pcall(require, "inc_rename") then
         return ":IncRename " .. vim.fn.expand("<cword>")
     else

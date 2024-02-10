@@ -2,10 +2,14 @@ vim.opt.guicursor = ""
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
+vim.opt.virtualedit = 'block'
 
 vim.opt.expandtab = true
 
@@ -20,6 +24,7 @@ vim.opt.undofile = true
 
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
+vim.opt.inccommand = "split"
 
 vim.opt.termguicolors = true
 
@@ -60,6 +65,6 @@ vim.o.completeopt = "menuone,noselect"
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
-vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 vim.diagnostics_mode = 3
 -- vim.diagnostics_mode = 3 -- set the visibility of diagnostics in the UI (0=off, 1=only show in status line, 2=virtual text off, 3=all on)
+vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })

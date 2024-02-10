@@ -31,8 +31,6 @@ keymap("i", ";", ";<c-g>u")
 
 keymap("n", "J", "mzJ`z")
 
-
-
 -- Center screen after C-d / C-u
 keymap("n", "<C-d>", "<C-d>zz")
 keymap("n", "<C-u>", "<C-u>zz")
@@ -92,7 +90,9 @@ keymap("n", "<leader>x", function()
     utils.CopyFilePathAndLineNumber()
 end, { noremap = true, desc = "copy file path and line number" })
 
-vim.keymap.set("n", "dd", function()
+keymap("n", "dd", function()
     if vim.fn.getline(".") == "" then return '"_dd' end
     return "dd"
 end, { expr = true })
+
+keymap("n", "<leader>dm", ":delm! | delm A-Z0-9<CR>", {})
