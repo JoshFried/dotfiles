@@ -19,6 +19,16 @@ M.config = function(_, _)
                     local inlays = require('lsp-inlayhints')
                     inlays.setup()
 
+                    vim.keymap.set("n", "<leader>cL", function()
+                        vim.lsp.codelens.refresh()
+                    end, { buffer = buffer, desc = "refresh code lense" })
+
+
+                    vim.keymap.set("n", "<leader>Cl", function()
+                        vim.lsp.codelens.clear()
+                    end, { buffer = buffer, desc = "refresh code lense" })
+
+
                     vim.keymap.set(
                         "n",
                         "<leader>a",
@@ -123,17 +133,17 @@ M.config = function(_, _)
                     parameter_hints_prefix = "in: ", -- "<- ",
                     other_hints_prefix = "out: "     -- "=> "
                 },
-                on_initialized = function()
-                    vim.api.nvim_create_autocmd(
-                        { "BufWritePost", "BufEnter", "CursorHold", "InsertLeave", },
-                        {
-                            pattern = { "*.rs" },
-                            callback = function()
-                                vim.lsp.codelens.refresh()
-                            end,
-                        }
-                    )
-                end,
+                -- on_initialized = function()
+                --     vim.api.nvim_create_autocmd(
+                --         { "BufWritePost", "BufEnter", "CursorHold", "InsertLeave", },
+                --         {
+                --             pattern = { "*.rs" },
+                --             callback = function()
+                --                 vim.lsp.codelens.refresh()
+                --             end,
+                --         }
+                --     )
+                -- end,
                 hover_actions = {
                     auto_focus = true,
                     border = "solid",
