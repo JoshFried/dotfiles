@@ -5,7 +5,7 @@ return {
     },
     opts = {
         window = {
-            width = 0.90,
+            width = 0.50,
             height = 0.85,
             options = {
                 colorcolumn = "",
@@ -15,5 +15,12 @@ return {
                 relativenumber = true,
             },
         },
+        plugins = {
+            options = {
+                laststatus = 3,
+            },
+            gitsigns = { enabled = true },
+
+        }
     },
 }
