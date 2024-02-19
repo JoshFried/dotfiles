@@ -16,7 +16,7 @@ local home_path = os.getenv("HOME")
 --
 -- doing this so we dont use this at work :)
 if home_path == "/Users/joshfried" then
-    return {}
+    return M
 end
 
-return M
+return {}

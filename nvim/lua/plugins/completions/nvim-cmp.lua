@@ -12,13 +12,18 @@ local M = {
         "hrsh7th/cmp-nvim-lsp-document-symbol",
         "saecki/Crates.nvim",
         "kristijanhusak/vim-dadbod-completion",
-        "Exafunction/codeium"
     },
 }
 
 M.config = function()
     local cmp = require("cmp")
-    require("codeium").setup({})
+
+    local home_path = os.getenv("HOME")
+    if home_path == "/Users/joshfried" then
+        require("codeium").setup({})
+    end
+
+
     local luasnip = require("luasnip")
     local icons = require("config.icons")
 
