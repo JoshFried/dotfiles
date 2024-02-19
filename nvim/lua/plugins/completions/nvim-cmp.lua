@@ -12,11 +12,13 @@ local M = {
         "hrsh7th/cmp-nvim-lsp-document-symbol",
         "saecki/Crates.nvim",
         "kristijanhusak/vim-dadbod-completion",
+        "Exafunction/codeium"
     },
 }
 
 M.config = function()
     local cmp = require("cmp")
+    require("codeium").setup({})
     local luasnip = require("luasnip")
     local icons = require("config.icons")
 
@@ -31,7 +33,9 @@ M.config = function()
         ["vim-dadbod-completion"] = "(DB)",
         nvim_lsp_signature_help = "(Snippet)",
         ["cmp-nvim-lsp-document-symbol"] = "(Document)",
+        codeium = "(Codeium)"
     }
+
 
     local scroll_up = function(fallback)
         if cmp.visible() then
@@ -107,7 +111,7 @@ M.config = function()
             keyword_length = 1,
         },
         experimental = {
-            ghost_text = false, -- NOTE: This is temporarily broken seems like a bug with nvim 0.9 and nvim-cmp..
+            ghost_text = true, -- NOTE: This is temporarily broken seems like a bug with nvim 0.9 and nvim-cmp..
             native_menu = false,
         },
         window = {
@@ -125,6 +129,7 @@ M.config = function()
             { name = "treesitter" },
             { name = "nvim_lsp_signature_help" },
             { name = "nvim_lsp_document_symbol" },
+            { name = "codeium" }
         },
         mapping = {
             ["<C-d>"] = cmp.mapping.scroll_docs(-4),

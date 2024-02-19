@@ -66,8 +66,6 @@ function M.rename()
         end
     end
 
-
-
     if pcall(require, "inc_rename") then
         return ":IncRename " .. vim.fn.expand("<cword>")
     else
