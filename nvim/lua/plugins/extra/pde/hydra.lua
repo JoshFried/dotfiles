@@ -210,6 +210,9 @@ return {
     {
         "anuvyklack/hydra.nvim",
         event = "VeryLazy",
+        dependencies = {
+            "lewis6991/gitsigns.nvim",
+        },
         config = function(_, _)
             local Hydra = require("hydra")
             Hydra(gitsigns_menu())
