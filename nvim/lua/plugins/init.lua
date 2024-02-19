@@ -77,5 +77,4 @@ return {
     --         notifications = true,
     --     },
     -- },
-
 }
