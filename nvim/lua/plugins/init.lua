@@ -69,6 +69,17 @@ return {
             require("Comment").setup(opts)
         end,
     },
+    {
+        "mistricky/codesnap.nvim",
+        build = "make",
+        event = "VeryLazy",
+        config = function(_, _)
+            require("codesnap").setup({
+                preview_title = "",
+                watermark = ""
+            })
+        end
+    },
     -- {
     --     "zeioth/garbage-day.nvim",
     --     dependencies = "neovim/nvim-lspconfig",
