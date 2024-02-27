@@ -58,6 +58,7 @@ vim.api.nvim_create_autocmd("FileType", {
         "man",
         "neotest-output",
         "neotest-summary",
+        "oil",
         "qf",
         "query",
         "spectre_panel",
