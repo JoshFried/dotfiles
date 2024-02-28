@@ -20,7 +20,6 @@ return {
                 laststatus = 3,
             },
             gitsigns = { enabled = true },
-
         }
     },
 }

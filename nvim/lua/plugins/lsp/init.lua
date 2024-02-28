@@ -12,10 +12,7 @@ return {
             },
             { "j-hui/fidget.nvim",  tag = "legacy",  config = true },
             {
-                "smjonas/inc-rename.nvim",
-                config = function()
-                    require('inc_rename').setup({})
-                end
+                "smjonas/inc-rename.nvim", config = true
             },
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
