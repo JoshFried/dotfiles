@@ -141,19 +141,24 @@ M.config = function()
             ["<C-f>"] = cmp.mapping.scroll_docs(4),
             ["<Down>"] = cmp.mapping.select_next_item(),
             ["<Up>"] = cmp.mapping.select_prev_item(),
-            ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-            ["<C-y>"] = cmp.config.disable,
+            -- ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+            -- ["<C-y>"] = cmp.config.disable,
             ["<C-e>"] = cmp.mapping({
                 i = cmp.mapping.abort(),
                 c = cmp.mapping.close(),
             }),
-            ["<CR>"] = cmp.mapping.confirm({ select = true }),
-            ["<Tab>"] = cmp.mapping(scroll_down, {
+
+            -- ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+            -- ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+            ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+            ["<C-Space>"] = cmp.mapping.complete(),
+            -- ["<CR>"] = cmp.mapping.confirm({ select = true }),
+            ['<C-n>'] = cmp.mapping(scroll_down, {
                 "i",
                 "s",
                 "c",
             }),
-            ["<S-Tab>"] = cmp.mapping(scroll_up, {
+            ["<C-p>"] = cmp.mapping(scroll_up, {
                 "i",
                 "s",
                 "c",

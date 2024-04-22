@@ -84,7 +84,7 @@ keymap({ "n", "o", "x" }, "<s-l>", "g_")
 keymap("n", "U", "<C-r>")
 keymap("n", "U", "<C-r>")
 
-keymap("n", "<Leader>xo", ":e <C-r>+<CR>", { noremap = true, desc = "Go to location in clipboard" })
+keymap("n", "<leader>xo", ":e <C-r>+<CR>", { noremap = true, desc = "Go to location in clipboard" })
 
 keymap("n", "<leader>x", function()
     utils.CopyFilePathAndLineNumber()
