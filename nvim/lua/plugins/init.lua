@@ -80,6 +80,11 @@ return {
             })
         end
     },
+
+    {
+        "mfussenegger/nvim-jdtls"
+    }
+
     -- {
     --     "zeioth/garbage-day.nvim",
     --     dependencies = "neovim/nvim-lspconfig",

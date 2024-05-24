@@ -16,9 +16,6 @@ M.config = function(_, _)
         return {
             server = {
                 on_attach = function(client, buffer)
-                    local inlays = require('lsp-inlayhints')
-                    inlays.setup()
-
                     vim.keymap.set("n", "<leader>cL", function()
                         vim.lsp.codelens.refresh()
                     end, { buffer = buffer, desc = "refresh code lense" })
@@ -75,16 +72,16 @@ M.config = function(_, _)
                         vim.lsp.codelens.run()
                     end, { buffer = buffer, desc = "Code Lens" })
 
-                    vim.keymap.set(
-                        "n",
-                        "<leader>reh",
-                        function()
-                            require('lsp-inlayhints').toggle()
-                        end,
-                        { buffer = buffer, desc = "Parent Module" }
-                    )
-                    inlays.on_attach(client, buffer)
-                    require('lsp_signature').on_attach()
+                    -- vim.keymap.set(
+                    --     "n",
+                    --     "<leader>reh",
+                    --     function()
+                    --         require('lsp-inlayhints').toggle()
+                    --     end,
+                    --     { buffer = buffer, desc = "Parent Module" }
+                    -- )
+                    -- inlays.on_attach(client, buffer)
+                    -- require('lsp_signature').on_attach()
                 end,
                 settings = {
                     -- rust-analyzer language server configuration
@@ -108,6 +105,24 @@ M.config = function(_, _)
                                 enable = true,
                                 useParameterNames = true
                             },
+                            closureCaptureHints = {
+                                enable = true,
+                            },
+                            closureReturnTypeHints = {
+                                enable = true,
+                            },
+                            discriminantHints = {
+                                enable = true
+                            },
+                            implicitDropHints = {
+                                enable = true
+                            },
+                            reborrowHints = {
+                                enable = true
+                            },
+                            parameterHints = {
+                                enable = true
+                            }
                         },
                         procMacro = {
                             enable = true,
@@ -117,6 +132,15 @@ M.config = function(_, _)
                                 ["async-recursion"] = { "async_recursion" },
                             },
                         },
+                    },
+                },
+            },
+            default_settings = {
+                ['rust_analyzer'] = {
+                    server = {
+                        extraEnv = {
+                            RUSTUP_TOOLCHAIN = "stable",
+                        }
                     },
                 },
             },

@@ -34,6 +34,9 @@ function M.on_attach(client, buffer)
 
     self:map("<leader>cs", require("telescope.builtin").lsp_document_symbols, { desc = "Document Symbols" })
     self:map("<leader>cS", require("telescope.builtin").lsp_dynamic_workspace_symbols, { desc = "Workspace Symbols" })
+    self:map("<leader>h", function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+    end, { desc = "toggle inlay hints" })
 end
 
 function M.new(client, buffer)

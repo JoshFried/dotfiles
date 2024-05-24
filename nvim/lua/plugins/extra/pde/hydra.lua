@@ -212,11 +212,12 @@ return {
         event = "VeryLazy",
         dependencies = {
             "lewis6991/gitsigns.nvim",
+            "nvim-neotest/nvim-nio"
         },
         config = function(_, _)
             local Hydra = require("hydra")
             Hydra(gitsigns_menu())
-            -- Hydra(dap_menu())
+            Hydra(dap_menu())
             Hydra(rust_menu())
         end,
     },

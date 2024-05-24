@@ -39,7 +39,8 @@ return {
                 dockerls = {},
                 marksman = {},
                 lemminx = {},
-                prismals = {}
+                prismals = {},
+                jdtls = {},
             },
             setup = {
                 lua_ls = function(_, _)
