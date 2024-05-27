@@ -1,14 +1,15 @@
 local M = {
-    {
-        "Exafunction/codeium.nvim",
-        cmd          = "Codeium",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
-        config       = function()
-            require("codeium").setup({})
-        end
+    'Exafunction/codeium.nvim',
+    enabled = true,
+    lazy = false,
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        "hrsh7th/nvim-cmp",
     },
+    config = function()
+        require("codeium").setup({
+        })
+    end
 }
 
 local home_path = os.getenv("HOME")
@@ -19,4 +20,4 @@ if home_path == "/Users/joshfried" then
     return M
 end
 
-return {}
+return M

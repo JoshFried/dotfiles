@@ -18,15 +18,8 @@ local M = {
 M.config = function()
     local cmp = require("cmp")
 
-    local home_path = os.getenv("HOME")
-    if home_path == "/Users/joshfried" then
-        require("codeium").setup({})
-    end
-
-
     local luasnip = require("luasnip")
     local icons = require("config.icons")
-
 
     local source_names = {
         nvim_lsp = "(LSP)",

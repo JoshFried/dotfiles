@@ -54,7 +54,7 @@ local M = {
             end
 
             -- set up debugger
-            if opts ~= nil then
+            if opts ~= nil and opts.sestup ~= nil then
                 for k, _ in pairs(opts.setup) do
                     opts.setup[k](plugin, opts)
                 end

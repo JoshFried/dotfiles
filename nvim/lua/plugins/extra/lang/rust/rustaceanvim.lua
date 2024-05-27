@@ -71,26 +71,18 @@ M.config = function(_, _)
                     vim.keymap.set("n", "<leader>cl", function()
                         vim.lsp.codelens.run()
                     end, { buffer = buffer, desc = "Code Lens" })
-
-                    -- vim.keymap.set(
-                    --     "n",
-                    --     "<leader>reh",
-                    --     function()
-                    --         require('lsp-inlayhints').toggle()
-                    --     end,
-                    --     { buffer = buffer, desc = "Parent Module" }
-                    -- )
-                    -- inlays.on_attach(client, buffer)
-                    -- require('lsp_signature').on_attach()
                 end,
                 settings = {
                     -- rust-analyzer language server configuration
                     ["rust-analyzer"] = {
                         cargo = {
                             allFeatures = true,
+                            loadOutDirsFromCheck = true
+
                         },
                         -- Add clippy lints for Rust.
                         checkOnSave = {
+                            allFeatures = true,
                             command = "clippy",
                             extraArgs = { "--no-deps" },
                         },
@@ -110,15 +102,6 @@ M.config = function(_, _)
                             },
                             closureReturnTypeHints = {
                                 enable = true,
-                            },
-                            discriminantHints = {
-                                enable = true
-                            },
-                            implicitDropHints = {
-                                enable = true
-                            },
-                            reborrowHints = {
-                                enable = true
                             },
                             parameterHints = {
                                 enable = true
