@@ -2,7 +2,7 @@ local M = {
     "neovim/nvim-lspconfig",
     opts = {
         servers = {
-            ruff_lsp = {},
+            ruff = {},
             pyright = {
                 settings = {
                     python = {
@@ -19,10 +19,10 @@ local M = {
             },
         },
         setup = {
-            ruff_lsp = function()
+            ruff = function()
                 local lsp_utils = require "plugins.lsp.utils"
                 lsp_utils.on_attach(function(client, _)
-                    if client.name == "ruff_lsp" then
+                    if client.name == "ruff" then
                         -- Disable hover in favor of Pyright
                         client.server_capabilities.hoverProvider = false
                     end
@@ -50,6 +50,5 @@ local M = {
         },
     },
 }
-
 
 return M

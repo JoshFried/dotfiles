@@ -6,7 +6,7 @@ return {
         dependencies = { "DaikyXendo/nvim-material-icon" },
         config = function()
             require("nvim-web-devicons").setup({
-                override = require("nvim-material-icon").get_icons(),
+                override = require("nvim-web-devicons").get_icons(),
             })
         end,
     },

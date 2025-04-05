@@ -57,14 +57,9 @@ end
 function M.on_attach(on_attach)
     vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
-            local isWork, workStuff = pcall(require, "plugins.lsp.work")
-
-            if isWork then
-                workStuff.SuperSecretWorkFunction()
-            end
-
             local bufnr = args.buf
             local client = vim.lsp.get_client_by_id(args.data.client_id)
+
             on_attach(client, bufnr)
         end,
     })

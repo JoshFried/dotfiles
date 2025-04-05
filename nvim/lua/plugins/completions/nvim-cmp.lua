@@ -19,6 +19,8 @@ M.config = function()
     local cmp = require("cmp")
 
     local luasnip = require("luasnip")
+
+    require('crates.completion.cmp').setup()
     local icons = require("config.icons")
 
     local source_names = {
@@ -31,7 +33,6 @@ M.config = function()
         ["vim-dadbod-completion"] = "(DB)",
         nvim_lsp_signature_help = "(Snippet)",
         ["cmp-nvim-lsp-document-symbol"] = "(Document)",
-        codeium = "(Codeium)"
     }
 
 
