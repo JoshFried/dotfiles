@@ -1,2 +1,1 @@
-hyper = {"ctrl", "alt", "cmd", "shift"}
-
+hyper = { "ctrl", "alt", "cmd", "shift" }

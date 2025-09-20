@@ -15,6 +15,12 @@ local function handleCenter(win, screenFrame)
     win:focus()
 end
 
+local function getMainFrame()
+    local mainScreen = screen.mainScreen()
+    return mainScreen:frame()
+end
+
+
 local function centered(app)
     local application = applications.find(app)
     local mainScreen = screen.mainScreen()
@@ -47,16 +53,20 @@ local function centered(app)
     local launch = launchOrActivateApp(app)
 
     if launch then
-        local application = applications.get(app)
-        local window = application:getWindow()
-        spaces.moveWindowToSpace(window, focusedSpace)
-        handleCenter(focusedWindow, mainFrame)
+        local launchedApplication = applications.get(app)
+        if launchedApplication ~= nil then
+            local w = launchedApplication:mainWindow()
+            local space = spaces.focusedSpace()
+            spaces.moveWindowToSpace(w, space)
+            handleCenter(w, getMainFrame())
+            spaces.gotoSpace(space)
+        end
     end
 end
 
 local apps = {
     { key = "E", app = "Messages" },
-    { key = "A", app = "Apple Music" },
+    { key = "A", app = "Music" },
     { key = "P", app = "Podcasts" },
     { key = "W", app = "Notes" },
 }

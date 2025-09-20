@@ -6,15 +6,24 @@ local cache = {
     launchTimer = nil,
 }
 
-local function launchOrActivateApp(appName)
+function launchOrActivateApp(appName)
     local curr = applications.frontmostApplication()
     local name = curr:name()
+
     if name == appName then
         cycle()
         return
     end
+
     -- first focus with hammerspoon
+    --
+    --
+
     local app = applications.launchOrFocus(appName)
+
+    if appName == "IntelliJ IDEA" then
+        app = applications.launchOrFocusByBundleID("com.jetbrains.intellij")
+    end
 
     -- clear timer if exists
     if cache.launchTimer then
@@ -51,11 +60,15 @@ end
 
 local apps = {
     { key = "G", app = "Google Chrome" },
-    { key = "T", app = "Wezterm" },
+    { key = "T", app = "WezTerm" },
     { key = "D", app = "Discord" },
     { key = "S", app = "Slack" },
     { key = "O", app = "Microsoft Outlook" },
     { key = "C", app = "Amazon Chime" },
+    { key = "I", app = "IntelliJ IDEA" },
+    { key = "F", app = "Firefox" },
+    { key = "Z", app = "zoom.us" },
+    { key = "Q", app = "KeyCastr" }
 }
 
 for _, mappings in ipairs(apps) do

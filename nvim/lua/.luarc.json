@@ -1,4 +1,0 @@
-{
-  "workspace.checkThirdParty": false,
-  "diagnostics.globals": ["open_nvim_tree"]
-}

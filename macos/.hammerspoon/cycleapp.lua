@@ -29,10 +29,10 @@ function cycle()
 
     if #runningApps == 0 then
         -- if no apps are running then launch first one in list
-        LaunchOrActivateApp(launchApps[1])
+        launchOrActivateApp(launchApps[1])
     elseif #runningWindows == 0 then
         -- if some apps are running, but no windows - force create one
-        LaunchOrActivateApp(runningApps[1]:title())
+        launchOrActivateApp(runningApps[1]:title())
     else
         -- check if one of windows is already focused
         local currentIndex = hs.fnutils.indexOf(runningWindows, frontmostWindow)
