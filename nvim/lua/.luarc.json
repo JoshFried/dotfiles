@@ -1,0 +1,4 @@
+{
+  "workspace.checkThirdParty": false,
+  "diagnostics.globals": ["vim", "open_nvim_tree"]
+}
