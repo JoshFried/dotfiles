@@ -60,9 +60,9 @@ function M.on_attach(on_attach)
             local bufnr = args.buf
             local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-            if client:supports_method("textDocument/completion") then
-                vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
-            end
+            -- if client:supports_method("textDocument/completion") then
+            --     vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
+            -- end
 
             on_attach(client, bufnr)
         end,
