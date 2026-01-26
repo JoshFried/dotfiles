@@ -1,0 +1,77 @@
+# Amethyst Configuration
+
+# Modifier keys
+mod1:
+  - option
+  - shift
+
+mod2:
+  - option
+  - shift
+  - control
+
+# Layouts (in cycle order)
+layouts:
+  - tall
+  - bsp
+  - wide
+  - fullscreen
+  - column
+
+# Window settings
+window-margins: false
+window-margin-size: 0
+window-resize-step: 5
+window-minimum-height: 0
+window-minimum-width: 0
+window-max-count: 0
+
+# Screen padding
+screen-padding-top: 10
+screen-padding-bottom: 10
+screen-padding-left: 10
+screen-padding-right: 10
+
+# Behavior
+float-small-windows: true
+mouse-follows-focus: false
+focus-follows-mouse: false
+follow-space-thrown-windows: true
+new-windows-to-main: false
+restore-layouts-on-launch: true
+enables-layout-hud: true
+enables-layout-hud-on-space-change: true
+debug-layout-info: false
+ignore-menu-bar: false
+
+# Floating apps (blacklist mode - these apps float)
+floating-is-blacklist: true
+floating:
+  - id: org.hammerspoon.Hammerspoon
+    window-titles: []
+  - id: com.amazon.ACME
+    window-titles: []
+  - id: com.apple.systempreferences
+    window-titles: []
+  - id: com.apple.Music
+    window-titles: []
+  - id: com.apple.podcasts
+    window-titles: []
+  - id: com.amazon.Amazon-Chime
+    window-titles: []
+  - id: com.electron.amazonconnections
+    window-titles: []
+  - id: com.cisco.anyconnect.gui
+    window-titles: []
+  - id: com.cisco.anyconnect.macos.acsock
+    window-titles: []
+  - id: com.apple.finder
+    window-titles: []
+  - id: com.raycast.macos
+    window-titles: []
+  - id: com.apple.Notes
+    window-titles: []
+  - id: com.apple.MobileSMS
+    window-titles: []
+  - id: com.mitchellh.ghostty
+    window-titles: []
