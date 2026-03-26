@@ -25,6 +25,11 @@
 
 - [blueutil](https://github.com/toy/blueutil) - Required for bluetooth.lua and AirPods quick-connect
 
+## Raycast Integration
+
+Hammerspoon triggers Raycast extensions via URL schemes:
+- `Hyper+V` - Clipboard history
+
 ## Amethyst Integration
 
 This config works alongside [Amethyst](https://ianyh.com/amethyst/) window manager:

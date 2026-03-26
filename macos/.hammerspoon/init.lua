@@ -21,3 +21,9 @@ require("wifiswitch")
 require("hsconsole")
 require("newspace")
 require("scratchpad")
+
+
+-- Raycast clipboard history
+hs.hotkey.bind(hyper, "V", function()
+    hs.urlevent.openURL("raycast://extensions/raycast/clipboard-history/clipboard-history")
+end)

@@ -43,6 +43,11 @@
 | X | Close all empty spaces |
 | ` | Show current space number |
 
+### Raycast Integration (Hyper + Key)
+| Key | Action |
+|-----|--------|
+| V | Clipboard history |
+
 ### Utilities
 | Shortcut | Action |
 |----------|--------|
