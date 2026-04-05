@@ -89,14 +89,24 @@ return {
         "nvimtools/none-ls.nvim",
         event = "BufReadPre",
         dependencies = { "mason.nvim" },
-        opts = function()
+        opts = function(_, opts)
             local nls = require("null-ls")
-            return {
-                root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
-                sources = {
-                    nls.builtins.formatting.shfmt,
-                },
-            }
+            opts.root_dir = opts.root_dir
+                or require("null-ls.utils").root_pattern(
+                    ".null-ls-root",
+                    ".neoconf.json",
+                    "Makefile",
+                    ".git",
+                    "package.json",
+                    "prettier.config.js",
+                    "prettier.config.mjs",
+                    ".prettierrc"
+                )
+            opts.sources = opts.sources or {}
+            vim.list_extend(opts.sources, {
+                nls.builtins.formatting.shfmt,
+            })
+            return opts
         end,
     },
     {
