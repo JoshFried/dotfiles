@@ -7,5 +7,7 @@ return {
         -- require(prefix .. ".nvim-java"),
         require(prefix .. ".mason"),
         require(prefix .. ".null-ls"),
+        require(prefix .. ".lspconfig"),
+        -- require(prefix .. ".kotlin")
     }
 }

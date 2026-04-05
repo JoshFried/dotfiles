@@ -1,132 +1,94 @@
-local swap_next, swap_prev = (function()
-    local swap_objects = {
-        p = "@parameter.inner",
-        f = "@function.outer",
-        c = "@class.outer",
-    }
-
-    local n, p = {}, {}
-    for key, obj in pairs(swap_objects) do
-        n[string.format("<leader>cx%s", key)] = obj
-        p[string.format("<leader>cX%s", key)] = obj
-    end
-
-    return n, p
-end)()
-
 return {
     {
         "nvim-treesitter/nvim-treesitter",
+        branch = "main",
         dependencies = {
-            "nvim-treesitter/nvim-treesitter-textobjects",
+            { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
             "JoosepAlviste/nvim-ts-context-commentstring",
-            "nvim-treesitter/nvim-treesitter-context"
+            "nvim-treesitter/nvim-treesitter-context",
         },
         build = ":TSUpdate",
         event = "BufReadPost",
-        opts = {
-            sync_install = false,
-            ensure_installed = {
-                "bash",
-                "dockerfile",
-                -- "help",
-                "html",
-                "kotlin",
-                "lua",
-                "markdown",
-                "markdown_inline",
-                "query",
-                "regex",
-                "vim",
-                "yaml",
-            },
-            highlight = { enable = true },
-            indent = { enable = true, disable = { "python" } },
-            incremental_selection = {
-                enable = true,
-                keymaps = {
-                    init_selection = "gnn",
-                    node_incremental = "grn",
-                    scope_incremental = "grc",
-                    node_decremental = "grm",
-                },
-            },
-            textobjects = {
-                lsp_interop = {
-                    enable = true,
-                    border = "none",
-                    floating_preview_opts = {},
-                    peek_definition_code = {
-                        -- NOTE: this is only needed for rust. For some reason when we call lsp hover on rust structs it doesnt show us the properties of the object, this does.
-                        ["<leader>pd"] = "@function.outer",
-                    },
-                },
-                select = {
-                    enable = true,
-                    lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-                    keymaps = {
-                        -- You can use the capture groups defined in textobjects.scm
-                        ["ab"] = "@block.outer",
-                        ["ib"] = "@block.inner",
-                        ["ap"] = "@parameter.outer",
-                        ["ip"] = "@parameter.inner",
-                        ["af"] = "@function.outer",
-                        ["if"] = "@function.inner",
-                        ["ac"] = "@class.outer",
-                        ["ic"] = "@class.inner",
-                        ["al"] = "@loop.outer",
-                        ["il"] = "@loop.inner",
-                        ["ii"] = "@conditional.inner",
-                        ["ai"] = "@conditional.outer",
-                    },
-                },
-                move = {
-                    enable = true,
-                    set_jumps = true, -- whether to set jumps in the jumplist
-                    goto_next_start = {
-                        ["]m"] = "@function.outer",
-                        ["]]"] = "@class.outer",
-                        ["[p"] = "@parameter.inner",
-                    },
-                    goto_next_end = {
-                        ["]M"] = "@function.outer",
-                        ["]["] = "@class.outer",
-                    },
-                    goto_previous_start = {
-                        ["[m"] = "@function.outer",
-                        ["[["] = "@class.outer",
-                        ["]p"] = "@parameter.inner",
-                    },
-                    goto_previous_end = {
-                        ["[M"] = "@function.outer",
-                        ["[]"] = "@class.outer",
-                    },
-                },
-                swap = {
-                    enable = true,
-                    swap_next = swap_next,
-                    swap_previous = swap_prev,
-                },
-            },
-            matchup = {
-                enable = true,
-            },
-        },
-        config = function(_, opts)
-            local ok, configs = pcall(require, "nvim-treesitter.configs")
-            if not ok then 
-                vim.notify("Failed to load nvim-treesitter", vim.log.levels.ERROR)
-                return 
+        config = function()
+            require("nvim-treesitter").setup()
+
+            local ensure_installed = {
+                "bash", "dockerfile", "html", "kotlin", "lua",
+                "markdown", "markdown_inline", "query", "regex",
+                "vim", "yaml", "typescript", "tsx", "javascript", "css",
+            }
+            vim.defer_fn(function()
+                local installed = require("nvim-treesitter.config").get_installed()
+                local to_install = vim.tbl_filter(function(p)
+                    return not vim.tbl_contains(installed, p)
+                end, ensure_installed)
+                if #to_install > 0 then
+                    require("nvim-treesitter").install(to_install)
+                end
+            end, 0)
+
+            -- Highlighting and indentation
+            vim.api.nvim_create_autocmd("FileType", {
+                callback = function()
+                    pcall(vim.treesitter.start)
+                    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                end,
+            })
+
+            -- Textobjects config (non-keymap options)
+            require("nvim-treesitter-textobjects").setup({
+                select = { lookahead = true },
+                move = { set_jumps = true },
+            })
+
+            -- Textobjects: select keymaps
+            local select_maps = {
+                ["ab"] = "@block.outer",    ["ib"] = "@block.inner",
+                ["ap"] = "@parameter.outer", ["ip"] = "@parameter.inner",
+                ["af"] = "@function.outer",  ["if"] = "@function.inner",
+                ["ac"] = "@class.outer",     ["ic"] = "@class.inner",
+                ["al"] = "@loop.outer",      ["il"] = "@loop.inner",
+                ["ai"] = "@conditional.outer", ["ii"] = "@conditional.inner",
+            }
+            for key, query in pairs(select_maps) do
+                vim.keymap.set({ "x", "o" }, key, function()
+                    require("nvim-treesitter-textobjects.select").select_textobject(query, "textobjects")
+                end)
             end
-            
-            configs.setup(opts)
-            
-            local ts_ok, ts_context = pcall(require, "ts_context_commentstring")
-            if ts_ok then
-                ts_context.setup({})
-            else
-                vim.notify("Failed to load ts_context_commentstring", vim.log.levels.WARN)
+
+            -- Textobjects: move keymaps
+            local move_fns = {
+                ["]m"] = { "goto_next_start", "@function.outer" },
+                ["]]"] = { "goto_next_start", "@class.outer" },
+                ["[p"] = { "goto_next_start", "@parameter.inner" },
+                ["]M"] = { "goto_next_end", "@function.outer" },
+                ["]["] = { "goto_next_end", "@class.outer" },
+                ["[m"] = { "goto_previous_start", "@function.outer" },
+                ["[["] = { "goto_previous_start", "@class.outer" },
+                ["]p"] = { "goto_previous_start", "@parameter.inner" },
+                ["[M"] = { "goto_previous_end", "@function.outer" },
+                ["[]"] = { "goto_previous_end", "@class.outer" },
+            }
+            for key, spec in pairs(move_fns) do
+                vim.keymap.set({ "n", "x", "o" }, key, function()
+                    require("nvim-treesitter-textobjects.move")[spec[1]](spec[2], "textobjects")
+                end)
             end
+
+            -- Textobjects: swap keymaps
+            local swap_objects = { p = "@parameter.inner", f = "@function.outer", c = "@class.outer" }
+            for key, query in pairs(swap_objects) do
+                vim.keymap.set("n", "<leader>cx" .. key, function()
+                    require("nvim-treesitter-textobjects.swap").swap_next(query, "textobjects")
+                end)
+                vim.keymap.set("n", "<leader>cX" .. key, function()
+                    require("nvim-treesitter-textobjects.swap").swap_previous(query, "textobjects")
+                end)
+            end
+
+            -- ts_context_commentstring
+            local ok, ts_ctx = pcall(require, "ts_context_commentstring")
+            if ok then ts_ctx.setup({}) end
         end,
     },
 }

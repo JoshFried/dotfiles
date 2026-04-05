@@ -162,17 +162,17 @@ end
 -- Main configuration function
 M.config = function()
     local ok, cmp = pcall(require, "cmp")
-    if not ok then 
+    if not ok then
         vim.notify("Failed to load nvim-cmp", vim.log.levels.ERROR)
-        return 
+        return
     end
-    
+
     local luasnip_ok, luasnip = pcall(require, "luasnip")
-    if not luasnip_ok then 
+    if not luasnip_ok then
         vim.notify("Failed to load luasnip", vim.log.levels.ERROR)
-        return 
+        return
     end
-    
+
     local compare = require("cmp.config.compare")
     local icons = require("config.icons")
 
@@ -195,7 +195,7 @@ M.config = function()
             end,
         },
         confirm_opts = {
-            behavior = cmp.ConfirmBehavior.Replace,
+            behavior = cmp.ConfirmBehavior.Insert,
             select = false,
         },
         duplicates_default = 1,
