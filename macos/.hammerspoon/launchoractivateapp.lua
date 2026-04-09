@@ -64,11 +64,12 @@ local apps = {
     { key = "D", app = "Discord" },
     { key = "S", app = "Slack" },
     { key = "O", app = "Microsoft Outlook" },
-    { key = "C", app = "Amazon Chime" },
+    { key = "C", app = "Codex" },
     { key = "I", app = "IntelliJ IDEA" },
     { key = "F", app = "Firefox" },
     { key = "Z", app = "zoom.us" },
-    { key = "Q", app = "KeyCastr" }
+    { key = "Q", app = "KeyCastr" },
+    { key = "P", app = "Docker" }
 }
 
 for _, mappings in ipairs(apps) do

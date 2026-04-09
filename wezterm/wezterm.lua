@@ -5,9 +5,9 @@ return {
     font = wezterm.font_with_fallback({
         {
             family = "RecMonoLinear Nerd Font Mono",
-            -- scale = 1,
             scale = 0.95,
-            weight = 'Bold'
+            weight = 'Bold',
+            harfbuzz_features = { 'liga = 1' }
         },
         {
             family = "Monaco",
@@ -20,7 +20,7 @@ return {
         },
     }),
 
-    font_size = 15.0,
+    font_size = 16.0,
 
     color_scheme_dirs = { "~/.config/wezterm/colors" },
 
