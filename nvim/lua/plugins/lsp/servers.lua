@@ -30,6 +30,12 @@ local function lsp_init()
             },
             signs = {
                 active = signs,
+                text = {
+                    [vim.diagnostic.severity.ERROR] = icons.diagnostics.Error,
+                    [vim.diagnostic.severity.WARN] = icons.diagnostics.Warn,
+                    [vim.diagnostic.severity.HINT] = icons.diagnostics.Hint,
+                    [vim.diagnostic.severity.INFO] = icons.diagnostics.Info,
+                }
             },
             underline = false,
             update_in_insert = false,
@@ -50,10 +56,10 @@ local function lsp_init()
     vim.diagnostic.config(config.diagnostic)
 
     -- Hover configuration
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, config.float)
+    -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, config.float)
 
     -- Signature help configuration
-    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, config.float)
+    -- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, config.float)
 end
 
 function M.setup(_, opts)
@@ -120,8 +126,10 @@ function M.setup(_, opts)
     end
 
     if have_mason then
-        mlsp.setup({ ensure_installed = ensure_installed })
-        mlsp.setup({ setup })
+        mlsp.setup({
+            ensure_installed = ensure_installed,
+            handlers = { setup }
+        })
     end
 end
 

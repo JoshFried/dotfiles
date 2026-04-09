@@ -81,6 +81,13 @@ function M:map(lhs, rhs, opts)
     )
 end
 
+vim.keymap.set("n", "<leader>e", function()
+    local _, winid = vim.diagnostic.open_float({ focus = true })
+    if winid then
+        vim.api.nvim_set_current_win(winid)
+    end
+end)
+
 function M.rename()
     local fallback_clients = { "smithy_ls" }
 
@@ -100,7 +107,9 @@ end
 
 function M.diagnostic_goto(next, severity)
     local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+
     severity = severity and vim.diagnostic.severity[severity] or nil
+
     return function()
         go({ severity = severity })
     end

@@ -3,11 +3,14 @@ return {
         "neovim/nvim-lspconfig",
         event = "BufReadPre",
         dependencies = {
-            -- { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
             {
-                "folke/neodev.nvim",
+                "folke/lazydev.nvim",
                 opts = {
-                    library = { plugins = { "neotest", "nvim-dap-ui" }, types = true },
+                    library = {
+                        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                        { path = "neotest" },
+                        { path = "nvim-dap-ui" }
+                    },
                 },
             },
             { "j-hui/fidget.nvim", tag = "legacy", config = true },

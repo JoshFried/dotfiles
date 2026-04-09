@@ -18,7 +18,8 @@ return {
                 }
             }
         },
-        config = function()
+        config = function(_, opts)
+            require('nvim-navbuddy').setup(opts)
             local lsp_utils = require("plugins.lsp.utils")
 
             lsp_utils.on_attach(function(client, buffer)

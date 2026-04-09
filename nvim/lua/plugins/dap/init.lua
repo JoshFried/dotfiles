@@ -41,7 +41,7 @@ local M = {
             })
 
             local dap, dapui = require("dap"), require("dapui")
-            -- dapui.setup({})
+            dapui.setup({})
 
             dap.listeners.after.event_initialized["dapui_config"] = function()
                 dapui.open()
@@ -54,7 +54,7 @@ local M = {
             end
 
             -- set up debugger
-            if opts ~= nil and opts.sestup ~= nil then
+            if opts ~= nil and opts.setup ~= nil then
                 for k, _ in pairs(opts.setup) do
                     opts.setup[k](plugin, opts)
                 end
