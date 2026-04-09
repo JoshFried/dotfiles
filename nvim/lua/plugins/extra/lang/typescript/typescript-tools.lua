@@ -16,17 +16,20 @@ local M = {
         tsserver_max_memory = "auto",
         complete_function_calls = true,
         include_completions_with_insert_text = true,
-        tsserver_file_preferences = {
-            includeInlayParameterNameHints = "all",
-            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-            includeInlayFunctionParameterTypeHints = true,
-            includeInlayVariableTypeHints = true,
-            includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-            includeInlayPropertyDeclarationTypeHints = true,
-            includeInlayFunctionLikeReturnTypeHints = true,
-            includeInlayEnumMemberValueHints = true,
-            includeCompletionsForModuleExports = true,
-            quotePreference = "auto",
+        settings = {
+            tsserver_file_preferences = {
+                includeInlayParameterNameHints = "all",
+                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+                includeCompletionsForModuleExports = true,
+                quotePreference = "auto",
+                preferTypeOnlyAutoImports = true,
+            }
         },
     },
 }
@@ -74,7 +77,7 @@ M.config = function(_, opts)
 
         -- end
     end)
-    require("typescript-tools").setup({})
+    require("typescript-tools").setup(opts)
 end
 
 return M
