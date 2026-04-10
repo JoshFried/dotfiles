@@ -1,2 +1,4 @@
 .idea/
 nvim/lua/plugins/lsp/work
+nvim/lua/plugins/work
+nvim/lua/config/work

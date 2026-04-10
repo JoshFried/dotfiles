@@ -10,7 +10,7 @@ local M = {
         init = function()
             vim.g.jdtls_manually_configured = true
 
-            local isWork, workStuff = pcall(require, "plugins.lsp.work")
+            local isWork, workStuff = pcall(require, "config.work")
 
             local group = vim.api.nvim_create_augroup("CustomJdtlsSetup", { clear = true })
             vim.api.nvim_create_autocmd("FileType", {

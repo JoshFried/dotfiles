@@ -21,6 +21,7 @@ require("lazy").setup({
         { import = "plugins.extra.pde" },
         { import = "plugins.test" },
         { import = "plugins.lsp.init" },
+        { import = "plugins.work", optional = true },
     },
     defaults = { lazy = true, version = nil },
     install = { colorscheme = { "kanagawa-wave" } },

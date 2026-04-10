@@ -10,7 +10,10 @@ local M = {
         table.insert(opts.sources, nls.builtins.diagnostics.checkstyle.with({
             extra_args = {
                 "-c", "./checkstyle.xml"
-            }
+            },
+            condition = function(utils)
+                return utils.root_has_file("checkstyle.xml")
+            end,
         }))
     end,
 }
