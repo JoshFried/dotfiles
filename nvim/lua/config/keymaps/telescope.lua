@@ -18,8 +18,8 @@ return {
     { "<leader>sj", function() require("telescope.builtin").jumplist() end, desc = "Search Jumplist" },
     { "<leader>sc", function() require("telescope.builtin").commands() end, desc = "Search Commands" },
     { "<leader>pp", function() require("telescope").extensions.project.project({ display_type = "minimal" }) end, desc = "Projects" },
-    { 
-        "<leader>/", 
+    {
+        "<leader>/",
         function()
             require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
                 winblend = 10,
@@ -30,7 +30,12 @@ return {
                     end,
                 },
             }))
-        end, 
-        desc = "Fuzzy search in buffer" 
+        end,
+        desc = "Fuzzy search in buffer"
     },
+    {
+        "<leader>sg",
+        "<cmd>Telescope live_grep<cr>",
+        desc = "Workspace",
+	}
 }

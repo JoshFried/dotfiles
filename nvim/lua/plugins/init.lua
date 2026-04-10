@@ -100,8 +100,8 @@ return {
 
             codesnap.setup({
                 preview_title = "",
-                watermark = ""
+                watermark = "",
             })
-        end
+        end,
     },
 }

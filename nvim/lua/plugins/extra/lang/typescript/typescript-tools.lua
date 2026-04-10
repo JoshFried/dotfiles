@@ -12,7 +12,6 @@ local M = {
     opts = {
         separate_diagnostic_server = true,
         expose_as_code_action = "all",
-        -- tsserver_plugins = {},
         tsserver_max_memory = "auto",
         complete_function_calls = true,
         include_completions_with_insert_text = true,
@@ -29,7 +28,7 @@ local M = {
                 includeCompletionsForModuleExports = true,
                 quotePreference = "auto",
                 preferTypeOnlyAutoImports = true,
-            }
+            },
         },
     },
 }
