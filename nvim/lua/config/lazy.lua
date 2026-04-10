@@ -21,6 +21,8 @@ require("lazy").setup({
         { import = "plugins.extra.pde" },
         { import = "plugins.test" },
         { import = "plugins.lsp.init" },
+        -- Work-only plugins. Directory is gitignored so it only exists on work machines.
+        -- so it only exists on work machines. optional=true prevents errors when missing.
         { import = "plugins.work", optional = true },
     },
     defaults = { lazy = true, version = nil },

@@ -1,7 +1,10 @@
 local M = {
     {
         "mfussenegger/nvim-jdtls",
-        ft = "java",
+        -- ft includes "kotlin" so jdtls starts alongside kotlin-lsp.
+        -- kotlin-lsp handles Kotlin intelligence, jdtls provides the .class
+        -- file decompiler for go-to-definition on external dependencies.
+        ft = { "java", "kotlin" },
         keys = {
             {
                 "<leader>rn", vim.lsp.buf.rename, desc = "Rename"
@@ -15,7 +18,7 @@ local M = {
             local group = vim.api.nvim_create_augroup("CustomJdtlsSetup", { clear = true })
             vim.api.nvim_create_autocmd("FileType", {
                 group = group,
-                pattern = "java",
+                pattern = { "java", "kotlin" },
                 callback = function()
                     -- Only set up if not already set up for this buffer
                     if vim.b.jdtls_setup_done then

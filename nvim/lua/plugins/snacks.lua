@@ -6,21 +6,7 @@ return {
             ---@type snacks.gitbrowse.Config
             ---@diagnostic disable-next-line: missing-fields
             gitbrowse = {
-                url_patterns = {
-                    ["code.amazon.com"] = {
-                        branch = "trees/{branch}",
-                        file = "/blobs/{branch}/--/{file}#L{line_start}-L{line_end}",
-                        permalink = "/blobs/{commit}/--/{file}#L{line_start}-L{line_end}",
-                        commit = "/commits/{commit}",
-                    },
-                },
-
                 remote_patterns = {
-                    -- Amazon specific pattern
-                    { "^ssh://git.amazon.com:2222/pkg/(.+)$",   "https://code.amazon.com/packages/%1" },
-                    { "^https://git.amazon.com:2222/pkg/(.+)$", "https://code.amazon.com/packages/%1" },
-
-                    -- Original patterns
                     { "^(https?://.*)%.git$",                   "%1" },
                     { "^git@(.+):(.+)%.git$",                   "https://%1/%2" },
                     { "^git@(.+):(.+)$",                        "https://%1/%2" },

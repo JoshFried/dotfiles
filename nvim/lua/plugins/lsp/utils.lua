@@ -1,47 +1,24 @@
 local M = {}
 
-local FORMATTING = require("null-ls").methods.FORMATTING
-local DIAGNOSTICS = require("null-ls").methods.DIAGNOSTICS
-local COMPLETION = require("null-ls").methods.COMPLETION
-local CODE_ACTION = require("null-ls").methods.CODE_ACTION
-local HOVER = require("null-ls").methods.HOVER
-
-local function list_registered_providers_names(ft)
-    local s = require "null-ls.sources"
-    local available_sources = s.get_available(ft)
-    local registered = {}
-    for _, source in ipairs(available_sources) do
-        for method in pairs(source.methods) do
-            registered[method] = registered[method] or {}
-            table.insert(registered[method], source.name)
-        end
-    end
-    return registered
-end
-
 function M.list_formatters(ft)
-    local providers = list_registered_providers_names(ft)
-    return providers[FORMATTING] or {}
+    local ok, conform = pcall(require, "conform")
+    if ok then
+        local formatters = conform.list_formatters_for_buffer()
+        local names = {}
+        for _, f in ipairs(formatters) do
+            table.insert(names, type(f) == "string" and f or f.name)
+        end
+        return names
+    end
+    return {}
 end
 
 function M.list_linters(ft)
-    local providers = list_registered_providers_names(ft)
-    return providers[DIAGNOSTICS] or {}
-end
-
-function M.list_completions(ft)
-    local providers = list_registered_providers_names(ft)
-    return providers[COMPLETION] or {}
-end
-
-function M.list_code_actions(ft)
-    local providers = list_registered_providers_names(ft)
-    return providers[CODE_ACTION] or {}
-end
-
-function M.list_hovers(ft)
-    local providers = list_registered_providers_names(ft)
-    return providers[HOVER] or {}
+    local ok, lint = pcall(require, "lint")
+    if ok then
+        return lint.linters_by_ft[ft] or {}
+    end
+    return {}
 end
 
 function M.capabilities()
@@ -59,11 +36,6 @@ function M.on_attach(on_attach)
         callback = function(args)
             local bufnr = args.buf
             local client = vim.lsp.get_client_by_id(args.data.client_id)
-
-            -- if client:supports_method("textDocument/completion") then
-            --     vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
-            -- end
-
             on_attach(client, bufnr)
         end,
     })
@@ -89,7 +61,7 @@ function M.opts(name)
     if not plugin then
         return {}
     end
-    local Plugin = require "lazy.core.plugin"
+    local Plugin = require("lazy.core.plugin")
     return Plugin.values(plugin, "opts", false)
 end
 

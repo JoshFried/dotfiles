@@ -20,7 +20,7 @@ return {
 				{ "<leader>s", group = "search" },
 				{ "<leader>f", group = "file" },
 				{ "<leader>g", group = "git" },
-				{ "<leader>b", group = "brazil" },
+				{ "<leader>b", group = "build" },
 				{ "<leader>d", group = "diagnostics" },
 				{ "<leader>t", group = "telescope" },
 				{ "<leader>p", group = "project" },

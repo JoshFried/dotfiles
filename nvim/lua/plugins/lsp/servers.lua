@@ -70,13 +70,6 @@ function M.setup(_, opts)
     end
 
     lsp_utils.on_attach(function(client, buffer)
-        local format_ok, format = pcall(require, "plugins.lsp.format")
-        if format_ok then
-            format.on_attach(client, buffer)
-        else
-            vim.notify("Failed to load LSP format", vim.log.levels.WARN)
-        end
-
         local keymaps_ok, keymaps = pcall(require, "plugins.lsp.keymaps")
         if keymaps_ok then
             keymaps.on_attach(client, buffer)

@@ -74,27 +74,23 @@ return {
 
             -- add client
             for _, client in pairs(buf_clients) do
-                if client.name ~= "null-ls" then
-                    table.insert(buf_client_names, client.name)
-                end
+                table.insert(buf_client_names, client.name)
             end
 
             -- add formatter
-            local lsp_utils = require("plugins.lsp.utils")
-            local formatters = lsp_utils.list_formatters(buf_ft)
-            vim.list_extend(buf_client_names, formatters)
+            local ok_conform, conform = pcall(require, "conform")
+            if ok_conform then
+                for _, f in ipairs(conform.list_formatters_for_buffer()) do
+                    table.insert(buf_client_names, type(f) == "string" and f or f.name)
+                end
+            end
 
             -- add linter
-            local linters = lsp_utils.list_linters(buf_ft)
-            vim.list_extend(buf_client_names, linters)
-
-            -- add hover
-            local hovers = lsp_utils.list_hovers(buf_ft)
-            vim.list_extend(buf_client_names, hovers)
-
-            -- add code action
-            local code_actions = lsp_utils.list_code_actions(buf_ft)
-            vim.list_extend(buf_client_names, code_actions)
+            local ok_lint, lint = pcall(require, "lint")
+            if ok_lint then
+                local linters = lint.linters_by_ft[buf_ft] or {}
+                vim.list_extend(buf_client_names, linters)
+            end
 
             local hash = {}
             local client_names = {}

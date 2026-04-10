@@ -20,7 +20,6 @@ return {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
             "hrsh7th/cmp-nvim-lsp",
-            "nvimtools/none-ls.nvim",
         },
         opts = {
             servers = {
@@ -75,6 +74,7 @@ return {
                 "ruff",
                 "codelldb",
                 "debugpy",
+                "ktlint",
             },
         },
         config = function(_, opts)
@@ -88,32 +88,6 @@ return {
             end
         end,
     },
-    {
-        "nvimtools/none-ls.nvim",
-        event = "BufReadPre",
-        dependencies = { "mason.nvim" },
-        opts = function(_, opts)
-            local nls = require("null-ls")
-            opts.root_dir = opts.root_dir
-                or require("null-ls.utils").root_pattern(
-                    ".null-ls-root",
-                    ".neoconf.json",
-                    "Makefile",
-                    ".git",
-                    "package.json",
-                    "prettier.config.js",
-                    "prettier.config.mjs",
-                    ".prettierrc"
-                )
-            opts.sources = opts.sources or {}
-            vim.list_extend(opts.sources, {
-                nls.builtins.formatting.shfmt,
-            })
-            return opts
-        end,
-    },
-    {
-        "jay-babu/mason-null-ls.nvim",
-        opts = { ensure_installed = nil, automatic_installation = true, automatic_setup = false },
-    }
+    require("plugins.lsp.conform"),
+    require("plugins.lsp.nvim-lint"),
 }

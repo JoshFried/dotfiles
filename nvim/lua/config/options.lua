@@ -74,3 +74,72 @@ vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_netrw = 1
+
+-- Restore removed LSP commands from nvim 0.12
+vim.api.nvim_create_user_command("LspLog", function() vim.cmd.edit(vim.lsp.get_log_path()) end, {})
+vim.api.nvim_create_user_command("LspInfo", function() vim.cmd("checkhealth lsp") end, {})
+
+-- Decompile .class files inside jars when kotlin-lsp navigates to jar:// URIs.
+-- Uses CFR standalone decompiler since jdtls can't handle jar:// URIs from kotlin-lsp.
+-- Also handles plain *.class files that jdtls would normally handle.
+local decompile_group = vim.api.nvim_create_augroup("CfrDecompile", { clear = true })
+for _, pattern in ipairs({ "jar://*", "*.class" }) do
+    vim.api.nvim_create_autocmd("BufReadCmd", {
+        group = decompile_group,
+        pattern = pattern,
+        callback = function(args)
+            local uri = args.match
+            local jar, class_path
+
+            if uri:match("^jar://") then
+                jar, class_path = uri:match("^jar://(.-)!/(.+)$")
+            else
+                -- Plain .class file — decompile directly
+                jar = uri
+                class_path = nil
+            end
+
+            if not jar then return end
+
+            local buf = vim.api.nvim_get_current_buf()
+            vim.bo[buf].buftype = "nofile"
+            vim.bo[buf].swapfile = false
+            vim.bo[buf].modifiable = true
+
+            local cmd
+            if class_path then
+                local class_name = class_path:gsub("/", "."):gsub("%.class$", "")
+                cmd = { "/opt/homebrew/bin/cfr-decompiler", jar, class_name }
+            else
+                cmd = { "/opt/homebrew/bin/cfr-decompiler", jar }
+            end
+
+            local result = vim.fn.systemlist(cmd)
+            if vim.v.shell_error == 0 and #result > 0 then
+                vim.api.nvim_buf_set_lines(buf, 0, -1, false, result)
+                vim.bo[buf].filetype = "java"
+            else
+                vim.api.nvim_buf_set_lines(buf, 0, -1, false, { "// Decompilation failed" })
+            end
+            vim.bo[buf].modifiable = false
+        end,
+    })
+end
+
+-- Prevent jdtls from registering its own *.class BufReadCmd which conflicts with CFR.
+-- We set this flag early so jdtls's plugin/jdtls.lua skips its autocmd registration.
+-- jdtls's LspAttach and commands are re-registered in the jdtls.lua plugin config.
+vim.g.nvim_jdtls = 1
+
+-- Workaround for telescope + jdtls async decompile race condition in nvim 0.12.
+-- When go-to-definition lands on a .class file, jdtls decompiles it async but
+-- telescope tries to set cursor before content is ready. This suppresses the error.
+local orig_show_document = vim.lsp.util.show_document
+vim.lsp.util.show_document = function(location, offset_encoding, opts)
+    local ok, err = pcall(orig_show_document, location, offset_encoding, opts)
+    if not ok and err:match("Invalid cursor") then
+        vim.defer_fn(function()
+            pcall(orig_show_document, location, offset_encoding, opts)
+        end, 1000)
+    end
+end

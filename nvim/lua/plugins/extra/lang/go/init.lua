@@ -3,6 +3,5 @@ return {
     {
         require(prefix .. ".go"),
         require(prefix .. ".gopher"),
-        require(prefix .. '.null-ls'),
     }
 }
