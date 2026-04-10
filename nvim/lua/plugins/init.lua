@@ -19,6 +19,7 @@ return {
     { "nacro90/numb.nvim", event = "BufReadPre", config = true },
     {
         "lukas-reineke/indent-blankline.nvim",
+        enabled = false,
         event = { "BufReadPost", "BufNewFile" },
         opts = {
             indent = {
@@ -43,6 +44,7 @@ return {
     },
     {
         "rcarriga/nvim-notify",
+        enabled = false,
         event = "VeryLazy",
         opts = {
             timeout = 3000,

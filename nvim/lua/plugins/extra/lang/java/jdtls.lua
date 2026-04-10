@@ -25,9 +25,20 @@ local M = {
                         return
                     end
 
+                    local ft = vim.bo.filetype
+
                     -- Always try work config first
                     if isWork then
-                        workStuff.setupJavaWorkEnvrionment()
+                        -- For Kotlin files, only start jdtls (for .class decompilation)
+                        -- but don't attach it to the buffer to avoid conflicts with kotlin-lsp
+                        if ft == "kotlin" then
+                            -- Start jdtls if not already running
+                            if #vim.lsp.get_clients({ name = "jdtls" }) == 0 then
+                                workStuff.setupJavaWorkEnvrionment()
+                            end
+                        else
+                            workStuff.setupJavaWorkEnvrionment()
+                        end
                         vim.b.jdtls_setup_done = true
                     else
                         -- Fall back to default config if work config isn't found

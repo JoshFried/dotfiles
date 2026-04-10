@@ -1,8 +1,25 @@
 return {
     {
         "folke/snacks.nvim",
-        ---@type snacks.Config.base
+        priority = 1000,
+        lazy = false,
+        keys = {
+            { "<leader>go", function() require("snacks").gitbrowse() end, desc = "Open in browser", mode = { "n", "x" } },
+            { "<leader>cR", function() require("snacks").rename.rename_file() end, desc = "Rename File" },
+            { "<leader>nh", function() require("snacks").notifier.show_history() end, desc = "Notification History" },
+            { "<leader>nd", function() require("snacks").notifier.hide() end, desc = "Dismiss Notifications" },
+            { "]r", function() require("snacks").words.jump(vim.v.count1) end, desc = "Next Reference" },
+            { "[r", function() require("snacks").words.jump(-vim.v.count1) end, desc = "Prev Reference" },
+        },
+        ---@type snacks.Config
         opts = {
+            bigfile = { enabled = true },
+            quickfile = { enabled = true },
+            words = { enabled = true },
+            indent = { enabled = true },
+            notifier = { enabled = true, timeout = 3000 },
+            toggle = {},
+            rename = { enabled = true },
             ---@type snacks.gitbrowse.Config
             ---@diagnostic disable-next-line: missing-fields
             gitbrowse = {

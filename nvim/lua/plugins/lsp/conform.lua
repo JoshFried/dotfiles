@@ -3,7 +3,7 @@ return {
     event = "BufWritePre",
     cmd = { "ConformInfo" },
     keys = {
-        { "<leader>cF", function() require("conform").format({ async = true }) end, desc = "Format (conform)" },
+        { "<leader>cF", function() require("conform").format({ async = true }) end, desc = "Format", mode = { "n", "v" } },
     },
     opts = {
         formatters_by_ft = {
@@ -28,4 +28,9 @@ return {
             return { timeout_ms = 3000, lsp_format = "fallback" }
         end,
     },
+    config = function(_, opts)
+        require("conform").setup(opts)
+        -- Makes gq use conform for range formatting in visual mode
+        vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+    end,
 }
