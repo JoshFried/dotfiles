@@ -1,4 +1,5 @@
 require("config.options")
+require("config.patches")
 require("config.lazy")
 
 
