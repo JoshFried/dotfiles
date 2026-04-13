@@ -44,6 +44,39 @@ enables-layout-hud-on-space-change: true
 debug-layout-info: false
 ignore-menu-bar: false
 
+# Keyboard shortcuts
+# mod1 = Option+Shift, mod2 = Option+Shift+Control
+throw-space-1:
+  mod: mod1
+  key: "1"
+throw-space-2:
+  mod: mod1
+  key: "2"
+throw-space-3:
+  mod: mod1
+  key: "3"
+throw-space-4:
+  mod: mod1
+  key: "4"
+throw-space-5:
+  mod: mod1
+  key: "5"
+throw-space-6:
+  mod: mod1
+  key: "6"
+throw-space-7:
+  mod: mod1
+  key: "7"
+throw-space-8:
+  mod: mod1
+  key: "8"
+throw-space-9:
+  mod: mod1
+  key: "9"
+throw-space-10:
+  mod: mod1
+  key: "0"
+
 # Floating apps (blacklist mode - these apps float)
 floating-is-blacklist: true
 floating:
@@ -75,3 +108,6 @@ floating:
     window-titles: []
   - id: com.mitchellh.ghostty
     window-titles: []
+  - id: com.jetbrains.intellij
+    window-titles:
+      - Settings

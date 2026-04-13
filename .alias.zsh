@@ -8,8 +8,8 @@ alias ez="$EDITOR ~/.zshrc"       # alias for Edit Zshrc
 alias ea="$EDITOR ~/.alias.zsh"   # alias for Edit Alias
 alias ew="$EDITOR ~/.work.alias.zsh"
 alias el="$EDITOR ~/.local.zsh"   # alias for Edit Local
-
 alias sz='exec zsh'               # alias for Source Zsh
+
 alias brew="/opt/homebrew/bin/brew"
 
 alias eh="cd ~/.hammerspoon && $EDITOR"
@@ -18,7 +18,7 @@ alias ewez="cd ~/.config/wezterm/ && $EDITOR"
 
 alias :q="exit"
 
-alias ls='exa -l -a --grid --git'
+alias ls='eza -l -a --grid --git'
 alias vguard='@guard && v .'
 
 # bookmarks
@@ -46,7 +46,7 @@ alias dcub='docker-compose up --build'
 alias y='yarn'
 alias m='make'
 alias v='nvim'
-# alias nvim="/opt/homebrew/bin/nvim"
+alias nvim="/opt/homebrew/bin/nvim"
 
 # create and delete files/folders
 alias t='touch'           # create file
@@ -78,7 +78,7 @@ alias gfa='git fetch --all'
   
 alias gco='git checkout'
 alias gnew="git checkout -b"
-alias gp='git push'       # git push to origin on current branch if no argument specified. Otherwise, git push to specified remote. (from cb-zsh)
+alias gp='git push'
 alias gprune="git remote prune origin | grep -o '\[pruned\] origin\/.*$' | sed -e 's/\[pruned\] origin\///' | xargs git branch -D"
   
 # Experimental
@@ -104,24 +104,11 @@ alias bric='brew install --cask'
 
 # cargo 
 alias cb='cargo build'
-alias ct='cargo test'
+alias ct='cargo nextest run'
+alias cn='cargo +nightly'
 
-function wezterm(){
-    # NOTE: not sure why this isnt working rn
-    # op="$(awk -F= '/^NAME/{print $2}' /etc/os-release)"
+alias gityeet="git clean -fd"
 
-    op="$(uname -s)"
-    case $op in 
-    Linux)
-        echo "FKDJSLKJFLKDSJF"
-        flatpak run org.wezfurlong.wezterm
-        ;;
-    *)
-        ;;
-    esac
-
-}
-
-function keys() {
-    xev | awk -F'[ )]+' '/^KeyPress/ { a[NR+2] } NR in a { printf "%-3s %s\n", $5, $8 }'
+copy() {
+    cat "$1" | pbcopy
 }
