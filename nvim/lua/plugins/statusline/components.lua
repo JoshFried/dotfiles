@@ -1,66 +1,40 @@
 local icons = require("config.icons")
-local Job = require("plenary.job")
 
--- dont really use most of these i should probably remove a bunch of this stuff one day....
 local function fg(name)
     return function()
-        local hl = vim.api.nvim_get_hl_by_name(name, true)
-        return hl and hl.foreground and { fg = string.format("#%06x", hl.foreground) }
+        local hl = vim.api.nvim_get_hl(0, { name = name })
+        return hl and hl.fg and { fg = string.format("#%06x", hl.fg) }
     end
 end
 
 return {
     spaces = {
         function()
-            local shiftwidth = vim.api.nvim_buf_get_option(0, "shiftwidth")
-            return icons.ui.Tab .. " " .. shiftwidth
+            return icons.ui.Tab .. " " .. vim.bo[0].shiftwidth
         end,
         padding = 1,
     },
     git_repo = {
         function()
-            local results = {}
-            local job = Job:new({
-                command = "git",
-                args = { "rev-parse", "--show-toplevel" },
-                cwd = vim.fn.expand("%:p:h"),
-                on_stdout = function(_, line)
-                    table.insert(results, line)
-                end,
-            })
-            job:sync()
-            if results[1] ~= nil then
-                return vim.fn.fnamemodify(results[1], ":t")
-            else
-                return ""
-            end
-        end,
-    },
-    separator = {
-        function()
-            return "%="
+            local bufnr = vim.api.nvim_get_current_buf()
+            local cached = vim.b[bufnr].lualine_git_repo
+            if cached ~= nil then return cached end
+
+            local dir = vim.fn.expand("%:p:h")
+            local result = vim.fn.system("git -C " .. vim.fn.shellescape(dir) .. " rev-parse --show-toplevel 2>/dev/null")
+            local repo = result ~= "" and vim.fn.fnamemodify(vim.trim(result), ":t") or ""
+            vim.b[bufnr].lualine_git_repo = repo
+            return repo
         end,
     },
     diff = {
         "diff",
         colored = false,
     },
-    diagnostics = {
-        "diagnostics",
-        sources = { "nvim_diagnostic" },
-        diagnostics_color = {
-            error = "DiagnosticError",
-            warn = "DiagnosticWarn",
-            info = "DiagnosticInfo",
-            hint = "DiagnosticHint",
-        },
-        colored = true,
-    },
     lsp_client = {
         function(msg)
             msg = msg or ""
 
-            -- local buf_clients = vim.lsp.get_active_clients({ bufnr = 0 })
             local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
             if next(buf_clients) == nil then
                 if type(msg) == "boolean" or #msg == 0 then
@@ -72,12 +46,10 @@ return {
             local buf_ft = vim.bo.filetype
             local buf_client_names = {}
 
-            -- add client
             for _, client in pairs(buf_clients) do
                 table.insert(buf_client_names, client.name)
             end
 
-            -- add formatter
             local ok_conform, conform = pcall(require, "conform")
             if ok_conform then
                 for _, f in ipairs(conform.list_formatters_for_buffer()) do
@@ -85,7 +57,6 @@ return {
                 end
             end
 
-            -- add linter
             local ok_lint, lint = pcall(require, "lint")
             if ok_lint then
                 local linters = lint.linters_by_ft[buf_ft] or {}

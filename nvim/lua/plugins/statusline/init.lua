@@ -65,13 +65,7 @@ return {
                         components.spaces,
                         "encoding",
                     },
-                    lualine_y = {
-                        {
-                            function()
-                                return "Buf:" .. #vim.fn.getbufinfo({buflisted = 1})
-                            end,
-                        },
-                    },
+                    lualine_y = { { "filetype", icon_only = false } },
                     lualine_z = { "location" },
                 },
                 inactive_sections = {
