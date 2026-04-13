@@ -27,3 +27,6 @@ require("scratchpad")
 hs.hotkey.bind(hyper, "V", function()
     hs.urlevent.openURL("raycast://extensions/raycast/clipboard-history/clipboard-history")
 end)
+
+-- Work-specific bindings (gitignored, only loaded if present)
+pcall(require, "work")

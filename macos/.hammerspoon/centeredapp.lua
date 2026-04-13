@@ -68,6 +68,7 @@ local apps = {
     { key = "E", app = "Messages" },
     { key = "A", app = "Music" },
     { key = "P", app = "Podcasts" },
+    { key = "W", app = "Notes" },
     { key = "T", app = "Telegram" },
 }
 
