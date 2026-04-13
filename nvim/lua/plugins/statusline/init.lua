@@ -1,6 +1,7 @@
 return {
     {
         "nvim-lualine/lualine.nvim",
+        dependencies = { "meuter/lualine-so-fancy.nvim" },
         event = "VeryLazy",
 
         config = function()

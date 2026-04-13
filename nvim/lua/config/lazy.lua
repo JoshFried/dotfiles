@@ -22,7 +22,7 @@ require("lazy").setup({
 		{ import = "plugins.lsp.init" },
 		-- Work-only plugins. Directory is gitignored so it only exists on work machines.
 		-- so it only exists on work machines. optional=true prevents errors when missing.
-		vim.uv.fs_stat(vim.fn.stdpath("config") .. "lua/plugins/work") and { import = "plugins.work", optional = true }
+		vim.uv.fs_stat(vim.fn.stdpath("config") .. "/lua/plugins/work") and { import = "plugins.work", optional = true }
 			or {},
 	},
 	defaults = { lazy = true, version = nil },
