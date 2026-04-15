@@ -1,7 +1,7 @@
 return {
     -- Line manipulation
-    { "n", "zj", "o<Esc>k", { desc = "Create line above without insert" } },
-    { "n", "zk", "O<Esc>j", { desc = "Create line below without insert" } },
+    { "n", "zj", "o<Esc>k", { desc = "Create line below without insert" } },
+    { "n", "zk", "O<Esc>j", { desc = "Create line above without insert" } },
     { "n", "J", "mzJ`z", { desc = "Join lines" } },
     
     -- Movement

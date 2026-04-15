@@ -4,16 +4,6 @@ local lsp_utils = require("plugins.lsp.utils")
 local icons = require("config.icons")
 
 local function lsp_init()
-    local signs = {
-        { name = "DiagnosticSignError", text = icons.diagnostics.Error },
-        { name = "DiagnosticSignWarn",  text = icons.diagnostics.Warning },
-        { name = "DiagnosticSignHint",  text = icons.diagnostics.Hint },
-        { name = "DiagnosticSignInfo",  text = icons.diagnostics.Info },
-    }
-    for _, sign in ipairs(signs) do
-        vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = sign.name })
-    end
-
     -- LSP handlers configuration
     local config = {
         float = {
@@ -29,7 +19,6 @@ local function lsp_init()
                 },
             },
             signs = {
-                active = signs,
                 text = {
                     [vim.diagnostic.severity.ERROR] = icons.diagnostics.Error,
                     [vim.diagnostic.severity.WARN] = icons.diagnostics.Warn,

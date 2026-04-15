@@ -77,7 +77,10 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
-vim.api.nvim_command("autocmd VimResized * wincmd =")
+vim.api.nvim_create_autocmd("VimResized", {
+    group = augroup("equalize_splits"),
+    command = "wincmd =",
+})
 
 -- ensure we always have a transparent background when we change themes :)
 vim.api.nvim_create_autocmd("ColorScheme", {
@@ -113,6 +116,6 @@ vim.api.nvim_create_autocmd('Filetype', {
 
 -- no more annoying eol issues when comparing buffers
 vim.api.nvim_create_autocmd({ "FileType" }, {
-    pattern = { 'json', 'yaml', 'txt', ".sarif" },
+    pattern = { 'json', 'yaml', 'txt' },
     command = "setlocal noeol binary shiftwidth=2 tabstop=2 expandtab smartindent fileformats=mac,unix,dos",
 })

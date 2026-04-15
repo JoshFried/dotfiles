@@ -4,11 +4,6 @@ function M.EqualizeSplits()
     vim.cmd("wincmd =") -- Equalize the size of all windows
 end
 
-function M.SmartDelete()
-    if vim.fn.getline(".") == "" then return '"_dd' end
-    return "dd"
-end
-
 -- ty @ https://github.com/adibhanna/nvim/blob/main/lua/config/utils.lua
 function M.CopyFilePathAndLineNumber()
     local current_file = vim.fn.expand("%:p")

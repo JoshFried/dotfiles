@@ -82,12 +82,12 @@ return {
 			local move_fns = {
 				["]m"] = { "goto_next_start", "@function.outer" },
 				["]]"] = { "goto_next_start", "@class.outer" },
-				["[p"] = { "goto_next_start", "@parameter.inner" },
+				["[p"] = { "goto_previous_start", "@parameter.inner" },
 				["]M"] = { "goto_next_end", "@function.outer" },
 				["]["] = { "goto_next_end", "@class.outer" },
 				["[m"] = { "goto_previous_start", "@function.outer" },
 				["[["] = { "goto_previous_start", "@class.outer" },
-				["]p"] = { "goto_previous_start", "@parameter.inner" },
+				["]p"] = { "goto_next_start", "@parameter.inner" },
 				["[M"] = { "goto_previous_end", "@function.outer" },
 				["[]"] = { "goto_previous_end", "@class.outer" },
 			}

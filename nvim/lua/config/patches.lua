@@ -32,12 +32,14 @@ for _, pattern in ipairs({ "jar://*", "*.class" }) do
             vim.bo[buf].swapfile = false
             vim.bo[buf].modifiable = true
 
+            -- TODO: hardcoded to macOS Apple Silicon homebrew path
+            local cfr = "/opt/homebrew/bin/cfr-decompiler"
             local cmd
             if class_path then
                 local class_name = class_path:gsub("/", "."):gsub("%.class$", "")
-                cmd = { "/opt/homebrew/bin/cfr-decompiler", jar, class_name }
+                cmd = { cfr, jar, class_name }
             else
-                cmd = { "/opt/homebrew/bin/cfr-decompiler", jar }
+                cmd = { cfr, jar }
             end
 
             local result = vim.fn.systemlist(cmd)
@@ -75,7 +77,7 @@ vim.lsp.util.apply_workspace_edit = function(workspace_edit, offset_encoding)
         for _, change in ipairs(workspace_edit.documentChanges) do
             if change.textDocument and change.textDocument.uri then
                 local bufnr = vim.uri_to_bufnr(change.textDocument.uri)
-                change.textDocument.version = vim.lsp.util.buf_versions[bufnr] or 0
+                change.textDocument.version = nil
             end
         end
     end

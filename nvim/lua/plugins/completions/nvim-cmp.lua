@@ -204,7 +204,6 @@ M.config = function()
         },
         experimental = {
             ghost_text = true,
-            native_menu = false,
         },
         window = {
             completion = cmp.config.window.bordered(),
