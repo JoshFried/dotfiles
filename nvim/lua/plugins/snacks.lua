@@ -5,6 +5,7 @@ return {
         lazy = false,
         keys = {
             { "<leader>go", function() require("snacks").gitbrowse() end, desc = "Open in browser", mode = { "n", "x" } },
+            { "<leader>gy", function() require("snacks").gitbrowse({ open = function(url) vim.fn.setreg("+", url) vim.notify("Copied: " .. url) end }) end, desc = "Copy git URL", mode = { "n", "x" } },
             { "<leader>cR", function() require("snacks").rename.rename_file() end, desc = "Rename File" },
             { "<leader>nh", function() require("snacks").notifier.show_history() end, desc = "Notification History" },
             { "<leader>nd", function() require("snacks").notifier.hide() end, desc = "Dismiss Notifications" },
