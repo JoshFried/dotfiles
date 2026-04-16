@@ -1,8 +1,10 @@
+neofetch
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 export ZSH="$HOME/.oh-my-zsh"
+
 export PATH=$PATH:~/go/bin
 
 export NVM_DIR="$HOME/.nvm"
@@ -23,7 +25,7 @@ source $ZSH/oh-my-zsh.sh
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-command -v thefuck &>/dev/null && eval $(thefuck --alias)
+ command -v thefuck &>/dev/null && eval $(thefuck --alias)
 
 source $HOME/.alias.zsh
 
@@ -37,5 +39,3 @@ source $HOME/.alias.zsh
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# neofetch after everything loads to avoid p10k instant prompt warning
-command -v neofetch &>/dev/null && neofetch
