@@ -23,12 +23,15 @@ end
 
 function M.capabilities()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities.textDocument.completion.completionItem.snippetSupport = true
     capabilities.textDocument.foldingRange = {
         dynamicRegistration = false,
         lineFoldingOnly = true,
     }
-    return require("cmp_nvim_lsp").default_capabilities(capabilities)
+    local ok, blink = pcall(require, "blink.cmp")
+    if ok then
+        capabilities = blink.get_lsp_capabilities(capabilities)
+    end
+    return capabilities
 end
 
 function M.on_attach(on_attach)

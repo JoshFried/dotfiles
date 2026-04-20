@@ -1,6 +1,6 @@
 local prefix = "plugins.completions"
 return {
-    require(prefix .. ".nvim-cmp"),
+    require(prefix .. ".blink"),
     require(prefix .. ".luasnip"),
     require(prefix .. ".crates"),
 }
