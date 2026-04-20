@@ -11,7 +11,25 @@ return {
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config
 	opts = {
-		keymap = { preset = "default" },
+		keymap = {
+			preset = "default",
+			["<C-n>"] = {
+				function(cmp)
+					if cmp.is_visible() then return cmp.select_next() end
+					local luasnip = require("luasnip")
+					if luasnip.jumpable(1) then luasnip.jump(1); return true end
+				end,
+				"fallback",
+			},
+			["<C-p>"] = {
+				function(cmp)
+					if cmp.is_visible() then return cmp.select_prev() end
+					local luasnip = require("luasnip")
+					if luasnip.jumpable(-1) then luasnip.jump(-1); return true end
+				end,
+				"fallback",
+			},
+		},
 
 		appearance = {
 			use_nvim_cmp_as_default = false,
