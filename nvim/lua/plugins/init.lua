@@ -89,27 +89,18 @@ return {
 			comment.setup(opts)
 		end,
 	},
-	{
-		"mistricky/codesnap.nvim",
-		build = "make",
-		cmd = {
-			"CodeSnap",
-			"CodeSnapSave",
-			"CodeSnapHighlight",
-			"CodeSnapSaveHighlight",
-			"CodeSnapASCII",
-		},
-		config = function(_, _)
-			local ok, codesnap = pcall(require, "codesnap")
-			if not ok then
-				vim.notify("Failed to load codesnap.nvim", vim.log.levels.ERROR)
-				return
-			end
-
-			codesnap.setup({
-				preview_title = "",
-				watermark = "",
-			})
-		end,
-	},
+    {
+        "mistricky/codesnap.nvim",
+        version = "^2",
+        cmd = {
+            "CodeSnap",
+            "CodeSnapSave",
+            "CodeSnapHighlight",
+            "CodeSnapSaveHighlight",
+            "CodeSnapASCII",
+        },
+        opts = {
+            watermark = "",
+        },
+    },
 }
