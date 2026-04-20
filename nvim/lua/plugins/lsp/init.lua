@@ -19,9 +19,10 @@ return {
             },
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
+            "b0o/SchemaStore.nvim",
         },
-        opts = {
-            servers = {
+        opts = function(_, opts)
+            opts.servers = {
                 lua_ls = {
                     settings = {
                         Lua = {
@@ -40,9 +41,17 @@ return {
                 marksman = {},
                 lemminx = {},
                 prismals = {},
-                smithy_ls = {}
-            },
-            setup = {
+                smithy_ls = {},
+                jsonls = {
+                    settings = {
+                        json = {
+                            schemas = require("schemastore").json.schemas(),
+                            validate = { enable = true },
+                        },
+                    },
+                },
+            }
+            opts.setup = {
                 lua_ls = function(_, _)
                     local lsp_utils = require("plugins.lsp.utils")
                     lsp_utils.on_attach(function(client, buffer)
@@ -56,8 +65,9 @@ return {
                         end
                     end)
                 end,
-            },
-        },
+            }
+            return opts
+        end,
         config = function(plugin, opts)
             require("plugins.lsp.servers").setup(plugin, opts)
         end,
