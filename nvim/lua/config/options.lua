@@ -1,3 +1,4 @@
+vim.opt.fileformat = "unix"
 -- Set JAVA_HOME for coursier (Java is already in PATH)
 vim.env.JAVA_HOME = vim.env.JAVA_HOME or "/Library/Java/JavaVirtualMachines/amazon-corretto-21.jdk/Contents/Home"
 
