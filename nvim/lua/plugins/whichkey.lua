@@ -27,6 +27,7 @@ return {
 				{ "<leader>y", group = "yank" },
 				{ "<leader>x", group = "file-path" },
 				{ "<leader>a", group = "amazon-q" },
+				{ "<leader>S", group = "snap", mode = "x" },
 			},
 		},
 	},

@@ -94,13 +94,16 @@ return {
         version = "^2",
         cmd = {
             "CodeSnap",
-            "CodeSnapSave",
             "CodeSnapHighlight",
-            "CodeSnapSaveHighlight",
             "CodeSnapASCII",
         },
         opts = {
             watermark = "",
+        },
+        keys = {
+            { "<leader>Ss", "<cmd>CodeSnap<cr>",          mode = "x", desc = "Snap → clipboard" },
+            { "<leader>Sh", "<cmd>CodeSnapHighlight<cr>", mode = "x", desc = "Snap highlight → clipboard" },
+            { "<leader>Sa", "<cmd>CodeSnapASCII<cr>",     mode = "x", desc = "Snap as ASCII" },
         },
     },
 }

@@ -22,7 +22,10 @@ return {
             "b0o/SchemaStore.nvim",
         },
         opts = function(_, opts)
-            opts.servers = {
+            opts.servers = opts.servers or {}
+            opts.setup = opts.setup or {}
+
+            local base_servers = {
                 lua_ls = {
                     settings = {
                         Lua = {
@@ -51,21 +54,24 @@ return {
                     },
                 },
             }
-            opts.setup = {
-                lua_ls = function(_, _)
-                    local lsp_utils = require("plugins.lsp.utils")
-                    lsp_utils.on_attach(function(client, buffer)
-                        if client.name == "lua_ls" then
-                            vim.keymap.set("n", "<leader>dX", function()
-                                require("osv").run_this()
-                            end, { buffer = buffer, desc = "OSV Run" })
-                            vim.keymap.set("n", "<leader>dL", function()
-                                require("osv").launch({ port = 8086 })
-                            end, { buffer = buffer, desc = "OSV Launch" })
-                        end
-                    end)
-                end,
-            }
+            for k, v in pairs(base_servers) do
+                if opts.servers[k] == nil then opts.servers[k] = v end
+            end
+
+            opts.setup.lua_ls = opts.setup.lua_ls or function(_, _)
+                local lsp_utils = require("plugins.lsp.utils")
+                lsp_utils.on_attach(function(client, buffer)
+                    if client.name == "lua_ls" then
+                        vim.keymap.set("n", "<leader>dX", function()
+                            require("osv").run_this()
+                        end, { buffer = buffer, desc = "OSV Run" })
+                        vim.keymap.set("n", "<leader>dL", function()
+                            require("osv").launch({ port = 8086 })
+                        end, { buffer = buffer, desc = "OSV Launch" })
+                    end
+                end)
+            end
+
             return opts
         end,
         config = function(plugin, opts)
