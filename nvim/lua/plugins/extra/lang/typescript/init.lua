@@ -4,6 +4,5 @@ return {
     require(prefix .. ".ts-error-translator"),
     require(prefix .. ".mason"),
     require(prefix .. ".ts"),
-    require(prefix .. ".typescript-tools"),
     require(prefix .. ".package-info"),
 }
