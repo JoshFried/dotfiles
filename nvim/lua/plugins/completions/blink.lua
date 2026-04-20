@@ -66,6 +66,7 @@ return {
 			default = { "lsp", "path", "snippets", "buffer", "lazydev" },
 			per_filetype = {
 				["toml"] = { "lsp", "path", "snippets", "buffer", "crates" },
+				["json"] = { "lsp", "path", "snippets", "buffer", "npm" },
 				["sql"] = { "lsp", "path", "snippets", "buffer", "omni" },
 				["mysql"] = { "lsp", "path", "snippets", "buffer", "omni" },
 				["plsql"] = { "lsp", "path", "snippets", "buffer", "omni" },
@@ -78,6 +79,11 @@ return {
 				},
 				crates = {
 					name = "crates",
+					module = "blink.compat.source",
+					score_offset = 100,
+				},
+				npm = {
+					name = "npm",
 					module = "blink.compat.source",
 					score_offset = 100,
 				},
