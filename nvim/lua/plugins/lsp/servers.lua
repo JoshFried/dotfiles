@@ -33,7 +33,7 @@ local function lsp_init()
                 focusable = true,
                 style = "minimal",
                 border = "rounded",
-                source = "always",
+                source = true,
                 header = "",
                 prefix = "",
             },

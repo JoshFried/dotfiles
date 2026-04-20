@@ -15,7 +15,6 @@ local M = {
     dependencies = {
         "nvim-lua/plenary.nvim",
         "nvim-treesitter/nvim-treesitter",
-        "antoinemadec/FixCursorHold.nvim",
         "nvim-neotest/neotest-vim-test",
         "vim-test/vim-test",
         "stevearc/overseer.nvim",
