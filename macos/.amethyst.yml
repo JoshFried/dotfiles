@@ -42,7 +42,7 @@ restore-layouts-on-launch: true
 enables-layout-hud: true
 enables-layout-hud-on-space-change: true
 debug-layout-info: false
-ignore-menu-bar: false
+ignore-menu-bar: true
 
 # Keyboard shortcuts
 # mod1 = Option+Shift, mod2 = Option+Shift+Control
