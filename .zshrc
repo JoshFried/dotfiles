@@ -25,7 +25,7 @@ source $ZSH/oh-my-zsh.sh
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
- command -v thefuck &>/dev/null && eval $(thefuck --alias)
+command -v thefuck &>/dev/null && eval $(thefuck --alias)
 
 source $HOME/.alias.zsh
 
@@ -39,3 +39,6 @@ source $HOME/.alias.zsh
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
+
+# Added by AIM CLI
+export PATH="$HOME/.aim/mcp-servers:$PATH"

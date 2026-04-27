@@ -21,6 +21,7 @@ require("wifiswitch")
 require("hsconsole")
 require("newspace")
 require("scratchpad")
+require("battery")
 
 
 -- Raycast clipboard history
