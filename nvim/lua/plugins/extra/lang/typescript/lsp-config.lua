@@ -1,6 +1,3 @@
--- vtsls replaces typescript-tools. Uses VSCode's TS extension under the hood
--- for full feature parity (move refactor, rename file with import updates, etc.).
--- nvim-vtsls adds :VtsExec and :VtsRename helpers.
 local utils = require("plugins.lsp.utils")
 
 return {
