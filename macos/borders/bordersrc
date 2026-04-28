@@ -6,7 +6,7 @@
 
 options=(
     style=square
-    width=7.0
+    width=9.0
     hidpi=on
     active_color=0xff5f7a56
     inactive_color=0xff363646
