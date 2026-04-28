@@ -49,8 +49,6 @@ function cycle()
 
             runningWindows[newIndex]:focus()
         end
-
-        highlightWindow()
     end
 end
 

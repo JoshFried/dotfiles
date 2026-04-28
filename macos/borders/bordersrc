@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Kanagawa Wave colors
+# Active:   crystalBlue #7E9CD8 (bright, visible)
+# Inactive: sumiInk5    #363646 (subtle)
+
+options=(
+    style=square
+    width=7.0
+    hidpi=on
+    active_color=0xff5f7a56
+    inactive_color=0xff363646
+)
+
+borders "${options[@]}"

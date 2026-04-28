@@ -19,15 +19,16 @@ layouts:
   - column
 
 # Window settings
-window-margins: false
-window-margin-size: 0
+window-margins: true
+smart-window-margins: true
+window-margin-size: 10
 window-resize-step: 5
 window-minimum-height: 0
 window-minimum-width: 0
 window-max-count: 0
 
 # Screen padding
-screen-padding-top: 10
+screen-padding-top: 50
 screen-padding-bottom: 10
 screen-padding-left: 10
 screen-padding-right: 10

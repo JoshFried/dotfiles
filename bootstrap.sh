@@ -85,6 +85,11 @@ FORMULAE=(
     # Bluetooth/audio (used by Hammerspoon scripts)
     blueutil
 
+    # Window management / status bar
+    FelixKratz/formulae/borders
+    FelixKratz/formulae/sketchybar
+    nowplaying-cli
+
     # QMK
     qmk-toolbox
 )
@@ -290,6 +295,12 @@ symlink "$DOTFILES_DIR/macos/.hammerspoon" "$HOME/.hammerspoon"
 # Amethyst
 symlink "$DOTFILES_DIR/macos/.amethyst.yml" "$HOME/.amethyst.yml"
 
+# SketchyBar
+symlink "$DOTFILES_DIR/macos/sketchybar" "$HOME/.config/sketchybar"
+
+# JankyBorders
+symlink "$DOTFILES_DIR/macos/borders" "$HOME/.config/borders"
+
 # =============================================================================
 # 13. Neovim undo directory
 # =============================================================================
@@ -338,4 +349,5 @@ echo "  5. In nvim, run :Mason to verify LSP servers are installed"
 echo "  6. Open Karabiner-Elements and add your Dactyl device entry"
 echo "     (vendor_id: 17485, product_id: 13623)"
 echo "  7. Grant Accessibility permissions to Hammerspoon and Amethyst"
-echo "  8. Log file: $LOG_FILE"
+echo "  8. Start SketchyBar and Borders: brew services start borders sketchybar"
+echo "  9. Log file: $LOG_FILE"

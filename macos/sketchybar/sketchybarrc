@@ -1,0 +1,165 @@
+#!/bin/bash
+
+# ── Kanagawa Wave palette ──────────────────────────────────
+export BAR_COLOR=0xd0181820        # sumiInk1 (slightly transparent)
+export ITEM_BG=0xff2A2A37          # sumiInk4
+export ACCENT=0xff7E9CD8           # crystalBlue
+export FG=0xffDCD7BA               # fujiWhite
+export FG_DIM=0xffC8C093           # oldWhite
+export GREEN=0xff98BB6C            # springGreen
+export RED=0xffE46876              # waveRed
+export YELLOW=0xffE6C384           # carpYellow
+export ORANGE=0xffFFA066           # surimiOrange
+export VIOLET=0xff957FB8           # oniViolet
+export CYAN=0xff6A9589             # waveAqua1
+export COMMENT=0xff727169          # fujiGray
+export TRANSPARENT=0x00000000
+
+# ── Fonts ──────────────────────────────────────────────────
+FONT="SF Pro"
+NERD="JetBrainsMono Nerd Font"
+ICON_FONT="$NERD:Bold:14.0"
+LABEL_FONT="$FONT:Semibold:13.0"
+PADDING=6
+
+# ── Bar ────────────────────────────────────────────────────
+sketchybar --bar \
+    position=top \
+    height=36 \
+    color=$BAR_COLOR \
+    border_width=0 \
+    shadow=off \
+    sticky=on \
+    padding_left=10 \
+    padding_right=10 \
+    topmost=window \
+    y_offset=0 \
+    margin=0 \
+    corner_radius=0 \
+    blur_radius=20 \
+    notch_width=200
+
+# ── Plugin dir ────────────────────────────────────────────
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+export PLUGIN_DIR
+
+# ── Defaults ───────────────────────────────────────────────
+sketchybar --default \
+    icon.font="$ICON_FONT" \
+    icon.color=$FG \
+    icon.padding_left=$PADDING \
+    icon.padding_right=4 \
+    label.font="$LABEL_FONT" \
+    label.color=$FG \
+    label.padding_left=4 \
+    label.padding_right=$PADDING \
+    background.color=$ITEM_BG \
+    background.corner_radius=6 \
+    background.height=26 \
+    background.padding_left=4 \
+    background.padding_right=4 \
+    popup.background.color=$ITEM_BG \
+    popup.background.corner_radius=8 \
+    popup.background.border_width=1 \
+    popup.background.border_color=$COMMENT
+
+# ── Left: Spaces ──────────────────────────────────────────
+SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
+# macOS key codes for digits 1-9,0
+SPACE_KEYCODES=(18 19 20 21 23 22 26 28 25 29)
+
+for i in "${!SPACE_ICONS[@]}"; do
+    sid=$((i + 1))
+    sketchybar --add space space.$sid left \
+        --set space.$sid \
+            space=$sid \
+            icon="${SPACE_ICONS[$i]}" \
+            icon.font="$NERD:Bold:13.0" \
+            icon.color=$COMMENT \
+            icon.highlight_color=$ACCENT \
+            icon.padding_left=8 \
+            icon.padding_right=8 \
+            label.drawing=off \
+            background.color=$TRANSPARENT \
+            background.drawing=on \
+            script="$PLUGIN_DIR/space.sh" \
+            click_script="osascript -e 'tell application \"System Events\" to key code ${SPACE_KEYCODES[$i]} using control down'"
+done
+
+# Separator after spaces
+sketchybar --add item separator left \
+    --set separator \
+        icon="│" \
+        icon.color=$COMMENT \
+        icon.font="$FONT:Regular:16.0" \
+        icon.padding_left=4 \
+        label.drawing=off \
+        background.drawing=off
+
+# ── Left: Front app ──────────────────────────────────────
+sketchybar --add item front_app left \
+    --set front_app \
+        icon.drawing=off \
+        label.color=$FG_DIM \
+        label.font="$FONT:Semibold:13.0" \
+        background.drawing=off \
+        script="$PLUGIN_DIR/front_app.sh" \
+    --subscribe front_app front_app_switched
+
+# ── Center: Now Playing ───────────────────────────────────
+# notch_width keeps this clear of the notch on laptop displays
+sketchybar --add item media q \
+    --set media \
+        position=right \
+        icon=󰎈 \
+        icon.color=$VIOLET \
+        icon.font="$NERD:Bold:16.0" \
+        label.color=$FG_DIM \
+        label.max_chars=40 \
+        background.drawing=off \
+        update_freq=3 \
+        script="$PLUGIN_DIR/media.sh" \
+        click_script="nowplaying-cli togglePlayPause"
+
+# ── Right: Clock ──────────────────────────────────────────
+sketchybar --add item clock right \
+    --set clock \
+        icon=󰥔 \
+        icon.color=$ACCENT \
+        label.color=$FG \
+        update_freq=30 \
+        script="$PLUGIN_DIR/clock.sh" \
+        click_script="open -a Calendar"
+
+# ── Right: Battery ────────────────────────────────────────
+sketchybar --add item battery right \
+    --set battery \
+        icon.color=$GREEN \
+        label.color=$FG \
+        update_freq=120 \
+        script="$PLUGIN_DIR/battery.sh" \
+        click_script="open 'x-apple.systempreferences:com.apple.settings.battery'" \
+    --subscribe battery system_woke power_source_change
+
+# ── Right: Wifi ───────────────────────────────────────────
+sketchybar --add item wifi right \
+    --set wifi \
+        icon=󰖩 \
+        icon.color=$CYAN \
+        label.color=$FG_DIM \
+        script="$PLUGIN_DIR/wifi.sh" \
+        click_script="open 'x-apple.systempreferences:com.apple.Wi-Fi-Settings.extension'" \
+    --subscribe wifi wifi_change
+
+# ── Right: CPU ────────────────────────────────────────────
+sketchybar --add item cpu right \
+    --set cpu \
+        icon=󰍛 \
+        icon.color=$ORANGE \
+        label.color=$FG_DIM \
+        update_freq=30 \
+        script="$PLUGIN_DIR/cpu.sh" \
+        click_script="open -a 'Activity Monitor'"
+
+# ── Finalize ──────────────────────────────────────────────
+sketchybar --update
