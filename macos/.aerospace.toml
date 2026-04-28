@@ -1,0 +1,175 @@
+# AeroSpace config — migrated from Amethyst
+# Docs: https://nikitabobko.github.io/AeroSpace/guide
+
+# ── General ────────────────────────────────────────────────
+start-at-login = true
+after-login-command = []
+after-startup-command = [
+    'exec-and-forget sketchybar --reload',
+]
+
+# Notify SketchyBar on workspace change
+exec-on-workspace-change = ['/bin/bash', '-c',
+    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+]
+
+# Normalizations
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# Mouse
+on-focus-changed = ['move-mouse monitor-lazy-center']
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+# Layout
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+
+# ── Workspace-to-monitor assignment ────────────────────────
+# 1-5 on main monitor, 6-10 on secondary
+[workspace-to-monitor-force-assignment]
+1 = 'main'
+2 = 'main'
+3 = 'main'
+4 = 'main'
+5 = 'main'
+6 = 'secondary'
+7 = 'secondary'
+8 = 'secondary'
+9 = 'secondary'
+10 = 'secondary'
+
+# ── Gaps (matches Amethyst padding + margins) ──────────────
+[gaps]
+inner.horizontal = 10
+inner.vertical = 10
+outer.left = 10
+outer.right = 10
+outer.top = 38
+outer.bottom = 10
+
+# ── Key bindings ───────────────────────────────────────────
+# mod1 = alt-shift (matches Amethyst mod1)
+# mod2 = alt-shift-ctrl (matches Amethyst mod2)
+
+[mode.main.binding]
+
+# Focus windows (mod1 = alt-shift)
+alt-shift-h = 'focus left'
+alt-shift-j = 'focus down'
+alt-shift-k = 'focus up'
+alt-shift-l = 'focus right'
+
+# Move windows
+alt-shift-ctrl-h = 'move left'
+alt-shift-ctrl-j = 'move down'
+alt-shift-ctrl-k = 'move up'
+alt-shift-ctrl-l = 'move right'
+
+# Resize (mod1 + minus/equal)
+alt-shift-minus = 'resize smart -50'
+alt-shift-equal = 'resize smart +50'
+
+# Toggle float (mod1 + t)
+alt-shift-t = 'layout floating tiling'
+
+# Fullscreen (mod1 + f)
+alt-shift-f = 'fullscreen'
+
+# Focus monitor (mod2 + p/n)
+alt-shift-ctrl-p = 'focus-monitor prev'
+alt-shift-ctrl-n = 'focus-monitor next'
+
+# Move window to other monitor (right_option + n = toggle between monitors)
+alt-shift-n = 'move-node-to-monitor --wrap-around next'
+
+# Throw + move-to-monitor:
+# Throw = alt-shift + N (right_option on laptop/dactyl via Karabiner = alt+shift)
+# Move to monitor = hyper + comma/period (via Hammerspoon)
+alt-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
+alt-shift-2 = ['move-node-to-workspace 2', 'workspace 2']
+alt-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
+alt-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
+alt-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
+alt-shift-6 = ['move-node-to-workspace 6', 'workspace 6']
+alt-shift-7 = ['move-node-to-workspace 7', 'workspace 7']
+alt-shift-8 = ['move-node-to-workspace 8', 'workspace 8']
+alt-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
+alt-shift-0 = ['move-node-to-workspace 10', 'workspace 10']
+
+# Switch to workspace (ctrl-shift + number)
+ctrl-shift-1 = 'workspace 1'
+ctrl-shift-2 = 'workspace 2'
+ctrl-shift-3 = 'workspace 3'
+ctrl-shift-4 = 'workspace 4'
+ctrl-shift-5 = 'workspace 5'
+ctrl-shift-6 = 'workspace 6'
+ctrl-shift-7 = 'workspace 7'
+ctrl-shift-8 = 'workspace 8'
+ctrl-shift-9 = 'workspace 9'
+ctrl-shift-0 = 'workspace 10'
+
+# Balance window sizes
+alt-shift-b = 'balance-sizes'
+
+# ── Floating rules (matches Amethyst blacklist) ────────────
+[[on-window-detected]]
+if.app-id = 'org.hammerspoon.Hammerspoon'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.amazon.ACME'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Music'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.podcasts'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.amazon.Amazon-Chime'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.electron.amazonconnections'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.cisco.anyconnect.gui'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.cisco.anyconnect.macos.acsock'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.raycast.macos'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Notes'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.MobileSMS'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.jetbrains.intellij'
+if.window-title-regex-substring = 'Settings'
+run = 'layout floating'

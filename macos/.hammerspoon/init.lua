@@ -22,6 +22,7 @@ require("hsconsole")
 require("newspace")
 require("scratchpad")
 require("battery")
+require("aerospace")
 
 
 -- Raycast clipboard history

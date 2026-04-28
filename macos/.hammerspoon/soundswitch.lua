@@ -89,10 +89,10 @@ local airpods = function(choice)
     end)
 end
 
-hs.hotkey.bind(hyper, "1", function()
-    airpods("pro")
-end)
+-- hs.hotkey.bind(hyper, "1", function()
+--     airpods("pro")
+-- end)
 
-hs.hotkey.bind(hyper, "2", function()
-    airpods("max")
-end)
+-- hs.hotkey.bind(hyper, "2", function()
+--     airpods("max")
+-- end)

@@ -113,6 +113,7 @@ CASKS=(
     ghostty
     hammerspoon
     amethyst
+    nikitabobko/tap/aerospace
     raycast
     karabiner-elements
     qmk-toolbox
@@ -294,6 +295,9 @@ symlink "$DOTFILES_DIR/macos/.hammerspoon" "$HOME/.hammerspoon"
 
 # Amethyst
 symlink "$DOTFILES_DIR/macos/.amethyst.yml" "$HOME/.amethyst.yml"
+
+# AeroSpace
+symlink "$DOTFILES_DIR/macos/.aerospace.toml" "$HOME/.aerospace.toml"
 
 # SketchyBar
 symlink "$DOTFILES_DIR/macos/sketchybar" "$HOME/.config/sketchybar"
