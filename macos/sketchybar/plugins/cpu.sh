@@ -1,3 +1,3 @@
 #!/bin/bash
-CPU="$(top -l 1 -n 0 | awk '/CPU usage/ {print int($3+$5)}')%"
+CPU="$(top -l 2 -n 0 -s 1 | grep "CPU usage" | tail -1 | awk '{print int($3+$5)}')%"
 sketchybar --set "$NAME" label="$CPU"

@@ -1,0 +1,70 @@
+# Kanagawa Wave theme for btop
+# Based on rebelot/kanagawa.nvim palette
+
+# Main bg and fg
+theme[main_bg]="#1F1F28"
+theme[main_fg]="#DCD7BA"
+
+# Title and highlight
+theme[title]="#DCD7BA"
+theme[hi_fg]="#7E9CD8"
+
+# Selected
+theme[selected_bg]="#2A2A37"
+theme[selected_fg]="#DCD7BA"
+
+# Inactive
+theme[inactive_fg]="#727169"
+
+# Graph colors
+theme[proc_misc]="#957FB8"
+
+# Meter and process box
+theme[cpu_box]="#2A2A37"
+theme[mem_box]="#2A2A37"
+theme[net_box]="#2A2A37"
+theme[proc_box]="#2A2A37"
+
+# CPU graph gradient
+theme[cpu_start]="#98BB6C"
+theme[cpu_mid]="#E6C384"
+theme[cpu_end]="#E46876"
+
+# Memory
+theme[used_start]="#957FB8"
+theme[used_mid]="#7E9CD8"
+theme[used_end]="#7FB4CA"
+
+theme[available_start]="#76946A"
+theme[available_mid]="#98BB6C"
+theme[available_end]="#98BB6C"
+
+theme[cached_start]="#E6C384"
+theme[cached_mid]="#DCA561"
+theme[cached_end]="#FFA066"
+
+theme[free_start]="#54546D"
+theme[free_mid]="#363646"
+theme[free_end]="#2A2A37"
+
+# Network
+theme[download_start]="#7E9CD8"
+theme[download_mid]="#7FB4CA"
+theme[download_end]="#A3D4D5"
+
+theme[upload_start]="#957FB8"
+theme[upload_mid]="#938AA9"
+theme[upload_end]="#9CABCA"
+
+# Process
+theme[process_start]="#98BB6C"
+theme[process_mid]="#E6C384"
+theme[process_end]="#E46876"
+
+# Temperature
+theme[temp_start]="#98BB6C"
+theme[temp_mid]="#E6C384"
+theme[temp_end]="#E82424"
+
+# Divider and border
+theme[div_line]="#363646"
