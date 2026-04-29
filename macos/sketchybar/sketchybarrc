@@ -64,24 +64,36 @@ sketchybar --default \
     popup.background.border_color=$COMMENT
 
 # ── Left: Spaces (AeroSpace workspaces) ───────────────────
-# 1-5 on main display, 6-10 on secondary
-# SketchyBar display 1 = main monitor, display 2 = secondary
-# Workspaces 1-5 on main, 6-10 on secondary
-MAIN_DISPLAY=1
-SEC_DISPLAY=2
+# Dynamically assign workspaces to displays based on monitor count
+MONITOR_COUNT=$(aerospace list-monitors --count 2>/dev/null || echo 1)
+
+get_display() {
+    local sid=$1
+    case $MONITOR_COUNT in
+        1) echo 0 ;;  # 0 = all displays
+        2)
+            if [ $sid -le 5 ]; then echo 1; else echo 2; fi
+            ;;
+        3|*)
+            if [ $sid -le 3 ]; then echo 1
+            elif [ $sid -le 6 ]; then echo 2
+            else echo 3; fi
+            ;;
+    esac
+}
 
 SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
 
 for i in "${!SPACE_ICONS[@]}"; do
     sid=$((i + 1))
-    if [ $sid -le 5 ]; then
-        DISP=$MAIN_DISPLAY
-    else
-        DISP=$SEC_DISPLAY
+    DISP=$(get_display $sid)
+    DISPLAY_OPT=""
+    if [ "$DISP" -gt 0 ]; then
+        DISPLAY_OPT="display=$DISP"
     fi
     sketchybar --add item space.$sid left \
         --set space.$sid \
-            display=$DISP \
+            $DISPLAY_OPT \
             icon="${SPACE_ICONS[$i]}" \
             icon.font="$NERD:Bold:13.0" \
             icon.color=$COMMENT \
