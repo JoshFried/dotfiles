@@ -6,6 +6,7 @@ start-at-login = true
 after-login-command = []
 after-startup-command = [
     'exec-and-forget sketchybar --reload',
+    'exec-and-forget ~/.config/aerospace-workspace-assign.sh',
 ]
 
 # Notify SketchyBar on workspace change
@@ -24,20 +25,6 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 # Layout
 default-root-container-layout = 'tiles'
 default-root-container-orientation = 'auto'
-
-# ── Workspace-to-monitor assignment ────────────────────────
-# 1-5 on main monitor, 6-10 on secondary
-[workspace-to-monitor-force-assignment]
-1 = 'main'
-2 = 'main'
-3 = 'main'
-4 = 'main'
-5 = 'main'
-6 = 'secondary'
-7 = 'secondary'
-8 = 'secondary'
-9 = 'secondary'
-10 = 'secondary'
 
 # ── Gaps (matches Amethyst padding + margins) ──────────────
 [gaps]
