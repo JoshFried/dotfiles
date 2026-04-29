@@ -28,11 +28,11 @@ default-root-container-orientation = 'auto'
 
 # ── Gaps (matches Amethyst padding + margins) ──────────────
 [gaps]
-inner.horizontal = 10
-inner.vertical = 10
+inner.horizontal = 20
+inner.vertical = 15
 outer.left = 20
 outer.right = 20
-outer.top = [{ monitor.'built-in' = 20 }, 50]
+outer.top = [{ monitor.'built-in' = 25 }, 60]
 outer.bottom = 20
 
 # ── Key bindings ───────────────────────────────────────────
@@ -59,14 +59,14 @@ alt-shift-equal = 'resize smart +50'
 ctrl-shift-r = 'mode resize'
 
 # Toggle float (mod1 + t)
-alt-shift-t = 'layout floating tiling'
+alt-shift-t = ['layout floating tiling', 'exec-and-forget ~/.config/aerospace-toast.sh']
 
 # Fullscreen (mod1 + f)
 alt-shift-f = 'fullscreen'
 
-# Focus monitor (mod2 + p/n)
-alt-shift-ctrl-p = 'focus-monitor prev'
-alt-shift-ctrl-n = 'focus-monitor next'
+# Focus monitor
+ctrl-shift-p = 'focus-monitor prev'
+ctrl-shift-n = 'focus-monitor next'
 
 # Move window to other monitor (right_option + n = toggle between monitors)
 alt-shift-n = 'move-node-to-monitor --wrap-around next'
@@ -99,6 +99,15 @@ ctrl-0 = 'workspace 10'
 
 # Balance window sizes
 alt-shift-b = 'balance-sizes'
+
+# Join with neighbor (creates nested BSP-like splits)
+ctrl-shift-h = 'join-with left'
+ctrl-shift-j = 'join-with down'
+ctrl-shift-k = 'join-with up'
+ctrl-shift-l = 'join-with right'
+
+# Reset layout (flatten tree back to flat tiles)
+ctrl-shift-f = ['flatten-workspace-tree', 'exec-and-forget hs -c "hs.alert.show(\"flatten\", 0.8)"']
 
 # Reload config
 ctrl-shift-backspace = 'reload-config'
@@ -159,6 +168,10 @@ run = 'layout floating'
 [[on-window-detected]]
 if.app-id = 'com.github.wez.wezterm'
 run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = 'layout tiling'
 
 [[on-window-detected]]
 if.app-id = 'com.jetbrains.intellij'

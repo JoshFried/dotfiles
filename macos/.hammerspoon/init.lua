@@ -1,3 +1,4 @@
+require("hs.ipc")
 hs.caffeinate.set("displayIdle", true, true)
 
 function awake()
