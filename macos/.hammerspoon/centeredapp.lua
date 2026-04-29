@@ -24,13 +24,17 @@ end
 local function centered(app)
     local application = applications.find(app)
     local mainScreen = screen.mainScreen()
-    local focusedWindow = windows.focusedWindow()
     local mainFrame = mainScreen:frame()
-    local focusedSpace = spaces.focusedSpace()
-    local handled = false
 
     if application then
+        -- If app is frontmost, hide it (toggle behavior)
+        if application:isFrontmost() then
+            application:hide()
+            return
+        end
+
         local existingWindows = application:allWindows()
+        local handled = false
 
         for _, win in ipairs(existingWindows) do
             if handled then

@@ -3,77 +3,78 @@ local applications = require("hs.application")
 local fnutils = require("hs.fnutils")
 
 local cache = {
-    launchTimer = nil,
+	launchTimer = nil,
 }
 
 function launchOrActivateApp(appName)
-    local curr = applications.frontmostApplication()
-    local name = curr:name()
+	local curr = applications.frontmostApplication()
+	local name = curr:name()
 
-    if name == appName then
-        cycle()
-        return
-    end
+	if name == appName then
+		cycle()
+		return
+	end
 
-    -- first focus with hammerspoon
-    --
-    --
+	-- first focus with hammerspoon
+	--
+	--
 
-    local app = applications.launchOrFocus(appName)
+	local app = applications.launchOrFocus(appName)
 
-    if appName == "IntelliJ IDEA" then
-        app = applications.launchOrFocusByBundleID("com.jetbrains.intellij")
-    end
+	if appName == "IntelliJ IDEA" then
+		app = applications.launchOrFocusByBundleID("com.jetbrains.intellij")
+	end
 
-    -- clear timer if exists
-    if cache.launchTimer then
-        cache.launchTimer:stop()
-    end
+	-- clear timer if exists
+	if cache.launchTimer then
+		cache.launchTimer:stop()
+	end
 
-    -- wait 1s for window to appear and try hard to show the window
-    cache.launchTimer = hs.timer.doAfter(1.0, function()
-        local frontmostApp = applications.frontmostApplication()
-        local frontmostWindows = fnutils.filter(frontmostApp:allWindows(), function(win)
-            return win:isStandard()
-        end)
+	-- wait 1s for window to appear and try hard to show the window
+	cache.launchTimer = hs.timer.doAfter(1.0, function()
+		local frontmostApp = applications.frontmostApplication()
+		local frontmostWindows = fnutils.filter(frontmostApp:allWindows(), function(win)
+			return win:isStandard()
+		end)
 
-        -- break if this app is not frontmost (when/why?)
-        if frontmostApp:title() ~= appName then
-            -- log.d("Expected app in front: " .. appName .. " got: " .. frontmostApp:title())
-            return
-        end
+		-- break if this app is not frontmost (when/why?)
+		if frontmostApp:title() ~= appName then
+			-- log.d("Expected app in front: " .. appName .. " got: " .. frontmostApp:title())
+			return
+		end
 
-        if #frontmostWindows == 0 then
-            -- check if there's app name in window menu (Calendar, Messages, etc...)
-            if frontmostApp:findMenuItem({ "Window", appName }) then
-                -- select it, usually moves to space with this window
-                frontmostApp:selectMenuItem({ "Window", appName })
-            else
-                -- otherwise send cmd-n to create new window
-                hs.eventtap.keyStroke({ "cmd" }, "n")
-            end
-        end
-    end)
+		if #frontmostWindows == 0 then
+			-- check if there's app name in window menu (Calendar, Messages, etc...)
+			if frontmostApp:findMenuItem({ "Window", appName }) then
+				-- select it, usually moves to space with this window
+				frontmostApp:selectMenuItem({ "Window", appName })
+			else
+				-- otherwise send cmd-n to create new window
+				hs.eventtap.keyStroke({ "cmd" }, "n")
+			end
+		end
+	end)
 
-    return app
+	return app
 end
 
 local apps = {
-    { key = "G", app = "Google Chrome" },
-    { key = "T", app = "WezTerm" },
-    { key = "D", app = "Discord" },
-    { key = "S", app = "Slack" },
-    { key = "O", app = "Microsoft Outlook" },
-    { key = "C", app = "Codex" },
-    { key = "I", app = "IntelliJ IDEA" },
-    { key = "F", app = "Firefox" },
-    { key = "Z", app = "zoom.us" },
-    { key = "Q", app = "KeyCastr" },
-    { key = "P", app = "Docker" }
+	{ key = "G", app = "Google Chrome" },
+	{ key = "T", app = "Ghostty" },
+	-- { key = "T", app = "WezTerm" },
+	{ key = "D", app = "Discord" },
+	{ key = "S", app = "Slack" },
+	{ key = "O", app = "Microsoft Outlook" },
+	{ key = "C", app = "Codex" },
+	{ key = "I", app = "IntelliJ IDEA" },
+	{ key = "F", app = "Firefox" },
+	{ key = "Z", app = "zoom.us" },
+	{ key = "Q", app = "KeyCastr" },
+	{ key = "P", app = "Docker" },
 }
 
 for _, mappings in ipairs(apps) do
-    hotkey.bind(hyper, mappings.key, function()
-        launchOrActivateApp(mappings.app)
-    end)
+	hotkey.bind(hyper, mappings.key, function()
+		launchOrActivateApp(mappings.app)
+	end)
 end

@@ -1,4 +1,4 @@
--- Scratchpad terminal (Ghostty) - dropdown style
+-- Scratchpad terminal (WezTerm) - dropdown style
 
 local function positionScratchpad(win)
     local screen = hs.screen.mainScreen():frame()
@@ -11,12 +11,12 @@ local function positionScratchpad(win)
 end
 
 local function toggleScratchpad()
-    local app = hs.application.get("Ghostty")
+    local app = hs.application.get("WezTerm")
     
     if not app then
-        hs.application.open("Ghostty")
+        hs.application.open("WezTerm")
         hs.timer.doAfter(0.5, function()
-            local a = hs.application.get("Ghostty")
+            local a = hs.application.get("WezTerm")
             if a and a:mainWindow() then
                 positionScratchpad(a:mainWindow())
             end
