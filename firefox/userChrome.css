@@ -1,0 +1,123 @@
+/* Kanagawa Wave theme for Firefox */
+
+/* ── Variables ──────────────────────────────────────────── */
+:root {
+    --kanagawa-bg: #1F1F28;
+    --kanagawa-bg-dim: #16161D;
+    --kanagawa-bg-light: #2A2A37;
+    --kanagawa-bg-lighter: #363646;
+    --kanagawa-fg: #DCD7BA;
+    --kanagawa-fg-dim: #C8C093;
+    --kanagawa-comment: #727169;
+    --kanagawa-blue: #7E9CD8;
+    --kanagawa-violet: #957FB8;
+    --kanagawa-green: #98BB6C;
+    --kanagawa-red: #E46876;
+    --kanagawa-yellow: #E6C384;
+}
+
+/* ── Tab bar ───────────────────────────────────────────── */
+#tabbrowser-tabs {
+    --tab-min-height: 32px !important;
+}
+
+/* Tab bar background */
+#titlebar, #TabsToolbar {
+    background-color: var(--kanagawa-bg-dim) !important;
+}
+
+/* Individual tabs */
+.tabbrowser-tab {
+    background-color: var(--kanagawa-bg-dim) !important;
+    color: var(--kanagawa-comment) !important;
+    border: none !important;
+    margin: 0 1px !important;
+}
+
+/* Active tab */
+.tabbrowser-tab[selected="true"] {
+    background-color: var(--kanagawa-bg) !important;
+    color: var(--kanagawa-fg) !important;
+}
+
+/* Tab hover */
+.tabbrowser-tab:hover:not([selected="true"]) {
+    background-color: var(--kanagawa-bg-light) !important;
+    color: var(--kanagawa-fg-dim) !important;
+}
+
+/* Tab close button — only show on hover */
+.tabbrowser-tab:not(:hover) .tab-close-button {
+    display: none !important;
+}
+
+/* Tab separator lines */
+.tabbrowser-tab::after,
+.tabbrowser-tab::before {
+    border: none !important;
+}
+
+/* ── Navigation bar ────────────────────────────────────── */
+#nav-bar {
+    background-color: var(--kanagawa-bg) !important;
+    border: none !important;
+    padding: 2px 4px !important;
+}
+
+/* URL bar */
+#urlbar-background {
+    background-color: var(--kanagawa-bg-light) !important;
+    border: 1px solid var(--kanagawa-bg-lighter) !important;
+    border-radius: 6px !important;
+}
+
+#urlbar:hover #urlbar-background {
+    border-color: var(--kanagawa-comment) !important;
+}
+
+#urlbar[focused="true"] #urlbar-background {
+    border-color: var(--kanagawa-blue) !important;
+}
+
+#urlbar-input {
+    color: var(--kanagawa-fg) !important;
+}
+
+/* ── Bookmarks bar ─────────────────────────────────────── */
+#PersonalToolbar {
+    background-color: var(--kanagawa-bg-dim) !important;
+    border: none !important;
+    padding: 2px 0 !important;
+}
+
+/* ── Sidebar ───────────────────────────────────────────── */
+#sidebar-header {
+    background-color: var(--kanagawa-bg) !important;
+    border-bottom: 1px solid var(--kanagawa-bg-lighter) !important;
+}
+
+#sidebar-box {
+    background-color: var(--kanagawa-bg) !important;
+}
+
+/* ── Findbar ───────────────────────────────────────────── */
+.findbar-container {
+    background-color: var(--kanagawa-bg) !important;
+    color: var(--kanagawa-fg) !important;
+}
+
+/* ── Remove extra borders/lines ────────────────────────── */
+#navigator-toolbox {
+    border-bottom: none !important;
+}
+
+/* ── Minimal scrollbar ─────────────────────────────────── */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--kanagawa-bg-lighter) transparent;
+}
+
+/* ── Hide macOS traffic light buttons ──────────────────── */
+.titlebar-buttonbox-container {
+    display: none !important;
+}
