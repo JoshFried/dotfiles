@@ -1,0 +1,33 @@
+# Font
+font-family = RecMonoLinear Nerd Font Mono
+font-family-bold = RecMonoLinear Nerd Font Mono
+font-style = Bold
+font-size = 15
+
+# Theme (kanagawa)
+theme = Kanagawa Wave
+
+# Window
+background-opacity = 0.9
+background-blur-radius = 20
+window-decoration = none
+window-padding-x = 15
+window-padding-y = 10,0
+macos-non-native-fullscreen = true
+window-save-state = never
+confirm-close-surface = false
+
+# Performance
+scrollback-limit = 5000
+
+# Appearance
+macos-titlebar-style = hidden
+cursor-style = block
+mouse-hide-while-typing = true
+
+# macOS text navigation keybindings
+keybind = opt+left=text:\x1bb
+keybind = opt+right=text:\x1bf
+keybind = cmd+backspace=text:\x15
+keybind = cmd+left=text:\x1bOH
+keybind = cmd+right=text:\x1bOF
