@@ -86,14 +86,8 @@ SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
 
 for i in "${!SPACE_ICONS[@]}"; do
     sid=$((i + 1))
-    DISP=$(get_display $sid)
-    DISPLAY_OPT=""
-    if [ "$DISP" -gt 0 ]; then
-        DISPLAY_OPT="display=$DISP"
-    fi
     sketchybar --add item space.$sid left \
         --set space.$sid \
-            $DISPLAY_OPT \
             icon="${SPACE_ICONS[$i]}" \
             icon.font="$NERD:Bold:13.0" \
             icon.color=$COMMENT \
