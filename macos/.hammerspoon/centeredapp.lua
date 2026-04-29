@@ -20,36 +20,25 @@ local function getMainFrame()
     return mainScreen:frame()
 end
 
-
 local function centered(app)
     local application = applications.find(app)
     local mainScreen = screen.mainScreen()
     local mainFrame = mainScreen:frame()
 
     if application then
-        -- If app is frontmost, hide it (toggle behavior)
         if application:isFrontmost() then
             application:hide()
             return
         end
 
         local existingWindows = application:allWindows()
-        local handled = false
 
         for _, win in ipairs(existingWindows) do
-            if handled then
-                return
-            end
-
             if win:screen() ~= mainScreen then
                 win:moveToScreen(mainScreen)
             end
 
             handleCenter(win, mainFrame)
-            handled = true
-        end
-
-        if handled then
             return
         end
     end
@@ -74,6 +63,7 @@ local apps = {
     { key = "P", app = "Podcasts" },
     { key = "W", app = "Notes" },
     { key = "T", app = "Telegram" },
+    { key = "F", app = "Finder" },
 }
 
 for _, mappings in ipairs(apps) do
