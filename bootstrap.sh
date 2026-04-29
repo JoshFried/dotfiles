@@ -314,6 +314,16 @@ symlink "$DOTFILES_DIR/macos/.amethyst.yml" "$HOME/.amethyst.yml"
 # AeroSpace
 symlink "$DOTFILES_DIR/macos/.aerospace.toml" "$HOME/.aerospace.toml"
 
+# Firefox userChrome.css (profile path varies, so copy instead of symlink)
+FF_PROFILE=$(find "$HOME/Library/Application Support/Firefox/Profiles" -maxdepth 1 -name "*.default-release" 2>/dev/null | head -1)
+if [ -n "$FF_PROFILE" ]; then
+    mkdir -p "$FF_PROFILE/chrome"
+    cp "$DOTFILES_DIR/firefox/userChrome.css" "$FF_PROFILE/chrome/userChrome.css"
+    ok "Firefox userChrome.css"
+else
+    warn "Firefox profile not found — install Firefox first, then re-run"
+fi
+
 # SketchyBar
 symlink "$DOTFILES_DIR/macos/sketchybar" "$HOME/.config/sketchybar"
 
