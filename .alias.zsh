@@ -15,6 +15,7 @@ alias brew="/opt/homebrew/bin/brew"
 alias eh="cd ~/.hammerspoon && $EDITOR"
 alias ek="cd ~/.config/karabiner/assets/complex_modifications/ && $EDITOR"
 alias ewez="cd ~/.config/wezterm/ && $EDITOR"
+alias eg="cd ~/.config/ghostty && $EDITOR" 
 
 alias :q="exit"
 
