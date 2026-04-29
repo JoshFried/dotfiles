@@ -8,8 +8,8 @@ font-size = 15
 theme = Kanagawa Wave
 
 # Window
-background-opacity = 0.9
-background-blur-radius = 20
+background-opacity = 0.85
+background-blur-radius = 10
 window-decoration = none
 window-padding-x = 15
 window-padding-y = 10,0
