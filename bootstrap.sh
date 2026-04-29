@@ -62,10 +62,12 @@ FORMULAE=(
 
     # Shell
     zsh
-    neofetch
+    fastfetch
     thefuck
-    exa
+    eza
     lazygit
+    git-delta
+    btop
 
     # Languages & runtimes
     nvm
@@ -230,19 +232,19 @@ else
 fi
 
 log "Zsh plugins"
-declare -A ZSH_PLUGINS=(
-    [zsh-autosuggestions]="https://github.com/zsh-users/zsh-autosuggestions"
-    [zsh-syntax-highlighting]="https://github.com/zsh-users/zsh-syntax-highlighting"
-    [k]="https://github.com/supercrabtree/k"
-)
 
-for plugin in "${!ZSH_PLUGINS[@]}"; do
+clone_plugin() {
+    local plugin="$1" url="$2"
     if [ -d "$ZSH_CUSTOM/plugins/$plugin" ]; then
         ok "$plugin"
     else
-        git clone --depth=1 "${ZSH_PLUGINS[$plugin]}" "$ZSH_CUSTOM/plugins/$plugin"
+        git clone --depth=1 "$url" "$ZSH_CUSTOM/plugins/$plugin"
     fi
-done
+}
+
+clone_plugin "zsh-autosuggestions" "https://github.com/zsh-users/zsh-autosuggestions"
+clone_plugin "zsh-syntax-highlighting" "https://github.com/zsh-users/zsh-syntax-highlighting"
+clone_plugin "k" "https://github.com/supercrabtree/k"
 
 # =============================================================================
 # 11. TPM (Tmux Plugin Manager)
@@ -287,8 +289,21 @@ symlink "$DOTFILES_DIR/nvim"         "$HOME/.config/nvim"
 # WezTerm
 symlink "$DOTFILES_DIR/wezterm"      "$HOME/.config/wezterm"
 
-# Karabiner
-symlink "$DOTFILES_DIR/macos/karabiner" "$HOME/.config/karabiner"
+# Fastfetch
+symlink "$DOTFILES_DIR/fastfetch"   "$HOME/.config/fastfetch"
+
+# Lazygit
+symlink "$DOTFILES_DIR/lazygit"     "$HOME/.config/lazygit"
+
+# Btop
+symlink "$DOTFILES_DIR/btop"        "$HOME/.config/btop"
+
+# Karabiner (skip if config already exists to avoid overwriting custom settings)
+if [ ! -e "$HOME/.config/karabiner/karabiner.json" ]; then
+    symlink "$DOTFILES_DIR/macos/karabiner" "$HOME/.config/karabiner"
+else
+    ok "Karabiner config exists, skipping"
+fi
 
 # Hammerspoon
 symlink "$DOTFILES_DIR/macos/.hammerspoon" "$HOME/.hammerspoon"
