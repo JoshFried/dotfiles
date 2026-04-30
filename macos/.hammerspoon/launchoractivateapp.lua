@@ -75,6 +75,10 @@ local apps = {
 
 for _, mappings in ipairs(apps) do
 	hotkey.bind(hyper, mappings.key, function()
-		launchOrActivateApp(mappings.app)
+		if mappings.app == "Firefox" then
+			hs.timer.doAfter(0.05, function() launchOrActivateApp(mappings.app) end)
+		else
+			launchOrActivateApp(mappings.app)
+		end
 	end)
 end
