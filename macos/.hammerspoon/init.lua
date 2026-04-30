@@ -24,6 +24,7 @@ require("newspace")
 require("scratchpad")
 require("battery")
 require("aerospace")
+require("meeting")
 
 
 -- Raycast clipboard history
