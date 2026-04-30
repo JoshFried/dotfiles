@@ -44,3 +44,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Added by AIM CLI
 export PATH="$HOME/.aim/mcp-servers:$PATH"
+
+# Refresh calendar events for Hammerspoon meeting picker
+(~/.config/cal-events > /tmp/cal-events.txt 2>/dev/null &)
