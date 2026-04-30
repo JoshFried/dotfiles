@@ -1,6 +1,5 @@
 local wifiChooser = hs.chooser.new(function(choice)
     if not choice then return end
-
     local ssid = choice["text"]
     hs.execute("networksetup -setairportnetwork en0 '" .. ssid .. "'")
     hs.alert.show("Connecting to: " .. ssid)
@@ -22,66 +21,40 @@ local function wifiNetworks()
     wifiChooser:show()
 
     local known = getKnownNetworks()
+    local current = hs.wifi.currentNetwork() or ""
+    local networks = hs.wifi.availableNetworks() or {}
 
-    hs.task.new("/usr/sbin/system_profiler", function(exitCode, stdOut, stdErr)
-        local choices = {}
-        local seen = {}
+    local choices = {}
+    local seen = {}
 
-        local inNetworkList = false
-        local currentSSID = nil
-        local currentSignal = 0
-
-        for line in stdOut:gmatch("[^\r\n]+") do
-            if line:match("Other Local Wi%-Fi Networks:") then
-                inNetworkList = true
-            elseif inNetworkList then
-                local ssid = line:match("^%s+([^:]+):$")
-                if ssid and not ssid:match("PHY Mode") and not ssid:match("Channel") and not ssid:match("Security") and not ssid:match("Signal") then
-                    if currentSSID and not seen[currentSSID] then
-                        seen[currentSSID] = true
-                        table.insert(choices, {
-                            text = currentSSID,
-                            subText = known[currentSSID] and "Known network" or ("Signal: " .. currentSignal .. "%"),
-                            signal = currentSignal,
-                            isKnown = known[currentSSID] or false
-                        })
-                    end
-                    currentSSID = ssid:gsub("^%s+", ""):gsub("%s+$", "")
-                    currentSignal = 0
-                end
-
-                local signal = line:match("Signal / Noise:%s*(-?%d+)")
-                if signal then
-                    -- Convert dBm to percentage (roughly -30 = 100%, -90 = 0%)
-                    currentSignal = math.max(0, math.min(100, (tonumber(signal) + 90) * 100 / 60))
-                end
-
-                if line:match("^%S") and not line:match("Other Local") then
-                    inNetworkList = false
-                end
+    for _, ssid in ipairs(networks) do
+        if not seen[ssid] and ssid ~= "" then
+            seen[ssid] = true
+            local sub = ""
+            if ssid == current then
+                sub = "✓ Connected"
+            elseif known[ssid] then
+                sub = "Known network"
             end
-        end
-
-        -- Add last network
-        if currentSSID and not seen[currentSSID] then
-            seen[currentSSID] = true
             table.insert(choices, {
-                text = currentSSID,
-                subText = known[currentSSID] and "Known network" or ("Signal: " .. math.floor(currentSignal) .. "%"),
-                signal = currentSignal,
-                isKnown = known[currentSSID] or false
+                text = ssid,
+                subText = sub,
+                isConnected = (ssid == current),
+                isKnown = known[ssid] or false
             })
         end
+    end
 
-        -- Sort: known networks first, then by signal strength
-        table.sort(choices, function(a, b)
-            if a.isKnown and not b.isKnown then return true end
-            if b.isKnown and not a.isKnown then return false end
-            return a.signal > b.signal
-        end)
+    -- Sort: connected first, then known, then alphabetical
+    table.sort(choices, function(a, b)
+        if a.isConnected and not b.isConnected then return true end
+        if b.isConnected and not a.isConnected then return false end
+        if a.isKnown and not b.isKnown then return true end
+        if b.isKnown and not a.isKnown then return false end
+        return a.text < b.text
+    end)
 
-        wifiChooser:choices(choices)
-    end, { "SPAirPortDataType" }):start()
+    wifiChooser:choices(choices)
 end
 
 hs.hotkey.bind({ "cmd", "alt" }, "W", wifiNetworks)
