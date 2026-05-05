@@ -69,17 +69,17 @@ vim.lsp.util.show_document = function(location, offset_encoding, opts)
     end
 end
 
--- Workaround for kotlin-lsp sending version=0 in workspace edits,
--- causing nvim to reject renames with "Buffer newer than edits".
-local orig_apply_workspace_edit = vim.lsp.util.apply_workspace_edit
-vim.lsp.util.apply_workspace_edit = function(workspace_edit, offset_encoding)
-    if workspace_edit.documentChanges then
-        for _, change in ipairs(workspace_edit.documentChanges) do
-            if change.textDocument and change.textDocument.uri then
-                local bufnr = vim.uri_to_bufnr(change.textDocument.uri)
-                change.textDocument.version = nil
-            end
+-- Workaround for kotlin-lsp and rust-analyzer sending version=0 or nil
+-- in workspace edits, causing "attempt to compare number with nil".
+-- Patch apply_text_document_edit directly to handle nil buf_versions.
+local orig_apply_text_document_edit = vim.lsp.util.apply_text_document_edit
+vim.lsp.util.apply_text_document_edit = function(text_document_edit, index, offset_encoding)
+    local td = text_document_edit.textDocument
+    if td and td.uri then
+        local bufnr = vim.uri_to_bufnr(td.uri)
+        if not vim.lsp.util.buf_versions[bufnr] then
+            vim.lsp.util.buf_versions[bufnr] = 0
         end
     end
-    return orig_apply_workspace_edit(workspace_edit, offset_encoding)
+    return orig_apply_text_document_edit(text_document_edit, index, offset_encoding)
 end
