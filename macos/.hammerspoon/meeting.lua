@@ -2,6 +2,8 @@
 -- Uses cal-events binary via a wrapper that writes to a temp file
 -- (workaround for Hammerspoon TCC sandbox not having calendar access)
 
+local kanagawa = require("kanagawa")
+
 local meetingChooser = nil
 local CAL_FILE = "/tmp/cal-events.txt"
 local CAL_BIN = os.getenv("HOME") .. "/.config/cal-events"
@@ -51,6 +53,7 @@ local function showMeetings()
                 hs.alert.show("No meeting link found", 1.5)
             end
         end)
+        kanagawa.styleChooser(meetingChooser, { rows = 8 })
     end
 
     -- Read cached calendar file (refreshed by .zshrc on terminal open)
