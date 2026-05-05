@@ -68,6 +68,9 @@ FORMULAE=(
     lazygit
     git-delta
     btop
+    zoxide
+    sesh
+    television
 
     # Languages & runtimes
     nvm
@@ -297,6 +300,9 @@ symlink "$DOTFILES_DIR/lazygit"     "$HOME/.config/lazygit"
 
 # Btop
 symlink "$DOTFILES_DIR/btop"        "$HOME/.config/btop"
+
+# Sesh (personal config; ~/.work.sesh.toml is gitignored, see sesh/sesh.toml.work.example)
+symlink "$DOTFILES_DIR/sesh"        "$HOME/.config/sesh"
 
 # Karabiner (skip if config already exists to avoid overwriting custom settings)
 if [ ! -e "$HOME/.config/karabiner/karabiner.json" ]; then

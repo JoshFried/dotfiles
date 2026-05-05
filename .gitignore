@@ -4,3 +4,5 @@ nvim/lua/plugins/work
 nvim/lua/config/work
 macos/.hammerspoon/work.lua
 .work.zshrc
+sesh/sesh.toml.work
+/sesh/sesh.toml.work.example

@@ -22,13 +22,34 @@ alias :q="exit"
 alias ls='eza -l -a --grid --git'
 alias vguard='@guard && v .'
 
-# bookmarks
+# sesh — auto-pass -C to work config when present
+# (keeps personal sesh.toml as default; work file is gitignored)
+if [[ -f "$HOME/.work.sesh.toml" ]]; then
+    sesh() { command sesh -C "$HOME/.work.sesh.toml" "$@"; }
+fi
+
+# Tmux-aware project bookmarks: inside tmux, connect via sesh (named session +
+# startup command from sesh.toml); outside tmux, plain cd. Plain directory
+# bookmarks (Downloads, Documents, etc.) stay as aliases further down.
+# Note: 'dir' not 'path' — $path is a special zsh array tied to $PATH.
+_sesh_or_cd() {
+    local name="$1" dir="$2"
+    if [[ -n "$TMUX" ]] && command -v sesh &>/dev/null; then
+        sesh connect "$name"
+    else
+        cd "$dir"
+    fi
+}
+
+# Personal project bookmarks
+@dotfiles() { _sesh_or_cd dotfiles ~/repos/dotfiles; }
+@nvim-config() { _sesh_or_cd nvim-config ~/.config/nvim; }
+
+# Plain directory bookmarks (no session semantics needed)
 alias @tmp='cd ~/tmp'
 alias @downloads='cd ~/Downloads'
 alias @repos='cd ~/repos/'
 alias @documents='cd ~/Documents'
-alias @guard='cd ~/repos/cloudformation-guard'
-alias @dotfiles='cd ~/repos/dotfiles/'
 alias @config='cd ~/.config'
 alias @pics='cd ~/Pictures'
 

@@ -20,6 +20,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 - [Window Management (Rice)](#window-management-rice)
 - [Status Bar & Borders (Rice)](#status-bar--borders-rice)
 - [Automation](#automation)
+- [Session Management](#session-management)
 - [Productivity](#productivity)
 - [Audio & Visuals (Rice)](#audio--visuals-rice)
 - [Browser](#browser)
@@ -173,6 +174,53 @@ ln -sf ~/repos/dotfiles/macos/.hammerspoon ~/.hammerspoon
 Provides: app launchers (`Hyper+key`), centered floating apps (`Cmd+Ctrl+key`), WezTerm scratchpad (`Hyper+Space`), fullscreen toggle (`Hyper+A`), AeroSpace workspace back-and-forth (`Hyper+Tab`), media keys, WiFi watcher, caffeinate, and more.
 
 **Required:** Enable `hs.ipc` for CLI integration (already in init.lua). Grant Accessibility permissions in System Settings.
+
+---
+
+## Session Management
+
+### zoxide
+
+```bash
+brew install zoxide
+```
+
+Smarter `cd` that tracks most-used directories. Initialized in `.zshrc` via `eval "$(zoxide init zsh)"`. Powers sesh's directory history. Use `z <partial-name>` to jump.
+
+### sesh
+
+```bash
+brew install sesh
+ln -sf ~/repos/dotfiles/sesh ~/.config/sesh
+```
+
+Smart tmux session manager. Combines tmux sessions + zoxide dirs + named projects in one picker. `sesh connect <name>` creates-or-attaches to a named session with the configured startup command.
+
+**Config files:**
+
+- `sesh/sesh.toml` — personal, checked in (symlinked to `~/.config/sesh/sesh.toml`). Defines the `dotfiles`, `nvim-config`, `tmux-config`, `tmp`, `downloads` sessions and a `~/repos/*` wildcard that auto-opens nvim.
+- `~/.work.sesh.toml` — work, gitignored. Copy `sesh/sesh.toml.work.example` to `~/.work.sesh.toml` on the work machine. **Superset** of the personal config (includes the same personal sessions plus OSM / ODI / SignalForge / Rehatch). CDK packages open nvim; Kotlin/Java packages open a plain shell.
+
+The `sesh` zsh wrapper in `.alias.zsh` auto-passes `-C ~/.work.sesh.toml` when that file exists, so the same `sesh` command uses the right config per machine — and personal bookmarks like `@dotfiles` still work on the work machine because the work config includes them.
+
+**Keeping the two in sync:** when you add or change a personal session in `sesh/sesh.toml`, mirror it into `sesh/sesh.toml.work.example` and re-copy to `~/.work.sesh.toml`.
+
+**Tmux bindings** (prefix `Ctrl-S`):
+
+- `prefix + C-e` — sesh fzf popup with source-cycling (`Ctrl-a` all, `Ctrl-t` tmux, `Ctrl-g` configs, `Ctrl-x` zoxide, `Ctrl-f` find dirs, `Ctrl-d` kill session)
+- `prefix + T` — television sesh picker (alternative; `Ctrl-s` cycles sources, `Ctrl-d` kills)
+
+**Zsh binding:** `Alt-s` opens a fuzzy session picker at any shell prompt (works in and out of tmux).
+
+**Tmux-aware bookmarks:** `@dotfiles`, `@nvim-config`, and the work `@osms` / `@odidao` / etc. bookmarks are functions that call `sesh connect` inside tmux and fall back to plain `cd` outside. Helper lives in `.alias.zsh` as `_sesh_or_cd`. Plain directory bookmarks (`@downloads`, `@documents`, etc.) stay as `cd` aliases.
+
+### television
+
+```bash
+brew install television
+```
+
+Fast Rust-based fuzzy finder with pluggable "channels" (files, git, env, sesh, custom). Used in tmux via `prefix + T` for session picking. Not a Telescope replacement — keep using Telescope inside nvim.
 
 ---
 

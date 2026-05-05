@@ -45,5 +45,21 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # Added by AIM CLI
 export PATH="$HOME/.aim/mcp-servers:$PATH"
 
+# zoxide — smarter cd (used by sesh for directory history)
+command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
+
+# Alt-s: fuzzy-pick a sesh session (works in/out of tmux)
+sesh-sessions() {
+  local session
+  session=$(sesh list -i | fzf --height 40% --reverse --border-label ' sesh ' --border --prompt '⚡  ')
+  [[ -z "$session" ]] && zle reset-prompt && return
+  BUFFER="sesh connect \"$session\""
+  zle accept-line
+}
+zle -N sesh-sessions
+bindkey -M emacs '\es' sesh-sessions
+bindkey -M vicmd '\es' sesh-sessions
+bindkey -M viins '\es' sesh-sessions
+
 # Refresh calendar events for Hammerspoon meeting picker
 (~/.config/cal-events > /tmp/cal-events.txt 2>/dev/null &)

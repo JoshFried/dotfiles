@@ -1,0 +1,59 @@
+#:schema https://github.com/joshmedeski/sesh/raw/main/sesh.schema.json
+
+# Personal sesh config. Work config lives at ~/.work.sesh.toml (gitignored).
+# The `sesh` zsh wrapper in .alias.zsh auto-passes -C to the work config when
+# that file exists on the host.
+
+# ── Defaults ───────────────────────────────────────────────
+# Every new session opens nvim. Preview uses eza.
+# {} is substituted with the session's path.
+[default_session]
+startup_command = "nvim"
+preview_command = "eza --all --git --icons --color=always {}"
+
+# ── Picker TUI ─────────────────────────────────────────────
+[tui]
+prompt = "⚡ "
+placeholder = "Filter sessions..."
+show_icons = true
+
+# ── Sort order ─────────────────────────────────────────────
+# Attached tmux sessions first, then named configs, then zoxide dirs.
+sort_order = ["tmux", "config", "zoxide", "tmuxinator"]
+
+# ── Wildcard: any repo under ~/repos/ gets nvim on startup ─
+[[wildcard]]
+pattern = "~/repos/*"
+startup_command = "nvim"
+preview_command = "eza --all --git --icons --color=always {}"
+
+# ── Named projects ─────────────────────────────────────────
+# These override the wildcard for custom behaviour / distinct names.
+
+[[session]]
+name = "dotfiles"
+path = "~/repos/dotfiles"
+startup_command = "nvim"
+preview_command = "eza --all --git --icons --color=always ~/repos/dotfiles"
+
+[[session]]
+name = "nvim-config"
+path = "~/.config/nvim"
+startup_command = "nvim"
+preview_command = "eza --all --git --icons --color=always ~/.config/nvim"
+
+[[session]]
+name = "tmux-config"
+path = "~/repos/dotfiles"
+startup_command = "nvim .tmux.conf"
+preview_command = "bat --color=always ~/repos/dotfiles/.tmux.conf"
+
+[[session]]
+name = "tmp"
+path = "~/tmp"
+disable_startup_command = true
+
+[[session]]
+name = "downloads"
+path = "~/Downloads"
+startup_command = "ls"
