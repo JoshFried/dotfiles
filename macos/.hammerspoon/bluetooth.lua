@@ -1,3 +1,5 @@
+local kanagawa = require("kanagawa")
+
 local bluetoothChooser = hs.chooser.new(function(choice)
     if not choice then
         return
@@ -14,6 +16,7 @@ local bluetoothChooser = hs.chooser.new(function(choice)
         end
     end, { "--connect", mac }):start()
 end)
+kanagawa.styleChooser(bluetoothChooser)
 
 local function bluetoothDevices()
     bluetoothChooser:refreshChoicesCallback()

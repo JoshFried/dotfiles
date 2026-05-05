@@ -1,3 +1,5 @@
+local kanagawa = require("kanagawa")
+
 local cache = {
     launchTimer = nil,
     output = hs.audiodevice.defaultOutputDevice(),
@@ -23,6 +25,7 @@ local outputChooser = hs.chooser.new(function(choice)
         end
     end
 end)
+kanagawa.styleChooser(outputChooser)
 
 local function outSources()
     outputChooser:refreshChoicesCallback()
@@ -61,6 +64,7 @@ local inputChooser = hs.chooser.new(function(choice)
         end
     end
 end)
+kanagawa.styleChooser(inputChooser)
 
 local function inSources()
     inputChooser:refreshChoicesCallback()

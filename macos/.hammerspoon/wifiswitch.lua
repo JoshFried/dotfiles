@@ -1,9 +1,12 @@
+local kanagawa = require("kanagawa")
+
 local wifiChooser = hs.chooser.new(function(choice)
     if not choice then return end
     local ssid = choice["text"]
     hs.execute("networksetup -setairportnetwork en0 '" .. ssid .. "'")
     hs.alert.show("Connecting to: " .. ssid)
 end)
+kanagawa.styleChooser(wifiChooser, { rows = 10 })
 
 local function getKnownNetworks()
     local known = {}
