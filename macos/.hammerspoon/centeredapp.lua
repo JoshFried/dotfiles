@@ -1,7 +1,12 @@
 local hotkey = require("hs.hotkey")
 local windows = require("hs.window")
 local screen = require("hs.screen")
-local spaces = require("hs.spaces")
+-- hs.spaces uses private macOS APIs that break between OS versions.
+-- Fail gracefully if the module can't load; the move-to-space fallback
+-- below is only used on first-time app launches, and AeroSpace handles
+-- workspace placement anyway.
+local ok, spaces = pcall(require, "hs.spaces")
+if not ok then spaces = nil end
 local applications = require("hs.application")
 
 local function handleCenter(win, screenFrame)
@@ -49,10 +54,14 @@ local function centered(app)
         local launchedApplication = applications.get(app)
         if launchedApplication ~= nil then
             local w = launchedApplication:mainWindow()
-            local space = spaces.focusedSpace()
-            spaces.moveWindowToSpace(w, space)
-            handleCenter(w, getMainFrame())
-            spaces.gotoSpace(space)
+            if spaces and w then
+                local space = spaces.focusedSpace()
+                spaces.moveWindowToSpace(w, space)
+                handleCenter(w, getMainFrame())
+                spaces.gotoSpace(space)
+            elseif w then
+                handleCenter(w, getMainFrame())
+            end
         end
     end
 end
