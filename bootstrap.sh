@@ -283,6 +283,9 @@ symlink() {
 symlink "$DOTFILES_DIR/.zshrc"       "$HOME/.zshrc"
 symlink "$DOTFILES_DIR/.alias.zsh"   "$HOME/.alias.zsh"
 
+# Global editorconfig (fallback for repos without their own)
+symlink "$DOTFILES_DIR/.editorconfig" "$HOME/.editorconfig"
+
 # Tmux
 symlink "$DOTFILES_DIR/.tmux.conf"   "$HOME/.tmux.conf"
 

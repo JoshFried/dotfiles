@@ -1,0 +1,14 @@
+# Global editorconfig. Symlinked to ~/.editorconfig — kotlin-lsp, ktlint,
+# IntelliJ, and most editors walk up to here when no closer config exists.
+#
+# Intentionally NOT `root = true` so project-level .editorconfig files always
+# win. This is a fallback for repos that don't ship their own.
+
+[*.{kt,kts}]
+# Disable wildcard/star imports entirely. The numeric values are MAX_INT,
+# meaning "only collapse to `package.*` once a file has 2^31-1 imports from
+# the same package" — i.e. never.
+ij_kotlin_name_count_to_use_star_import = 2147483647
+ij_kotlin_name_count_to_use_star_import_for_members = 2147483647
+# Clear the default list of always-wildcarded packages (java.util.*, etc.)
+ij_kotlin_packages_to_use_import_on_demand = unset
