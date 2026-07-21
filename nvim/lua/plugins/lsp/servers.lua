@@ -21,9 +21,9 @@ local function lsp_init()
             signs = {
                 text = {
                     [vim.diagnostic.severity.ERROR] = icons.diagnostics.Error,
-                    [vim.diagnostic.severity.WARN] = icons.diagnostics.Warn,
+                    [vim.diagnostic.severity.WARN] = icons.diagnostics.Warning,
                     [vim.diagnostic.severity.HINT] = icons.diagnostics.Hint,
-                    [vim.diagnostic.severity.INFO] = icons.diagnostics.Info,
+                    [vim.diagnostic.severity.INFO] = icons.diagnostics.Information,
                 }
             },
             underline = false,
@@ -52,12 +52,6 @@ local function lsp_init()
 end
 
 function M.setup(_, opts)
-    local lsp_utils_ok, lsp_utils = pcall(require, "plugins.lsp.utils")
-    if not lsp_utils_ok then
-        vim.notify("Failed to load LSP utils", vim.log.levels.ERROR)
-        return
-    end
-
     lsp_utils.on_attach(function(client, buffer)
         local keymaps_ok, keymaps = pcall(require, "plugins.lsp.keymaps")
         if keymaps_ok then
@@ -72,37 +66,47 @@ function M.setup(_, opts)
     local servers = opts.servers
     local capabilities = lsp_utils.capabilities()
 
-    local function setup(server)
-        local server_opts = vim.tbl_deep_extend("force", {
-            capabilities = capabilities,
-        }, servers[server] or {})
-        if opts.setup[server] then
-            if opts.setup[server](server, server_opts) then
-                return
-            end
-        elseif opts.setup["*"] then
-            if opts.setup["*"](server, server_opts) then
-                return
-            end
-        end
-        require("lspconfig")[server].setup(server_opts)
+    -- Registers a server with nvim's native LSP config API. vim.lsp.config()
+    -- deep-merges our overrides with nvim-lspconfig's shipped defaults (lsp/*.lua),
+    -- so we only declare what differs (settings, capabilities, on_init, ...).
+    local function register(server, server_opts)
+        server_opts.mason = nil -- spec-only flag, not an LSP config key
+        vim.lsp.config(server, server_opts)
     end
 
-    -- get all the servers that are available thourgh mason-lspconfig
+    -- get all the servers that are available through mason-lspconfig
     local have_mason, mlsp = pcall(require, "mason-lspconfig")
     local all_mslp_servers = {}
     if have_mason then
-        all_mslp_servers = vim.tbl_keys(require("mason-lspconfig").get_mappings().lspconfig_to_package)
+        all_mslp_servers = vim.tbl_keys(mlsp.get_mappings().lspconfig_to_package)
     end
 
     local ensure_installed = {} ---@type string[]
     for server, server_opts in pairs(servers) do
         if server_opts then
             server_opts = server_opts == true and {} or server_opts
-            if server_opts.mason == false or not vim.tbl_contains(all_mslp_servers, server) then
-                setup(server)
-            else
-                ensure_installed[#ensure_installed + 1] = server
+            local merged = vim.tbl_deep_extend("force", { capabilities = capabilities }, server_opts)
+
+            -- Custom setup hooks (opts.setup.<server>); returning true skips
+            -- the default registration below.
+            local skip = false
+            if opts.setup[server] then
+                skip = opts.setup[server](server, merged)
+            elseif opts.setup["*"] then
+                skip = opts.setup["*"](server, merged)
+            end
+
+            if not skip then
+                local use_mason = server_opts.mason ~= false and vim.tbl_contains(all_mslp_servers, server)
+                register(server, merged)
+                if use_mason then
+                    -- mason-lspconfig v2's automatic_enable will vim.lsp.enable()
+                    -- installed servers, picking up the config registered above.
+                    -- (v1's `handlers` option is gone; passing it is silently ignored.)
+                    ensure_installed[#ensure_installed + 1] = server
+                else
+                    vim.lsp.enable(server)
+                end
             end
         end
     end
@@ -110,7 +114,10 @@ function M.setup(_, opts)
     if have_mason then
         mlsp.setup({
             ensure_installed = ensure_installed,
-            handlers = { setup }
+            -- jdtls is managed manually by nvim-jdtls (bemol workspace folders,
+            -- lombok, per-project eclipse workspace) — don't auto-enable a
+            -- second default-config instance.
+            automatic_enable = { exclude = { "jdtls" } },
         })
     end
 end

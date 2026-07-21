@@ -51,6 +51,7 @@ return {
 						previewer = false,
 						hidden = true,
 						find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
+						layout_config = { width = 0.75 },
 					},
 					git_files = {
 						theme = "dropdown",

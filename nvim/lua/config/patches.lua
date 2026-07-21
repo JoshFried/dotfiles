@@ -58,7 +58,16 @@ end
 vim.g.nvim_jdtls = 1
 
 -- Workaround for telescope + async decompile race condition in nvim 0.12.
--- Suppresses cursor error and retries after content is ready.
+-- When show_document navigates to a jar:// URI, the BufReadCmd kicks off an
+-- async CFR decompile. Meanwhile show_document tries to place the cursor at
+-- location.range.start which is past EOL of the still-empty buffer, causing
+-- "Invalid cursor line: out of range".
+--
+-- Verified still reproducing on nvim 0.12.2 (2026-05-06).
+-- PR #38566 in 0.12.2 fixed a different scenario (insert-mode cursor past
+-- EOL), not this async buffer-population race.
+--
+-- Suppresses the cursor error and retries after content is ready.
 local orig_show_document = vim.lsp.util.show_document
 vim.lsp.util.show_document = function(location, offset_encoding, opts)
     local ok, err = pcall(orig_show_document, location, offset_encoding, opts)
@@ -69,17 +78,31 @@ vim.lsp.util.show_document = function(location, offset_encoding, opts)
     end
 end
 
--- Workaround for kotlin-lsp and rust-analyzer sending version=0 or nil
--- in workspace edits, causing "attempt to compare number with nil".
--- Patch apply_text_document_edit directly to handle nil buf_versions.
+-- Removed 2026-05-08: apply_text_document_edit wrapper that guarded against
+-- nil / zero buf_versions from kotlin-lsp and rust-analyzer workspace edits.
+-- nvim 0.12.2's upstream implementation now:
+--   1. defaults buf_versions[bufnr] to 0 via metatable __index
+--   2. guards against text_document.version == vim.NIL
+--   3. guards against text_document.version == 0
+-- The wrapper was also dropping the 4th arg (change_annotations), silently
+-- breaking rename for annotated edits. If nil-version errors resurface on a
+-- future nvim release, restore from git history and forward with varargs.
+
+-- kotlin-ls sends stale textDocument.version in workspace edits (e.g. rename).
+-- When format-on-save bumps the buffer version between the request and response,
+-- nvim rejects the edit with "Buffer ... newer than edits". Zero out the version
+-- so nvim skips the check. Forwards all args including change_annotations.
 local orig_apply_text_document_edit = vim.lsp.util.apply_text_document_edit
-vim.lsp.util.apply_text_document_edit = function(text_document_edit, index, offset_encoding)
-    local td = text_document_edit.textDocument
-    if td and td.uri then
-        local bufnr = vim.uri_to_bufnr(td.uri)
-        if not vim.lsp.util.buf_versions[bufnr] then
-            vim.lsp.util.buf_versions[bufnr] = 0
+vim.lsp.util.apply_text_document_edit = function(text_document_edit, index, ...)
+    local dominated_by_kotlin = false
+    for _, client in ipairs(vim.lsp.get_clients()) do
+        if client.name == "kotlin_lsp" then
+            dominated_by_kotlin = true
+            break
         end
     end
-    return orig_apply_text_document_edit(text_document_edit, index, offset_encoding)
+    if dominated_by_kotlin then
+        text_document_edit.textDocument.version = 0
+    end
+    return orig_apply_text_document_edit(text_document_edit, index, ...)
 end

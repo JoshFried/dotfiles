@@ -30,14 +30,23 @@ local function bluetoothDevices()
 
             if success and devices then
                 for _, device in ipairs(devices) do
+                    local sub = ""
+                    if device.connected then
+                        sub = "✓ Connected"
+                    end
                     table.insert(choices, {
                         text = device.name,
-                        mac = device.address
+                        subText = sub,
+                        mac = device.address,
+                        isConnected = device.connected or false
                     })
                 end
 
-                -- Sort: AirPods first, then trackpads, then others
+                -- Sort: connected first, then AirPods, then trackpads, then others
                 table.sort(choices, function(a, b)
+                    if a.isConnected and not b.isConnected then return true end
+                    if b.isConnected and not a.isConnected then return false end
+
                     local aIsAirPods = string.find(a.text:lower(), "airpods")
                     local bIsAirPods = string.find(b.text:lower(), "airpods")
                     local aIsTrackpad = string.find(a.text:lower(), "trackpad")
@@ -45,8 +54,8 @@ local function bluetoothDevices()
 
                     if aIsAirPods and not bIsAirPods then return true end
                     if bIsAirPods and not aIsAirPods then return false end
-                    if aIsTrackpad and not bIsTrackpad and not bIsAirPods then return true end
-                    if bIsTrackpad and not aIsTrackpad and not aIsAirPods then return false end
+                    if aIsTrackpad and not bIsTrackpad then return true end
+                    if bIsTrackpad and not aIsTrackpad then return false end
 
                     return a.text < b.text
                 end)

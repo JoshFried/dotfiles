@@ -15,11 +15,11 @@ vim.opt.rtp:prepend(lazypath)
 -- Configure lazy.nvim
 require("lazy").setup({
 	spec = {
+		-- Also picks up subdirectories with an init.lua (lsp/, test/, vcs/, dap/,
+		-- completions/, statusline/, colourscheme/) as plugins.<dir> modules.
 		{ import = "plugins" },
 		{ import = "plugins.extra.lang" },
 		{ import = "plugins.extra.pde" },
-		{ import = "plugins.test" },
-		{ import = "plugins.lsp.init" },
 		-- Work-only plugins. Directory is gitignored so it only exists on work machines.
 		-- so it only exists on work machines. optional=true prevents errors when missing.
 		vim.uv.fs_stat(vim.fn.stdpath("config") .. "/lua/plugins/work") and { import = "plugins.work", optional = true }

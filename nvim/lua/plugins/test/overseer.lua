@@ -14,13 +14,15 @@ local M = {
         { "<leader>tos", "<cmd>OverseerSaveBundle<cr>",   desc = "Save Bundle" },
         { "<leader>tot", "<cmd>OverseerToggle<cr>",       desc = "Toggle" },
     },
-    bindings = { ["q"] = function() vim.cmd("OverseerClose") end },
-    config = true,
-    component_aliases = {
-        default = {
-            "on_exit_set_status",
-            "on_complete_notify",
-            "open_output"
+    -- NOTE: `q` to close Overseer windows is handled by the FileType autocmd
+    -- in config/autocmds.lua (OverseerForm/OverseerList are in its pattern list).
+    opts = {
+        component_aliases = {
+            default = {
+                "on_exit_set_status",
+                "on_complete_notify",
+                "open_output"
+            },
         },
     },
 }

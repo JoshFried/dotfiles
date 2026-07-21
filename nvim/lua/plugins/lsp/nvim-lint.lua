@@ -5,7 +5,7 @@ return {
         local lint = require("lint")
         lint.linters_by_ft = {
             go = { "golangcilint" },
-            kotlin = { "ktlint" },
+            kotlin = {},
         }
 
         -- Only use checkstyle when config exists

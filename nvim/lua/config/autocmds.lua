@@ -119,3 +119,18 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = { 'json', 'yaml', 'txt' },
     command = "setlocal noeol binary shiftwidth=2 tabstop=2 expandtab smartindent fileformats=mac,unix,dos",
 })
+
+
+-- JetBrains' kotlin-lsp (intellij-server) doesn't exit cleanly on stdin EOF.
+-- Without this, closing nvim leaves zombie intellij-server processes that
+-- hold the RocksDB LOCK in ~/Library/Caches/JetBrains/analyzer/workspaces/,
+-- causing the next nvim to crash with "Resource temporarily unavailable".
+vim.api.nvim_create_autocmd("VimLeavePre", {
+    group = augroup("kotlin_lsp_cleanup"),
+    callback = function()
+        for _, client in ipairs(vim.lsp.get_clients({ name = "kotlin_lsp" })) do
+            -- stop() sends shutdown/exit; force=true sends SIGTERM after 500ms.
+            pcall(client.stop, client, true)
+        end
+    end,
+})

@@ -16,7 +16,7 @@ return {
 		formatters_by_ft = {
 			go = { "gofmt", "goimports_reviser" },
 			java = { "google-java-format" },
-			kotlin = { "ktlint" },
+			kotlin = { lsp_format = "prefer" },
 			python = { "black" },
 			typescript = { "prettierd" },
 			typescriptreact = { "prettierd" },
@@ -29,6 +29,11 @@ return {
 			lua = { "stylua" },
 		},
 		formatters = {
+			goimports_reviser = {
+				command = "goimports-reviser",
+				args = { "-output", "stdout", "$FILENAME" },
+				stdin = false,
+			},
 			-- Configure prettierd to find the root config
 			prettierd = {
 				command = "prettierd",

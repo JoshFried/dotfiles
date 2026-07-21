@@ -72,6 +72,24 @@ return {
 				["plsql"] = { "lsp", "path", "snippets", "buffer", "omni" },
 			},
 			providers = {
+				-- Amazon Q serves "inline suggestions" through textDocument/completion
+				-- via its in-process 'amazonq-completion' LSP shim. Those items are
+				-- network-bound (slow), so without async + a timeout blink drops them
+				-- before they arrive; the score boost surfaces them above regular LSP
+				-- items (which also makes them the ghost text when they're available).
+				-- See :h amazonq-config-completion.
+				lsp = {
+					async = true,
+					timeout_ms = 200,
+					transform_items = function(_, items)
+						for _, item in ipairs(items) do
+							if item.labelDetails and item.labelDetails.description == "Amazon Q" then
+								item.score_offset = (item.score_offset or 0) + 1000
+							end
+						end
+						return items
+					end,
+				},
 				lazydev = {
 					name = "LazyDev",
 					module = "lazydev.integrations.blink",

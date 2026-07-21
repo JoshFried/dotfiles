@@ -12,16 +12,10 @@ return {
                 { "smithy-language-server", })
         end,
     },
-    {
-        "neovim/nvim-lspconfig",
-        ft = "smithy",
-        config = function()
-            vim.lsp.config.smithy_ls = {
-                cmd = { 'smithy-language-server' },
-                filetypes = { 'smithy' },
-                root_markers = { 'smithy-build.json', '.git' },
-            }
-            vim.lsp.enable('smithy_ls')
-        end,
-    },
+    -- NOTE: no `config` here! nvim-lspconfig's config (plugins/lsp/servers.lua)
+    -- is shared across all language fragments; defining `config` in a fragment
+    -- REPLACES it (lazy.nvim last-wins) and silently kills every LSP server.
+    -- smithy_ls is declared in plugins/lsp/init.lua base_servers, installed by
+    -- the mason block above, and enabled via mason-lspconfig automatic_enable
+    -- using nvim-lspconfig's shipped lsp/smithy_ls.lua defaults.
 }

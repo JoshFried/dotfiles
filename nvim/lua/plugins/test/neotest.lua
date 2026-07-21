@@ -30,7 +30,7 @@ local M = {
             output = { open_on_run = true },
             quickfix = {
                 open = function()
-                    if require("utils").has "trouble.nvim" then
+                    if require("lazy.core.config").plugins["trouble.nvim"] ~= nil then
                         vim.cmd "Trouble quickfix"
                     else
                         vim.cmd "copen"

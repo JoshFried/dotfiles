@@ -3,7 +3,7 @@ return {
         "rebelot/kanagawa.nvim",
         name = "kanagawa",
         lazy = false,
-        enable = true,
+        enabled = true,
         priority = 1000,
         build = "KanagawaCompile",
         config = function()
@@ -31,7 +31,7 @@ return {
                 overrides = function(colors)
                     local colours = colors.theme
                     return {
-                        FloatBoarder = { bg = "none" },
+                        FloatBorder = { bg = "none" },
                         FloatTitle = { bg = "none" },
                         NormalFloat = { bg = "none" },
 
@@ -46,7 +46,7 @@ return {
                         TelescopePreviewNormal = { bg = colours.ui.db_dim },
                         TelescopePreviewBorder = { bg = colours.ui.bg_dim, fg = colours.ui.bg_dim },
 
-                        Pmenue = { fb = colours.ui.shade0, bg = colours.ui.bg_p1 },
+                        Pmenu = { fg = colours.ui.shade0, bg = colours.ui.bg_p1 },
                         PmenuSel = { fg = "none", bg = colours.ui.bg_p2 },
                         PmenuSbar = { bg = colours.ui.bg_m1 },
                         PmenuThumb = { bg = colours.ui.bg_p2 },
