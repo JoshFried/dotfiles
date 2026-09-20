@@ -64,23 +64,6 @@ sketchybar --default \
     popup.background.border_color=$COMMENT
 
 # ── Left: Spaces (AeroSpace workspaces) ───────────────────
-# Dynamically assign workspaces to displays based on monitor count
-MONITOR_COUNT=$(aerospace list-monitors --count 2>/dev/null || echo 1)
-
-get_display() {
-    local sid=$1
-    case $MONITOR_COUNT in
-        1) echo 0 ;;  # 0 = all displays
-        2)
-            if [ $sid -le 5 ]; then echo 1; else echo 2; fi
-            ;;
-        3|*)
-            if [ $sid -le 3 ]; then echo 1
-            elif [ $sid -le 6 ]; then echo 2
-            else echo 3; fi
-            ;;
-    esac
-}
 
 SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
 
@@ -122,29 +105,44 @@ sketchybar --add item front_app left \
         script="$PLUGIN_DIR/front_app.sh" \
     --subscribe front_app front_app_switched
 
-# ── Center: Now Playing ───────────────────────────────────
 # ── Now Playing (shown on non-notch display center only) ──
-# Detect which display is the built-in (notch) one.
-# SketchyBar display=1 is always the main display.
-# If main is built-in, external is 2; otherwise main (1) is external.
-if system_profiler SPDisplaysDataType 2>/dev/null | grep -B5 "Main Display: Yes" | grep -q "Built-in"; then
-    MEDIA_DISPLAY=2
-else
-    MEDIA_DISPLAY=1
-fi
+MEDIA_DISPLAY=$(
+    aerospace list-monitors \
+        --format '%{monitor-name}|%{monitor-appkit-nsscreen-screens-id}|%{monitor-is-main}' \
+        2>/dev/null |
+        awk -F'|' '
+            tolower($1) !~ /built-in/ {
+                if (first_external == "") {
+                    first_external = $2
+                }
+                if ($3 == "true") {
+                    print $2
+                    found_main = 1
+                    exit
+                }
+            }
+            END {
+                if (!found_main && first_external != "") {
+                    print first_external
+                }
+            }
+        '
+)
 
-sketchybar --add item media center \
-    --set media \
-        display=$MEDIA_DISPLAY \
-        icon=󰎈 \
-        icon.color=$VIOLET \
-        icon.font="$NERD:Bold:16.0" \
-        label.color=$FG_DIM \
-        label.max_chars=40 \
-        background.drawing=off \
-        update_freq=3 \
-        script="$PLUGIN_DIR/media.sh" \
-        click_script="nowplaying-cli togglePlayPause"
+if [ -n "$MEDIA_DISPLAY" ]; then
+    sketchybar --add item media center \
+        --set media \
+            display=$MEDIA_DISPLAY \
+            icon=󰎈 \
+            icon.color=$VIOLET \
+            icon.font="$NERD:Bold:16.0" \
+            label.color=$FG_DIM \
+            label.max_chars=40 \
+            background.drawing=off \
+            update_freq=3 \
+            script="$PLUGIN_DIR/media.sh" \
+            click_script="nowplaying-cli togglePlayPause"
+fi
 
 # ── Right: Clock ──────────────────────────────────────────
 sketchybar --add item clock right \
