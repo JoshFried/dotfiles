@@ -27,6 +27,28 @@ local function closeEmptySpaces()
     hs.alert.show("Removed " .. removed .. " empty spaces")
 end
 
-hs.hotkey.bind(hyper, "N", createSpace)
-hs.hotkey.bind(hyper, "`", showSpaceNumber)
-hs.hotkey.bind(hyper, "X", closeEmptySpaces)
+local bindings = require("bindings")
+
+bindings.bind({
+    group = "Spaces",
+    title = "Create space",
+    modifiers = hyper,
+    key = "N",
+    action = createSpace,
+})
+
+bindings.bind({
+    group = "Spaces",
+    title = "Show space number",
+    modifiers = hyper,
+    key = "`",
+    action = showSpaceNumber,
+})
+
+bindings.bind({
+    group = "Spaces",
+    title = "Close empty spaces",
+    modifiers = hyper,
+    key = "X",
+    action = closeEmptySpaces,
+})

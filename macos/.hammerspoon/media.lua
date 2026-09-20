@@ -11,16 +11,22 @@ tell application "Music" to next track
 ]]
 
 -- Then, we'll use Hammerspoon to bind the F7, F8, and F9 keys to these commands:
-local hotkey = require "hs.hotkey"
+local bindings = require("bindings")
 
-hotkey.bind({"shift"}, "F7", function()
-    hs.osascript.applescript(rewindCommand)
-end)
+local controls = {
+    { key = "F7", title = "Previous track", command = rewindCommand },
+    { key = "F8", title = "Play or pause", command = playPauseCommand },
+    { key = "F9", title = "Next track", command = fastforwardCommand },
+}
 
-hotkey.bind({"shift"}, "F8", function()
-    hs.osascript.applescript(playPauseCommand)
-end)
-
-hotkey.bind({"shift"}, "F9", function()
-    hs.osascript.applescript(fastforwardCommand)
-end)
+for _, control in ipairs(controls) do
+    bindings.bind({
+        group = "Media",
+        title = control.title,
+        modifiers = { "shift" },
+        key = control.key,
+        action = function()
+            hs.osascript.applescript(control.command)
+        end,
+    })
+end

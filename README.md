@@ -25,6 +25,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 - [Audio & Visuals (Rice)](#audio--visuals-rice)
 - [Browser](#browser)
 - [Full Bootstrap](#full-bootstrap)
+- [After Bootstrap](#after-bootstrap)
 
 ---
 
@@ -125,10 +126,13 @@ done
 
 ```bash
 brew install --cask karabiner-elements
-# DO NOT overwrite existing config — Karabiner config is complex and personal
-# Only symlink if setting up fresh:
-# ln -sf ~/repos/dotfiles/macos/karabiner ~/.config/karabiner
+[ ! -e ~/.config/karabiner ] || \
+    mv ~/.config/karabiner ~/.config/karabiner.bak.$(date +%s)
+ln -sf ~/repos/dotfiles/macos/karabiner ~/.config/karabiner
 ```
+
+The bootstrap script backs up an existing `~/.config/karabiner` path before
+linking the checked-in configuration.
 
 Key mappings: `left_control` → Hyper (ctrl+alt+cmd+shift), `right_option` → alt+shift, `right_shift` → shift+ctrl, `caps_lock` → left_command.
 
@@ -140,7 +144,7 @@ Key mappings: `left_control` → Hyper (ctrl+alt+cmd+shift), `right_option` → 
 
 ```bash
 brew install felixkratz/formulae/sketchybar
-brew install --cask font-sf-mono-nerd-font
+brew install --cask font-sf-mono-nerd-font-ligaturized
 brew install jq
 brew tap kvndrsslr/tap && brew install sketchybar-app-font
 ln -sf ~/repos/dotfiles/macos/sketchybar ~/.config/sketchybar
@@ -283,6 +287,8 @@ Used by SketchyBar media widget. No config needed.
 ### Firefox
 
 ```bash
+brew install --cask firefox
+
 # Find your profile directory
 FF_PROFILE=$(find "$HOME/Library/Application Support/Firefox/Profiles" -maxdepth 1 -name "*.default-release" | head -1)
 mkdir -p "$FF_PROFILE/chrome"
@@ -297,14 +303,54 @@ Kanagawa-themed UI: dark tab bar, dark nav bar, blue focus ring, hidden traffic 
 
 ## Full Bootstrap
 
-To install everything at once:
+The bootstrap targets Apple Silicon macOS. It installs missing dependencies,
+links the checked-in configuration, and leaves existing installations alone.
+It is safe to run after every pull on either a personal or work machine.
 
 ```bash
 cd ~/repos/dotfiles
 ./bootstrap.sh
 ```
 
-This installs all brew dependencies, creates symlinks, and configures everything. **Note:** Karabiner config is skipped if it already exists.
+An existing file or directory at a managed symlink destination is moved to a
+timestamped `.bak` path before the repository version is linked. Installation
+failures are written to `bootstrap.log`, and the script exits unsuccessfully if
+any required step fails.
+
+## After Bootstrap
+
+Complete these steps after the first successful run:
+
+1. Open a new terminal or run `exec zsh`. Run `p10k configure` if the prompt has
+   not been configured on this machine.
+2. Open Neovim. Lazy.nvim installs plugins on first launch; run `:Mason` to
+   confirm the required language servers are present.
+3. Start the background services:
+
+   ```bash
+   brew services start sketchybar
+   brew services start borders
+   ```
+
+4. Open Hammerspoon and AeroSpace, then grant each application
+   Accessibility access under **System Settings → Privacy & Security →
+   Accessibility**. Hammerspoon's `hs` command is enabled by the checked-in
+   configuration.
+5. Open Karabiner-Elements and confirm the checked-in profile is active. Add the
+   Dactyl keyboard if needed using vendor ID `17485` and product ID `13623`.
+   Complete any DriverKit, system extension, and Input Monitoring prompts shown
+   by macOS.
+6. Disable the macOS **Switch to Desktop N** keyboard shortcuts described in
+   [AeroSpace](#aerospace-tiling-wm) so `ctrl+1-9` can select workspaces.
+7. Open Firefox once to create its profile, re-run `./bootstrap.sh`, then set
+   `toolkit.legacyUserProfileCustomizations.stylesheets` to `true` in
+   `about:config` and restart Firefox.
+8. On a work machine, restore or create `~/.work.zshrc` and
+   `~/.work.sesh.toml` for private configuration. These files remain outside
+   version control and must be transferred through an approved private method.
+
+Later runs only install missing packages and tools. They also update managed
+symlinks and copy Firefox's `userChrome.css` only when its content changed.
 
 ---
 

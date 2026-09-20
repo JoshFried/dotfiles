@@ -67,4 +67,10 @@ local function bluetoothDevices()
     end, { "--paired", "--format", "json" }):start()
 end
 
-hs.hotkey.bind({ "cmd", "alt" }, "B", bluetoothDevices)
+require("bindings").bind({
+    group = "Devices",
+    title = "Bluetooth devices",
+    modifiers = { "cmd", "alt" },
+    key = "B",
+    action = bluetoothDevices,
+})

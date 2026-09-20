@@ -6,4 +6,10 @@ local function toggle()
     end
 end
 
-hs.hotkey.bind(hyper, "A", toggle)
+require("bindings").bind({
+    group = "Windows",
+    title = "Toggle fullscreen",
+    modifiers = hyper,
+    key = "A",
+    action = toggle,
+})

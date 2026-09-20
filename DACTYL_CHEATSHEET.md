@@ -38,7 +38,7 @@ LEFT HAND                                                          RIGHT HAND
 ```
 CTRL    = Control (QMK sends Left GUI, Karabiner remaps to Ctrl)
 S+CTL   = Shift+Control (QMK sends Right Shift, Karabiner remaps)
-HYPER   = All four modifiers held at once: Ctrl+Opt+Shift+Cmd
+HYPER   = hold for Ctrl+Opt+Shift+Cmd; tap the thumb key for the command palette
 OPT+SH  = Option+Shift (QMK sends Right Alt, Karabiner remaps)
 /Ly1    = hold for Layer 1, tap for the printed key
 /Ly2    = hold for Layer 2, tap for `

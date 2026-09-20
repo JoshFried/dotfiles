@@ -7,6 +7,7 @@ local kanagawa = require("kanagawa")
 local meetingChooser = nil
 local CAL_FILE = "/tmp/cal-events.txt"
 local CAL_BIN = os.getenv("HOME") .. "/.config/cal-events"
+local calendarTask = nil
 
 local function findMeetingUrl(text)
     local patterns = {
@@ -43,6 +44,15 @@ local function parseMeetings()
     return choices
 end
 
+local function updateChooser()
+    local choices = parseMeetings()
+    if #choices == 0 then
+        meetingChooser:choices({ { text = "No upcoming meetings" } })
+    else
+        meetingChooser:choices(choices)
+    end
+end
+
 local function showMeetings()
     if not meetingChooser then
         meetingChooser = hs.chooser.new(function(choice)
@@ -56,14 +66,33 @@ local function showMeetings()
         kanagawa.styleChooser(meetingChooser, { rows = 8 })
     end
 
-    -- Read cached calendar file (refreshed by .zshrc on terminal open)
-    local choices = parseMeetings()
-    if #choices == 0 then
-        meetingChooser:choices({{ text = "No upcoming meetings", subText = "Open a terminal to refresh" }})
-    else
-        meetingChooser:choices(choices)
-    end
+    meetingChooser:choices({ { text = "Refreshing meetings…" } })
     meetingChooser:show()
+
+    calendarTask = hs.task.new(CAL_BIN, function(exitCode, stdOut)
+        calendarTask = nil
+        if exitCode == 0 then
+            local file = io.open(CAL_FILE, "w")
+            if file then
+                file:write(stdOut or "")
+                file:close()
+            end
+        end
+
+        updateChooser()
+    end)
+
+    if calendarTask then
+        calendarTask:start()
+    else
+        updateChooser()
+    end
 end
 
-hs.hotkey.bind(hyper, "M", showMeetings)
+require("bindings").bind({
+    group = "Productivity",
+    title = "Upcoming meetings",
+    modifiers = hyper,
+    key = "M",
+    action = showMeetings,
+})

@@ -38,4 +38,10 @@ local function toggleScratchpad()
     end
 end
 
-hs.hotkey.bind(hyper, "Space", toggleScratchpad)
+require("bindings").bind({
+    group = "Applications",
+    title = "WezTerm scratchpad",
+    modifiers = hyper,
+    key = "Space",
+    action = toggleScratchpad,
+})

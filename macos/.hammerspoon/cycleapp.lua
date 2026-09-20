@@ -126,8 +126,10 @@ function highlightWindow()
     end)
 end
 
-local hotkey = require("hs.hotkey")
-
-hotkey.bind({ "cmd", "alt" }, "C", function()
-    cycle()
-end)
+require("bindings").bind({
+    group = "Windows",
+    title = "Cycle application windows",
+    modifiers = { "cmd", "alt" },
+    key = "C",
+    action = cycle,
+})

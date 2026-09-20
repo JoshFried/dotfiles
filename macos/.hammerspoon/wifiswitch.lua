@@ -3,8 +3,13 @@ local kanagawa = require("kanagawa")
 local wifiChooser = hs.chooser.new(function(choice)
     if not choice then return end
     local ssid = choice["text"]
-    hs.execute("networksetup -setairportnetwork en0 '" .. ssid .. "'")
-    hs.alert.show("Connecting to: " .. ssid)
+    hs.task.new("/usr/sbin/networksetup", function(exitCode)
+        if exitCode == 0 then
+            hs.alert.show("Connecting to: " .. ssid)
+        else
+            hs.alert.show("Failed to connect to: " .. ssid)
+        end
+    end, { "-setairportnetwork", "en0", ssid }):start()
 end)
 kanagawa.styleChooser(wifiChooser, { rows = 10 })
 
@@ -60,4 +65,10 @@ local function wifiNetworks()
     wifiChooser:choices(choices)
 end
 
-hs.hotkey.bind({ "cmd", "alt" }, "W", wifiNetworks)
+require("bindings").bind({
+    group = "Devices",
+    title = "Wi-Fi networks",
+    modifiers = { "cmd", "alt" },
+    key = "W",
+    action = wifiNetworks,
+})

@@ -1,8 +1,12 @@
-local hotkey = require "hs.hotkey"
-
-function reloadConfig(file)
+local function reloadConfig()
     hs.reload()
     hs.alert.show("Config reloaded")
 end
 
-hotkey.bind(hyper, "R", reloadConfig)
+require("bindings").bind({
+    group = "System",
+    title = "Reload Hammerspoon",
+    modifiers = hyper,
+    key = "R",
+    action = reloadConfig,
+})

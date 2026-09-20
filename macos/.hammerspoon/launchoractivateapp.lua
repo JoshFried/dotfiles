@@ -1,4 +1,4 @@
-local hotkey = require("hs.hotkey")
+local bindings = require("bindings")
 local applications = require("hs.application")
 local fnutils = require("hs.fnutils")
 
@@ -74,11 +74,19 @@ local apps = {
 }
 
 for _, mappings in ipairs(apps) do
-	hotkey.bind(hyper, mappings.key, function()
-		if mappings.app == "Firefox" then
-			hs.timer.doAfter(0.05, function() launchOrActivateApp(mappings.app) end)
-		else
-			launchOrActivateApp(mappings.app)
-		end
-	end)
+    bindings.bind({
+        group = "Applications",
+        title = mappings.app,
+        modifiers = hyper,
+        key = mappings.key,
+        action = function()
+            if mappings.app == "Firefox" then
+                hs.timer.doAfter(0.05, function()
+                    launchOrActivateApp(mappings.app)
+                end)
+            else
+                launchOrActivateApp(mappings.app)
+            end
+        end,
+    })
 end

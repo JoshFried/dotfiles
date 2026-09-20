@@ -1,4 +1,4 @@
-local hotkey = require("hs.hotkey")
+local bindings = require("bindings")
 local windows = require("hs.window")
 local screen = require("hs.screen")
 -- hs.spaces uses private macOS APIs that break between OS versions.
@@ -76,7 +76,13 @@ local apps = {
 }
 
 for _, mappings in ipairs(apps) do
-    hotkey.bind({ "cmd", "ctrl" }, mappings.key, function()
-        centered(mappings.app)
-    end)
+    bindings.bind({
+        group = "Floating applications",
+        title = mappings.app,
+        modifiers = { "cmd", "ctrl" },
+        key = mappings.key,
+        action = function()
+            centered(mappings.app)
+        end,
+    })
 end

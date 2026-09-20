@@ -1,72 +1,71 @@
 # Hammerspoon Cheat Sheet
 
-## Hyper Key = Ctrl + Alt + Cmd + Shift
+Hyper is `Control+Option+Command+Shift`. Holding the right Control thumb key
+produces Hyper; tapping it opens the Hammerspoon command palette.
 
-### App Launchers (Hyper + Key)
-| Key | App |
-|-----|-----|
-| G | Google Chrome |
-| T | WezTerm |
-| D | Discord |
-| S | Slack |
-| O | Microsoft Outlook |
-| C | Amazon Chime |
-| I | IntelliJ IDEA |
-| F | Firefox |
-| Z | Zoom |
-| Q | KeyCastr |
+## Discovery and navigation
 
-### Centered Apps (Cmd + Ctrl + Key)
-| Key | App |
-|-----|-----|
-| E | Messages |
-| A | Music |
-| P | Podcasts |
-| W | Notes |
+- `Hyper+;` — searchable command palette
+- `Hyper+W` — search all open windows by application and title
+- `Hyper+Delete` or `Hyper+Forward Delete` — return to the previous window
+- `Hyper+Tab` — return to the previous AeroSpace workspace
+- `Cmd+Alt+C` — cycle windows of the current application
 
-### Audio (Cmd + Alt + Key)
-| Key | Action |
-|-----|--------|
-| O | Switch output device |
-| I | Switch input device |
+## Applications
 
-### AirPods Quick Connect (Hyper + Key)
-| Key | Device |
-|-----|--------|
-| 1 | AirPods Pro |
-| 2 | AirPods Max |
+- `Hyper+G` — Google Chrome
+- `Hyper+T` — Ghostty
+- `Hyper+D` — Discord
+- `Hyper+S` — Slack
+- `Hyper+O` — Microsoft Outlook
+- `Hyper+C` — Codex
+- `Hyper+I` — IntelliJ IDEA
+- `Hyper+F` — Firefox
+- `Hyper+Z` — Zoom
+- `Hyper+Q` — KeyCastr
+- `Hyper+P` — Docker
+- `Hyper+Space` — WezTerm scratchpad
 
-### Spaces (Hyper + Key)
-| Key | Action |
-|-----|--------|
-| N | Create new space |
-| X | Close all empty spaces |
-| ` | Show current space number |
+Pressing an application shortcut again cycles that application's windows.
 
-### Raycast Integration (Hyper + Key)
-| Key | Action |
-|-----|--------|
-| V | Clipboard history |
+## Floating applications
 
-### Utilities
-| Shortcut | Action |
-|----------|--------|
-| Hyper + Space | Toggle Ghostty scratchpad |
-| Cmd + Alt + B | Bluetooth device chooser |
-| Cmd + Alt + C | Cycle windows of current app |
-| Cmd + Alt + W | WiFi network chooser |
-| Cmd + Alt + S | System sleep |
-| Cmd + Alt + \\ | Hammerspoon console (centered) |
-| Hyper + A | Toggle fullscreen |
-| Hyper + R | Reload config |
+- `Cmd+Ctrl+E` — Messages
+- `Cmd+Ctrl+A` — Music
+- `Cmd+Ctrl+P` — Podcasts
+- `Cmd+Ctrl+W` — Notes
+- `Cmd+Ctrl+T` — Telegram
+- `Cmd+Ctrl+F` — Finder
 
-### Media Controls (Shift + Key)
-| Key | Action |
-|-----|--------|
-| F7 | Previous track |
-| F8 | Play/Pause |
-| F9 | Next track |
+## Productivity and devices
 
-### Automatic Behaviors
-- Display stays awake
-- Leaving home WiFi: minimizes windows & mutes audio
+- `Hyper+M` — refresh and choose an upcoming meeting
+- `Hyper+V` — Raycast clipboard history
+- `Cmd+Alt+O` — audio output chooser
+- `Cmd+Alt+I` — audio input chooser
+- `Cmd+Alt+B` — Bluetooth device chooser
+- `Cmd+Alt+W` — Wi-Fi network chooser
+
+## Windows, spaces, and system
+
+- `Hyper+A` — toggle fullscreen
+- `Hyper+N` — create a macOS space
+- `Hyper+X` — close empty macOS spaces
+- ``Hyper+` `` — show the current macOS space number
+- `Hyper+R` — reload Hammerspoon
+- `Cmd+Alt+S` — sleep
+- `Cmd+Alt+\` — open the Hammerspoon console
+
+## Media
+
+- `Shift+F7` — previous track
+- `Shift+F8` — play or pause
+- `Shift+F9` — next track
+
+## Automatic behavior
+
+- The display remains awake.
+- Leaving the home Wi-Fi network minimizes windows and mutes the MacBook
+  speakers.
+- Monitor changes trigger AeroSpace workspace reassignment and a SketchyBar
+  refresh.

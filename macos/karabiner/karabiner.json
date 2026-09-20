@@ -39,6 +39,11 @@
                                         ]
                                     }
                                 ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "f18"
+                                    }
+                                ],
                                 "type": "basic"
                             }
                         ]

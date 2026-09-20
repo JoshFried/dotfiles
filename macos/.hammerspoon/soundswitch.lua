@@ -6,17 +6,23 @@ local cache = {
     input = hs.audiodevice.defaultInputDevice(),
 }
 
+local function findDevice(devices, name)
+    for _, device in ipairs(devices) do
+        if device:name() == name then
+            return device
+        end
+    end
+end
+
 local outputChooser = hs.chooser.new(function(choice)
     if not choice then
         return
     end
 
-    local idx = choice["idx"]
     local name = choice["text"]
+    local dev = findDevice(hs.audiodevice.allOutputDevices(), name)
 
-    dev = hs.audiodevice.allOutputDevices()[idx]
-
-    if not dev:setDefaultOutputDevice() then
+    if not dev or not dev:setDefaultOutputDevice() then
         hs.alert.show("Unable to enable audio output device " .. name)
     else
         if dev ~= cache.output then
@@ -33,13 +39,13 @@ local function outSources()
     local currentOutput = hs.audiodevice.defaultOutputDevice()
     local currentName = currentOutput and currentOutput:name() or ""
 
-    for i, v in ipairs(hs.audiodevice.allOutputDevices()) do
+    for _, v in ipairs(hs.audiodevice.allOutputDevices()) do
         if not string.find(v:name(), "LG ULTRAGEAR") then
             local sub = ""
             if v:name() == currentName then
                 sub = "✓ Active"
             end
-            table.insert(outputs, { text = v:name(), subText = sub, idx = i })
+            table.insert(outputs, { text = v:name(), subText = sub })
         end
     end
 
@@ -47,21 +53,23 @@ local function outSources()
     outputChooser:show()
 end
 
-hs.hotkey.bind({ "cmd", "alt" }, "O", function()
-    outSources()
-end)
+require("bindings").bind({
+    group = "Devices",
+    title = "Audio output",
+    modifiers = { "cmd", "alt" },
+    key = "O",
+    action = outSources,
+})
 
 local inputChooser = hs.chooser.new(function(choice)
     if not choice then
         return
     end
 
-    local idx = choice["idx"]
     local name = choice["text"]
+    local dev = findDevice(hs.audiodevice.allInputDevices(), name)
 
-    dev = hs.audiodevice.allInputDevices()[idx]
-
-    if not dev:setDefaultInputDevice() then
+    if not dev or not dev:setDefaultInputDevice() then
         hs.alert.show("Unable to enable audio input device " .. name)
     else
         if cache.input ~= dev then
@@ -78,29 +86,22 @@ local function inSources()
     local currentInput = hs.audiodevice.defaultInputDevice()
     local currentName = currentInput and currentInput:name() or ""
 
-    for i, v in ipairs(hs.audiodevice.allInputDevices()) do
+    for _, v in ipairs(hs.audiodevice.allInputDevices()) do
         local sub = ""
         if v:name() == currentName then
             sub = "✓ Active"
         end
-        table.insert(inputs, { text = v:name(), subText = sub, idx = i })
+        table.insert(inputs, { text = v:name(), subText = sub })
     end
 
     inputChooser:choices(inputs)
     inputChooser:show()
 end
 
-hs.hotkey.bind({ "cmd", "alt" }, "I", inSources)
-
--- This is not exactly a great way to go about this but it works
-local headphones = {
-    max = "90-9c-4a-e5-cc-ca",
-    pro = "00-f3-9f-6a-21-47",
-}
-local airpods = function(choice)
-    local res = hs.execute("/opt/homebrew/bin/blueutil --connect " .. headphones[choice])
-
-    cache.launchTimer = hs.timer.doAfter(1.0, function()
-        outSources()
-    end)
-end
+require("bindings").bind({
+    group = "Devices",
+    title = "Audio input",
+    modifiers = { "cmd", "alt" },
+    key = "I",
+    action = inSources,
+})
