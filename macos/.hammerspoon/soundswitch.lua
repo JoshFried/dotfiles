@@ -1,3 +1,5 @@
+--- Searchable selectors for the default audio input and output devices.
+
 local kanagawa = require("kanagawa")
 
 local cache = {
@@ -6,6 +8,10 @@ local cache = {
     input = hs.audiodevice.defaultInputDevice(),
 }
 
+--- Finds an audio device by its exact display name.
+---@param devices hs.audiodevice[]
+---@param name string
+---@return hs.audiodevice|nil
 local function findDevice(devices, name)
     for _, device in ipairs(devices) do
         if device:name() == name then
@@ -33,6 +39,7 @@ local outputChooser = hs.chooser.new(function(choice)
 end)
 kanagawa.styleChooser(outputChooser)
 
+--- Displays available output devices with the active device prioritized visually.
 local function outSources()
     outputChooser:refreshChoicesCallback()
     local outputs = {}
@@ -80,6 +87,7 @@ local inputChooser = hs.chooser.new(function(choice)
 end)
 kanagawa.styleChooser(inputChooser)
 
+--- Displays available input devices with the active device identified.
 local function inSources()
     inputChooser:refreshChoicesCallback()
     local inputs = {}

@@ -1,3 +1,5 @@
+//! Deterministic subprocess test doubles for engine unit tests.
+
 use std::{collections::VecDeque, io, sync::Mutex};
 
 use crate::system::{CommandOutput, CommandRequest, CommandRunner};

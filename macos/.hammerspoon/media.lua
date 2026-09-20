@@ -1,3 +1,5 @@
+--- Routes shifted media keys directly to Apple Music through AppleScript.
+
 local rewindCommand = [[
 tell application "Music" to back track
 ]]
@@ -10,7 +12,6 @@ local fastforwardCommand = [[
 tell application "Music" to next track
 ]]
 
--- Then, we'll use Hammerspoon to bind the F7, F8, and F9 keys to these commands:
 local bindings = require("bindings")
 
 local controls = {

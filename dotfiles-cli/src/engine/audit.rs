@@ -1,3 +1,5 @@
+//! Resource-specific desired-state inspection.
+
 use std::{fs, path::Path};
 
 use crate::{

@@ -1,5 +1,7 @@
--- Scratchpad terminal (WezTerm) - dropdown style
+--- Toggles WezTerm as a centered dropdown-style scratchpad.
 
+--- Applies the scratchpad frame on the main screen.
+---@param win hs.window
 local function positionScratchpad(win)
     local screen = hs.screen.mainScreen():frame()
     win:setFrame({
@@ -10,6 +12,7 @@ local function positionScratchpad(win)
     })
 end
 
+--- Launches, reveals, or hides the WezTerm scratchpad.
 local function toggleScratchpad()
     local app = hs.application.get("WezTerm")
     

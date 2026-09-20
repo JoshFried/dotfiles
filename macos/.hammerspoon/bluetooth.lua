@@ -1,3 +1,5 @@
+--- Provides a searchable chooser for connecting paired Bluetooth devices.
+
 local kanagawa = require("kanagawa")
 
 local bluetoothChooser = hs.chooser.new(function(choice)
@@ -18,6 +20,7 @@ local bluetoothChooser = hs.chooser.new(function(choice)
 end)
 kanagawa.styleChooser(bluetoothChooser)
 
+--- Refreshes, prioritizes, and displays paired Bluetooth devices.
 local function bluetoothDevices()
     bluetoothChooser:refreshChoicesCallback()
 
@@ -42,7 +45,6 @@ local function bluetoothDevices()
                     })
                 end
 
-                -- Sort: connected first, then AirPods, then trackpads, then others
                 table.sort(choices, function(a, b)
                     if a.isConnected and not b.isConnected then return true end
                     if b.isConnected and not a.isConnected then return false end

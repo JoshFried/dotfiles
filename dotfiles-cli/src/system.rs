@@ -1,3 +1,5 @@
+//! Injectable external-command execution and executable discovery.
+
 use std::{
     collections::BTreeMap,
     ffi::OsString,
@@ -7,14 +9,19 @@ use std::{
     time::Instant,
 };
 
+/// Immutable description of an external command.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct CommandRequest {
+    /// Executable name or path.
     pub program: PathBuf,
+    /// Ordered process arguments.
     pub arguments: Vec<OsString>,
+    /// Environment variables added or replaced for the child.
     pub environment: BTreeMap<OsString, OsString>,
 }
 
 impl CommandRequest {
+    /// Creates a request for an executable with no arguments or environment overrides.
     pub fn new(program: impl Into<PathBuf>) -> Self {
         Self {
             program: program.into(),
@@ -23,6 +30,7 @@ impl CommandRequest {
         }
     }
 
+    /// Appends process arguments.
     pub fn args<I, S>(mut self, arguments: I) -> Self
     where
         I: IntoIterator<Item = S>,
@@ -32,24 +40,33 @@ impl CommandRequest {
         self
     }
 
+    /// Adds or replaces one child-process environment variable.
     pub fn env(mut self, key: impl Into<OsString>, value: impl Into<OsString>) -> Self {
         self.environment.insert(key.into(), value.into());
         self
     }
 }
 
+/// Captured process status and text streams.
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
 pub struct CommandOutput {
+    /// Whether the process exited successfully.
     pub success: bool,
+    /// Standard output decoded lossily as UTF-8.
     pub stdout: String,
+    /// Standard error decoded lossily as UTF-8.
     pub stderr: String,
 }
 
+/// Execution boundary used to isolate subprocesses in tests.
 pub trait CommandRunner: Send + Sync {
+    /// Runs a command with both output streams captured.
     fn capture(&self, request: &CommandRequest) -> io::Result<CommandOutput>;
+    /// Runs a command attached to the current terminal and returns its success status.
     fn run(&self, request: &CommandRequest) -> io::Result<bool>;
 }
 
+/// Command runner backed by [`std::process::Command`].
 #[derive(Debug, Default)]
 pub struct SystemCommandRunner;
 
@@ -133,6 +150,7 @@ fn command(request: &CommandRequest) -> Command {
     command
 }
 
+/// Locates an executable on `PATH` or in common Homebrew prefixes.
 pub fn find_program(name: &str, path: Option<&std::ffi::OsStr>) -> Option<PathBuf> {
     std::env::split_paths(path.unwrap_or_default())
         .map(|directory| directory.join(name))

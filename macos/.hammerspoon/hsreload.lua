@@ -1,6 +1,9 @@
+--- Exposes a logged, user-visible Hammerspoon configuration reload.
+
 local M = {}
 local log = hs.logger.new("services", "debug")
 
+--- Schedules a full Hammerspoon reload after displaying feedback.
 function M.reload()
     log.i("Reloading Hammerspoon configuration")
     hs.alert.show("Reloading Hammerspoon")

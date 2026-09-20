@@ -1,3 +1,5 @@
+//! Kanagawa-inspired semantic colors for dashboard widgets.
+
 use ratatui::style::{Color, Modifier, Style};
 
 use crate::domain::Status;

@@ -1,3 +1,5 @@
+//! Declarative manifest types, loading, and structural validation.
+
 use std::{
     collections::{BTreeMap, BTreeSet},
     fs,
@@ -7,54 +9,86 @@ use std::{
 use anyhow::{Context, Result, bail};
 use serde::Deserialize;
 
+/// Validated dotfiles manifest.
 #[derive(Clone, Debug, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Config {
+    /// Manifest schema version.
     pub version: u32,
+    /// Profiles selected when no explicit filter is provided.
     #[serde(default)]
     pub default_profiles: Vec<String>,
+    /// Named groups of resource identifiers.
     #[serde(default)]
     pub profiles: BTreeMap<String, Vec<String>>,
+    /// Resources describing the desired machine state.
     pub resources: Vec<Resource>,
 }
 
+/// A named, selectable unit of desired state.
 #[derive(Clone, Debug, Deserialize)]
 pub struct Resource {
+    /// Stable resource identifier.
     pub id: String,
+    /// Human-readable purpose.
     pub description: String,
+    /// Searchable categories used by selection filters.
     #[serde(default)]
     pub tags: Vec<String>,
+    /// Resource identifiers that must be handled first.
     #[serde(default)]
     pub depends_on: Vec<String>,
+    /// Type-specific desired state.
     #[serde(flatten)]
     pub kind: ResourceKind,
 }
 
+/// Supported resource implementations.
 #[derive(Clone, Debug, Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case")]
 pub enum ResourceKind {
+    /// A Homebrew formula, optionally recognizing an alternate executable.
     BrewFormula {
+        /// Formula or fully qualified tap name.
         name: String,
+        /// Executable used to detect another installation source.
         executable: Option<String>,
     },
+    /// A Homebrew cask with an optional application bundle fallback.
     BrewCask {
+        /// Cask or fully qualified tap name.
         name: String,
+        /// Application bundle used to detect unmanaged installations.
         app: Option<String>,
     },
+    /// A Homebrew-managed background service.
     BrewService {
+        /// Formula service name.
         name: String,
     },
+    /// A repository path linked into the home directory.
     Symlink {
+        /// Source path relative to the repository.
         source: String,
+        /// Destination path, with `~` resolved against the user home.
         destination: String,
     },
+    /// A Git checkout with an expected origin.
     GitRepo {
+        /// Expected remote origin URL.
         url: String,
+        /// Checkout destination.
         destination: String,
     },
 }
 
 impl Config {
+    /// Loads and validates a manifest from disk.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error for unreadable or invalid TOML, unsupported versions,
+    /// duplicate identifiers, missing references, or dependency cycles.
     pub fn load(path: &Path) -> Result<Self> {
         tracing::debug!(path = %path.display(), "loading configuration");
         let contents = fs::read_to_string(path)
@@ -72,6 +106,7 @@ impl Config {
         Ok(config)
     }
 
+    /// Finds a resource by its stable identifier.
     pub fn resource(&self, id: &str) -> Option<&Resource> {
         self.resources.iter().find(|resource| resource.id == id)
     }

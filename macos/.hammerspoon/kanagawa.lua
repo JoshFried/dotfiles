@@ -1,13 +1,17 @@
--- Kanagawa Wave theme helpers for Hammerspoon.
--- Shared palette + a styleChooser() helper applied uniformly to the audio,
--- wifi, and bluetooth pickers.
---
--- hs.chooser doesn't expose a font API, so glyphs stay in the system font.
--- We style colors, width, row count, dark chrome, and enable subtext search.
+--- Kanagawa palette and consistent styling for Hammerspoon choosers.
+---
+--- Chooser font selection is not exposed by Hammerspoon; this module controls
+--- colors, dimensions, search behavior, and post-show centering.
+
+---@class ChooserStyleOptions
+---@field rows? integer Number of visible result rows.
+---@field width? number Chooser width as a percentage of the screen.
+---@field searchSubText? boolean Include secondary text in search.
+---@field vcenter? boolean Center the chooser after it appears.
 
 local M = {}
 
--- ── Palette (matches dotfiles README.md) ──────────────────────
+---@type table<string, string>
 M.palette = {
     sumiInk0     = "#16161D", -- deep background
     sumiInk3     = "#1F1F28", -- background
@@ -24,8 +28,9 @@ M.palette = {
     katanaGray   = "#727169", -- comments / inactive
 }
 
--- Convert a "#RRGGBB" string into the { red, green, blue, alpha } table
--- that hs color APIs expect.
+--- Converts a hexadecimal color into a Hammerspoon color table.
+---@param hex string `#RRGGBB` color value.
+---@return table
 local function hexToRgb(hex)
     hex = hex:gsub("#", "")
     return {
@@ -38,14 +43,10 @@ end
 
 M.rgb = hexToRgb
 
--- ── styleChooser(chooser) ─────────────────────────────────────
--- Apply Kanagawa chrome to an hs.chooser. Safe to call multiple times.
--- Pass opts = { rows = 10, searchSubText = true, vcenter = false } to override.
---
--- hs.chooser has no y-position API, so vertical centering is done by
--- monkey-patching :show() to reposition the chooser's window after it
--- appears. 30ms delay is small enough to be visually unnoticeable on
--- the devices I've tested but large enough for the panel to exist.
+--- Applies reusable Kanagawa styling and optional post-show centering.
+---@param chooser hs.chooser
+---@param opts? ChooserStyleOptions
+---@return hs.chooser
 function M.styleChooser(chooser, opts)
     opts = opts or {}
 

@@ -1,3 +1,5 @@
+--- Searchable window switcher with a direct previous-window shortcut.
+
 local bindings = require("bindings")
 local kanagawa = require("kanagawa")
 
@@ -27,6 +29,7 @@ end)
 
 kanagawa.styleChooser(chooser, { rows = 12, width = 55 })
 
+--- Rebuilds and opens a chooser containing standard titled windows.
 local function showWindowChooser()
     windowById = {}
     local choices = {}
@@ -56,6 +59,7 @@ local function showWindowChooser()
     chooser:show()
 end
 
+--- Focuses the window that preceded the current focused window.
 local function focusPreviousWindow()
     local window = previousWindowId and hs.window.get(previousWindowId)
     if window then

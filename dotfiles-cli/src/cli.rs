@@ -1,3 +1,5 @@
+//! Derive-based command-line interface definitions.
+
 use std::path::PathBuf;
 
 use anstyle::AnsiColor;
@@ -12,6 +14,7 @@ const CLAP_STYLES: clap::builder::styling::Styles = clap::builder::styling::Styl
     .valid(AnsiColor::BrightGreen.on_default())
     .invalid(AnsiColor::BrightYellow.on_default());
 
+/// Parsed global options and requested operation.
 #[derive(Debug, Parser)]
 #[command(
     name = "dotfiles",
@@ -26,6 +29,7 @@ const CLAP_STYLES: clap::builder::styling::Styles = clap::builder::styling::Styl
     after_help = "Examples:\n  dotfiles                     Open the interactive dashboard\n  dotfiles audit               Report configuration drift\n  dotfiles plan --profile core Preview changes for the core profile\n  dotfiles apply --tag service Apply service-related changes\n  dotfiles explain symlink.zshrc"
 )]
 pub struct Cli {
+    /// Repository containing managed source files.
     #[arg(
         long,
         global = true,
@@ -34,6 +38,7 @@ pub struct Cli {
     )]
     pub repo: Option<PathBuf>,
 
+    /// Manifest path, defaulting to `dotfiles.toml` in the repository.
     #[arg(
         long,
         global = true,
@@ -42,6 +47,7 @@ pub struct Cli {
     )]
     pub config: Option<PathBuf>,
 
+    /// Number of verbosity flags supplied for terminal logging.
     #[arg(
         short,
         long,
@@ -51,6 +57,7 @@ pub struct Cli {
     )]
     pub verbose: u8,
 
+    /// Directory receiving persistent JSONL logs.
     #[arg(
         long,
         global = true,
@@ -59,18 +66,22 @@ pub struct Cli {
     )]
     pub log_directory: Option<PathBuf>,
 
+    /// Requested operation, or the TUI when omitted.
     #[command(subcommand)]
     pub command: Option<Command>,
 }
 
+/// Operations supported by the dotfiles CLI.
 #[derive(Debug, Subcommand)]
 pub enum Command {
     /// Open the interactive audit and apply dashboard
     Tui(FilterArgs),
     /// Report the current state without making changes
     Audit {
+        /// Resource selection filters.
         #[command(flatten)]
         filter: FilterArgs,
+        /// Whether to emit machine-readable JSON.
         #[arg(long, help = "Emit machine-readable JSON without colors")]
         json: bool,
     },
@@ -78,8 +89,10 @@ pub enum Command {
     Plan(FilterArgs),
     /// Apply selected changes
     Apply {
+        /// Resource selection filters.
         #[command(flatten)]
         filter: FilterArgs,
+        /// Whether to skip interactive confirmation.
         #[arg(long, help = "Skip the confirmation prompt")]
         yes: bool,
     },
@@ -87,13 +100,16 @@ pub enum Command {
     List,
     /// Explain a resource and its dependencies
     Explain {
+        /// Resource identifier to explain.
         #[arg(value_name = "RESOURCE")]
         id: String,
     },
 }
 
+/// Profile, tag, and explicit resource filters.
 #[derive(Args, Clone, Debug, Default)]
 pub struct FilterArgs {
+    /// Profiles whose resources should be selected.
     #[arg(
         long,
         value_name = "PROFILE",
@@ -101,9 +117,11 @@ pub struct FilterArgs {
     )]
     pub profile: Vec<String>,
 
+    /// Tags whose matching resources should be selected.
     #[arg(long, value_name = "TAG", help = "Select every resource with a tag")]
     pub tag: Vec<String>,
 
+    /// Explicit resource identifiers to select.
     #[arg(value_name = "RESOURCE", help = "Select specific resource IDs")]
     pub resources: Vec<String>,
 }

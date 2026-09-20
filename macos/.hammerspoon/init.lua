@@ -1,12 +1,21 @@
+--- Hammerspoon entry point and module lifecycle coordinator.
+---
+--- Loads core bindings first, isolates module failures, and allows the
+--- machine-specific `work` module to be absent.
+
 require("hs.ipc")
 hs.caffeinate.set("displayIdle", true, true)
 
+--- Reasserts the display-idle preference after system power-state changes.
 local function awake()
     hs.caffeinate.set("displayIdle", true, true)
 end
 
 hs.caffeinate.watcher.new(awake):start()
 
+--- Loads a module while keeping unrelated automation available after failures.
+---@param name string Module name passed to `require`.
+---@param optional? boolean Suppress user-visible errors when the module is absent.
 local function loadModule(name, optional)
     local ok, err = pcall(require, name)
     if not ok and not optional then

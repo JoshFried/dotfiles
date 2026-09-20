@@ -1,14 +1,16 @@
+--- Toggles selected applications as centered floating windows on the main display.
+
 local bindings = require("bindings")
 local windows = require("hs.window")
 local screen = require("hs.screen")
--- hs.spaces uses private macOS APIs that break between OS versions.
--- Fail gracefully if the module can't load; the move-to-space fallback
--- below is only used on first-time app launches, and AeroSpace handles
--- workspace placement anyway.
+--- `hs.spaces` uses private macOS APIs, so centering remains available when it fails.
 local ok, spaces = pcall(require, "hs.spaces")
 if not ok then spaces = nil end
 local applications = require("hs.application")
 
+--- Resizes, centers, and focuses a window within a screen frame.
+---@param win hs.window
+---@param screenFrame hs.geometry
 local function handleCenter(win, screenFrame)
     local winFrame = win:frame()
     winFrame.h = screenFrame.h / 2
@@ -20,11 +22,15 @@ local function handleCenter(win, screenFrame)
     win:focus()
 end
 
+--- Returns the usable frame of the current main screen.
+---@return hs.geometry
 local function getMainFrame()
     local mainScreen = screen.mainScreen()
     return mainScreen:frame()
 end
 
+--- Hides a frontmost app or centers its first available window.
+---@param app string Application name.
 local function centered(app)
     local application = applications.find(app)
     local mainScreen = screen.mainScreen()

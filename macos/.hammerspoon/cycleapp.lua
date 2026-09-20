@@ -1,3 +1,7 @@
+--- Cycles standard windows for the frontmost application and highlights focus.
+
+--- Focuses the next standard window belonging to the frontmost application.
+--- Launches or creates a window when the application has none.
 function cycle()
     local application = hs.application.frontmostApplication()
     local frontmostWindow = hs.window.frontmostWindow()
@@ -55,7 +59,8 @@ end
 local cache = {}
 local module = { cache = cache }
 
--- returns 'graphite' or 'aqua'
+--- Returns the system highlight appearance.
+---@return "graphite"|"aqua"|nil
 local getOSXAppearance = function()
     local _, res = hs.applescript.applescript([[
     tell application "System Events"
@@ -68,6 +73,8 @@ local getOSXAppearance = function()
     return res
 end
 
+--- Returns the focus-border color matching the system highlight preference.
+---@return table
 local getHighlightWindowColor = function()
     local blueColor = { red = 50 / 255, green = 138 / 255, blue = 215 / 255, alpha = 1.0 }
     local grayColor = { red = 143 / 255, green = 143 / 255, blue = 143 / 255, alpha = 1.0 }
@@ -75,6 +82,7 @@ local getHighlightWindowColor = function()
     return getOSXAppearance() == "graphite" and grayColor or blueColor
 end
 
+--- Briefly draws a border around the focused window.
 function highlightWindow()
     local borderWidth = 6
     local fadeTime = 0.25

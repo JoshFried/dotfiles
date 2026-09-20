@@ -1,22 +1,32 @@
+//! Stable domain values shared by the engine and presentation layers.
+
 use std::fmt;
 
 use serde::Serialize;
 
+/// Health classification for a managed resource.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize)]
 #[serde(rename_all = "snake_case")]
 pub enum Status {
+    /// Desired and actual state match.
     Healthy,
+    /// No corresponding installation or path was found.
     Missing,
+    /// The resource exists through an unexpected source or location.
     Misplaced,
+    /// The resource exists but differs from the desired state.
     Drifted,
+    /// A prerequisite prevents inspection or reconciliation.
     Blocked,
 }
 
 impl Status {
+    /// Returns whether no corrective action is required.
     pub fn is_healthy(self) -> bool {
         self == Self::Healthy
     }
 
+    /// Returns the compact symbol used by human-readable output.
     pub fn symbol(self) -> &'static str {
         match self {
             Self::Healthy => "●",
@@ -41,31 +51,50 @@ impl fmt::Display for Status {
     }
 }
 
+/// Complete observed state for one resource.
 #[derive(Clone, Debug, Serialize)]
 pub struct AuditResult {
+    /// Stable resource identifier.
     pub id: String,
+    /// Human-readable purpose.
     pub description: String,
+    /// Health classification.
     pub status: Status,
+    /// Concise explanation of the classification.
     pub summary: String,
+    /// Expected state.
     pub desired: String,
+    /// Observed state.
     pub actual: String,
+    /// Whether the engine can safely reconcile the resource.
     pub fixable: bool,
+    /// Proposed operation when automatic reconciliation is available.
     pub action: Option<String>,
 }
 
+/// One automatic change proposed by a plan.
 #[derive(Clone, Debug, Serialize)]
 pub struct PlannedChange {
+    /// Stable resource identifier.
     pub id: String,
+    /// Human-readable purpose.
     pub description: String,
+    /// Command or filesystem operation to perform.
     pub action: String,
 }
 
+/// Metadata and dependency relationships for one resource.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct ResourceExplanation {
+    /// Stable resource identifier.
     pub id: String,
+    /// Human-readable purpose.
     pub description: String,
+    /// Searchable resource categories.
     pub tags: Vec<String>,
+    /// Resources that must be handled first.
     pub dependencies: Vec<String>,
+    /// Resources that directly depend on this resource.
     pub dependents: Vec<String>,
 }
 

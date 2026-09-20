@@ -1,3 +1,10 @@
+--- Searchable control surface for restarting and diagnosing desktop services.
+
+---@class ServiceAction
+---@field title string Chooser label.
+---@field detail string Operational description.
+---@field action fun() Action callback.
+
 local bindings = require("bindings")
 local kanagawa = require("kanagawa")
 local hsreload = require("hsreload")
@@ -13,6 +20,10 @@ local paths = {
     workspaceAssign = os.getenv("HOME") .. "/.config/aerospace-workspace-assign.sh",
 }
 
+--- Emits each non-empty output line through the service logger.
+---@param level "i"|"e" Logger method name.
+---@param label string Prefix identifying the task.
+---@param output? string Captured process output.
 local function logLines(level, label, output)
     if not output or output == "" then
         return
@@ -23,6 +34,10 @@ local function logLines(level, label, output)
     end
 end
 
+--- Starts an asynchronous task with a predictable service-management environment.
+---@param label string User-visible operation name.
+---@param executable string Absolute executable path.
+---@param arguments string[]
 local function runTask(label, executable, arguments)
     log.i(string.format("Starting %s: %s %s", label, executable, table.concat(arguments, " ")))
 
@@ -61,6 +76,8 @@ local function runTask(label, executable, arguments)
     end
 end
 
+--- Restarts an application through AppleScript.
+---@param name string macOS application name.
 local function restartApplication(name)
     local script = string.format(
         'tell application "%s" to quit\ndelay 1\ntell application "%s" to activate',
@@ -70,6 +87,7 @@ local function restartApplication(name)
     runTask("Restart " .. name, "/usr/bin/osascript", { "-e", script })
 end
 
+--- Restarts Hammerspoon without depending on the current Lua runtime surviving.
 local function restartHammerspoon()
     log.i("Restarting Hammerspoon application")
     hs.alert.show("Restarting Hammerspoon")
@@ -88,6 +106,7 @@ local function restartHammerspoon()
     task:start()
 end
 
+---@type ServiceAction[]
 local actions = {
     {
         title = "Reload Hammerspoon config",
@@ -209,6 +228,7 @@ end)
 
 kanagawa.styleChooser(chooser, { rows = 12, width = 48 })
 
+--- Rebuilds and opens the service-management chooser.
 local function showServiceManager()
     actionById = {}
     local choices = {}
@@ -227,7 +247,9 @@ local function showServiceManager()
     chooser:show()
 end
 
+--- Available service actions for integrations and inspection.
 M.actions = actions
+--- Opens the service-management chooser.
 M.show = showServiceManager
 
 bindings.bind({

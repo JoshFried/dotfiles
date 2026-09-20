@@ -1,3 +1,5 @@
+//! Resource action descriptions and safe reconciliation implementations.
+
 use std::{
     ffi::OsString,
     fs,

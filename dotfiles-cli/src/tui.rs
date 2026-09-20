@@ -1,3 +1,5 @@
+//! Interactive audit dashboard and selective apply workflow.
+
 mod state;
 mod theme;
 
@@ -24,6 +26,15 @@ use ratatui::{
 use crate::{cli::FilterArgs, console::Console, engine::Engine};
 use state::App;
 
+/// Opens the terminal dashboard for the selected resource identifiers.
+///
+/// Terminal state is restored before returning, including after event-loop
+/// failures.
+///
+/// # Errors
+///
+/// Returns an error when terminal setup, drawing, input, auditing, or applying
+/// fails.
 pub fn run(engine: &Engine, ids: Vec<String>, console: Console) -> Result<()> {
     tracing::info!(resource_count = ids.len(), "TUI session starting");
     let mut terminal = start_terminal()?;

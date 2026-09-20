@@ -1,3 +1,5 @@
+//! Shared normalization helpers used by resource implementations.
+
 use std::path::Path;
 
 pub(super) fn paths_equivalent(left: &Path, right: &Path) -> bool {

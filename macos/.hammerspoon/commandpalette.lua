@@ -1,3 +1,5 @@
+--- Builds a searchable chooser from every visible registered binding.
+
 local bindings = require("bindings")
 local kanagawa = require("kanagawa")
 
@@ -15,6 +17,7 @@ end)
 
 kanagawa.styleChooser(chooser, { rows = 12, width = 45 })
 
+--- Rebuilds and opens the command palette from the current registry.
 local function showCommandPalette()
     actionById = {}
     local choices = {}

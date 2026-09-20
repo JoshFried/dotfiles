@@ -1,3 +1,5 @@
+//! Coordinates CLI commands, configuration loading, logging, and presentation.
+
 use std::{
     env,
     io::{self, Write},
@@ -14,6 +16,14 @@ use crate::{
     logging, tui,
 };
 
+/// Executes a parsed CLI invocation and returns its process exit code.
+///
+/// Audit drift and failed apply operations return code `1`.
+///
+/// # Errors
+///
+/// Returns an error when logging, paths, configuration, or command execution
+/// cannot be initialized or completed.
 pub fn run(cli: Cli) -> Result<u8> {
     let logging = logging::init(&cli)?;
     let result = run_logged(cli);

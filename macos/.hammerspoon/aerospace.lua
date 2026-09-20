@@ -1,6 +1,5 @@
--- AeroSpace helpers via Hammerspoon (for hyper key bindings)
+--- Keeps AeroSpace workspace placement and SketchyBar indicators synchronized.
 
--- Re-assign workspaces when monitors change
 local screenWatcher = hs.screen.watcher.new(function()
     hs.timer.doAfter(2, function()
         os.execute(os.getenv("HOME") .. "/.config/aerospace-workspace-assign.sh &")
@@ -13,7 +12,6 @@ screenWatcher:start()
 
 local aero = "/opt/homebrew/bin/aerospace"
 
--- Hyper + Tab = toggle between last two workspaces
 require("bindings").bind({
     group = "Workspaces",
     title = "Previous workspace",

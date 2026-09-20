@@ -1,6 +1,7 @@
--- Meeting picker: shows upcoming meetings, select one to join
--- Uses cal-events binary via a wrapper that writes to a temp file
--- (workaround for Hammerspoon TCC sandbox not having calendar access)
+--- Displays upcoming calendar meetings and opens supported conference links.
+---
+--- Calendar data comes from an external helper because Hammerspoon does not
+--- inherit the terminal's Calendar privacy grant.
 
 local kanagawa = require("kanagawa")
 
@@ -9,6 +10,9 @@ local CAL_FILE = "/tmp/cal-events.txt"
 local CAL_BIN = os.getenv("HOME") .. "/.config/cal-events"
 local calendarTask = nil
 
+--- Extracts the first supported conferencing URL from arbitrary event text.
+---@param text string
+---@return string|nil
 local function findMeetingUrl(text)
     local patterns = {
         "https?://[%w%-%.]*zoom%.us/j/[%w%-%._~:/?#@!$&'()*+,;=%%]+",
@@ -24,6 +28,8 @@ local function findMeetingUrl(text)
     return nil
 end
 
+--- Parses pipe-delimited calendar output into chooser entries.
+---@return table[]
 local function parseMeetings()
     local f = io.open(CAL_FILE)
     if not f then return {} end
@@ -44,6 +50,7 @@ local function parseMeetings()
     return choices
 end
 
+--- Replaces chooser content with the latest parsed meeting data.
 local function updateChooser()
     local choices = parseMeetings()
     if #choices == 0 then
@@ -53,6 +60,7 @@ local function updateChooser()
     end
 end
 
+--- Opens the chooser immediately, then refreshes calendar data asynchronously.
 local function showMeetings()
     if not meetingChooser then
         meetingChooser = hs.chooser.new(function(choice)

@@ -1,10 +1,10 @@
--- Low battery notifications.
--- Warns at 20% and 10%, plus a critical alert at 5%. Suppresses when charging.
--- State is kept so we only notify once per threshold per discharge cycle.
+--- Sends one low-battery notification per threshold during each discharge cycle.
 
 local thresholds = { 20, 10, 5 }
 local notified = {}
 
+--- Displays a persistent low-battery notification.
+---@param pct number Current battery percentage.
 local function alert(pct)
     hs.notify.new({
         title = "Battery Low",
@@ -14,12 +14,13 @@ local function alert(pct)
     }):send()
 end
 
+--- Evaluates battery state and resets threshold history while charging.
 local function check()
     local pct = hs.battery.percentage()
     local charging = hs.battery.isCharging() or hs.battery.powerSource() == "AC Power"
 
     if charging then
-        notified = {} -- reset once plugged in
+        notified = {}
         return
     end
 

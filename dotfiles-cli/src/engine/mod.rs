@@ -1,3 +1,5 @@
+//! Core resource selection, inspection, planning, and reconciliation engine.
+
 mod apply;
 mod audit;
 mod inventory;
@@ -16,7 +18,9 @@ use crate::{
     system::{CommandRunner, SystemCommandRunner, find_program},
 };
 
+/// Executes desired-state operations against a repository and user environment.
 pub struct Engine {
+    /// Validated manifest used by every operation.
     pub config: Config,
     repo: PathBuf,
     home: PathBuf,
@@ -25,6 +29,11 @@ pub struct Engine {
 }
 
 impl Engine {
+    /// Creates an engine using the current `HOME`, `PATH`, and system command runner.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error when `HOME` is unavailable.
     pub fn new(config: Config, repo: PathBuf) -> Result<Self> {
         let home = env::var_os("HOME")
             .map(PathBuf::from)
@@ -39,6 +48,9 @@ impl Engine {
         ))
     }
 
+    /// Creates an engine with explicit environment paths and command execution.
+    ///
+    /// This constructor supports deterministic tests and alternate runtimes.
     pub fn with_runner(
         config: Config,
         repo: PathBuf,
@@ -55,6 +67,10 @@ impl Engine {
         }
     }
 
+    /// Audits the requested resources in dependency order.
+    ///
+    /// Unknown identifiers are ignored because selection is responsible for
+    /// validating user input.
     pub fn audit_ids(&self, ids: &[String]) -> Vec<AuditResult> {
         let started = std::time::Instant::now();
         tracing::info!(resource_count = ids.len(), "starting audit");
@@ -87,6 +103,7 @@ impl Engine {
         results
     }
 
+    /// Returns automatically fixable changes for the requested resources.
     pub fn plan_ids(&self, ids: &[String]) -> Vec<PlannedChange> {
         tracing::debug!(resource_count = ids.len(), "building plan");
         let inventory = self.inventory_for(ids);
@@ -112,6 +129,10 @@ impl Engine {
         changes
     }
 
+    /// Applies non-healthy resources and reports each attempted outcome.
+    ///
+    /// The callback receives progress text immediately before each operation.
+    /// Healthy resources are omitted from the returned collection.
     pub fn apply_ids<F>(&self, ids: &[String], mut progress: F) -> Vec<(String, Result<()>)>
     where
         F: FnMut(&str),

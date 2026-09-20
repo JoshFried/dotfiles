@@ -1,3 +1,5 @@
+//! Filter resolution and dependency ordering.
+
 use std::collections::{BTreeSet, HashSet};
 
 use anyhow::{Context, Result, bail};
@@ -7,6 +9,14 @@ use crate::{cli::FilterArgs, domain::ResourceExplanation};
 use super::Engine;
 
 impl Engine {
+    /// Resolves filters into a dependency-ordered list of resource identifiers.
+    ///
+    /// With no explicit filters, the manifest's default profiles are selected.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error for unknown profiles, tags, resources, or dependency
+    /// cycles.
     pub fn select(&self, filter: &FilterArgs) -> Result<Vec<String>> {
         tracing::debug!(
             profiles = ?filter.profile,
@@ -58,6 +68,11 @@ impl Engine {
         Ok(selected)
     }
 
+    /// Describes a resource and its direct dependency relationships.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error when the identifier is unknown.
     pub fn explain(&self, id: &str) -> Result<ResourceExplanation> {
         let resource = self
             .config

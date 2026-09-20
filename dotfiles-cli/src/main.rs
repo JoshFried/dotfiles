@@ -1,3 +1,5 @@
+//! Process entry point for the `dotfiles` executable.
+
 use std::process::ExitCode;
 
 use clap::Parser;

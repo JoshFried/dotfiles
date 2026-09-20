@@ -1,3 +1,6 @@
+--- Registers a focused-window fullscreen toggle.
+
+--- Toggles native fullscreen for the focused window.
 local function toggle()
     local window = hs.window.focusedWindow()
 

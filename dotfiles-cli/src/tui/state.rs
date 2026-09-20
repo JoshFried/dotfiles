@@ -1,3 +1,5 @@
+//! Mutable dashboard state and visible-resource filtering.
+
 use std::collections::BTreeSet;
 
 use crate::domain::AuditResult;

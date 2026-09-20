@@ -1,3 +1,5 @@
+--- Opens and centers the Hammerspoon console for diagnostics.
+
 require("bindings").bind({
     group = "System",
     title = "Hammerspoon console",

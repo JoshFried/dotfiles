@@ -1,3 +1,5 @@
+--- Registers the explicit system-sleep shortcut.
+
 require("bindings").bind({
     group = "System",
     title = "Sleep",

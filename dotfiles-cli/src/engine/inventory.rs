@@ -1,3 +1,5 @@
+//! Homebrew, service, and alternate-executable inventory collection.
+
 use std::{
     collections::{HashMap, HashSet},
     env,

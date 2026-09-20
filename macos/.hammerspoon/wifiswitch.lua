@@ -1,3 +1,5 @@
+--- Searchable Wi-Fi chooser that prioritizes connected and known networks.
+
 local kanagawa = require("kanagawa")
 
 local wifiChooser = hs.chooser.new(function(choice)
@@ -13,6 +15,8 @@ local wifiChooser = hs.chooser.new(function(choice)
 end)
 kanagawa.styleChooser(wifiChooser, { rows = 10 })
 
+--- Returns preferred Wi-Fi SSIDs configured for the primary interface.
+---@return table<string, boolean>
 local function getKnownNetworks()
     local known = {}
     local output, status = hs.execute("networksetup -listpreferredwirelessnetworks en0")
@@ -24,6 +28,7 @@ local function getKnownNetworks()
     return known
 end
 
+--- Scans for nearby networks and updates the visible chooser.
 local function wifiNetworks()
     wifiChooser:choices({})
     wifiChooser:show()
@@ -53,7 +58,6 @@ local function wifiNetworks()
         end
     end
 
-    -- Sort: connected first, then known, then alphabetical
     table.sort(choices, function(a, b)
         if a.isConnected and not b.isConnected then return true end
         if b.isConnected and not a.isConnected then return false end

@@ -1,3 +1,5 @@
+//! Persistent trace-level JSON logging with optional terminal diagnostics.
+
 use std::{
     env, fs,
     io::IsTerminal,
@@ -15,12 +17,23 @@ use tracing_subscriber::{
 
 use crate::cli::{Cli, Command};
 
+/// Keeps the non-blocking log writer alive for one application run.
 pub struct LoggingGuard {
     _file_guard: WorkerGuard,
+    /// Directory containing the rolling JSONL log.
     pub directory: PathBuf,
+    /// Timestamp-and-process identifier attached to lifecycle events.
     pub run_id: String,
 }
 
+/// Installs file and optional terminal tracing subscribers.
+///
+/// TUI invocations suppress terminal logs to protect the alternate screen.
+///
+/// # Errors
+///
+/// Returns an error when the log directory cannot be created or a global
+/// tracing subscriber has already been installed.
 pub fn init(cli: &Cli) -> Result<LoggingGuard> {
     let directory = cli
         .log_directory
