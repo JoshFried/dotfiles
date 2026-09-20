@@ -1,0 +1,33 @@
+name: Dotfiles CLI
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/dotfiles-cli.yml"
+      - "dotfiles-cli/**"
+      - "dotfiles.toml"
+      - "rust-toolchain.toml"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/dotfiles-cli.yml"
+      - "dotfiles-cli/**"
+      - "dotfiles.toml"
+      - "rust-toolchain.toml"
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: macos-15
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check formatting
+        run: cargo fmt --manifest-path dotfiles-cli/Cargo.toml -- --check
+      - name: Run Clippy
+        run: cargo clippy --all-targets --manifest-path dotfiles-cli/Cargo.toml -- -D warnings
+      - name: Run tests
+        run: cargo test --all-targets --manifest-path dotfiles-cli/Cargo.toml

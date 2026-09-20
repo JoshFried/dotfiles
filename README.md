@@ -24,7 +24,8 @@ export XDG_CONFIG_HOME="$HOME/.config"
 - [Productivity](#productivity)
 - [Audio & Visuals (Rice)](#audio--visuals-rice)
 - [Browser](#browser)
-- [Full Bootstrap](#full-bootstrap)
+- [Dotfiles TUI](#dotfiles-tui)
+- [Legacy Full Bootstrap](#legacy-full-bootstrap)
 - [After Bootstrap](#after-bootstrap)
 
 ---
@@ -301,7 +302,47 @@ Kanagawa-themed UI: dark tab bar, dark nav bar, blue focus ring, hidden traffic 
 
 ---
 
-## Full Bootstrap
+## Dotfiles TUI
+
+The Rust CLI audits the machine against `dotfiles.toml` and opens an interactive
+dashboard by default:
+
+```bash
+./bin/dotfiles
+```
+
+Use `j`/`k` to navigate, `/` to filter, `space` to select changes, `enter` to
+apply, `r` to refresh the audit, and `i` to include healthy resources.
+
+Color carries the same meaning in the CLI and TUI: green is healthy or
+successful, yellow is missing or planned, violet is misplaced, red is drifted,
+blocked, or failed, and blue identifies resources and controls. Colors are
+disabled automatically for redirected output and by `NO_COLOR`; JSON output is
+always uncolored.
+
+The same engine supports non-interactive workflows:
+
+```bash
+dotfiles audit
+dotfiles audit --profile desktop --json
+dotfiles plan symlink.hammerspoon
+dotfiles plan --profile desktop
+dotfiles apply --profile desktop
+dotfiles explain symlink.hammerspoon
+```
+
+Resources, profiles, tags, dependencies, desired paths, and package identifiers
+are declared in `dotfiles.toml`. Applying a symlink first moves an existing
+destination into `~/.local/state/dotfiles/backups`. Formula resources can
+declare an `executable` so tools installed by another package manager are
+reported as misplaced instead of missing.
+
+Every run writes structured trace-level JSON logs under
+`~/.local/state/dotfiles/logs`. Use `-v`, `-vv`, or `-vvv` for progressively
+more terminal detail, or `--log-directory PATH` to redirect persistent logs.
+TUI sessions remain file-only so diagnostic output cannot corrupt the screen.
+
+## Legacy Full Bootstrap
 
 The bootstrap targets Apple Silicon macOS. It installs missing dependencies,
 links the checked-in configuration, and leaves existing installations alone.

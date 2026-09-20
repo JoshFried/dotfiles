@@ -391,6 +391,7 @@ run_check() {
     check_symlink "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
     check_symlink "$DOTFILES_DIR/.alias.zsh" "$HOME/.alias.zsh"
     check_symlink "$DOTFILES_DIR/.editorconfig" "$HOME/.editorconfig"
+    check_symlink "$DOTFILES_DIR/bin/dotfiles" "$HOME/.local/bin/dotfiles"
     check_symlink "$DOTFILES_DIR/.tmux.conf" "$HOME/.tmux.conf"
     check_symlink "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
     check_symlink "$DOTFILES_DIR/wezterm" "$HOME/.config/wezterm"
@@ -785,6 +786,7 @@ symlink "$DOTFILES_DIR/.alias.zsh"   "$HOME/.alias.zsh"
 
 # Global editorconfig (fallback for repos without their own)
 symlink "$DOTFILES_DIR/.editorconfig" "$HOME/.editorconfig"
+symlink "$DOTFILES_DIR/bin/dotfiles" "$HOME/.local/bin/dotfiles"
 
 # Tmux
 symlink "$DOTFILES_DIR/.tmux.conf"   "$HOME/.tmux.conf"

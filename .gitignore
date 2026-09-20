@@ -1,4 +1,6 @@
 .idea/
+/bootstrap.log
+/dotfiles-cli/target/
 nvim/lua/plugins/lsp/work
 nvim/lua/plugins/work
 nvim/lua/config/work

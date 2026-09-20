@@ -1,0 +1,657 @@
+version = 1
+default_profiles = ["core", "development", "desktop"]
+
+[profiles]
+core = [
+    "formula.git",
+    "formula.tmux",
+    "formula.fzf",
+    "formula.ripgrep",
+    "formula.fd",
+    "formula.jq",
+    "formula.bat",
+    "formula.tree",
+    "formula.wget",
+    "formula.curl",
+    "formula.coreutils",
+    "formula.zsh",
+    "formula.eza",
+    "formula.zoxide",
+    "formula.sesh",
+    "formula.fastfetch",
+    "formula.thefuck",
+    "formula.btop",
+    "formula.television",
+    "repo.oh-my-zsh",
+    "repo.powerlevel10k",
+    "repo.zsh-autosuggestions",
+    "repo.zsh-syntax-highlighting",
+    "repo.tpm",
+    "symlink.zshrc",
+    "symlink.aliases",
+    "symlink.editorconfig",
+    "symlink.dotfiles-cli",
+    "symlink.tmux",
+    "symlink.sesh",
+    "symlink.fastfetch",
+    "symlink.btop",
+]
+development = [
+    "formula.neovim",
+    "formula.lazygit",
+    "formula.git-delta",
+    "formula.go",
+    "formula.rustup",
+    "formula.openjdk",
+    "formula.kotlin",
+    "formula.nvm",
+    "formula.python",
+    "formula.bun",
+    "formula.cmake",
+    "formula.make",
+    "symlink.nvim",
+    "symlink.lazygit",
+]
+desktop = [
+    "cask.ghostty",
+    "cask.wezterm",
+    "cask.hammerspoon",
+    "cask.aerospace",
+    "cask.karabiner",
+    "cask.raycast",
+    "cask.qmk-toolbox",
+    "cask.firefox",
+    "cask.font-jetbrains-mono",
+    "cask.font-recursive-mono",
+    "cask.font-sf-mono",
+    "formula.sketchybar",
+    "formula.borders",
+    "formula.sketchybar-app-font",
+    "formula.nowplaying-cli",
+    "formula.blueutil",
+    "symlink.ghostty",
+    "symlink.wezterm",
+    "symlink.hammerspoon",
+    "symlink.aerospace",
+    "symlink.aerospace-assign",
+    "symlink.aerospace-toast",
+    "symlink.karabiner",
+    "symlink.sketchybar",
+    "symlink.borders",
+    "symlink.cal-events",
+    "service.sketchybar",
+    "service.borders",
+]
+
+[[resources]]
+id = "formula.git"
+description = "Git version control"
+tags = ["core", "brew"]
+kind = "brew_formula"
+name = "git"
+
+[[resources]]
+id = "formula.tmux"
+description = "Terminal multiplexer"
+tags = ["core", "brew"]
+kind = "brew_formula"
+name = "tmux"
+
+[[resources]]
+id = "formula.fzf"
+description = "Fuzzy finder used throughout the workflow"
+tags = ["core", "brew"]
+kind = "brew_formula"
+name = "fzf"
+
+[[resources]]
+id = "formula.ripgrep"
+description = "Fast recursive text search"
+tags = ["core", "brew"]
+kind = "brew_formula"
+name = "ripgrep"
+
+[[resources]]
+id = "formula.fd"
+description = "Fast file finder"
+tags = ["core", "brew"]
+kind = "brew_formula"
+name = "fd"
+
+[[resources]]
+id = "formula.jq"
+description = "JSON processor used by desktop scripts"
+tags = ["core", "brew"]
+kind = "brew_formula"
+name = "jq"
+
+[[resources]]
+id = "formula.bat"
+description = "Syntax-highlighted file viewer"
+tags = ["core", "brew"]
+kind = "brew_formula"
+name = "bat"
+
+[[resources]]
+id = "formula.tree"
+description = "Directory tree viewer"
+tags = ["core", "brew"]
+kind = "brew_formula"
+name = "tree"
+
+[[resources]]
+id = "formula.wget"
+description = "Command-line file downloader"
+tags = ["core", "brew"]
+kind = "brew_formula"
+name = "wget"
+
+[[resources]]
+id = "formula.curl"
+description = "Command-line HTTP client"
+tags = ["core", "brew"]
+kind = "brew_formula"
+name = "curl"
+
+[[resources]]
+id = "formula.coreutils"
+description = "GNU core utilities"
+tags = ["core", "brew"]
+kind = "brew_formula"
+name = "coreutils"
+
+[[resources]]
+id = "formula.zsh"
+description = "Z shell"
+tags = ["core", "brew"]
+kind = "brew_formula"
+name = "zsh"
+
+[[resources]]
+id = "formula.eza"
+description = "Modern directory listing"
+tags = ["core", "brew"]
+kind = "brew_formula"
+name = "eza"
+executable = "eza"
+
+[[resources]]
+id = "formula.zoxide"
+description = "Directory navigation database"
+tags = ["core", "brew"]
+kind = "brew_formula"
+name = "zoxide"
+
+[[resources]]
+id = "formula.sesh"
+description = "Tmux session manager"
+tags = ["core", "brew"]
+kind = "brew_formula"
+name = "sesh"
+
+[[resources]]
+id = "formula.fastfetch"
+description = "System information summary"
+tags = ["core", "brew"]
+kind = "brew_formula"
+name = "fastfetch"
+
+[[resources]]
+id = "formula.thefuck"
+description = "Shell command correction"
+tags = ["core", "brew"]
+kind = "brew_formula"
+name = "thefuck"
+
+[[resources]]
+id = "formula.btop"
+description = "System resource monitor"
+tags = ["core", "brew"]
+kind = "brew_formula"
+name = "btop"
+
+[[resources]]
+id = "formula.television"
+description = "General-purpose fuzzy finder"
+tags = ["core", "brew"]
+kind = "brew_formula"
+name = "television"
+
+[[resources]]
+id = "formula.neovim"
+description = "Primary editor"
+tags = ["development", "brew"]
+kind = "brew_formula"
+name = "neovim"
+
+[[resources]]
+id = "formula.lazygit"
+description = "Terminal Git interface"
+tags = ["development", "brew"]
+kind = "brew_formula"
+name = "lazygit"
+
+[[resources]]
+id = "formula.git-delta"
+description = "Git pager"
+tags = ["development", "brew"]
+kind = "brew_formula"
+name = "git-delta"
+
+[[resources]]
+id = "formula.go"
+description = "Go toolchain"
+tags = ["development", "language", "brew"]
+kind = "brew_formula"
+name = "go"
+
+[[resources]]
+id = "formula.rustup"
+description = "Rust toolchain manager"
+tags = ["development", "language", "brew"]
+kind = "brew_formula"
+name = "rustup"
+
+[[resources]]
+id = "formula.openjdk"
+description = "OpenJDK 21"
+tags = ["development", "language", "brew"]
+kind = "brew_formula"
+name = "openjdk@21"
+
+[[resources]]
+id = "formula.kotlin"
+description = "Kotlin compiler"
+tags = ["development", "language", "brew"]
+kind = "brew_formula"
+name = "kotlin"
+
+[[resources]]
+id = "formula.nvm"
+description = "Node version manager"
+tags = ["development", "language", "brew"]
+kind = "brew_formula"
+name = "nvm"
+
+[[resources]]
+id = "formula.python"
+description = "Python runtime"
+tags = ["development", "language", "brew"]
+kind = "brew_formula"
+name = "python@3"
+
+[[resources]]
+id = "formula.bun"
+description = "JavaScript runtime and package manager"
+tags = ["development", "language", "brew"]
+kind = "brew_formula"
+name = "bun"
+
+[[resources]]
+id = "formula.cmake"
+description = "Cross-platform build generator"
+tags = ["development", "build", "brew"]
+kind = "brew_formula"
+name = "cmake"
+
+[[resources]]
+id = "formula.make"
+description = "Build automation"
+tags = ["development", "build", "brew"]
+kind = "brew_formula"
+name = "make"
+
+[[resources]]
+id = "formula.sketchybar"
+description = "macOS status bar"
+tags = ["desktop", "brew"]
+kind = "brew_formula"
+name = "FelixKratz/formulae/sketchybar"
+
+[[resources]]
+id = "formula.borders"
+description = "Window border service"
+tags = ["desktop", "brew"]
+kind = "brew_formula"
+name = "FelixKratz/formulae/borders"
+
+[[resources]]
+id = "formula.sketchybar-app-font"
+description = "Application icon font for SketchyBar"
+tags = ["desktop", "brew"]
+kind = "brew_formula"
+name = "kvndrsslr/tap/sketchybar-app-font"
+
+[[resources]]
+id = "formula.nowplaying-cli"
+description = "Media metadata for SketchyBar"
+tags = ["desktop", "brew"]
+kind = "brew_formula"
+name = "nowplaying-cli"
+
+[[resources]]
+id = "formula.blueutil"
+description = "Bluetooth control for Hammerspoon"
+tags = ["desktop", "brew"]
+kind = "brew_formula"
+name = "blueutil"
+
+[[resources]]
+id = "cask.ghostty"
+description = "Primary terminal"
+tags = ["desktop", "cask"]
+kind = "brew_cask"
+name = "ghostty"
+app = "Ghostty.app"
+
+[[resources]]
+id = "cask.wezterm"
+description = "Scratchpad terminal"
+tags = ["desktop", "cask"]
+kind = "brew_cask"
+name = "wezterm"
+app = "WezTerm.app"
+
+[[resources]]
+id = "cask.hammerspoon"
+description = "macOS automation"
+tags = ["desktop", "cask"]
+kind = "brew_cask"
+name = "hammerspoon"
+app = "Hammerspoon.app"
+
+[[resources]]
+id = "cask.aerospace"
+description = "Tiling window manager"
+tags = ["desktop", "cask"]
+kind = "brew_cask"
+name = "nikitabobko/tap/aerospace"
+app = "AeroSpace.app"
+
+[[resources]]
+id = "cask.karabiner"
+description = "Keyboard remapping"
+tags = ["desktop", "keyboard", "cask"]
+kind = "brew_cask"
+name = "karabiner-elements"
+app = "Karabiner-Elements.app"
+
+[[resources]]
+id = "cask.raycast"
+description = "Application launcher"
+tags = ["desktop", "cask"]
+kind = "brew_cask"
+name = "raycast"
+app = "Raycast.app"
+
+[[resources]]
+id = "cask.qmk-toolbox"
+description = "QMK keyboard firmware utility"
+tags = ["desktop", "keyboard", "cask"]
+kind = "brew_cask"
+name = "qmk-toolbox"
+app = "QMK Toolbox.app"
+
+[[resources]]
+id = "cask.firefox"
+description = "Firefox browser"
+tags = ["desktop", "browser", "cask"]
+kind = "brew_cask"
+name = "firefox"
+app = "Firefox.app"
+
+[[resources]]
+id = "cask.font-jetbrains-mono"
+description = "JetBrains Mono Nerd Font"
+tags = ["desktop", "font", "cask"]
+kind = "brew_cask"
+name = "font-jetbrains-mono-nerd-font"
+
+[[resources]]
+id = "cask.font-recursive-mono"
+description = "Recursive Mono Nerd Font"
+tags = ["desktop", "font", "cask"]
+kind = "brew_cask"
+name = "font-recursive-mono-nerd-font"
+
+[[resources]]
+id = "cask.font-sf-mono"
+description = "Ligaturized SF Mono Nerd Font"
+tags = ["desktop", "font", "cask"]
+kind = "brew_cask"
+name = "font-sf-mono-nerd-font-ligaturized"
+
+[[resources]]
+id = "repo.oh-my-zsh"
+description = "Zsh framework"
+tags = ["core", "git"]
+kind = "git_repo"
+url = "https://github.com/ohmyzsh/ohmyzsh.git"
+destination = "~/.oh-my-zsh"
+
+[[resources]]
+id = "repo.powerlevel10k"
+description = "Zsh prompt theme"
+tags = ["core", "git"]
+kind = "git_repo"
+url = "https://github.com/romkatv/powerlevel10k.git"
+destination = "~/.oh-my-zsh/custom/themes/powerlevel10k"
+depends_on = ["repo.oh-my-zsh"]
+
+[[resources]]
+id = "repo.zsh-autosuggestions"
+description = "Interactive Zsh suggestions"
+tags = ["core", "git"]
+kind = "git_repo"
+url = "https://github.com/zsh-users/zsh-autosuggestions.git"
+destination = "~/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+depends_on = ["repo.oh-my-zsh"]
+
+[[resources]]
+id = "repo.zsh-syntax-highlighting"
+description = "Zsh command highlighting"
+tags = ["core", "git"]
+kind = "git_repo"
+url = "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+destination = "~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+depends_on = ["repo.oh-my-zsh"]
+
+[[resources]]
+id = "repo.tpm"
+description = "Tmux plugin manager"
+tags = ["core", "git"]
+kind = "git_repo"
+url = "https://github.com/tmux-plugins/tpm.git"
+destination = "~/.tmux/plugins/tpm"
+
+[[resources]]
+id = "symlink.zshrc"
+description = "Zsh configuration"
+tags = ["core", "symlink"]
+kind = "symlink"
+source = ".zshrc"
+destination = "~/.zshrc"
+
+[[resources]]
+id = "symlink.aliases"
+description = "Shell aliases"
+tags = ["core", "symlink"]
+kind = "symlink"
+source = ".alias.zsh"
+destination = "~/.alias.zsh"
+
+[[resources]]
+id = "symlink.editorconfig"
+description = "Global EditorConfig fallback"
+tags = ["core", "symlink"]
+kind = "symlink"
+source = ".editorconfig"
+destination = "~/.editorconfig"
+
+[[resources]]
+id = "symlink.dotfiles-cli"
+description = "Dotfiles TUI launcher"
+tags = ["core", "symlink"]
+kind = "symlink"
+source = "bin/dotfiles"
+destination = "~/.local/bin/dotfiles"
+depends_on = ["formula.rustup"]
+
+[[resources]]
+id = "symlink.tmux"
+description = "Tmux configuration"
+tags = ["core", "symlink"]
+kind = "symlink"
+source = ".tmux.conf"
+destination = "~/.tmux.conf"
+depends_on = ["formula.tmux"]
+
+[[resources]]
+id = "symlink.sesh"
+description = "Session manager configuration"
+tags = ["core", "symlink"]
+kind = "symlink"
+source = "sesh"
+destination = "~/.config/sesh"
+depends_on = ["formula.sesh"]
+
+[[resources]]
+id = "symlink.fastfetch"
+description = "Fastfetch configuration"
+tags = ["core", "symlink"]
+kind = "symlink"
+source = "fastfetch"
+destination = "~/.config/fastfetch"
+depends_on = ["formula.fastfetch"]
+
+[[resources]]
+id = "symlink.btop"
+description = "Btop configuration"
+tags = ["core", "symlink"]
+kind = "symlink"
+source = "btop"
+destination = "~/.config/btop"
+depends_on = ["formula.btop"]
+
+[[resources]]
+id = "symlink.nvim"
+description = "Neovim configuration"
+tags = ["development", "symlink"]
+kind = "symlink"
+source = "nvim"
+destination = "~/.config/nvim"
+depends_on = ["formula.neovim"]
+
+[[resources]]
+id = "symlink.lazygit"
+description = "Lazygit configuration"
+tags = ["development", "symlink"]
+kind = "symlink"
+source = "lazygit"
+destination = "~/.config/lazygit"
+depends_on = ["formula.lazygit"]
+
+[[resources]]
+id = "symlink.ghostty"
+description = "Ghostty configuration"
+tags = ["desktop", "symlink"]
+kind = "symlink"
+source = "ghostty"
+destination = "~/.config/ghostty"
+depends_on = ["cask.ghostty"]
+
+[[resources]]
+id = "symlink.wezterm"
+description = "WezTerm configuration"
+tags = ["desktop", "symlink"]
+kind = "symlink"
+source = "wezterm"
+destination = "~/.config/wezterm"
+depends_on = ["cask.wezterm"]
+
+[[resources]]
+id = "symlink.hammerspoon"
+description = "Hammerspoon configuration"
+tags = ["desktop", "symlink"]
+kind = "symlink"
+source = "macos/.hammerspoon"
+destination = "~/.hammerspoon"
+depends_on = ["cask.hammerspoon"]
+
+[[resources]]
+id = "symlink.aerospace"
+description = "AeroSpace configuration"
+tags = ["desktop", "symlink"]
+kind = "symlink"
+source = "macos/.aerospace.toml"
+destination = "~/.aerospace.toml"
+depends_on = ["cask.aerospace"]
+
+[[resources]]
+id = "symlink.aerospace-assign"
+description = "Dynamic workspace assignment"
+tags = ["desktop", "symlink"]
+kind = "symlink"
+source = "macos/aerospace-workspace-assign.sh"
+destination = "~/.config/aerospace-workspace-assign.sh"
+depends_on = ["cask.aerospace"]
+
+[[resources]]
+id = "symlink.aerospace-toast"
+description = "AeroSpace layout notifications"
+tags = ["desktop", "symlink"]
+kind = "symlink"
+source = "macos/aerospace-toast.sh"
+destination = "~/.config/aerospace-toast.sh"
+depends_on = ["cask.aerospace"]
+
+[[resources]]
+id = "symlink.karabiner"
+description = "Karabiner configuration"
+tags = ["desktop", "keyboard", "symlink"]
+kind = "symlink"
+source = "macos/karabiner"
+destination = "~/.config/karabiner"
+depends_on = ["cask.karabiner"]
+
+[[resources]]
+id = "symlink.sketchybar"
+description = "SketchyBar configuration"
+tags = ["desktop", "symlink"]
+kind = "symlink"
+source = "macos/sketchybar"
+destination = "~/.config/sketchybar"
+depends_on = ["formula.sketchybar"]
+
+[[resources]]
+id = "symlink.borders"
+description = "JankyBorders configuration"
+tags = ["desktop", "symlink"]
+kind = "symlink"
+source = "macos/borders"
+destination = "~/.config/borders"
+depends_on = ["formula.borders"]
+
+[[resources]]
+id = "symlink.cal-events"
+description = "Calendar event helper"
+tags = ["desktop", "symlink"]
+kind = "symlink"
+source = "macos/cal-events"
+destination = "~/.config/cal-events"
+
+[[resources]]
+id = "service.sketchybar"
+description = "SketchyBar background service"
+tags = ["desktop", "service"]
+kind = "brew_service"
+name = "sketchybar"
+depends_on = ["formula.sketchybar", "symlink.sketchybar"]
+
+[[resources]]
+id = "service.borders"
+description = "JankyBorders background service"
+tags = ["desktop", "service"]
+kind = "brew_service"
+name = "borders"
+depends_on = ["formula.borders", "symlink.borders"]
