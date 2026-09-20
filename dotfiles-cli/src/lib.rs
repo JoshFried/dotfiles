@@ -3,6 +3,8 @@
 //!
 //! Configuration, inspection, planning, application, presentation, and logging
 //! are separated so the same engine can support CLI and TUI workflows.
+//! Homebrew resources follow formula compatibility lines rather than exact
+//! artifact versions; project-specific runtime versions remain project-owned.
 
 /// Top-level command orchestration.
 pub mod application;

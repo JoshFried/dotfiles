@@ -337,6 +337,23 @@ destination into `~/.local/state/dotfiles/backups`. Formula resources can
 declare an `executable` so tools installed by another package manager are
 reported as misplaced instead of missing.
 
+### Package Version Policy
+
+Homebrew packages use a floating compatibility-line policy. The manifest names
+the supported line, while Homebrew selects and updates the concrete release:
+
+- Unversioned formulae such as `ripgrep` follow Homebrew's current stable release.
+- Major-version formulae such as `python@3` follow Homebrew's current Python 3
+  alias, even when the installed canonical formula is named `python@3.14`.
+- Fixed compatibility lines such as `openjdk@21` remain on that major line while
+  Homebrew supplies compatible patch and minor updates.
+
+The machine configuration intentionally does not pin exact language patch
+versions. Projects that require reproducibility should declare their own
+runtime version and isolated environment, such as `.python-version`, a virtual
+environment, or the project's package and lock files. Upgrading the global
+Homebrew runtime must not be treated as upgrading every project's environment.
+
 Every run writes structured trace-level JSON logs under
 `~/.local/state/dotfiles/logs`. Use `-v`, `-vv`, or `-vvv` for progressively
 more terminal detail, or `--log-directory PATH` to redirect persistent logs.

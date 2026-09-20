@@ -65,6 +65,16 @@ impl Engine {
                 false,
             );
         }
+        if let Some(canonical) = inventory.formula_aliases.get(package_token(name)) {
+            return result(
+                resource,
+                Status::Healthy,
+                format!("Installed through Homebrew as {canonical}"),
+                format!("Homebrew formula {name} (floating major version)"),
+                canonical,
+                false,
+            );
+        }
         if let Some(path) = executable.and_then(|command| inventory.executables.get(command)) {
             return result(
                 resource,
@@ -370,6 +380,7 @@ mod tests {
         Inventory {
             brew_available: true,
             formulae: formulae.iter().map(ToString::to_string).collect(),
+            formula_aliases: HashMap::new(),
             casks: HashSet::new(),
             services: services
                 .iter()
@@ -399,6 +410,31 @@ mod tests {
             .audit(&formula(), &inventory(&["ripgrep"], &[]));
         assert_eq!(result.status, Status::Healthy);
         assert!(!result.fixable);
+    }
+
+    #[test]
+    fn installed_formula_aliases_are_healthy() {
+        let directory = tempdir().unwrap();
+        let mut inventory = inventory(&["python@3.14"], &[]);
+        inventory
+            .formula_aliases
+            .insert("python@3".to_owned(), "python@3.14".to_owned());
+        let resource = Resource {
+            id: "formula.python".to_owned(),
+            description: "Python".to_owned(),
+            tags: Vec::new(),
+            depends_on: Vec::new(),
+            kind: ResourceKind::BrewFormula {
+                name: "python@3".to_owned(),
+                executable: None,
+            },
+        };
+
+        let result = engine(directory.path(), directory.path()).audit(&resource, &inventory);
+
+        assert_eq!(result.status, Status::Healthy);
+        assert_eq!(result.actual, "python@3.14");
+        assert_eq!(result.summary, "Installed through Homebrew as python@3.14");
     }
 
     #[test]

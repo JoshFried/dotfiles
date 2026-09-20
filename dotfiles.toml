@@ -275,7 +275,7 @@ name = "nvm"
 
 [[resources]]
 id = "formula.python"
-description = "Python runtime"
+description = "Current Homebrew Python 3 runtime"
 tags = ["development", "language", "brew"]
 kind = "brew_formula"
 name = "python@3"

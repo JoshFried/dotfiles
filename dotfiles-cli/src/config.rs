@@ -47,9 +47,13 @@ pub struct Resource {
 #[derive(Clone, Debug, Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case")]
 pub enum ResourceKind {
-    /// A Homebrew formula, optionally recognizing an alternate executable.
+    /// A floating Homebrew formula line, optionally recognizing another provider.
+    ///
+    /// The formula name selects the compatibility line managed by Homebrew,
+    /// not an exact installed artifact version. A major-only alias such as
+    /// `python@3` resolves to Homebrew's current canonical Python 3 formula.
     BrewFormula {
-        /// Formula or fully qualified tap name.
+        /// Formula, major-version alias, or fully qualified tap name.
         name: String,
         /// Executable used to detect another installation source.
         executable: Option<String>,
