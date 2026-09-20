@@ -18,10 +18,15 @@ local function shortcutLabel(modifiers, key)
     return table.concat(labels)
 end
 
+function M.register(spec)
+    actions[#actions + 1] = spec
+    return spec
+end
+
 function M.bind(spec)
     spec.shortcut = shortcutLabel(spec.modifiers, spec.key)
     spec.hotkey = hs.hotkey.bind(spec.modifiers, spec.key, spec.action)
-    actions[#actions + 1] = spec
+    M.register(spec)
     return spec.hotkey
 end
 

@@ -52,7 +52,7 @@ Pressing an application shortcut again cycles that application's windows.
 - `Hyper+N` — create a macOS space
 - `Hyper+X` — close empty macOS spaces
 - ``Hyper+` `` — show the current macOS space number
-- `Hyper+R` — reload Hammerspoon
+- `Hyper+R` — open the desktop service manager
 - `Cmd+Alt+S` — sleep
 - `Cmd+Alt+\` — open the Hammerspoon console
 

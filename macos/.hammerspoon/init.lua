@@ -39,6 +39,7 @@ local modules = {
     "aerospace",
     "meeting",
     "windowchooser",
+    "services",
 }
 
 for _, module in ipairs(modules) do

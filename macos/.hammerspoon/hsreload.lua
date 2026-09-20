@@ -1,12 +1,17 @@
-local function reloadConfig()
-    hs.reload()
-    hs.alert.show("Config reloaded")
+local M = {}
+local log = hs.logger.new("services", "debug")
+
+function M.reload()
+    log.i("Reloading Hammerspoon configuration")
+    hs.alert.show("Reloading Hammerspoon")
+    hs.timer.doAfter(0.1, hs.reload)
 end
 
-require("bindings").bind({
+require("bindings").register({
     group = "System",
     title = "Reload Hammerspoon",
-    modifiers = hyper,
-    key = "R",
-    action = reloadConfig,
+    shortcut = "Service manager",
+    action = M.reload,
 })
+
+return M
