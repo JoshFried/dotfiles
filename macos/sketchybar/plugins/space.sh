@@ -1,92 +1,112 @@
 #!/bin/bash
 
 FOCUSED="$(aerospace list-workspaces --focused 2>/dev/null)"
+MONITORS="$(aerospace list-monitors --format '%{monitor-id}|%{monitor-name}|%{monitor-is-main}' 2>/dev/null)"
+WORKSPACES="$(aerospace list-workspaces --monitor all --format '%{workspace}|%{monitor-id}' 2>/dev/null)"
+WINDOWS="$(aerospace list-windows --all --format '%{workspace}|%{app-name}' 2>/dev/null)"
+SB_DISPLAYS="$(sketchybar --query displays 2>/dev/null)"
 
-# Map AeroSpace monitor ID → SketchyBar display number
-# AeroSpace: monitor with is-main=true corresponds to SketchyBar display 1 (always main)
-# For the rest, match by checking if it's built-in (smallest resolution = laptop)
-declare -A AERO_TO_SB
-
-# Get SketchyBar display info
-SB_DISPLAYS=$(sketchybar --query displays 2>/dev/null)
-SB_COUNT=$(echo "$SB_DISPLAYS" | python3 -c "import json,sys; print(len(json.load(sys.stdin)))" 2>/dev/null)
-
-# AeroSpace main monitor → SketchyBar display 1
-AERO_MAIN=$(aerospace list-monitors --format '%{monitor-id}|%{monitor-is-main}' 2>/dev/null | grep "|true" | cut -d'|' -f1 | xargs)
-AERO_TO_SB["$AERO_MAIN"]=1
-
-if [ "$SB_COUNT" = "2" ]; then
-    # 2 monitors: the other one is display 2
-    for aid in $(aerospace list-monitors --format '%{monitor-id}' 2>/dev/null); do
-        aid=$(echo "$aid" | xargs)
-        [ "$aid" = "$AERO_MAIN" ] && continue
-        AERO_TO_SB["$aid"]=2
-    done
-elif [ "$SB_COUNT" = "3" ]; then
-    # 3 monitors: built-in is the small one, find it in SketchyBar
-    SB_BUILTIN=$(echo "$SB_DISPLAYS" | python3 -c "
-import json,sys
-displays=json.load(sys.stdin)
-# Built-in is the smallest display
-smallest=min(displays, key=lambda d: d['frame']['w']*d['frame']['h'])
-print(smallest['arrangement-id'])
-" 2>/dev/null)
-    # The remaining SB display is the other external
-    SB_OTHER=""
-    for sbd in 1 2 3; do
-        [ "$sbd" = "1" ] && continue
-        [ "$sbd" = "$SB_BUILTIN" ] && continue
-        SB_OTHER=$sbd
-    done
-
-    # AeroSpace built-in monitor
-    AERO_BUILTIN=$(aerospace list-monitors --format '%{monitor-id}|%{monitor-name}' 2>/dev/null | grep -i "built-in" | cut -d'|' -f1 | xargs)
-    AERO_OTHER=""
-    for aid in $(aerospace list-monitors --format '%{monitor-id}' 2>/dev/null); do
-        aid=$(echo "$aid" | xargs)
-        [ "$aid" = "$AERO_MAIN" ] && continue
-        [ "$aid" = "$AERO_BUILTIN" ] && continue
-        AERO_OTHER=$aid
-    done
-
-    AERO_TO_SB["$AERO_BUILTIN"]="$SB_BUILTIN"
-    AERO_TO_SB["$AERO_OTHER"]="$SB_OTHER"
+if [ -z "$MONITORS" ] || [ -z "$SB_DISPLAYS" ]; then
+    exit 0
 fi
 
-for sid in 1 2 3 4 5 6 7 8 9 10; do
-    WINDOWS="$(aerospace list-windows --workspace "$sid" --format '%{app-name}' 2>/dev/null)"
+SB_COUNT="$(printf '%s' "$SB_DISPLAYS" | jq -r 'length' 2>/dev/null)"
+AERO_TO_SB=()
+AERO_IDS=()
+AERO_MAIN=""
+AERO_BUILTIN=""
 
-    WS_MONITOR="$(aerospace list-workspaces --monitor all --format '%{workspace}|%{monitor-id}' 2>/dev/null | grep "^${sid}|" | cut -d'|' -f2)"
+while IFS='|' read -r monitor_id monitor_name is_main; do
+    [ -z "$monitor_id" ] && continue
+    AERO_IDS[${#AERO_IDS[@]}]="$monitor_id"
+    [ "$is_main" = "true" ] && AERO_MAIN="$monitor_id"
+    case "$monitor_name" in
+        *[Bb]uilt-[Ii]n*) AERO_BUILTIN="$monitor_id" ;;
+    esac
+done <<< "$MONITORS"
 
-    SB_DISPLAY="${AERO_TO_SB[$WS_MONITOR]}"
-    if [ -n "$SB_DISPLAY" ]; then
-        sketchybar --set space.$sid display="$SB_DISPLAY"
-    fi
+[ -n "$AERO_MAIN" ] && AERO_TO_SB[$AERO_MAIN]=1
 
-    ICONS=""
-    if [ -n "$WINDOWS" ]; then
-        while IFS= read -r app; do
-            ICONS+=" $($CONFIG_DIR/plugins/icon_map_fn.sh "$app")"
-        done <<< "$WINDOWS"
-    fi
+if [ "$SB_COUNT" = "2" ]; then
+    for monitor_id in "${AERO_IDS[@]}"; do
+        [ "$monitor_id" = "$AERO_MAIN" ] && continue
+        AERO_TO_SB[$monitor_id]=2
+    done
+elif [ "$SB_COUNT" = "3" ]; then
+    SB_BUILTIN="$(printf '%s' "$SB_DISPLAYS" |
+        jq -r 'min_by(.frame.w * .frame.h)["arrangement-id"]' 2>/dev/null)"
+    SB_OTHER=""
+    for display_id in 1 2 3; do
+        [ "$display_id" = "1" ] && continue
+        [ "$display_id" = "$SB_BUILTIN" ] && continue
+        SB_OTHER="$display_id"
+    done
 
-    if [ "$sid" = "$FOCUSED" ]; then
-        sketchybar --set space.$sid \
-            drawing=on \
-            icon.highlight=on \
-            background.drawing=on \
-            background.color=0xff7E9CD8 \
-            label="$ICONS" \
+    AERO_OTHER=""
+    for monitor_id in "${AERO_IDS[@]}"; do
+        [ "$monitor_id" = "$AERO_MAIN" ] && continue
+        [ "$monitor_id" = "$AERO_BUILTIN" ] && continue
+        AERO_OTHER="$monitor_id"
+    done
+
+    [ -n "$AERO_BUILTIN" ] && AERO_TO_SB[$AERO_BUILTIN]="$SB_BUILTIN"
+    [ -n "$AERO_OTHER" ] && AERO_TO_SB[$AERO_OTHER]="$SB_OTHER"
+fi
+
+WORKSPACE_MONITORS=()
+while IFS='|' read -r workspace monitor_id; do
+    case "$workspace" in
+        ''|*[!0-9]*) continue ;;
+    esac
+    WORKSPACE_MONITORS[$workspace]="$monitor_id"
+done <<< "$WORKSPACES"
+
+source "$CONFIG_DIR/plugins/icon_map_fn.sh"
+
+WORKSPACE_ICONS=()
+while IFS='|' read -r workspace app; do
+    case "$workspace" in
+        ''|*[!0-9]*) continue ;;
+    esac
+    [ -z "$app" ] && continue
+
+    icon_map "$app"
+    case " ${WORKSPACE_ICONS[$workspace]} " in
+        *" $icon_result "*) ;;
+        *) WORKSPACE_ICONS[$workspace]="${WORKSPACE_ICONS[$workspace]} $icon_result" ;;
+    esac
+done <<< "$WINDOWS"
+
+SKETCHYBAR_ARGS=()
+for workspace in 1 2 3 4 5 6 7 8 9 10; do
+    monitor_id="${WORKSPACE_MONITORS[$workspace]}"
+    display_id="${AERO_TO_SB[$monitor_id]}"
+    icons="${WORKSPACE_ICONS[$workspace]}"
+
+    SKETCHYBAR_ARGS+=(--set "space.$workspace")
+    [ -n "$display_id" ] && SKETCHYBAR_ARGS+=("display=$display_id")
+
+    if [ "$workspace" = "$FOCUSED" ]; then
+        SKETCHYBAR_ARGS+=(
+            drawing=on
+            icon.highlight=on
+            background.drawing=on
+            background.color=0xff7E9CD8
+            "label=$icons"
             label.drawing=on
-    elif [ -n "$WINDOWS" ]; then
-        sketchybar --set space.$sid \
-            drawing=on \
-            icon.highlight=off \
-            background.drawing=off \
-            background.color=0x00000000 \
-            label="$ICONS" \
+        )
+    elif [ -n "$icons" ]; then
+        SKETCHYBAR_ARGS+=(
+            drawing=on
+            icon.highlight=off
+            background.drawing=off
+            background.color=0x00000000
+            "label=$icons"
             label.drawing=on
+        )
     else
-        sketchybar --set space.$sid drawing=off
+        SKETCHYBAR_ARGS+=(drawing=off)
     fi
 done
+
+sketchybar "${SKETCHYBAR_ARGS[@]}"
