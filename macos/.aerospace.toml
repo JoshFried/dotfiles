@@ -5,8 +5,7 @@
 start-at-login = true
 after-login-command = []
 after-startup-command = [
-    'exec-and-forget ~/.config/aerospace-workspace-assign.sh',
-    'exec-and-forget sketchybar --reload',
+    "exec-and-forget /bin/bash -lc '$HOME/.config/aerospace-workspace-assign.sh && sketchybar --reload'",
 ]
 
 # Notify SketchyBar on workspace change
@@ -72,7 +71,7 @@ ctrl-shift-p = 'focus-monitor prev'
 ctrl-shift-n = 'focus-monitor next'
 
 # Move window to other monitor (right_option + n = toggle between monitors)
-alt-shift-n = 'move-node-to-monitor --wrap-around next'
+alt-shift-n = 'move-node-to-monitor --focus-follows-window --wrap-around next'
 
 # Throw + move-to-monitor:
 # Throw = alt-shift + N (right_option on laptop/dactyl via Karabiner = alt+shift)
@@ -146,6 +145,10 @@ run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'com.cisco.anyconnect.gui'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.cisco.secureclient.gui'
 run = 'layout floating'
 
 [[on-window-detected]]

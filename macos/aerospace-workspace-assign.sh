@@ -2,17 +2,43 @@
 # Assign workspaces to monitors based on monitor count
 # Runs on startup and when monitors change (via Hammerspoon screen watcher)
 
-AEROSPACE="/opt/homebrew/bin/aerospace"
+resolve_aerospace() {
+    local candidate
 
-if [ ! -x "$AEROSPACE" ]; then
-    echo "AeroSpace executable not found at $AEROSPACE" >&2
+    if [ -n "${AEROSPACE_BIN:-}" ] && [ -x "$AEROSPACE_BIN" ]; then
+        printf '%s\n' "$AEROSPACE_BIN"
+        return
+    fi
+
+    if command -v aerospace >/dev/null 2>&1; then
+        command -v aerospace
+        return
+    fi
+
+    for candidate in /opt/homebrew/bin/aerospace /usr/local/bin/aerospace; do
+        if [ -x "$candidate" ]; then
+            printf '%s\n' "$candidate"
+            return
+        fi
+    done
+
+    return 1
+}
+
+if ! AEROSPACE=$(resolve_aerospace); then
+    echo "AeroSpace executable not found" >&2
     exit 127
 fi
 
-MONITOR_COUNT=$("$AEROSPACE" list-monitors --count)
-MONITORS=$("$AEROSPACE" list-monitors --format '%{monitor-id}|%{monitor-name}|%{monitor-is-main}')
+if ! MONITORS=$("$AEROSPACE" list-monitors --format '%{monitor-id}|%{monitor-name}|%{monitor-is-main}'); then
+    echo "Unable to query AeroSpace monitors" >&2
+    exit 1
+fi
+
+MONITOR_COUNT=$(printf '%s\n' "$MONITORS" | awk 'NF { count++ } END { print count + 0 }')
 MAIN=$(printf '%s\n' "$MONITORS" | awk -F'|' '$3 == "true" { print $1; exit }')
 EXTERNALS=$(printf '%s\n' "$MONITORS" | awk -F'|' 'tolower($2) !~ /built-in/ { print $1 }')
+MOVE_FAILURES=0
 
 if [ -z "$MAIN" ]; then
     echo "Unable to identify the main display" >&2
@@ -26,7 +52,14 @@ done <<< "$EXTERNALS"
 
 move_ws() {
     local ws=$1 mid=$2
-    "$AEROSPACE" move-workspace-to-monitor --workspace "$ws" "$mid"
+
+    if "$AEROSPACE" move-workspace-to-monitor --workspace "$ws" "$mid"; then
+        return
+    fi
+
+    echo "Failed to move workspace $ws to monitor $mid" >&2
+    MOVE_FAILURES=$((MOVE_FAILURES + 1))
+    return 1
 }
 
 assign_external_workspaces() {
@@ -68,6 +101,14 @@ case $MONITOR_COUNT in
     *)
         for ws in 1 2 3 4; do move_ws "$ws" "$MAIN"; done
         assign_external_workspaces
-        echo "Assigned workspaces 1-4 to main display $MAIN and split 5-10 across ${#EXTERNAL_IDS[@]} external display(s)"
         ;;
 esac
+
+if [ "$MOVE_FAILURES" -gt 0 ]; then
+    echo "Workspace assignment failed for $MOVE_FAILURES workspace(s)" >&2
+    exit 1
+fi
+
+if [ "$MONITOR_COUNT" -gt 1 ]; then
+    echo "Assigned workspaces 1-4 to main display $MAIN and split 5-10 across ${#EXTERNAL_IDS[@]} external display(s)"
+fi
