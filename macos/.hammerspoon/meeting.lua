@@ -9,6 +9,7 @@ local meetingChooser = nil
 local CAL_FILE = "/tmp/cal-events.txt"
 local CAL_BIN = os.getenv("HOME") .. "/.config/cal-events"
 local calendarTask = nil
+local log = hs.logger.new("meeting", "debug")
 
 --- Extracts the first supported conferencing URL from arbitrary event text.
 ---@param text string
@@ -77,7 +78,7 @@ local function showMeetings()
     meetingChooser:choices({ { text = "Refreshing meetings…" } })
     meetingChooser:show()
 
-    calendarTask = hs.task.new(CAL_BIN, function(exitCode, stdOut)
+    calendarTask = hs.task.new(CAL_BIN, function(exitCode, stdOut, stdErr)
         calendarTask = nil
         if exitCode == 0 then
             local file = io.open(CAL_FILE, "w")
@@ -85,9 +86,22 @@ local function showMeetings()
                 file:write(stdOut or "")
                 file:close()
             end
+            updateChooser()
+            return
         end
 
-        updateChooser()
+        local errorMessage = (stdErr or ""):gsub("%s+$", "")
+        if errorMessage == "" then
+            errorMessage = "Calendar helper failed with exit code " .. exitCode
+        end
+
+        log.e(errorMessage)
+        meetingChooser:choices({
+            {
+                text = "Calendar access required",
+                subText = "Allow Full Calendar Access for Hammerspoon in System Settings",
+            },
+        })
     end)
 
     if calendarTask then

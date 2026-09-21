@@ -1,12 +1,23 @@
+import Darwin
 import EventKit
 import Foundation
 
 let store = EKEventStore()
 let semaphore = DispatchSemaphore(value: 0)
+var exitCode: Int32 = EXIT_SUCCESS
+
+func writeError(_ message: String) {
+    let output = "cal-events: \(message)\n"
+    FileHandle.standardError.write(Data(output.utf8))
+}
 
 store.requestFullAccessToEvents { granted, error in
     defer { semaphore.signal() }
-    guard granted else { return }
+    guard granted else {
+        exitCode = EXIT_FAILURE
+        writeError(error?.localizedDescription ?? "Calendar full access was not granted")
+        return
+    }
 
     let now = Date()
     let tonight = Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: now)!
@@ -32,3 +43,4 @@ store.requestFullAccessToEvents { granted, error in
 }
 
 semaphore.wait()
+exit(exitCode)
