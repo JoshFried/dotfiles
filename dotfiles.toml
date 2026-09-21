@@ -110,6 +110,7 @@ description = "Fast recursive text search"
 tags = ["core", "brew"]
 kind = "brew_formula"
 name = "ripgrep"
+executable = "rg"
 
 [[resources]]
 id = "formula.fd"
@@ -159,6 +160,7 @@ description = "GNU core utilities"
 tags = ["core", "brew"]
 kind = "brew_formula"
 name = "coreutils"
+executable = "gdate"
 
 [[resources]]
 id = "formula.zsh"
@@ -237,6 +239,7 @@ description = "Git pager"
 tags = ["development", "brew"]
 kind = "brew_formula"
 name = "git-delta"
+executable = "delta"
 
 [[resources]]
 id = "formula.go"
@@ -258,6 +261,7 @@ description = "OpenJDK 21"
 tags = ["development", "language", "brew"]
 kind = "brew_formula"
 name = "openjdk@21"
+executable = "java"
 
 [[resources]]
 id = "formula.kotlin"
@@ -279,6 +283,7 @@ description = "Current Homebrew Python 3 runtime"
 tags = ["development", "language", "brew"]
 kind = "brew_formula"
 name = "python@3"
+executable = "python3"
 
 [[resources]]
 id = "formula.bun"
@@ -321,6 +326,7 @@ description = "Application icon font for SketchyBar"
 tags = ["desktop", "brew"]
 kind = "brew_formula"
 name = "kvndrsslr/tap/sketchybar-app-font"
+fallback_paths = ["~/Library/Fonts/sketchybar-app-font.ttf"]
 
 [[resources]]
 id = "formula.nowplaying-cli"
@@ -511,8 +517,8 @@ id = "symlink.sesh"
 description = "Session manager configuration"
 tags = ["core", "symlink"]
 kind = "symlink"
-source = "sesh"
-destination = "~/.config/sesh"
+source = "sesh/sesh.toml"
+destination = "~/.config/sesh/sesh.toml"
 depends_on = ["formula.sesh"]
 
 [[resources]]
@@ -610,8 +616,8 @@ id = "symlink.karabiner"
 description = "Karabiner configuration"
 tags = ["desktop", "keyboard", "symlink"]
 kind = "symlink"
-source = "macos/karabiner"
-destination = "~/.config/karabiner"
+source = "macos/karabiner/karabiner.json"
+destination = "~/.config/karabiner/karabiner.json"
 depends_on = ["cask.karabiner"]
 
 [[resources]]

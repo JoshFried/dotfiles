@@ -15,7 +15,7 @@ use anyhow::{Context, Result};
 use crate::{
     config::{Config, ResourceKind},
     domain::{AuditResult, PlannedChange},
-    system::{CommandRunner, SystemCommandRunner, find_program},
+    system::{CommandRunner, SystemCommandRunner, find_program_with_home},
 };
 
 /// Executes desired-state operations against a repository and user environment.
@@ -38,7 +38,7 @@ impl Engine {
         let home = env::var_os("HOME")
             .map(PathBuf::from)
             .context("HOME is not set")?;
-        let brew = find_program("brew", env::var_os("PATH").as_deref());
+        let brew = find_program_with_home("brew", env::var_os("PATH").as_deref(), Some(&home));
         Ok(Self::with_runner(
             config,
             repo,

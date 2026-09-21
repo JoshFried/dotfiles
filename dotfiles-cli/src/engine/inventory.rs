@@ -10,7 +10,7 @@ use serde::Deserialize;
 
 use crate::{
     config::ResourceKind,
-    system::{CommandRequest, find_program},
+    system::{CommandRequest, find_program_with_home},
 };
 
 use super::{Engine, util::package_token};
@@ -69,14 +69,13 @@ impl Engine {
             .filter_map(|id| self.config.resource(id))
             .filter_map(|resource| match &resource.kind {
                 ResourceKind::BrewFormula {
-                    executable: Some(executable),
-                    ..
-                } => Some(executable),
+                    name, executable, ..
+                } => formula_executable(name, executable.as_deref()),
                 _ => None,
             })
             .filter_map(|executable| {
-                find_program(executable, path.as_deref())
-                    .map(|location| (executable.clone(), location))
+                find_program_with_home(&executable, path.as_deref(), Some(&self.home))
+                    .map(|location| (executable, location))
             })
             .collect();
 
@@ -277,6 +276,13 @@ fn is_major_version_alias(name: &str) -> bool {
     })
 }
 
+pub(super) fn formula_executable(name: &str, executable: Option<&str>) -> Option<String> {
+    executable.map(str::to_owned).or_else(|| {
+        let token = package_token(name);
+        (!token.contains('@')).then(|| token.to_owned())
+    })
+}
+
 #[derive(Deserialize)]
 struct BrewInfo {
     formulae: Vec<BrewFormulaInfo>,
@@ -332,6 +338,7 @@ mod tests {
                 kind: ResourceKind::BrewFormula {
                     name: name.to_owned(),
                     executable: None,
+                    fallback_paths: Vec::new(),
                 },
             }],
         }
@@ -388,6 +395,20 @@ mod tests {
         assert!(is_major_version_alias("openjdk@21"));
         assert!(!is_major_version_alias("python@3.14"));
         assert!(!is_major_version_alias("ripgrep"));
+    }
+
+    #[test]
+    fn formula_names_default_to_same_named_executable_probes() {
+        assert_eq!(formula_executable("bat", None).as_deref(), Some("bat"));
+        assert_eq!(
+            formula_executable("FelixKratz/formulae/borders", None).as_deref(),
+            Some("borders")
+        );
+        assert_eq!(formula_executable("python@3", None), None);
+        assert_eq!(
+            formula_executable("ripgrep", Some("rg")).as_deref(),
+            Some("rg")
+        );
     }
 
     #[test]

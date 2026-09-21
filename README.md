@@ -127,15 +127,21 @@ done
 
 ```bash
 brew install --cask karabiner-elements
-[ ! -e ~/.config/karabiner ] || \
-    mv ~/.config/karabiner ~/.config/karabiner.bak.$(date +%s)
-ln -sf ~/repos/dotfiles/macos/karabiner ~/.config/karabiner
+mkdir -p ~/.config/karabiner
+ln -sf ~/repos/dotfiles/macos/karabiner/karabiner.json \
+    ~/.config/karabiner/karabiner.json
 ```
 
-The bootstrap script backs up an existing `~/.config/karabiner` path before
-linking the checked-in configuration.
+Only the active `karabiner.json` is managed. Imported complex-modification
+assets and Karabiner's generated backups remain local. The bootstrap and CLI
+back up an existing active configuration before linking the checked-in file.
 
-Key mappings: `left_control` → Hyper (ctrl+alt+cmd+shift), `right_option` → alt+shift, `right_shift` → shift+ctrl, `caps_lock` → left_command.
+Hyper is implemented in two stages: the global complex rule maps logical
+`right_control` to ctrl+alt+cmd+shift, while configured Apple laptop keyboards
+map their physical `left_control` and `right_command` into that path. On those
+keyboards, physical `caps_lock` becomes Command and physical `left_command`
+becomes Control. Other mappings include `right_option` → alt+shift and
+`right_shift` → shift+ctrl.
 
 ---
 
@@ -196,7 +202,8 @@ Smarter `cd` that tracks most-used directories. Initialized in `.zshrc` via `eva
 
 ```bash
 brew install sesh
-ln -sf ~/repos/dotfiles/sesh ~/.config/sesh
+mkdir -p ~/.config/sesh
+ln -sf ~/repos/dotfiles/sesh/sesh.toml ~/.config/sesh/sesh.toml
 ```
 
 Smart tmux session manager. Combines tmux sessions + zoxide dirs + named projects in one picker. `sesh connect <name>` creates-or-attaches to a named session with the configured startup command.
@@ -334,8 +341,11 @@ dotfiles explain symlink.hammerspoon
 Resources, profiles, tags, dependencies, desired paths, and package identifiers
 are declared in `dotfiles.toml`. Applying a symlink first moves an existing
 destination into `~/.local/state/dotfiles/backups`. Formula resources can
-declare an `executable` so tools installed by another package manager are
-reported as misplaced instead of missing.
+declare an executable override or fallback file paths so tools installed by
+another package manager are reported as misplaced or drifted instead of
+missing. Formulae otherwise probe a same-named executable on `PATH`,
+`~/.local/bin`, `~/.cargo/bin`, `~/go/bin`, `~/bin`, and common system
+prefixes.
 
 ### Package Version Policy
 

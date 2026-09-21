@@ -399,8 +399,9 @@ run_check() {
     check_symlink "$DOTFILES_DIR/fastfetch" "$HOME/.config/fastfetch"
     check_symlink "$DOTFILES_DIR/lazygit" "$HOME/.config/lazygit"
     check_symlink "$DOTFILES_DIR/btop" "$HOME/.config/btop"
-    check_symlink "$DOTFILES_DIR/sesh" "$HOME/.config/sesh"
-    check_symlink "$DOTFILES_DIR/macos/karabiner" "$HOME/.config/karabiner"
+    check_symlink "$DOTFILES_DIR/sesh/sesh.toml" "$HOME/.config/sesh/sesh.toml"
+    check_symlink "$DOTFILES_DIR/macos/karabiner/karabiner.json" \
+        "$HOME/.config/karabiner/karabiner.json"
     check_symlink "$DOTFILES_DIR/macos/.hammerspoon" "$HOME/.hammerspoon"
     check_symlink "$DOTFILES_DIR/macos/.aerospace.toml" "$HOME/.aerospace.toml"
     check_symlink "$DOTFILES_DIR/macos/aerospace-workspace-assign.sh" \
@@ -810,10 +811,11 @@ symlink "$DOTFILES_DIR/lazygit"     "$HOME/.config/lazygit"
 symlink "$DOTFILES_DIR/btop"        "$HOME/.config/btop"
 
 # Sesh (personal config; ~/.work.sesh.toml is gitignored, see sesh/sesh.toml.work.example)
-symlink "$DOTFILES_DIR/sesh"        "$HOME/.config/sesh"
+symlink "$DOTFILES_DIR/sesh/sesh.toml" "$HOME/.config/sesh/sesh.toml"
 
 # Karabiner
-symlink "$DOTFILES_DIR/macos/karabiner" "$HOME/.config/karabiner"
+symlink "$DOTFILES_DIR/macos/karabiner/karabiner.json" \
+    "$HOME/.config/karabiner/karabiner.json"
 
 # Hammerspoon
 symlink "$DOTFILES_DIR/macos/.hammerspoon" "$HOME/.hammerspoon"

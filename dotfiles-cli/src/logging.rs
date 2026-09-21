@@ -11,6 +11,7 @@ use std::{
 use anyhow::{Context, Result};
 use tracing::level_filters::LevelFilter;
 use tracing_appender::non_blocking::WorkerGuard;
+use tracing_appender::rolling::{RollingFileAppender, Rotation};
 use tracing_subscriber::{
     Layer, filter::Targets, fmt, layer::SubscriberExt, util::SubscriberInitExt,
 };
@@ -43,7 +44,16 @@ pub fn init(cli: &Cli) -> Result<LoggingGuard> {
         .with_context(|| format!("failed to create log directory {}", directory.display()))?;
 
     let run_id = run_id();
-    let appender = tracing_appender::rolling::daily(&directory, "dotfiles.jsonl");
+    let appender = RollingFileAppender::builder()
+        .rotation(Rotation::DAILY)
+        .filename_prefix("dotfiles.jsonl")
+        .build(&directory)
+        .with_context(|| {
+            format!(
+                "failed to initialize rolling log file in {}",
+                directory.display()
+            )
+        })?;
     let (file_writer, file_guard) = tracing_appender::non_blocking(appender);
     let file_targets = Targets::new()
         .with_target("dotfiles_cli", LevelFilter::TRACE)

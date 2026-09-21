@@ -4,6 +4,7 @@ use std::{
     collections::BTreeMap,
     ffi::OsString,
     io,
+    os::unix::fs::PermissionsExt,
     path::{Path, PathBuf},
     process::{Command, Stdio},
     time::Instant,
@@ -150,15 +151,36 @@ fn command(request: &CommandRequest) -> Command {
     command
 }
 
-/// Locates an executable on `PATH` or in common Homebrew prefixes.
+/// Locates an executable on `PATH` or in common system prefixes.
 pub fn find_program(name: &str, path: Option<&std::ffi::OsStr>) -> Option<PathBuf> {
+    find_program_with_home(name, path, None)
+}
+
+/// Locates an executable on `PATH` and in common user and system bin directories.
+pub fn find_program_with_home(
+    name: &str,
+    path: Option<&std::ffi::OsStr>,
+    home: Option<&Path>,
+) -> Option<PathBuf> {
     std::env::split_paths(path.unwrap_or_default())
         .map(|directory| directory.join(name))
+        .chain(home.into_iter().flat_map(|home| {
+            [
+                home.join(".local/bin").join(name),
+                home.join(".cargo/bin").join(name),
+                home.join("go/bin").join(name),
+                home.join("bin").join(name),
+            ]
+        }))
         .chain([
             Path::new("/opt/homebrew/bin").join(name),
             Path::new("/usr/local/bin").join(name),
         ])
-        .find(|candidate| candidate.is_file())
+        .find(|candidate| {
+            candidate.metadata().is_ok_and(|metadata| {
+                metadata.is_file() && metadata.permissions().mode() & 0o111 != 0
+            })
+        })
 }
 
 #[cfg(test)]
@@ -206,5 +228,29 @@ mod tests {
             ),
             None
         );
+    }
+
+    #[test]
+    fn ignores_files_without_execute_permissions() {
+        let directory = tempdir().unwrap();
+        fs::write(directory.path().join("tool"), "not executable").unwrap();
+
+        let found = find_program("tool", Some(directory.path().as_os_str()));
+
+        assert_eq!(found, None);
+    }
+
+    #[test]
+    fn finds_executables_in_common_user_bin_directories() {
+        let home = tempdir().unwrap();
+        let cargo_bin = home.path().join(".cargo/bin");
+        fs::create_dir_all(&cargo_bin).unwrap();
+        let executable = cargo_bin.join("tool");
+        fs::write(&executable, "#!/bin/sh\n").unwrap();
+        fs::set_permissions(&executable, fs::Permissions::from_mode(0o755)).unwrap();
+
+        let found = find_program_with_home("tool", None, Some(home.path()));
+
+        assert_eq!(found, Some(executable));
     }
 }

@@ -47,7 +47,7 @@ pub struct Resource {
 #[derive(Clone, Debug, Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case")]
 pub enum ResourceKind {
-    /// A floating Homebrew formula line, optionally recognizing another provider.
+    /// A floating Homebrew formula line with optional unmanaged-install probes.
     ///
     /// The formula name selects the compatibility line managed by Homebrew,
     /// not an exact installed artifact version. A major-only alias such as
@@ -55,8 +55,11 @@ pub enum ResourceKind {
     BrewFormula {
         /// Formula, major-version alias, or fully qualified tap name.
         name: String,
-        /// Executable used to detect another installation source.
+        /// Executable override used when the formula name is not the command name.
         executable: Option<String>,
+        /// Files whose presence identifies an installation outside Homebrew.
+        #[serde(default)]
+        fallback_paths: Vec<String>,
     },
     /// A Homebrew cask with an optional application bundle fallback.
     BrewCask {

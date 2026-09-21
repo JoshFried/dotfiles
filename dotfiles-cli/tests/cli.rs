@@ -1,4 +1,4 @@
-use std::{fs, path::Path};
+use std::{fs, os::unix::fs::PermissionsExt, path::Path};
 
 use assert_cmd::{Command, cargo::cargo_bin_cmd};
 use predicates::prelude::*;
@@ -159,6 +159,27 @@ fn every_run_writes_structured_verbose_logs() {
             .iter()
             .any(|event| event["message"] == "audit completed" && event["issue_count"] == 1)
     );
+}
+
+#[test]
+fn unwritable_log_directories_return_an_error_without_panicking() {
+    let fixture = Fixture::new(true);
+    let logs = tempfile::tempdir().unwrap();
+    fs::set_permissions(logs.path(), fs::Permissions::from_mode(0o500)).unwrap();
+
+    fixture
+        .command()
+        .arg("--log-directory")
+        .arg(logs.path())
+        .args(["audit", "--json"])
+        .assert()
+        .failure()
+        .stderr(predicate::str::contains(
+            "failed to initialize rolling log file",
+        ))
+        .stderr(predicate::str::contains("panicked").not());
+
+    fs::set_permissions(logs.path(), fs::Permissions::from_mode(0o700)).unwrap();
 }
 
 #[test]

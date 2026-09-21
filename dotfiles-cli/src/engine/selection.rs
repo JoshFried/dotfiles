@@ -171,6 +171,7 @@ mod tests {
             kind: ResourceKind::BrewFormula {
                 name: id.to_owned(),
                 executable: None,
+                fallback_paths: Vec::new(),
             },
         }
     }

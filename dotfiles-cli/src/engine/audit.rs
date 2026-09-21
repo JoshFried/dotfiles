@@ -17,9 +17,17 @@ use super::{
 impl Engine {
     pub(super) fn audit(&self, resource: &Resource, inventory: &Inventory) -> AuditResult {
         let mut result = match &resource.kind {
-            ResourceKind::BrewFormula { name, executable } => {
-                self.audit_formula(resource, name, executable.as_deref(), inventory)
-            }
+            ResourceKind::BrewFormula {
+                name,
+                executable,
+                fallback_paths,
+            } => self.audit_formula(
+                resource,
+                name,
+                executable.as_deref(),
+                fallback_paths,
+                inventory,
+            ),
             ResourceKind::BrewCask { name, app } => {
                 self.audit_cask(resource, name, app.as_deref(), inventory)
             }
@@ -43,6 +51,7 @@ impl Engine {
         resource: &Resource,
         name: &str,
         executable: Option<&str>,
+        fallback_paths: &[String],
         inventory: &Inventory,
     ) -> AuditResult {
         if !inventory.brew_available {
@@ -75,11 +84,31 @@ impl Engine {
                 false,
             );
         }
-        if let Some(path) = executable.and_then(|command| inventory.executables.get(command)) {
+        let executable = executable
+            .map(str::to_owned)
+            .or_else(|| super::inventory::formula_executable(name, None));
+        if let Some(path) = executable
+            .as_deref()
+            .and_then(|command| inventory.executables.get(command))
+        {
             return result(
                 resource,
                 Status::Misplaced,
                 "Executable exists but is not managed by Homebrew",
+                format!("Homebrew formula {name}"),
+                path.display().to_string(),
+                false,
+            );
+        }
+        if let Some(path) = fallback_paths
+            .iter()
+            .map(|path| self.expand_home(path))
+            .find(|path| path.exists())
+        {
+            return result(
+                resource,
+                Status::Drifted,
+                "Artifact exists but is not managed by Homebrew",
                 format!("Homebrew formula {name}"),
                 path.display().to_string(),
                 false,
@@ -399,6 +428,7 @@ mod tests {
             kind: ResourceKind::BrewFormula {
                 name: "ripgrep".to_owned(),
                 executable: None,
+                fallback_paths: Vec::new(),
             },
         }
     }
@@ -427,6 +457,7 @@ mod tests {
             kind: ResourceKind::BrewFormula {
                 name: "python@3".to_owned(),
                 executable: None,
+                fallback_paths: Vec::new(),
             },
         };
 
@@ -471,6 +502,7 @@ mod tests {
             kind: ResourceKind::BrewFormula {
                 name: "eza".to_owned(),
                 executable: Some("eza".to_owned()),
+                fallback_paths: Vec::new(),
             },
         };
 
@@ -480,6 +512,32 @@ mod tests {
         assert_eq!(result.actual, "/home/test/.cargo/bin/eza");
         assert!(!result.fixable);
         assert!(result.action.is_none());
+    }
+
+    #[test]
+    fn formula_artifacts_outside_homebrew_are_drifted() {
+        let directory = tempdir().unwrap();
+        let font = directory.path().join("Library/Fonts/app-font.ttf");
+        fs::create_dir_all(font.parent().unwrap()).unwrap();
+        fs::write(&font, "font").unwrap();
+        let resource = Resource {
+            id: "formula.app-font".to_owned(),
+            description: "App font".to_owned(),
+            tags: Vec::new(),
+            depends_on: Vec::new(),
+            kind: ResourceKind::BrewFormula {
+                name: "owner/tap/app-font".to_owned(),
+                executable: None,
+                fallback_paths: vec!["~/Library/Fonts/app-font.ttf".to_owned()],
+            },
+        };
+
+        let result =
+            engine(directory.path(), directory.path()).audit(&resource, &inventory(&[], &[]));
+
+        assert_eq!(result.status, Status::Drifted);
+        assert_eq!(result.actual, font.display().to_string());
+        assert!(!result.fixable);
     }
 
     #[test]

@@ -253,6 +253,7 @@ mod tests {
             kind: ResourceKind::BrewFormula {
                 name: "test".to_owned(),
                 executable: None,
+                fallback_paths: Vec::new(),
             },
         };
         let engine = Engine::with_runner(
