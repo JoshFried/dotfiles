@@ -141,7 +141,8 @@ Hyper is implemented in two stages: the global complex rule maps logical
 map their physical `left_control` and `right_command` into that path. On those
 keyboards, physical `caps_lock` becomes Command and physical `left_command`
 becomes Control. Other mappings include `right_option` → alt+shift and
-`right_shift` → shift+ctrl.
+`right_shift` → shift+ctrl. Cmd+H/J/K/L navigation remains active in Raycast;
+Cmd+Shift+K opens Raycast's native Action Panel.
 
 ---
 

@@ -139,6 +139,7 @@ LEFT HAND                                                          RIGHT HAND
 | Combo              | Action                              |
 |--------------------|-------------------------------------|
 | Cmd + H/J/K/L      | Arrow keys (vim-style navigation)   |
+| Cmd+Shift+K        | Raycast Action Panel                |
 | Cmd+Q twice         | Quit app (single press is blocked)  |
 | Cmd+H              | Disabled (prevents accidental hide) |
 | F7 / F8 / F9       | Rewind / Play-Pause / Fast Forward  |

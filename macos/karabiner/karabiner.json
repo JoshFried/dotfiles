@@ -49,6 +49,37 @@
                         ]
                     },
                     {
+                        "description": "Caps Lock → Hyper; tap for command palette",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_shift",
+                                        "modifiers": [
+                                            "left_command",
+                                            "left_control",
+                                            "left_option"
+                                        ]
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "f18"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Right Shift -> Left Shift + Left Control",
                         "manipulators": [
                             {
@@ -209,18 +240,37 @@
                         ]
                     },
                     {
-                        "description": "Disable Cmd+H Hide (rev 2)",
+                        "description": "Raycast: Command+Shift+K opens the Action Panel",
                         "manipulators": [
                             {
-                                "description": "",
                                 "from": {
-                                    "key_code": "h",
+                                    "key_code": "k",
                                     "modifiers": {
                                         "mandatory": [
-                                            "command"
+                                            "left_command",
+                                            "left_shift"
+                                        ],
+                                        "optional": [
+                                            "any"
                                         ]
                                     }
                                 },
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.raycast\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "to": [
+                                    {
+                                        "key_code": "k",
+                                        "modifiers": [
+                                            "left_command"
+                                        ]
+                                    }
+                                ],
                                 "type": "basic"
                             }
                         ]
