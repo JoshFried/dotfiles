@@ -6,10 +6,26 @@ produces Hyper; tapping it opens the Hammerspoon command palette.
 ## Discovery and navigation
 
 - `Hyper+;` — searchable command palette
+- `Hyper+R` — desktop service manager
 - `Hyper+W` — search all open windows by application and title
 - `Hyper+Delete` or `Hyper+Forward Delete` — return to the previous window
 - `Hyper+Tab` — return to the previous AeroSpace workspace
 - `Cmd+Alt+C` — cycle windows of the current application
+
+The command palette lists registered shortcuts. Desktop maintenance actions are
+grouped under **Service manager**, which can be opened from the palette or
+directly with `Hyper+R`.
+
+## Desktop service manager
+
+- Reload or restart Hammerspoon
+- Reload or restart AeroSpace
+- Reload or restart SketchyBar
+- Refresh SketchyBar workspace indicators
+- Restart JankyBorders
+- Reassign AeroSpace workspaces to monitors
+- Log desktop service and workspace status
+- Open or clear the Hammerspoon console
 
 ## Applications
 
@@ -52,7 +68,6 @@ Pressing an application shortcut again cycles that application's windows.
 - `Hyper+N` — create a macOS space
 - `Hyper+X` — close empty macOS spaces
 - ``Hyper+` `` — show the current macOS space number
-- `Hyper+R` — open the desktop service manager
 - `Cmd+Alt+S` — sleep
 - `Cmd+Alt+\` — open the Hammerspoon console
 
@@ -67,5 +82,8 @@ Pressing an application shortcut again cycles that application's windows.
 - The display remains awake.
 - Leaving the home Wi-Fi network minimizes windows and mutes the MacBook
   speakers.
-- Monitor changes trigger AeroSpace workspace reassignment and a SketchyBar
-  refresh.
+- Monitor changes trigger three delayed AeroSpace stabilization passes, then a
+  SketchyBar reload.
+- With the built-in display connected, workspaces 1–4 remain on it and
+  workspaces 5–10 are divided across external displays.
+- SketchyBar highlights the visible workspace on every display.

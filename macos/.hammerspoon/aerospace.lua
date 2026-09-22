@@ -1,8 +1,10 @@
 --- Keeps AeroSpace workspace placement and SketchyBar indicators synchronized.
 
 local log = hs.logger.new("aerospace", "debug")
+local M = {}
 local refreshTimer
 local refreshPending = false
+local refreshPassesRemaining = 0
 local assignmentTask
 local sketchyBarTask
 local scheduleDesktopRefresh
@@ -86,12 +88,24 @@ local function refreshDesktopState()
             return
         end
 
-        if exitCode == 0 then
-            reloadSketchyBar()
-        else
+        if refreshPassesRemaining > 1 then
+            refreshPassesRemaining = refreshPassesRemaining - 1
+            log.i(string.format(
+                "Scheduling display stabilization pass; %d remaining",
+                refreshPassesRemaining
+            ))
+            scheduleDesktopRefresh(3)
+            return
+        end
+
+        refreshPassesRemaining = 0
+        if exitCode ~= 0 then
             log.e(string.format("Workspace assignment failed with exit code %d", exitCode))
             hs.alert.show("Workspace assignment failed; check the Hammerspoon console")
+            return
         end
+
+        reloadSketchyBar()
     end, {})
 
     if not assignmentTask then
@@ -107,19 +121,26 @@ local function refreshDesktopState()
 end
 
 --- Debounces the burst of screen events emitted during display changes.
-scheduleDesktopRefresh = function()
+scheduleDesktopRefresh = function(delay)
     if refreshTimer then
         refreshTimer:stop()
     end
 
-    refreshTimer = hs.timer.doAfter(2, function()
+    refreshTimer = hs.timer.doAfter(delay or 2, function()
         refreshTimer = nil
         refreshDesktopState()
     end)
 end
 
-local screenWatcher = hs.screen.watcher.new(scheduleDesktopRefresh)
-screenWatcher:start()
+--- Starts a fresh stabilization sequence after the screen topology changes.
+local function handleScreenChange()
+    refreshPassesRemaining = 3
+    scheduleDesktopRefresh(2)
+end
+
+M.screenWatcher = hs.screen.watcher.new(handleScreenChange)
+M.screenWatcher:start()
+handleScreenChange()
 
 require("bindings").bind({
     group = "Workspaces",
@@ -130,3 +151,5 @@ require("bindings").bind({
         os.execute(paths.aerospace .. " workspace-back-and-forth &")
     end,
 })
+
+return M
