@@ -1,0 +1,36 @@
+# Television channel using the private-override-aware sesh launcher.
+
+[metadata]
+name = "sesh"
+description = "Tmux sessions, configured projects, and zoxide directories"
+requirements = ["sesh", "fd"]
+
+[source]
+command = [
+  { name = "All", run = "$HOME/.local/bin/dotfiles-sesh list --icons" },
+  { name = "Tmux", run = "$HOME/.local/bin/dotfiles-sesh list -t --icons" },
+  { name = "Configs", run = "$HOME/.local/bin/dotfiles-sesh list -c --icons" },
+  { name = "Zoxide", run = "$HOME/.local/bin/dotfiles-sesh list -z --icons" },
+  { name = "Directories", run = "fd -H -d 2 -t d -E .Trash . ~" },
+]
+ansi = true
+frecency = false
+no_sort = true
+output = "{strip_ansi|split: :1..|join: }"
+
+[preview]
+command = "$HOME/.local/bin/dotfiles-sesh preview '{strip_ansi|split: :1..|join: }'"
+
+[keybindings]
+enter = "actions:connect"
+ctrl-d = ["actions:kill_session", "reload_source"]
+
+[actions.connect]
+description = "Connect to selected session"
+command = "$HOME/.local/bin/dotfiles-sesh connect '{strip_ansi|split: :1..|join: }'"
+mode = "execute"
+
+[actions.kill_session]
+description = "Kill selected tmux session"
+command = "tmux kill-session -t '{strip_ansi|split: :1..|join: }'"
+mode = "fork"

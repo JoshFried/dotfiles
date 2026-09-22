@@ -1,11 +1,20 @@
 #!/usr/bin/env bash
-# Wrapper that passes -C ~/.work.sesh.toml to sesh when that file exists.
-# Used by tmux popups and the tv sesh channel so the same config resolution
-# works regardless of whether a shell rc has been sourced.
+# Supports a private machine-specific config without requiring shell aliases.
 set -e
 
-if [ -f "$HOME/.work.sesh.toml" ]; then
-    exec /opt/homebrew/bin/sesh -C "$HOME/.work.sesh.toml" "$@"
+if command -v sesh >/dev/null 2>&1; then
+    SESH=$(command -v sesh)
+elif [ -x /opt/homebrew/bin/sesh ]; then
+    SESH=/opt/homebrew/bin/sesh
+elif [ -x /usr/local/bin/sesh ]; then
+    SESH=/usr/local/bin/sesh
 else
-    exec /opt/homebrew/bin/sesh "$@"
+    echo "sesh executable not found" >&2
+    exit 127
+fi
+
+if [ -f "$HOME/.work.sesh.toml" ]; then
+    exec "$SESH" -C "$HOME/.work.sesh.toml" "$@"
+else
+    exec "$SESH" "$@"
 fi

@@ -1,8 +1,7 @@
 #:schema https://github.com/joshmedeski/sesh/raw/main/sesh.schema.json
 
-# Personal sesh config. Work config lives at ~/.work.sesh.toml (gitignored).
-# The `sesh` zsh wrapper in .alias.zsh auto-passes -C to the work config when
-# that file exists on the host.
+# Public sesh configuration. The launcher uses a private machine-specific
+# configuration from ~/.work.sesh.toml when one is present.
 
 # ── Defaults ───────────────────────────────────────────────
 # Every new session opens nvim. Preview uses eza.
@@ -56,4 +55,4 @@ disable_startup_command = true
 [[session]]
 name = "downloads"
 path = "~/Downloads"
-startup_command = "ls"
+startup_command = "eza --all --git --icons"

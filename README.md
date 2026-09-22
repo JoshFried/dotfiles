@@ -212,11 +212,11 @@ Smart tmux session manager. Combines tmux sessions + zoxide dirs + named project
 **Config files:**
 
 - `sesh/sesh.toml` — personal, checked in (symlinked to `~/.config/sesh/sesh.toml`). Defines the `dotfiles`, `nvim-config`, `tmux-config`, `tmp`, `downloads` sessions and a `~/repos/*` wildcard that auto-opens nvim.
-- `~/.work.sesh.toml` — work, gitignored. Copy `sesh/sesh.toml.work.example` to `~/.work.sesh.toml` on the work machine. **Superset** of the personal config (includes the same personal sessions plus OSM / ODI / SignalForge / Rehatch). CDK packages open nvim; Kotlin/Java packages open a plain shell.
+- `~/.work.sesh.toml` — optional private machine-specific configuration that remains outside this repository.
 
-The `sesh` zsh wrapper in `.alias.zsh` auto-passes `-C ~/.work.sesh.toml` when that file exists, so the same `sesh` command uses the right config per machine — and personal bookmarks like `@dotfiles` still work on the work machine because the work config includes them.
-
-**Keeping the two in sync:** when you add or change a personal session in `sesh/sesh.toml`, mirror it into `sesh/sesh.toml.work.example` and re-copy to `~/.work.sesh.toml`.
+The `sesh` launcher automatically passes `-C ~/.work.sesh.toml` when that file
+exists, allowing private sessions to be supplied by an approved private
+repository without exposing them in the public dotfiles repository.
 
 **Tmux bindings** (prefix `Ctrl-S`):
 

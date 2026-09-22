@@ -400,6 +400,14 @@ run_check() {
     check_symlink "$DOTFILES_DIR/lazygit" "$HOME/.config/lazygit"
     check_symlink "$DOTFILES_DIR/btop" "$HOME/.config/btop"
     check_symlink "$DOTFILES_DIR/sesh/sesh.toml" "$HOME/.config/sesh/sesh.toml"
+    check_symlink "$DOTFILES_DIR/sesh/sesh-wrapper.sh" "$HOME/.local/bin/dotfiles-sesh"
+    check_symlink "$DOTFILES_DIR/television/cable/sesh.toml" \
+        "$HOME/.config/television/cable/sesh.toml"
+    if [ -d "$HOME/tmp" ]; then
+        ok "~/tmp"
+    else
+        check_failure "~/tmp is missing"
+    fi
     check_symlink "$DOTFILES_DIR/macos/karabiner/karabiner.json" \
         "$HOME/.config/karabiner/karabiner.json"
     check_symlink "$DOTFILES_DIR/macos/.hammerspoon" "$HOME/.hammerspoon"
@@ -810,8 +818,12 @@ symlink "$DOTFILES_DIR/lazygit"     "$HOME/.config/lazygit"
 # Btop
 symlink "$DOTFILES_DIR/btop"        "$HOME/.config/btop"
 
-# Sesh (personal config; ~/.work.sesh.toml is gitignored, see sesh/sesh.toml.work.example)
+# Sesh
 symlink "$DOTFILES_DIR/sesh/sesh.toml" "$HOME/.config/sesh/sesh.toml"
+symlink "$DOTFILES_DIR/sesh/sesh-wrapper.sh" "$HOME/.local/bin/dotfiles-sesh"
+symlink "$DOTFILES_DIR/television/cable/sesh.toml" \
+    "$HOME/.config/television/cable/sesh.toml"
+mkdir -p "$HOME/tmp"
 
 # Karabiner
 symlink "$DOTFILES_DIR/macos/karabiner/karabiner.json" \

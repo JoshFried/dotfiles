@@ -33,6 +33,8 @@ core = [
     "symlink.dotfiles-cli",
     "symlink.tmux",
     "symlink.sesh",
+    "symlink.sesh-wrapper",
+    "symlink.television-sesh",
     "symlink.fastfetch",
     "symlink.btop",
 ]
@@ -520,6 +522,24 @@ kind = "symlink"
 source = "sesh/sesh.toml"
 destination = "~/.config/sesh/sesh.toml"
 depends_on = ["formula.sesh"]
+
+[[resources]]
+id = "symlink.sesh-wrapper"
+description = "Private-override-aware sesh launcher"
+tags = ["core", "symlink"]
+kind = "symlink"
+source = "sesh/sesh-wrapper.sh"
+destination = "~/.local/bin/dotfiles-sesh"
+depends_on = ["formula.sesh"]
+
+[[resources]]
+id = "symlink.television-sesh"
+description = "Television channel for sesh"
+tags = ["core", "symlink"]
+kind = "symlink"
+source = "television/cable/sesh.toml"
+destination = "~/.config/television/cable/sesh.toml"
+depends_on = ["formula.television", "formula.sesh", "formula.fd", "symlink.sesh-wrapper"]
 
 [[resources]]
 id = "symlink.fastfetch"
