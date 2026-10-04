@@ -1,5 +1,7 @@
 export EDITOR='nvim'
 
+unalias brew nvim 2>/dev/null
+
 alias zel="zellij -l compact"
 
 
@@ -10,7 +12,6 @@ alias ew="$EDITOR ~/.work.alias.zsh"
 alias el="$EDITOR ~/.local.zsh"   # alias for Edit Local
 alias sz='exec zsh'               # alias for Source Zsh
 
-alias brew="/opt/homebrew/bin/brew"
 
 alias eh="cd ~/.hammerspoon && $EDITOR"
 alias ek="cd ~/.config/karabiner/assets/complex_modifications/ && $EDITOR"
@@ -22,10 +23,9 @@ alias :q="exit"
 alias ls='eza -l -a --grid --git'
 alias vguard='@guard && v .'
 
-# sesh — auto-pass -C to work config when present
-# (keeps personal sesh.toml as default; work file is gitignored)
-if [[ -f "$HOME/.work.sesh.toml" ]]; then
-    sesh() { command sesh -C "$HOME/.work.sesh.toml" "$@"; }
+# Keep shell invocations consistent with tmux and television.
+if [[ -x "$HOME/.local/bin/dotfiles-sesh" ]]; then
+    sesh() { "$HOME/.local/bin/dotfiles-sesh" "$@"; }
 fi
 
 # Tmux-aware project bookmarks: inside tmux, connect via sesh (named session +
@@ -68,7 +68,6 @@ alias dcub='docker-compose up --build'
 alias y='yarn'
 alias m='make'
 alias v='nvim'
-alias nvim="/opt/homebrew/bin/nvim"
 
 # create and delete files/folders
 alias t='touch'           # create file
@@ -77,7 +76,11 @@ alias rd='rm -rf'         # remove directory and file
  
 # misc.
 alias c='clear'           # clear terminal
-alias o='open'            # open file or chrome with full url
+if command -v open &>/dev/null; then
+    alias o='open'
+elif command -v xdg-open &>/dev/null; then
+    alias o='xdg-open'
+fi
 
 # git
 alias lg='lazygit'
@@ -132,5 +135,5 @@ alias cn='cargo +nightly'
 alias gityeet="git clean -fd"
 
 copy() {
-    cat "$1" | pbcopy
+    dotfiles-copy < "$1"
 }

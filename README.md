@@ -1,6 +1,36 @@
 # dotfiles
 
-macOS development environment with Kanagawa Wave theme. Each tool can be installed and symlinked independently — no need to run the full bootstrap script.
+Development environment with Kanagawa Wave theme. Each tool can be installed
+and symlinked independently—no need to run the full bootstrap script.
+
+## Linux development hosts
+
+The Linux bootstrap installs the shared command-line and development
+environment through Homebrew while excluding macOS applications, services, and
+configuration:
+
+```bash
+./bootstrap-linux.sh
+```
+
+Audit without changing the host:
+
+```bash
+./bootstrap-linux.sh --check
+```
+
+If the script is copied or symlinked outside the repository, provide the clone
+location explicitly:
+
+```bash
+./bootstrap-linux.sh --repo ~/repos/dotfiles
+```
+
+The `DOTFILES_REPO` environment variable provides the same override.
+
+The system package manager is used only for Homebrew build prerequisites.
+Existing configuration files are backed up before managed symlinks replace
+them. The script supports apt-, dnf-, and yum-based distributions.
 
 ## Prerequisites
 
@@ -212,11 +242,11 @@ Smart tmux session manager. Combines tmux sessions + zoxide dirs + named project
 **Config files:**
 
 - `sesh/sesh.toml` — personal, checked in (symlinked to `~/.config/sesh/sesh.toml`). Defines the `dotfiles`, `nvim-config`, `tmux-config`, `tmp`, `downloads` sessions and a `~/repos/*` wildcard that auto-opens nvim.
-- `~/.work.sesh.toml` — optional private machine-specific configuration that remains outside this repository.
+- `~/.work.sesh.toml` — optional private machine-specific fragment that remains outside this repository.
 
-The `sesh` launcher automatically passes `-C ~/.work.sesh.toml` when that file
-exists, allowing private sessions to be supplied by an approved private
-repository without exposing them in the public dotfiles repository.
+The `sesh` launcher combines the public config with `~/.work.sesh.toml` when the
+private fragment exists. This keeps personal sessions available while adding
+machine-specific workspaces without exposing them in the public repository.
 
 **Tmux bindings** (prefix `Ctrl-S`):
 

@@ -401,6 +401,7 @@ run_check() {
     check_symlink "$DOTFILES_DIR/btop" "$HOME/.config/btop"
     check_symlink "$DOTFILES_DIR/sesh/sesh.toml" "$HOME/.config/sesh/sesh.toml"
     check_symlink "$DOTFILES_DIR/sesh/sesh-wrapper.sh" "$HOME/.local/bin/dotfiles-sesh"
+    check_symlink "$DOTFILES_DIR/bin/dotfiles-copy" "$HOME/.local/bin/dotfiles-copy"
     check_symlink "$DOTFILES_DIR/television/cable/sesh.toml" \
         "$HOME/.config/television/cable/sesh.toml"
     if [ -d "$HOME/tmp" ]; then
@@ -796,6 +797,7 @@ symlink "$DOTFILES_DIR/.alias.zsh"   "$HOME/.alias.zsh"
 # Global editorconfig (fallback for repos without their own)
 symlink "$DOTFILES_DIR/.editorconfig" "$HOME/.editorconfig"
 symlink "$DOTFILES_DIR/bin/dotfiles" "$HOME/.local/bin/dotfiles"
+symlink "$DOTFILES_DIR/bin/dotfiles-copy" "$HOME/.local/bin/dotfiles-copy"
 
 # Tmux
 symlink "$DOTFILES_DIR/.tmux.conf"   "$HOME/.tmux.conf"

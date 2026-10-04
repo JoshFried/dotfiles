@@ -26,11 +26,13 @@ core = [
     "repo.powerlevel10k",
     "repo.zsh-autosuggestions",
     "repo.zsh-syntax-highlighting",
+    "repo.k",
     "repo.tpm",
     "symlink.zshrc",
     "symlink.aliases",
     "symlink.editorconfig",
     "symlink.dotfiles-cli",
+    "symlink.clipboard",
     "symlink.tmux",
     "symlink.sesh",
     "symlink.sesh-wrapper",
@@ -465,6 +467,15 @@ destination = "~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
 depends_on = ["repo.oh-my-zsh"]
 
 [[resources]]
+id = "repo.k"
+description = "Directory listing Zsh plugin"
+tags = ["core", "git"]
+kind = "git_repo"
+url = "https://github.com/supercrabtree/k.git"
+destination = "~/.oh-my-zsh/custom/plugins/k"
+depends_on = ["repo.oh-my-zsh"]
+
+[[resources]]
 id = "repo.tpm"
 description = "Tmux plugin manager"
 tags = ["core", "git"]
@@ -504,6 +515,14 @@ kind = "symlink"
 source = "bin/dotfiles"
 destination = "~/.local/bin/dotfiles"
 depends_on = ["formula.rustup"]
+
+[[resources]]
+id = "symlink.clipboard"
+description = "Portable clipboard adapter"
+tags = ["core", "symlink"]
+kind = "symlink"
+source = "bin/dotfiles-copy"
+destination = "~/.local/bin/dotfiles-copy"
 
 [[resources]]
 id = "symlink.tmux"

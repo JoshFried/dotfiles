@@ -6,13 +6,7 @@ description = "Tmux sessions, configured projects, and zoxide directories"
 requirements = ["sesh", "fd"]
 
 [source]
-command = [
-  { name = "All", run = "$HOME/.local/bin/dotfiles-sesh list --icons" },
-  { name = "Tmux", run = "$HOME/.local/bin/dotfiles-sesh list -t --icons" },
-  { name = "Configs", run = "$HOME/.local/bin/dotfiles-sesh list -c --icons" },
-  { name = "Zoxide", run = "$HOME/.local/bin/dotfiles-sesh list -z --icons" },
-  { name = "Directories", run = "fd -H -d 2 -t d -E .Trash . ~" },
-]
+command = "$HOME/.local/bin/dotfiles-sesh list --icons"
 ansi = true
 frecency = false
 no_sort = true

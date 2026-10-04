@@ -1,4 +1,4 @@
---- Provides a searchable chooser for connecting paired Bluetooth devices.
+--- Provides a searchable chooser for toggling paired Bluetooth connections.
 
 local kanagawa = require("kanagawa")
 
@@ -9,14 +9,18 @@ local bluetoothChooser = hs.chooser.new(function(choice)
 
     local mac = choice["mac"]
     local name = choice["text"]
+    local isConnected = choice["isConnected"]
+    local option = isConnected and "--disconnect" or "--connect"
+    local successMessage = isConnected and "Disconnected from: " or "Connected to: "
+    local failureMessage = isConnected and "Failed to disconnect from: " or "Failed to connect to: "
 
     hs.task.new("/opt/homebrew/bin/blueutil", function(exitCode, stdOut, stdErr)
         if exitCode == 0 then
-            hs.alert.show("Connecting to: " .. name)
+            hs.alert.show(successMessage .. name)
         else
-            hs.alert.show("Failed to connect to: " .. name)
+            hs.alert.show(failureMessage .. name)
         end
-    end, { "--connect", mac }):start()
+    end, { option, mac }):start()
 end)
 kanagawa.styleChooser(bluetoothChooser)
 
@@ -35,7 +39,9 @@ local function bluetoothDevices()
                 for _, device in ipairs(devices) do
                     local sub = ""
                     if device.connected then
-                        sub = "✓ Connected"
+                        sub = "✓ Connected - select to disconnect"
+                    else
+                        sub = "Select to connect"
                     end
                     table.insert(choices, {
                         text = device.name,
