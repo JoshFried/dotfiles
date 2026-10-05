@@ -140,7 +140,6 @@ end
 
 M.screenWatcher = hs.screen.watcher.new(handleScreenChange)
 M.screenWatcher:start()
-handleScreenChange()
 
 require("bindings").bind({
     group = "Workspaces",
