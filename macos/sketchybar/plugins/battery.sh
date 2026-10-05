@@ -59,6 +59,7 @@ sketchybar --set "$NAME" \
     icon.color="$COLOR" \
     label="$LABEL" \
     label.color="$LABEL_COLOR" \
+    label.drawing=on \
     background.drawing="$BACKGROUND_DRAWING" \
     background.color="$BACKGROUND_COLOR" \
     update_freq="$UPDATE_FREQ"
