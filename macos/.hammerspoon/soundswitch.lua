@@ -37,7 +37,7 @@ local outputChooser = hs.chooser.new(function(choice)
         end
     end
 end)
-kanagawa.styleChooser(outputChooser)
+kanagawa.styleChooser(outputChooser, { title = "Audio Output" })
 
 --- Displays available output devices with the active device prioritized visually.
 local function outSources()
@@ -57,7 +57,7 @@ local function outSources()
     end
 
     outputChooser:choices(outputs)
-    outputChooser:show()
+    kanagawa.showChooser(outputChooser)
 end
 
 require("bindings").bind({
@@ -85,7 +85,7 @@ local inputChooser = hs.chooser.new(function(choice)
         end
     end
 end)
-kanagawa.styleChooser(inputChooser)
+kanagawa.styleChooser(inputChooser, { title = "Audio Input" })
 
 --- Displays available input devices with the active device identified.
 local function inSources()
@@ -103,7 +103,7 @@ local function inSources()
     end
 
     inputChooser:choices(inputs)
-    inputChooser:show()
+    kanagawa.showChooser(inputChooser)
 end
 
 require("bindings").bind({

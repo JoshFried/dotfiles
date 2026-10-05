@@ -150,7 +150,7 @@ local bluetoothChooser = hs.chooser.new(function(choice)
         end
     end, { option, mac }):start()
 end)
-kanagawa.styleChooser(bluetoothChooser)
+kanagawa.styleChooser(bluetoothChooser, { title = "Bluetooth Devices" })
 
 --- Refreshes, prioritizes, and displays paired Bluetooth devices.
 local function bluetoothDevices()
@@ -204,7 +204,7 @@ local function bluetoothDevices()
         end)
 
         bluetoothChooser:choices(choices)
-        bluetoothChooser:show()
+        kanagawa.showChooser(bluetoothChooser)
     end
 
     hs.task.new("/opt/homebrew/bin/blueutil", function(exitCode, stdOut, stdErr)

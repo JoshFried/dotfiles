@@ -8,8 +8,11 @@
 ---@field width? number Chooser width as a percentage of the screen.
 ---@field searchSubText? boolean Include secondary text in search.
 ---@field vcenter? boolean Center the chooser after it appears.
+---@field title? string Label displayed in the chooser search field.
 
 local M = {}
+local styledChoosers = {}
+local showRequestId = 0
 
 ---@type table<string, string>
 M.palette = {
@@ -49,6 +52,7 @@ M.rgb = hexToRgb
 ---@return hs.chooser
 function M.styleChooser(chooser, opts)
     opts = opts or {}
+    styledChoosers[chooser] = true
 
     chooser
         :bgDark(true)
@@ -58,13 +62,14 @@ function M.styleChooser(chooser, opts)
         :searchSubText(opts.searchSubText ~= false)
 
     if opts.width then chooser:width(opts.width) end
+    if opts.title then chooser:placeholderText(opts.title) end
 
     if opts.vcenter ~= false then
         chooser:showCallback(function()
             hs.timer.doAfter(0.03, function()
                 local win = hs.window.focusedWindow()
                 if win and win:application():name() == "Hammerspoon" then
-                    local screen = hs.screen.mainScreen():frame()
+                    local screen = win:screen():frame()
                     local f = win:frame()
                     f.x = screen.x + (screen.w - f.w) / 2
                     f.y = screen.y + (screen.h - f.h) / 2
@@ -75,6 +80,37 @@ function M.styleChooser(chooser, opts)
     end
 
     return chooser
+end
+
+--- Shows a chooser after dismissing any currently visible chooser.
+---@param chooser hs.chooser
+function M.showChooser(chooser)
+    showRequestId = showRequestId + 1
+    local requestId = showRequestId
+
+    if chooser:isVisible() then
+        chooser:hide()
+        return
+    end
+
+    local dismissedChooser = false
+    for styledChooser in pairs(styledChoosers) do
+        if styledChooser ~= chooser and styledChooser:isVisible() then
+            styledChooser:hide()
+            dismissedChooser = true
+        end
+    end
+
+    if not dismissedChooser then
+        chooser:show()
+        return
+    end
+
+    hs.timer.doAfter(0.05, function()
+        if requestId == showRequestId then
+            chooser:show()
+        end
+    end)
 end
 
 return M

@@ -13,7 +13,7 @@ local wifiChooser = hs.chooser.new(function(choice)
         end
     end, { "-setairportnetwork", "en0", ssid }):start()
 end)
-kanagawa.styleChooser(wifiChooser, { rows = 10 })
+kanagawa.styleChooser(wifiChooser, { title = "Wi-Fi Networks", rows = 10 })
 
 --- Returns preferred Wi-Fi SSIDs configured for the primary interface.
 ---@return table<string, boolean>
@@ -31,7 +31,7 @@ end
 --- Scans for nearby networks and updates the visible chooser.
 local function wifiNetworks()
     wifiChooser:choices({})
-    wifiChooser:show()
+    kanagawa.showChooser(wifiChooser)
 
     local known = getKnownNetworks()
     local current = hs.wifi.currentNetwork() or ""

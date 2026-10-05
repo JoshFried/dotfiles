@@ -27,7 +27,7 @@ local chooser = hs.chooser.new(function(choice)
     end
 end)
 
-kanagawa.styleChooser(chooser, { rows = 12, width = 55 })
+kanagawa.styleChooser(chooser, { title = "Window Switcher", rows = 12, width = 55 })
 
 --- Rebuilds and opens a chooser containing standard titled windows.
 local function showWindowChooser()
@@ -56,7 +56,7 @@ local function showWindowChooser()
     end)
 
     chooser:choices(choices)
-    chooser:show()
+    kanagawa.showChooser(chooser)
 end
 
 --- Focuses the window that preceded the current focused window.

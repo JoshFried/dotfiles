@@ -15,7 +15,7 @@ local chooser = hs.chooser.new(function(choice)
     end
 end)
 
-kanagawa.styleChooser(chooser, { rows = 12, width = 45 })
+kanagawa.styleChooser(chooser, { title = "Command Palette", rows = 12, width = 45 })
 
 --- Rebuilds and opens the command palette from the current registry.
 local function showCommandPalette()
@@ -33,7 +33,7 @@ local function showCommandPalette()
     end
 
     chooser:choices(choices)
-    chooser:show()
+    kanagawa.showChooser(chooser)
 end
 
 bindings.bind({

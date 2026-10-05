@@ -72,11 +72,11 @@ local function showMeetings()
                 hs.alert.show("No meeting link found", 1.5)
             end
         end)
-        kanagawa.styleChooser(meetingChooser, { rows = 8 })
+        kanagawa.styleChooser(meetingChooser, { title = "Upcoming Meetings", rows = 8 })
     end
 
     meetingChooser:choices({ { text = "Refreshing meetings…" } })
-    meetingChooser:show()
+        kanagawa.showChooser(meetingChooser)
 
     calendarTask = hs.task.new(CAL_BIN, function(exitCode, stdOut, stdErr)
         calendarTask = nil

@@ -226,7 +226,7 @@ local chooser = hs.chooser.new(function(choice)
     end
 end)
 
-kanagawa.styleChooser(chooser, { rows = 12, width = 48 })
+kanagawa.styleChooser(chooser, { title = "Service Manager", rows = 12, width = 48 })
 
 --- Rebuilds and opens the service-management chooser.
 local function showServiceManager()
@@ -244,7 +244,7 @@ local function showServiceManager()
     end
 
     chooser:choices(choices)
-    chooser:show()
+    kanagawa.showChooser(chooser)
 end
 
 --- Available service actions for integrations and inspection.
