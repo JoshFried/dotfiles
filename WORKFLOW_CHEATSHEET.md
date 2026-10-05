@@ -64,7 +64,11 @@ work aliases and sessions remain in private files.
 - `Ctrl+H/J/K/L`: move between Neovim splits and tmux panes.
 - `Prefix+=`: evenly balance the current layout.
 - `Prefix+g`: open lazygit in a popup.
+- `Prefix+P`: toggle a lower log shell in the current window.
 - `Prefix+o`: open a command in a new window.
+
+Pane borders show local/dev context, Git branch, package name, devcontainer
+presence, and up to three listening ports.
 
 ### Copy and Links
 
@@ -98,3 +102,11 @@ work aliases and sessions remain in private files.
 - `z NAME`: jump to a frequently used directory through zoxide.
 - `v`, `lg`, `g`: Neovim, lazygit, and Git.
 - `copy FILE`: copy a file through the cross-host clipboard helper.
+
+## SketchyBar
+
+- Click CPU for memory, load average, and disk usage.
+- Click Wi-Fi for interface, local IP, download rate, and upload rate.
+- Click battery for power source, remaining time, health, and cycle count.
+- Click the clock for upcoming meetings and Calendar actions.
+- Right-click CPU, Wi-Fi, battery, or clock for the original direct system action.

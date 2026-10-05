@@ -392,6 +392,10 @@ run_check() {
     check_symlink "$DOTFILES_DIR/.alias.zsh" "$HOME/.alias.zsh"
     check_symlink "$DOTFILES_DIR/.editorconfig" "$HOME/.editorconfig"
     check_symlink "$DOTFILES_DIR/bin/dotfiles" "$HOME/.local/bin/dotfiles"
+    check_symlink "$DOTFILES_DIR/bin/dotfiles-tmux-pane-status" \
+        "$HOME/.local/bin/dotfiles-tmux-pane-status"
+    check_symlink "$DOTFILES_DIR/bin/dotfiles-tmux-log-pane" \
+        "$HOME/.local/bin/dotfiles-tmux-log-pane"
     check_symlink "$DOTFILES_DIR/.tmux.conf" "$HOME/.tmux.conf"
     check_symlink "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
     check_symlink "$DOTFILES_DIR/wezterm" "$HOME/.config/wezterm"
@@ -798,6 +802,10 @@ symlink "$DOTFILES_DIR/.alias.zsh"   "$HOME/.alias.zsh"
 symlink "$DOTFILES_DIR/.editorconfig" "$HOME/.editorconfig"
 symlink "$DOTFILES_DIR/bin/dotfiles" "$HOME/.local/bin/dotfiles"
 symlink "$DOTFILES_DIR/bin/dotfiles-copy" "$HOME/.local/bin/dotfiles-copy"
+symlink "$DOTFILES_DIR/bin/dotfiles-tmux-pane-status" \
+    "$HOME/.local/bin/dotfiles-tmux-pane-status"
+symlink "$DOTFILES_DIR/bin/dotfiles-tmux-log-pane" \
+    "$HOME/.local/bin/dotfiles-tmux-log-pane"
 
 # Tmux
 symlink "$DOTFILES_DIR/.tmux.conf"   "$HOME/.tmux.conf"

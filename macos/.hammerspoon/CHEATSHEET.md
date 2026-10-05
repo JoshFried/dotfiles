@@ -6,6 +6,7 @@ Hyper; tap either key to open the command palette.
 ## Discovery
 
 - `Hyper+;`: searchable command palette.
+- `Hyper+/`: context-aware searchable workflow cheatsheet.
 - `Hyper+R`: desktop service manager.
 - `Hyper+W`: search open windows by application and title.
 - `Hyper+Delete` or `Hyper+Forward Delete`: return to the previous window.

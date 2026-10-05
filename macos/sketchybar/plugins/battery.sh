@@ -6,6 +6,12 @@ FG_DIM="${FG_DIM:-0xffC8C093}"
 GREEN="${GREEN:-0xff98BB6C}"
 RED="${RED:-0xffE46876}"
 YELLOW="${YELLOW:-0xffE6C384}"
+
+if [ "$SENDER" = "mouse.exited.global" ]; then
+    "$CONFIG_DIR/plugins/toggle_popup.sh" close
+    exit 0
+fi
+
 PERCENTAGE="$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)"
 CHARGING="$(pmset -g batt | grep 'AC Power')"
 

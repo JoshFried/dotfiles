@@ -111,6 +111,8 @@ local function showMeetings()
     end
 end
 
+hs.urlevent.bind("meetings", showMeetings)
+
 require("bindings").bind({
     group = "Productivity",
     title = "Upcoming meetings",

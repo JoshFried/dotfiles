@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+pane_id="${1:-}"
+path="${2:-$PWD}"
+pane_pid="${3:-}"
+command="${4:-}"
+cache_key="${pane_id#%}"
+cache_file="${TMPDIR:-/tmp}/dotfiles-tmux-pane-${cache_key:-unknown}"
+
+if [ -r "$cache_file" ]; then
+    if [ "$(uname -s)" = "Darwin" ]; then
+        cache_modified="$(stat -f %m "$cache_file")"
+    else
+        cache_modified="$(stat -c %Y "$cache_file")"
+    fi
+
+    if [ $(( $(date +%s) - cache_modified )) -lt 5 ]; then
+        cat "$cache_file"
+        exit 0
+    fi
+fi
+
+parts=()
+hostname_short="$(hostname -s)"
+if [[ "$hostname_short" == dev-dsk-* || "$path" == /workplace/* ]]; then
+    parts+=("DEV")
+elif [[ "$command" == ssh || "$command" == wssh ]]; then
+    parts+=("SSH")
+else
+    parts+=("LOCAL")
+fi
+
+if [ -d "$path/.devcontainer" ]; then
+    parts+=("container")
+fi
+
+branch="$(git -C "$path" branch --show-current 2>/dev/null || true)"
+[ -n "$branch" ] && parts+=("$branch")
+
+if [[ "$path" =~ /src/([^/]+) ]]; then
+    parts+=("${BASH_REMATCH[1]}")
+fi
+
+descendants=""
+if [[ "$pane_pid" =~ ^[0-9]+$ ]]; then
+    descendants="$(ps -eo pid=,ppid= | awk -v root="$pane_pid" '
+        { pid[NR] = $1; parent[NR] = $2 }
+        END {
+            found[root] = 1
+            changed = 1
+            while (changed) {
+                changed = 0
+                for (i = 1; i <= NR; i++) {
+                    if (!found[pid[i]] && found[parent[i]]) {
+                        found[pid[i]] = 1
+                        changed = 1
+                    }
+                }
+            }
+            for (process in found) {
+                if (found[process]) print process
+            }
+        }
+    ' | paste -sd, -)"
+fi
+
+ports=""
+if [ -n "$descendants" ] && command -v lsof >/dev/null 2>&1; then
+    ports="$({ lsof -Pan -p "$descendants" -iTCP -sTCP:LISTEN 2>/dev/null || true; } |
+        awk 'NR > 1 { sub(/^.*:/, "", $9); print $9 }' |
+        sort -nu |
+        head -3 |
+        paste -sd, - || true)"
+fi
+[ -n "$ports" ] && parts+=(":$ports")
+
+if [ -n "$pane_id" ] && [ "$(tmux show-options -p -v -t "$pane_id" @dotfiles_log_pane 2>/dev/null || true)" = "1" ]; then
+    parts=("LOG" "${parts[@]}")
+fi
+
+output=" ${parts[0]}"
+for part in "${parts[@]:1}"; do
+    output+=" · $part"
+done
+output+=" "
+
+printf '%s\n' "$output" | tee "$cache_file"

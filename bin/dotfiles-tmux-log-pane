@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+window_id="$(tmux display-message -p '#{window_id}')"
+current_pane="$(tmux display-message -p '#{pane_id}')"
+current_path="$(tmux display-message -p '#{pane_current_path}')"
+log_pane="$(
+    tmux list-panes -t "$window_id" -F '#{pane_id}|#{@dotfiles_log_pane}' |
+        awk -F'|' '$2 == "1" { print $1; exit }'
+)"
+
+if [ -n "$log_pane" ]; then
+    tmux kill-pane -t "$log_pane"
+    exit 0
+fi
+
+log_pane="$(
+    tmux split-window \
+        -v \
+        -l 35% \
+        -c "$current_path" \
+        -P \
+        -F '#{pane_id}'
+)"
+tmux set-option -p -t "$log_pane" @dotfiles_log_pane 1
+tmux select-pane -t "$log_pane" -T logs
+tmux select-pane -t "$current_pane"
+tmux display-message "Log pane ready: prefix+P toggles it"

@@ -37,6 +37,7 @@ local modules = {
     "centeredapp",
     "wifi_watcher",
     "soundswitch",
+    "sketchybar_popups",
     "cycleapp",
     "fullscreen",
     "bluetooth",
@@ -47,6 +48,7 @@ local modules = {
     "battery",
     "aerospace",
     "meeting",
+    "cheatsheet",
     "windowchooser",
     "services",
 }

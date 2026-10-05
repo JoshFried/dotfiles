@@ -33,6 +33,8 @@ core = [
     "symlink.editorconfig",
     "symlink.dotfiles-cli",
     "symlink.clipboard",
+    "symlink.tmux-pane-status",
+    "symlink.tmux-log-pane",
     "symlink.tmux",
     "symlink.sesh",
     "symlink.sesh-wrapper",
@@ -523,6 +525,24 @@ tags = ["core", "symlink"]
 kind = "symlink"
 source = "bin/dotfiles-copy"
 destination = "~/.local/bin/dotfiles-copy"
+
+[[resources]]
+id = "symlink.tmux-pane-status"
+description = "Tmux pane context status"
+tags = ["core", "symlink"]
+kind = "symlink"
+source = "bin/dotfiles-tmux-pane-status"
+destination = "~/.local/bin/dotfiles-tmux-pane-status"
+depends_on = ["formula.tmux"]
+
+[[resources]]
+id = "symlink.tmux-log-pane"
+description = "Tmux log pane toggle"
+tags = ["core", "symlink"]
+kind = "symlink"
+source = "bin/dotfiles-tmux-log-pane"
+destination = "~/.local/bin/dotfiles-tmux-log-pane"
+depends_on = ["formula.tmux"]
 
 [[resources]]
 id = "symlink.tmux"

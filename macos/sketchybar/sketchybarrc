@@ -90,6 +90,7 @@ for i in "${!SPACE_ICONS[@]}"; do
 done
 
 sketchybar --add event aerospace_workspace_change
+sketchybar --add event system_stats_update
 
 sketchybar --set space.1 \
         script="$PLUGIN_DIR/space.sh" \
@@ -152,8 +153,26 @@ sketchybar --add item clock right \
         icon=󰥔 \
         icon.color=$ACCENT \
         label.color=$FG \
+        popup.align=right \
         update_freq=30 \
         script="$PLUGIN_DIR/clock.sh" \
+        click_script="$PLUGIN_DIR/toggle_popup.sh clock" \
+    --subscribe clock mouse.exited.global
+
+sketchybar --add item clock.meetings popup.clock \
+    --set clock.meetings \
+        icon=󰃰 \
+        icon.color=$ACCENT \
+        label="Upcoming meetings" \
+        background.drawing=off \
+        click_script="open 'hammerspoon://meetings'"
+
+sketchybar --add item clock.calendar popup.clock \
+    --set clock.calendar \
+        icon=󰃭 \
+        icon.color=$FG_DIM \
+        label="Open Calendar" \
+        background.drawing=off \
         click_script="open -a Calendar"
 
 # ── Right: Battery ────────────────────────────────────────
@@ -161,10 +180,18 @@ sketchybar --add item battery right \
     --set battery \
         icon.color=$GREEN \
         label.color=$FG \
+        popup.align=right \
         update_freq=120 \
         script="$PLUGIN_DIR/battery.sh" \
-        click_script="open 'x-apple.systempreferences:com.apple.settings.battery'" \
-    --subscribe battery system_woke power_source_change
+        click_script="$PLUGIN_DIR/toggle_popup.sh battery" \
+    --subscribe battery system_woke power_source_change mouse.exited.global
+
+sketchybar --add item battery.source popup.battery \
+    --set battery.source icon=󰚥 icon.color=$GREEN label="--" background.drawing=off
+sketchybar --add item battery.remaining popup.battery \
+    --set battery.remaining icon=󰥔 icon.color=$YELLOW label="--" background.drawing=off
+sketchybar --add item battery.health popup.battery \
+    --set battery.health icon=󰂑 icon.color=$FG_DIM label="--" background.drawing=off
 
 # ── Right: Wifi ───────────────────────────────────────────
 sketchybar --add item wifi right \
@@ -172,9 +199,17 @@ sketchybar --add item wifi right \
         icon=󰖩 \
         icon.color=$CYAN \
         label.color=$FG_DIM \
+        popup.align=right \
         script="$PLUGIN_DIR/wifi.sh" \
-        click_script="open 'x-apple.systempreferences:com.apple.Wi-Fi-Settings.extension'" \
-    --subscribe wifi wifi_change
+        click_script="$PLUGIN_DIR/toggle_popup.sh wifi" \
+    --subscribe wifi wifi_change mouse.exited.global
+
+sketchybar --add item wifi.interface popup.wifi \
+    --set wifi.interface icon=󰩟 icon.color=$CYAN label="--" background.drawing=off
+sketchybar --add item wifi.download popup.wifi \
+    --set wifi.download icon=󰇚 icon.color=$GREEN label="--" background.drawing=off
+sketchybar --add item wifi.upload popup.wifi \
+    --set wifi.upload icon=󰕒 icon.color=$ACCENT label="--" background.drawing=off
 
 # ── Right: Volume ──────────────────────────────────────────
 sketchybar --add item volume right \
@@ -191,9 +226,24 @@ sketchybar --add item cpu right \
         icon=󰍛 \
         icon.color=$ORANGE \
         label.color=$FG_DIM \
-        update_freq=30 \
-        script="$PLUGIN_DIR/cpu.sh" \
-        click_script="open -a 'Activity Monitor'"
+        popup.align=right \
+        script="$PLUGIN_DIR/stats.sh" \
+        click_script="$PLUGIN_DIR/toggle_popup.sh cpu" \
+    --subscribe cpu system_stats_update mouse.exited.global
+
+sketchybar --add item cpu.memory popup.cpu \
+    --set cpu.memory icon=󰘚 icon.color=$VIOLET label="--" background.drawing=off
+sketchybar --add item cpu.load popup.cpu \
+    --set cpu.load icon=󰓅 icon.color=$ORANGE label="--" background.drawing=off
+sketchybar --add item cpu.disk popup.cpu \
+    --set cpu.disk icon=󰋊 icon.color=$FG_DIM label="--" background.drawing=off
+
+sketchybar --add item system_stats_provider right \
+    --set system_stats_provider \
+        drawing=off \
+        update_freq=10 \
+        script="$PLUGIN_DIR/system_stats.sh"
 
 # ── Finalize ──────────────────────────────────────────────
+"$PLUGIN_DIR/system_stats.sh" &
 sketchybar --update
