@@ -1,6 +1,7 @@
 --- Builds a searchable chooser from every visible registered binding.
 
 local bindings = require("bindings")
+local hyperState = require("hyper")
 local kanagawa = require("kanagawa")
 
 local actionById = {}
@@ -49,6 +50,10 @@ bindings.bind({
     title = "Command palette",
     modifiers = {},
     key = "F18",
-    action = showCommandPalette,
+    action = function()
+        if not hyperState.wasChordUsedRecently() then
+            showCommandPalette()
+        end
+    end,
     hidden = true,
 })
