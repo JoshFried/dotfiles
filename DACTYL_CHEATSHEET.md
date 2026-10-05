@@ -1,7 +1,8 @@
-# Dactyl Manuform 5x7 — Keybinding Cheatsheet
+# Dactyl Manuform 5x7 - Keybinding Cheat Sheet
 
-> What each key does after QMK + Karabiner processing.
-> Empty cells on layers 1-3 = transparent (same as Layer 0).
+This documents the effective keys after QMK and Karabiner processing.
+`keymaps.json` is the firmware source of truth. Empty cells on layers 1-3 are
+transparent and inherit Layer 0.
 
 ---
 
@@ -38,7 +39,7 @@ LEFT HAND                                                          RIGHT HAND
 ```
 CTRL    = Control (QMK sends Left GUI, Karabiner remaps to Ctrl)
 S+CTL   = Shift+Control (QMK sends Right Shift, Karabiner remaps)
-HYPER   = hold for Ctrl+Opt+Shift+Cmd; tap the thumb key for the command palette
+HYPER   = hold for Ctrl+Opt+Shift+Cmd; tap for the command palette
 OPT+SH  = Option+Shift (QMK sends Right Alt, Karabiner remaps)
 /Ly1    = hold for Layer 1, tap for the printed key
 /Ly2    = hold for Layer 2, tap for `
@@ -83,7 +84,7 @@ LEFT HAND                                                          RIGHT HAND
 
 ---
 
-## Layer 2 — Numpad (hold `/Ly2)
+## Layer 2 — Numpad (hold `/Ly2`)
 
 Only right hand changes. Left hand = Layer 0.
 
@@ -136,13 +137,16 @@ LEFT HAND                                                          RIGHT HAND
 
 ## Karabiner Global Shortcuts
 
-| Combo              | Action                              |
-|--------------------|-------------------------------------|
-| Cmd + H/J/K/L      | Arrow keys (vim-style navigation)   |
-| Cmd+Shift+K        | Raycast Action Panel                |
-| Cmd+Q twice         | Quit app (single press is blocked)  |
-| Cmd+H              | Disabled (prevents accidental hide) |
-| F7 / F8 / F9       | Rewind / Play-Pause / Fast Forward  |
+- `Right Control` or `Caps Lock`: hold for Hyper; tap for the command palette.
+- `Right Shift`: Shift+Control.
+- `Right Option`: Option+Shift.
+- `Cmd+H/J/K/L`: left/down/up/right arrows.
+- `Cmd+Shift+K` in Raycast: open the Action Panel.
+- `Cmd+Q` twice: quit the application; a single press is blocked.
+- `F7/F8/F9`: previous track, play/pause, and next track.
+
+Layer 10 in the QMK export is an inactive Configurator artifact containing only
+disabled or transparent keys.
 
 ---
 
@@ -160,7 +164,7 @@ Flash BOTH halves — each has its own Pro Micro with separate firmware.
 
 ---
 
-## Known Issue: Hyper Key Registers as Command
+## Hyper Troubleshooting
 
 The Dactyl needs a dedicated device entry in Karabiner with
 vendor_id 17485 / product_id 13623. Without it, the catch-all

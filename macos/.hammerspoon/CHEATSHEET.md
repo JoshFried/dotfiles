@@ -1,89 +1,102 @@
-# Hammerspoon Cheat Sheet
+# Hammerspoon Desktop Cheat Sheet
 
-Hyper is `Control+Option+Command+Shift`. Holding the right Control thumb key
-produces Hyper; tapping it opens the Hammerspoon command palette.
+Hyper is Control+Option+Command+Shift. Hold `Right Control` or `Caps Lock` for
+Hyper; tap either key to open the command palette.
 
-## Discovery and navigation
+## Discovery
 
-- `Hyper+;` — searchable command palette
-- `Hyper+R` — desktop service manager
-- `Hyper+W` — search all open windows by application and title
-- `Hyper+Delete` or `Hyper+Forward Delete` — return to the previous window
-- `Hyper+Tab` — return to the previous AeroSpace workspace
-- `Cmd+Alt+C` — cycle windows of the current application
+- `Hyper+;`: searchable command palette.
+- `Hyper+R`: desktop service manager.
+- `Hyper+W`: search open windows by application and title.
+- `Hyper+Delete` or `Hyper+Forward Delete`: return to the previous window.
+- `Hyper+Tab`: return to the previous AeroSpace workspace.
+- `Cmd+Option+C`: cycle windows for the focused application.
 
-The command palette lists registered shortcuts. Desktop maintenance actions are
-grouped under **Service manager**, which can be opened from the palette or
-directly with `Hyper+R`.
-
-## Desktop service manager
-
-- Reload or restart Hammerspoon
-- Reload or restart AeroSpace
-- Reload or restart SketchyBar
-- Refresh SketchyBar workspace indicators
-- Restart JankyBorders
-- Reassign AeroSpace workspaces to monitors
-- Log desktop service and workspace status
-- Open or clear the Hammerspoon console
+The command palette is generated from the live Hammerspoon binding registry.
 
 ## Applications
 
-- `Hyper+G` — Google Chrome
-- `Hyper+T` — Ghostty
-- `Hyper+D` — Discord
-- `Hyper+S` — Slack
-- `Hyper+O` — Microsoft Outlook
-- `Hyper+C` — Codex
-- `Hyper+I` — IntelliJ IDEA
-- `Hyper+F` — Firefox
-- `Hyper+Z` — Zoom
-- `Hyper+Q` — KeyCastr
-- `Hyper+P` — Docker
-- `Hyper+Space` — WezTerm scratchpad
+- `Hyper+G`: Google Chrome.
+- `Hyper+T`: Ghostty.
+- `Hyper+D`: Discord.
+- `Hyper+S`: Slack.
+- `Hyper+O`: Microsoft Outlook.
+- `Hyper+C`: Codex.
+- `Hyper+I`: IntelliJ IDEA.
+- `Hyper+F`: Firefox.
+- `Hyper+Z`: Zoom.
+- `Hyper+Q`: KeyCastr.
+- `Hyper+P`: Docker.
+- `Hyper+Space`: WezTerm scratchpad.
 
-Pressing an application shortcut again cycles that application's windows.
+Pressing the shortcut for an already focused application cycles its windows.
 
-## Floating applications
+## Floating Applications
 
-- `Cmd+Ctrl+E` — Messages
-- `Cmd+Ctrl+A` — Music
-- `Cmd+Ctrl+P` — Podcasts
-- `Cmd+Ctrl+W` — Notes
-- `Cmd+Ctrl+T` — Telegram
-- `Cmd+Ctrl+F` — Finder
+- `Cmd+Control+E`: Messages.
+- `Cmd+Control+A`: Music.
+- `Cmd+Control+P`: Podcasts.
+- `Cmd+Control+W`: Notes.
+- `Cmd+Control+T`: Telegram.
+- `Cmd+Control+F`: Finder.
 
-## Productivity and devices
+## Productivity and Devices
 
-- `Hyper+M` — refresh and choose an upcoming meeting
-- `Hyper+V` — Raycast clipboard history
-- `Cmd+Alt+O` — audio output chooser
-- `Cmd+Alt+I` — audio input chooser
-- `Cmd+Alt+B` — Bluetooth device chooser
-- `Cmd+Alt+W` — Wi-Fi network chooser
+- `Hyper+M`: refresh and choose an upcoming meeting.
+- `Hyper+V`: Raycast clipboard history.
+- `Cmd+Option+O`: audio output chooser.
+- `Cmd+Option+I`: audio input chooser.
+- `Cmd+Option+B`: paired Bluetooth device chooser.
+- `Cmd+Option+W`: Wi-Fi network chooser.
 
-## Windows, spaces, and system
+The Bluetooth chooser prioritizes connected devices. Selecting a disconnected
+device connects it; selecting a connected device disconnects it. Battery levels
+are shown when macOS exposes them.
 
-- `Hyper+A` — toggle fullscreen
-- `Hyper+N` — create a macOS space
-- `Hyper+X` — close empty macOS spaces
-- ``Hyper+` `` — show the current macOS space number
-- `Cmd+Alt+S` — sleep
-- `Cmd+Alt+\` — open the Hammerspoon console
+## Windows and Spaces
+
+- `Hyper+A`: toggle native fullscreen.
+- `Hyper+N`: create a macOS space.
+- `Hyper+X`: close empty macOS spaces.
+- ``Hyper+` ``: show the current macOS space number.
+- `Cmd+Option+S`: sleep.
+- `Cmd+Option+\`: open the Hammerspoon console.
 
 ## Media
 
-- `Shift+F7` — previous track
-- `Shift+F8` — play or pause
-- `Shift+F9` — next track
+- `Shift+F7`: previous track.
+- `Shift+F8`: play or pause.
+- `Shift+F9`: next track.
 
-## Automatic behavior
+Unmodified `F7/F8/F9` are mapped by Karabiner to the equivalent system media
+keys.
+
+## Service Manager
+
+`Hyper+R` provides:
+
+- Reload Hammerspoon configuration or restart Hammerspoon.
+- Reload AeroSpace configuration or restart AeroSpace.
+- Reload SketchyBar or restart its Homebrew service.
+- Refresh SketchyBar workspace indicators.
+- Restart JankyBorders.
+- Reassign AeroSpace workspaces to monitors.
+- Log Homebrew, AeroSpace, and SketchyBar status.
+- Open or clear the Hammerspoon console.
+
+## Battery Alerts
+
+- Alerts fire once per discharge cycle at 20%, 15%, 10%, and 5%.
+- The 10% and 5% alerts are marked critical.
+- Each threshold shows a centered alert and a persistent macOS notification.
+- Plugging into AC power resets the threshold history.
+
+## Automatic Behavior
 
 - The display remains awake.
-- Leaving the home Wi-Fi network minimizes windows and mutes the MacBook
-  speakers.
+- Leaving the home Wi-Fi network minimizes windows and mutes MacBook speakers.
 - Monitor changes trigger three delayed AeroSpace stabilization passes, then a
   SketchyBar reload.
-- With the built-in display connected, workspaces 1–4 remain on it and
-  workspaces 5–10 are divided across external displays.
-- SketchyBar highlights the visible workspace on every display.
+- With the built-in display connected, workspaces 1-4 remain on it and
+  workspaces 5-10 are distributed across external displays.
+- SketchyBar highlights the visible workspace on each display.

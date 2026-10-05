@@ -74,7 +74,8 @@ ln -sf ~/repos/dotfiles/.zshrc ~/.zshrc
 ln -sf ~/repos/dotfiles/.tmux.conf ~/.tmux.conf
 ```
 
-Prefix is `Ctrl+S`. See `~/Documents/tmux-cheatsheet.pdf` for bindings.
+Prefix is `Ctrl+S`. See [`WORKFLOW_CHEATSHEET.md`](WORKFLOW_CHEATSHEET.md) for
+tmux, sesh, AeroSpace, and shell bindings.
 
 ---
 
@@ -143,7 +144,10 @@ chmod +x ~/repos/dotfiles/macos/aerospace-workspace-assign.sh
 chmod +x ~/repos/dotfiles/macos/aerospace-toast.sh
 ```
 
-i3-like tiling. `alt-shift` (right_option) for window ops, `ctrl` for workspace switching. Workspaces auto-assign to monitors (supports 1/2/3 monitor setups). See `~/Documents/aerospace-cheatsheet.txt` for bindings.
+i3-like tiling. `alt-shift` (right_option) handles window operations and
+`ctrl` switches workspaces. Workspaces auto-assign to monitors for one-, two-,
+and three-monitor setups. See
+[`WORKFLOW_CHEATSHEET.md`](WORKFLOW_CHEATSHEET.md) for bindings.
 
 **Post-install:** Disable macOS "Switch to Desktop N" hotkeys to free `ctrl+1-9`:
 
@@ -216,6 +220,11 @@ ln -sf ~/repos/dotfiles/macos/.hammerspoon ~/.hammerspoon
 Provides: app launchers (`Hyper+key`), centered floating apps (`Cmd+Ctrl+key`), WezTerm scratchpad (`Hyper+Space`), fullscreen toggle (`Hyper+A`), AeroSpace workspace back-and-forth (`Hyper+Tab`), media keys, WiFi watcher, caffeinate, and more.
 
 **Required:** Enable `hs.ipc` for CLI integration (already in init.lua). Grant Accessibility permissions in System Settings.
+
+See
+[`macos/.hammerspoon/CHEATSHEET.md`](macos/.hammerspoon/CHEATSHEET.md) for the
+complete desktop reference. Run `scripts/build-cheatsheets.sh` to regenerate
+the combined printable [`CHEATSHEETS.pdf`](CHEATSHEETS.pdf).
 
 ---
 
