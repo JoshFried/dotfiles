@@ -91,6 +91,8 @@ done
 
 sketchybar --add event aerospace_workspace_change
 sketchybar --add event system_stats_update
+sketchybar --add event microphone_change
+sketchybar --add event zoom_camera_change
 
 sketchybar --set space.1 \
         script="$PLUGIN_DIR/space.sh" \
@@ -219,6 +221,26 @@ sketchybar --add item volume right \
         script="$PLUGIN_DIR/volume.sh" \
         click_script="osascript -e 'set volume output muted not (output muted of (get volume settings))'" \
     --subscribe volume volume_change
+
+# ── Right: Microphone ──────────────────────────────────────
+sketchybar --add item microphone right \
+    --set microphone \
+        icon=󰍬 \
+        icon.color=$GREEN \
+        label.drawing=off \
+        script="$PLUGIN_DIR/microphone.sh" \
+        click_script="open -g 'hammerspoon://toggle-microphone'" \
+    --subscribe microphone microphone_change
+
+# ── Right: Zoom Camera ─────────────────────────────────────
+sketchybar --add item camera right \
+    --set camera \
+        icon=󰕧 \
+        icon.color=$VIOLET \
+        label.drawing=off \
+        script="$PLUGIN_DIR/camera.sh" \
+        click_script="open -g 'hammerspoon://toggle-zoom-camera'" \
+    --subscribe camera zoom_camera_change
 
 # ── Right: CPU ────────────────────────────────────────────
 sketchybar --add item cpu right \

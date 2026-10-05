@@ -44,6 +44,8 @@ Pressing the shortcut for an already focused application cycles its windows.
 ## Productivity and Devices
 
 - `Hyper+M`: refresh and choose an upcoming meeting.
+- `Hyper+Shift+M`: toggle system and Zoom microphone mute together.
+- `Hyper+Shift+C`: toggle the Zoom camera.
 - `Hyper+V`: Raycast clipboard history.
 - `Cmd+Option+O`: audio output chooser.
 - `Cmd+Option+I`: audio input chooser.

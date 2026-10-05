@@ -109,4 +109,7 @@ presence, and up to three listening ports.
 - Click Wi-Fi for interface, local IP, download rate, and upload rate.
 - Click battery for power source, remaining time, health, and cycle count.
 - Click the clock for upcoming meetings and Calendar actions.
+- Click the microphone to toggle system-wide input mute and sync an active Zoom meeting.
+- Click the Zoom camera control to toggle video. Green is on, red `Off` is off,
+  and the control is hidden outside active Zoom meetings.
 - Right-click CPU, Wi-Fi, battery, or clock for the original direct system action.

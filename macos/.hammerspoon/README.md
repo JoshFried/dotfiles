@@ -16,6 +16,7 @@
 | `bluetooth.lua` | Chooser for paired Bluetooth devices using blueutil. |
 | `wifi_watcher.lua` | Minimizes windows and mutes audio when leaving home WiFi. |
 | `media.lua` | Controls Music.app playback via AppleScript. |
+| `meeting_mode.lua` | Synchronizes system/Zoom mute and controls Zoom camera shortcuts. |
 | `wifiswitch.lua` | Chooser for WiFi networks. Sorts known networks first, then by signal. |
 | `hsconsole.lua` | Opens Hammerspoon console centered on screen. |
 | `newspace.lua` | Space management: create, close empty, show current number. |
