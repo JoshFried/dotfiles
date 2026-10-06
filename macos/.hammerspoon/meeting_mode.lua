@@ -4,7 +4,10 @@ local M = {}
 local log = hs.logger.new("meeting_mode", "warning")
 local microphoneWatcher = nil
 local refreshTimer = nil
-local meetingStateTimer = nil
+local meetingPresenceTimer = nil
+local meetingSafetyTimer = nil
+local meetingBurstTimers = {}
+local meetingActive = false
 local reconcileMicrophoneState = nil
 local reconcileZoomCameraState = nil
 local pendingZoomMuted = nil
@@ -518,23 +521,70 @@ microphoneWatcher = hs.audiodevice.watcher
 microphoneWatcher.setCallback(scheduleMicrophoneRefresh)
 microphoneWatcher.start()
 
-local function refreshMeetingState()
-    M.lastRefreshAt = hs.timer.secondsSinceEpoch()
-
+local function refreshMicrophoneState()
+    M.lastMicrophoneRefreshAt = hs.timer.secondsSinceEpoch()
     local microphoneOk, microphoneError = xpcall(reconcileMicrophoneState, debug.traceback)
     if not microphoneOk then
         log.e("Microphone reconciliation failed: " .. microphoneError)
     end
+end
 
+local function refreshCameraState()
+    M.lastCameraRefreshAt = hs.timer.secondsSinceEpoch()
     local cameraOk, cameraError = xpcall(reconcileZoomCameraState, debug.traceback)
     if not cameraOk then
         log.e("Camera reconciliation failed: " .. cameraError)
     end
 end
 
-meetingStateTimer = hs.timer.doEvery(1, refreshMeetingState)
-M.meetingStateTimer = meetingStateTimer
+local function refreshMeetingState()
+    refreshMicrophoneState()
+    refreshCameraState()
+end
 
-refreshMeetingState()
+local function scheduleMeetingRefreshBurst()
+    for _, timer in ipairs(meetingBurstTimers) do
+        timer:stop()
+    end
+    meetingBurstTimers = {}
+
+    for _, delay in ipairs({ 0, 1, 3 }) do
+        meetingBurstTimers[#meetingBurstTimers + 1] = hs.timer.doAfter(delay, refreshMeetingState)
+    end
+end
+
+local function checkMeetingPresence()
+    local zoom = hs.application.get(ZOOM_BUNDLE_ID)
+    local active = zoom ~= nil and zoomMeetingActive(zoom)
+
+    if active and not meetingActive then
+        meetingActive = true
+        microphoneState.zoomMuted = nil
+        zoomCameraOn = nil
+        scheduleMeetingRefreshBurst()
+    elseif not active and meetingActive then
+        meetingActive = false
+        pendingZoomMuted = nil
+        microphoneState.zoomMuted = nil
+        zoomCameraOn = nil
+        publishZoomCameraState(false)
+    end
+end
+
+meetingPresenceTimer = hs.timer.doEvery(1, checkMeetingPresence)
+meetingSafetyTimer = hs.timer.doEvery(15, function()
+    if meetingActive then
+        refreshMicrophoneState()
+    end
+end)
+
+M.meetingPresenceTimer = meetingPresenceTimer
+M.meetingSafetyTimer = meetingSafetyTimer
+M.refreshMeetingState = refreshMeetingState
+M.refreshMicrophoneState = refreshMicrophoneState
+M.refreshCameraState = refreshCameraState
+
+checkMeetingPresence()
+publishMicrophoneState()
 
 return M

@@ -251,11 +251,11 @@ Smart tmux session manager. Combines tmux sessions + zoxide dirs + named project
 **Config files:**
 
 - `sesh/sesh.toml` — personal, checked in (symlinked to `~/.config/sesh/sesh.toml`). Defines the `dotfiles`, `nvim-config`, `tmux-config`, `tmp`, `downloads` sessions and a `~/repos/*` wildcard that auto-opens nvim.
-- `~/.work.sesh.toml` — optional private machine-specific fragment that remains outside this repository.
+- `~/.work.sesh.toml` — optional private machine-specific configuration that remains outside this repository.
 
-The `sesh` launcher combines the public config with `~/.work.sesh.toml` when the
-private fragment exists. This keeps personal sessions available while adding
-machine-specific workspaces without exposing them in the public repository.
+The `sesh` launcher uses `~/.work.sesh.toml` instead of the public config when
+the private configuration exists. The private file should therefore include
+any personal sessions that should remain available on that machine.
 
 **Tmux bindings** (prefix `Ctrl-S`):
 
