@@ -89,15 +89,15 @@ for i in "${!SPACE_ICONS[@]}"; do
             click_script="aerospace workspace $sid"
 done
 
-sketchybar --add event aerospace_workspace_change
+sketchybar --add event aerospace_state_change
 sketchybar --add event system_stats_update
 sketchybar --add event microphone_change
 sketchybar --add event zoom_camera_change
 
 sketchybar --set space.1 \
         script="$PLUGIN_DIR/space.sh" \
-        update_freq=5 \
-    --subscribe space.1 aerospace_workspace_change front_app_switched
+        update_freq=60 \
+    --subscribe space.1 aerospace_state_change
 
 # ── Left: Front app ──────────────────────────────────────
 sketchybar --add item front_app left \
@@ -267,5 +267,6 @@ sketchybar --add item system_stats_provider right \
         script="$PLUGIN_DIR/system_stats.sh"
 
 # ── Finalize ──────────────────────────────────────────────
+"$PLUGIN_DIR/aerospace_events.sh" &
 "$PLUGIN_DIR/system_stats.sh" &
 sketchybar --update

@@ -9,11 +9,6 @@ after-startup-command = [
     "exec-and-forget /bin/bash -lc '$HOME/.config/aerospace-workspace-assign.sh && sketchybar --reload'",
 ]
 
-# Notify SketchyBar on workspace change
-exec-on-workspace-change = ['/bin/bash', '-c',
-    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
-]
-
 # Normalizations
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
