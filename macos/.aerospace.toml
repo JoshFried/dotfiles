@@ -2,6 +2,7 @@
 # Docs: https://nikitabobko.github.io/AeroSpace/guide
 
 # ── General ────────────────────────────────────────────────
+config-version = 2
 start-at-login = true
 after-login-command = []
 after-startup-command = [
@@ -27,6 +28,7 @@ default-root-container-orientation = 'auto'
 
 # Workspace assignment is handled by aerospace-workspace-assign.sh so physical
 # external displays can be distinguished from the macOS main display.
+persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 
 # ── Gaps (matches Amethyst padding + margins) ──────────────
 [gaps]

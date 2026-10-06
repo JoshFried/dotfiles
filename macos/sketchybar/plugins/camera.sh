@@ -9,7 +9,11 @@ if [ "$SENDER" != "zoom_camera_change" ]; then
 fi
 
 if [ "$ACTIVE" != "true" ]; then
-    sketchybar --set "$NAME" drawing=off
+    sketchybar --set "$NAME" \
+        drawing=on \
+        icon=󰕧 \
+        icon.color=0xff957FB8 \
+        label.drawing=off
 elif [ "$CAMERA_ON" = "true" ]; then
     sketchybar --set "$NAME" \
         drawing=on \
