@@ -1,5 +1,7 @@
 --- Synchronizes system/Zoom mute and controls Zoom camera shortcuts.
 
+local M = {}
+local log = hs.logger.new("meeting_mode", "warning")
 local microphoneWatcher = nil
 local refreshTimer = nil
 local meetingStateTimer = nil
@@ -49,7 +51,7 @@ local function scheduleMicrophoneRefresh()
 
     refreshTimer = hs.timer.doAfter(0.25, function()
         refreshTimer = nil
-        reconcileMicrophoneState(true)
+        reconcileMicrophoneState()
     end)
 end
 
@@ -90,6 +92,7 @@ local function findZoomAudioButton(element, depth)
     end
 
     local description = (element.AXDescription or ""):lower()
+    local title = (element.AXTitle or ""):lower()
     local role = element.AXRole
     local enabled = element.AXEnabled
 
@@ -98,6 +101,15 @@ local function findZoomAudioButton(element, depth)
             return true, element
         end
         if description == "mute my audio" then
+            return false, element
+        end
+    end
+
+    if role == "AXMenuItem" and enabled ~= false then
+        if title == "unmute audio" or title == "unmute my audio" then
+            return true, element
+        end
+        if title == "mute audio" or title == "mute my audio" then
             return false, element
         end
     end
@@ -229,14 +241,6 @@ local function zoomMicrophoneState()
         end
     end
 
-    local inferredMuted = inferZoomMicrophoneState(applicationElement)
-    if inferredMuted ~= nil and zoomMeetingActive(zoom) then
-        return inferredMuted, function()
-            hs.eventtap.keyStroke({ "cmd", "shift" }, "a", 0, zoom)
-            return true
-        end
-    end
-
     local menuItems = zoom:getMenuItems() or {}
     local mutedTitles = { "Unmute Audio", "Unmute My Audio" }
     local liveTitles = { "Mute Audio", "Mute My Audio" }
@@ -256,6 +260,14 @@ local function zoomMicrophoneState()
             return false, function()
                 return zoom:selectMenuItem(path)
             end
+        end
+    end
+
+    local inferredMuted = inferZoomMicrophoneState(applicationElement)
+    if inferredMuted ~= nil and zoomMeetingActive(zoom) then
+        return inferredMuted, function()
+            hs.eventtap.keyStroke({ "cmd", "shift" }, "a", 0, zoom)
+            return true
         end
     end
 
@@ -355,6 +367,12 @@ reconcileMicrophoneState = function(preferSystem)
     local zoomMuted, toggleZoomMicrophone = zoomMicrophoneState()
     local previousSystemMuted = microphoneState.systemMuted
 
+    if not preferSystem and zoomMuted == true and systemMuted == false then
+        if device:setInputMuted(true) then
+            systemMuted = true
+        end
+    end
+
     if zoomMuted == nil then
         pendingZoomMuted = nil
         microphoneState.systemMuted = systemMuted
@@ -368,7 +386,7 @@ reconcileMicrophoneState = function(preferSystem)
         return
     elseif microphoneState.zoomMuted == nil then
         pendingZoomMuted = nil
-        local initialMuted = systemMuted or zoomMuted
+        local initialMuted = true
         if systemMuted ~= initialMuted and device:setInputMuted(initialMuted) then
             systemMuted = initialMuted
         end
@@ -400,8 +418,8 @@ reconcileMicrophoneState = function(preferSystem)
                 zoomMuted = systemMuted
             end
         elseif systemMuted ~= zoomMuted then
-            if setZoomMicrophoneMuted(systemMuted, zoomMuted, toggleZoomMicrophone) then
-                zoomMuted = systemMuted
+            if device:setInputMuted(zoomMuted) then
+                systemMuted = zoomMuted
             end
         end
 
@@ -500,9 +518,23 @@ microphoneWatcher = hs.audiodevice.watcher
 microphoneWatcher.setCallback(scheduleMicrophoneRefresh)
 microphoneWatcher.start()
 
-meetingStateTimer = hs.timer.doEvery(1, function()
-    reconcileMicrophoneState()
-    reconcileZoomCameraState()
-end)
-reconcileMicrophoneState(true)
-reconcileZoomCameraState()
+local function refreshMeetingState()
+    M.lastRefreshAt = hs.timer.secondsSinceEpoch()
+
+    local microphoneOk, microphoneError = xpcall(reconcileMicrophoneState, debug.traceback)
+    if not microphoneOk then
+        log.e("Microphone reconciliation failed: " .. microphoneError)
+    end
+
+    local cameraOk, cameraError = xpcall(reconcileZoomCameraState, debug.traceback)
+    if not cameraOk then
+        log.e("Camera reconciliation failed: " .. cameraError)
+    end
+end
+
+meetingStateTimer = hs.timer.doEvery(1, refreshMeetingState)
+M.meetingStateTimer = meetingStateTimer
+
+refreshMeetingState()
+
+return M
