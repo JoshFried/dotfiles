@@ -7,7 +7,12 @@ local refreshPending = false
 local refreshPassesRemaining = 0
 local assignmentTask
 local sketchyBarTask
+local snapshotTask
+local snapshotDebounceTimer
+local stableScreenCount
 local scheduleDesktopRefresh
+local scheduleWorkspaceSnapshot
+local startSnapshotTracking
 
 local paths = {
     aerospace = "/opt/homebrew/bin/aerospace",
@@ -35,6 +40,57 @@ local function configureTask(task)
     local environment = task:environment()
     environment.PATH = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
     task:setEnvironment(environment)
+end
+
+--- Captures window-to-workspace membership while the display topology is stable.
+local function snapshotWorkspaces()
+    if assignmentTask or snapshotTask or not stableScreenCount then
+        return
+    end
+
+    local screenCount = #hs.screen.allScreens()
+    if screenCount ~= stableScreenCount then
+        return
+    end
+
+    snapshotTask = hs.task.new(paths.workspaceAssign, function(exitCode, stdOut, stdErr)
+        snapshotTask = nil
+        logOutput("i", "Workspace snapshot", stdOut)
+
+        if exitCode ~= 0 and exitCode ~= 75 then
+            logOutput("e", "Workspace snapshot", stdErr)
+            log.e(string.format("Workspace snapshot failed with exit code %d", exitCode))
+        end
+    end, { "snapshot", tostring(screenCount) })
+
+    if not snapshotTask then
+        log.e("Unable to create workspace snapshot task")
+        return
+    end
+
+    configureTask(snapshotTask)
+    if not snapshotTask:start() then
+        snapshotTask = nil
+        log.e("Unable to start workspace snapshot task")
+    end
+end
+
+--- Coalesces bursts of window activity into a single workspace snapshot.
+scheduleWorkspaceSnapshot = function()
+    if snapshotDebounceTimer then
+        snapshotDebounceTimer:stop()
+    end
+
+    snapshotDebounceTimer = hs.timer.doAfter(0.5, function()
+        snapshotDebounceTimer = nil
+        snapshotWorkspaces()
+    end)
+end
+
+--- Resumes event-driven snapshots after monitor-aware workspace placement settles.
+startSnapshotTracking = function()
+    stableScreenCount = #hs.screen.allScreens()
+    scheduleWorkspaceSnapshot()
 end
 
 --- Reloads SketchyBar after monitor-aware workspace assignment completes.
@@ -105,6 +161,7 @@ local function refreshDesktopState()
             return
         end
 
+        startSnapshotTracking()
         reloadSketchyBar()
     end, {})
 
@@ -134,12 +191,27 @@ end
 
 --- Starts a fresh stabilization sequence after the screen topology changes.
 local function handleScreenChange()
+    stableScreenCount = nil
+    if snapshotDebounceTimer then
+        snapshotDebounceTimer:stop()
+        snapshotDebounceTimer = nil
+    end
     refreshPassesRemaining = 3
     scheduleDesktopRefresh(2)
 end
 
 M.screenWatcher = hs.screen.watcher.new(handleScreenChange)
 M.screenWatcher:start()
+
+M.windowWatcher = hs.window.filter.new()
+M.windowWatcher:subscribe({
+    hs.window.filter.windowCreated,
+    hs.window.filter.windowDestroyed,
+    hs.window.filter.windowFocused,
+    hs.window.filter.windowMoved,
+}, scheduleWorkspaceSnapshot)
+
+startSnapshotTracking()
 
 require("bindings").bind({
     group = "Workspaces",
