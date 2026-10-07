@@ -11,7 +11,7 @@
 | `cycleapp.lua` | Cycles through windows of current app with highlight animation. |
 | `fullscreen.lua` | Toggles fullscreen for focused window. |
 | `caffeine.lua` | Triggers system sleep. |
-| `hsreload.lua` | Reloads Hammerspoon config. |
+| `hsreload.lua` | Watches Lua files, validates changes, and reloads only valid configurations. |
 | `soundswitch.lua` | Chooser for audio input/output devices. Quick-connect for AirPods. |
 | `bluetooth.lua` | Chooser for paired Bluetooth devices using blueutil. |
 | `wifi_watcher.lua` | Minimizes windows and mutes audio when leaving home WiFi. |
