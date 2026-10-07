@@ -254,6 +254,10 @@ windowFilter:subscribe(hs.window.filter.windowCreated, function(window)
     end)
 end)
 
+require("aerospace").onDesktopRefresh(function()
+    reconcile(false)
+end)
+
 bindings.bind({
     group = "Workspaces",
     title = "Desktop profiles",

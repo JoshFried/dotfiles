@@ -10,6 +10,7 @@ local sketchyBarTask
 local snapshotTask
 local snapshotDebounceTimer
 local stableScreenCount
+local desktopRefreshCallbacks = {}
 local scheduleDesktopRefresh
 local scheduleWorkspaceSnapshot
 local startSnapshotTracking
@@ -76,21 +77,30 @@ local function snapshotWorkspaces()
 end
 
 --- Coalesces bursts of window activity into a single workspace snapshot.
-scheduleWorkspaceSnapshot = function()
+scheduleWorkspaceSnapshot = function(delay)
     if snapshotDebounceTimer then
         snapshotDebounceTimer:stop()
     end
 
-    snapshotDebounceTimer = hs.timer.doAfter(0.5, function()
+    snapshotDebounceTimer = hs.timer.doAfter(delay or 0.5, function()
         snapshotDebounceTimer = nil
         snapshotWorkspaces()
     end)
 end
 
 --- Resumes event-driven snapshots after monitor-aware workspace placement settles.
-startSnapshotTracking = function()
+startSnapshotTracking = function(delay)
     stableScreenCount = #hs.screen.allScreens()
-    scheduleWorkspaceSnapshot()
+    scheduleWorkspaceSnapshot(delay)
+end
+
+local function notifyDesktopRefreshCallbacks()
+    for _, callback in ipairs(desktopRefreshCallbacks) do
+        local ok, errorMessage = xpcall(callback, debug.traceback)
+        if not ok then
+            log.e("Desktop refresh callback failed: " .. errorMessage)
+        end
+    end
 end
 
 --- Reloads SketchyBar after monitor-aware workspace assignment completes.
@@ -161,7 +171,8 @@ local function refreshDesktopState()
             return
         end
 
-        startSnapshotTracking()
+        notifyDesktopRefreshCallbacks()
+        startSnapshotTracking(1.5)
         reloadSketchyBar()
     end, {})
 
@@ -210,6 +221,10 @@ M.windowWatcher:subscribe({
     hs.window.filter.windowFocused,
     hs.window.filter.windowMoved,
 }, scheduleWorkspaceSnapshot)
+
+function M.onDesktopRefresh(callback)
+    desktopRefreshCallbacks[#desktopRefreshCallbacks + 1] = callback
+end
 
 startSnapshotTracking()
 
