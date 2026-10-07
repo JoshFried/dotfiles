@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "$CONFIG_DIR/plugins/centered_apps.sh"
+
 if [ "$SENDER" = "space_windows_change" ]; then
     space="$(echo "$INFO" | jq -r '.space')"
     apps="$(echo "$INFO" | jq -r '.apps | keys[]')"
@@ -7,6 +9,7 @@ if [ "$SENDER" = "space_windows_change" ]; then
     icon_strip=" "
     if [ -n "$apps" ]; then
         while read -r app; do
+            is_centered_app "$app" && continue
             icon_strip+=" $($CONFIG_DIR/plugins/icon_map_fn.sh "$app")"
         done <<< "$apps"
     else

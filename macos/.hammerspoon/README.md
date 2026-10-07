@@ -7,7 +7,7 @@
 | `init.lua` | Entry point. Keeps display awake and loads all modules. |
 | `hyper.lua` | Defines hyper key (Ctrl+Alt+Cmd+Shift). |
 | `launchoractivateapp.lua` | Launch or focus apps with hyper+key. Cycles windows if already focused. |
-| `centeredapp.lua` | Opens apps centered at 75% width, 50% height on main screen. |
+| `centeredapp.lua` | Opens apps centered at 75% width, 50% height on workspace 1. |
 | `cycleapp.lua` | Cycles through windows of current app with highlight animation. |
 | `fullscreen.lua` | Toggles fullscreen for focused window. |
 | `caffeine.lua` | Triggers system sleep. |

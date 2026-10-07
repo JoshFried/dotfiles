@@ -220,7 +220,9 @@ M.windowWatcher:subscribe({
     hs.window.filter.windowDestroyed,
     hs.window.filter.windowFocused,
     hs.window.filter.windowMoved,
-}, scheduleWorkspaceSnapshot)
+}, function()
+    scheduleWorkspaceSnapshot()
+end)
 
 function M.onDesktopRefresh(callback)
     desktopRefreshCallbacks[#desktopRefreshCallbacks + 1] = callback

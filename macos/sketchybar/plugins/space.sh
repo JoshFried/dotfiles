@@ -1,7 +1,7 @@
 #!/bin/bash
 
 WORKSPACES="$(aerospace list-workspaces --monitor all --format '%{workspace}|%{monitor-appkit-nsscreen-screens-id}|%{workspace-is-visible}|%{workspace-is-focused}' 2>/dev/null)"
-WINDOWS="$(aerospace list-windows --all --format '%{workspace}|%{app-name}' 2>/dev/null)"
+WINDOWS="$(aerospace list-windows --all --format '%{workspace}|%{app-name}|%{app-bundle-id}' 2>/dev/null)"
 
 if [ -z "$WORKSPACES" ]; then
     exit 0
@@ -20,13 +20,15 @@ while IFS='|' read -r workspace display_id is_visible is_focused; do
 done <<< "$WORKSPACES"
 
 source "$CONFIG_DIR/plugins/icon_map_fn.sh"
+source "$CONFIG_DIR/plugins/centered_apps.sh"
 
 WORKSPACE_ICONS=()
-while IFS='|' read -r workspace app; do
+while IFS='|' read -r workspace app bundle_id; do
     case "$workspace" in
         ''|*[!0-9]*) continue ;;
     esac
     [ -z "$app" ] && continue
+    is_centered_app "$bundle_id" && continue
 
     icon_map "$app"
     case " ${WORKSPACE_ICONS[$workspace]} " in

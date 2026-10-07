@@ -126,11 +126,11 @@ run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'com.apple.Music'
-run = 'layout floating'
+run = ['layout floating', 'move-node-to-workspace 1']
 
 [[on-window-detected]]
 if.app-id = 'com.apple.podcasts'
-run = 'layout floating'
+run = ['layout floating', 'move-node-to-workspace 1']
 
 [[on-window-detected]]
 if.app-id = 'com.amazon.Amazon-Chime'
@@ -154,7 +154,7 @@ run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
-run = 'layout floating'
+run = ['layout floating', 'move-node-to-workspace 1']
 
 [[on-window-detected]]
 if.app-id = 'com.raycast.macos'
@@ -162,11 +162,15 @@ run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'com.apple.Notes'
-run = 'layout floating'
+run = ['layout floating', 'move-node-to-workspace 1']
 
 [[on-window-detected]]
 if.app-id = 'com.apple.MobileSMS'
-run = 'layout floating'
+run = ['layout floating', 'move-node-to-workspace 1']
+
+[[on-window-detected]]
+if.app-id = 'ru.keepcoder.Telegram'
+run = ['layout floating', 'move-node-to-workspace 1']
 
 [[on-window-detected]]
 if.app-id = 'com.github.wez.wezterm'
