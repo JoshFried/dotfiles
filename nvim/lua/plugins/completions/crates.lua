@@ -7,16 +7,14 @@ return {
         completion = {
             crates = { enabled = true, max_results = 8, min_chars = 3 },
         },
+        lsp = {
+            enabled = true,
+            completion = true,
+        },
     },
     config = function(_, opts)
         local crates = require("crates")
         crates.setup(opts)
-
-        -- Register crates' nvim-cmp source under blink.compat's shim so blink
-        -- can surface completions via the `crates` provider in blink.lua.
-        pcall(function()
-            require("crates.completion.cmp").setup()
-        end)
 
         vim.api.nvim_create_autocmd("BufRead", {
             pattern = "Cargo.toml",

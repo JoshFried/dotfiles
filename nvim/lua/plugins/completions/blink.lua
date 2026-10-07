@@ -6,7 +6,7 @@ return {
 	dependencies = {
 		"L3MON4D3/LuaSnip",
 		"rafamadriz/friendly-snippets",
-		{ "saghen/blink.compat", version = "*", opts = {} },
+		"alexandre-abrioux/blink-cmp-npm.nvim",
 	},
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config
@@ -65,7 +65,6 @@ return {
 		sources = {
 			default = { "lsp", "path", "snippets", "buffer", "lazydev" },
 			per_filetype = {
-				["toml"] = { "lsp", "path", "snippets", "buffer", "crates" },
 				["json"] = { "lsp", "path", "snippets", "buffer", "npm" },
 				["sql"] = { "lsp", "path", "snippets", "buffer", "omni" },
 				["mysql"] = { "lsp", "path", "snippets", "buffer", "omni" },
@@ -95,14 +94,10 @@ return {
 					module = "lazydev.integrations.blink",
 					score_offset = 100,
 				},
-				crates = {
-					name = "crates",
-					module = "blink.compat.source",
-					score_offset = 100,
-				},
 				npm = {
 					name = "npm",
-					module = "blink.compat.source",
+					module = "blink-cmp-npm",
+					async = true,
 					score_offset = 100,
 				},
 			},

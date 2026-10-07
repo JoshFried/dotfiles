@@ -5,5 +5,4 @@ return {
     require(prefix .. ".mason"),
     require(prefix .. ".ts"),
     require(prefix .. ".package-info"),
-    require(prefix .. ".cmp-npm"),
 }

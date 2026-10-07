@@ -1,12 +1,29 @@
 local jvm_target = "21"
 
+local default_apply_workspace_edit = vim.lsp.handlers["workspace/applyEdit"]
+
+local function apply_kotlin_workspace_edit(err, params, ctx, config)
+	if params and params.edit and params.edit.documentChanges then
+		for _, change in ipairs(params.edit.documentChanges) do
+			if change.textDocument then
+				change.textDocument.version = 0
+			end
+		end
+	end
+
+	return default_apply_workspace_edit(err, params, ctx, config)
+end
+
 local M = {
 	"neovim/nvim-lspconfig",
 	dependencies = { "pmizio/typescript-tools.nvim" },
 	opts = {
 		servers = {
-            kotlin_lsp = {
-                settings = {
+			kotlin_lsp = {
+				handlers = {
+					["workspace/applyEdit"] = apply_kotlin_workspace_edit,
+				},
+				settings = {
 					kotlin = {
 						compiler = {
 							jvm = { target = jvm_target },
