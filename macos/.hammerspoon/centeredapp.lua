@@ -87,6 +87,8 @@ for _, mappings in ipairs(apps) do
         title = mappings.app,
         modifiers = { "cmd", "ctrl" },
         key = mappings.key,
+        apps = { mappings.app },
+        keywords = { "launch", "focus", "floating", "center" },
         action = function()
             centered(mappings.app)
         end,

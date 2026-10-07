@@ -118,5 +118,7 @@ require("bindings").bind({
     title = "Upcoming meetings",
     modifiers = hyper,
     key = "M",
+    apps = { "Microsoft Outlook", "zoom.us", "Zoom Workplace" },
+    keywords = { "calendar", "meeting", "join", "zoom" },
     action = showMeetings,
 })

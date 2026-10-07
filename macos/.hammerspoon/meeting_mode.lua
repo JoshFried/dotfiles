@@ -506,6 +506,8 @@ require("bindings").bind({
     title = "Toggle microphone mute",
     modifiers = { "cmd", "alt", "ctrl", "shift" },
     key = "M",
+    apps = { "zoom.us", "Zoom Workplace", "us.zoom.xos" },
+    keywords = { "zoom", "mic", "mute", "unmute" },
     action = toggleMicrophone,
 })
 
@@ -514,6 +516,8 @@ require("bindings").bind({
     title = "Toggle Zoom camera",
     modifiers = { "cmd", "alt", "ctrl", "shift" },
     key = "C",
+    apps = { "zoom.us", "Zoom Workplace", "us.zoom.xos" },
+    keywords = { "zoom", "camera", "video" },
     action = toggleZoomCamera,
 })
 

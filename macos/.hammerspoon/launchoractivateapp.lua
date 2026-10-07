@@ -73,6 +73,8 @@ for _, mappings in ipairs(apps) do
         title = mappings.app,
         modifiers = hyper,
         key = mappings.key,
+        apps = { mappings.app },
+        keywords = { "launch", "focus", "switch", "cycle" },
         action = function()
             if mappings.app == "Firefox" then
                 hs.timer.doAfter(0.05, function()

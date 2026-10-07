@@ -46,5 +46,7 @@ require("bindings").bind({
     title = "WezTerm scratchpad",
     modifiers = hyper,
     key = "Space",
+    apps = { "WezTerm", "com.github.wez.wezterm" },
+    keywords = { "terminal", "dropdown", "scratchpad" },
     action = toggleScratchpad,
 })
