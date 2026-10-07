@@ -4,9 +4,13 @@ local M = {}
 local log = hs.logger.new("meeting_mode", "warning")
 local microphoneWatcher = nil
 local refreshTimer = nil
-local meetingPresenceTimer = nil
+local meetingWindowFilter = nil
+local meetingWindowRefreshTimer = nil
 local meetingSafetyTimer = nil
 local meetingBurstTimers = {}
+local zoomObserver = nil
+local zoomObserverRefreshTimer = nil
+local zoomObserverRestartTimer = nil
 local meetingActive = false
 local reconcileMicrophoneState = nil
 local reconcileZoomCameraState = nil
@@ -546,6 +550,94 @@ local function refreshMeetingState()
     refreshCameraState()
 end
 
+local function scheduleZoomStateRefresh()
+    if zoomObserverRefreshTimer then
+        zoomObserverRefreshTimer:stop()
+    end
+
+    zoomObserverRefreshTimer = hs.timer.doAfter(0.15, function()
+        zoomObserverRefreshTimer = nil
+        if meetingActive then
+            refreshMeetingState()
+        end
+    end)
+end
+
+local function addZoomWatcher(observer, element, notification)
+    if not element then
+        return
+    end
+
+    local ok = pcall(function()
+        observer:addWatcher(element, notification)
+    end)
+    if not ok then
+        log.d("Zoom does not expose " .. notification .. " for this accessibility element")
+    end
+end
+
+local function stopZoomObserver()
+    if zoomObserverRestartTimer then
+        zoomObserverRestartTimer:stop()
+        zoomObserverRestartTimer = nil
+    end
+
+    if zoomObserver then
+        zoomObserver:stop()
+        zoomObserver = nil
+    end
+end
+
+local function startZoomObserver(zoom)
+    stopZoomObserver()
+
+    local created, observer = pcall(hs.axuielement.observer.new, zoom:pid())
+    if not created then
+        log.w("Unable to observe Zoom accessibility events: " .. tostring(observer))
+        return
+    end
+
+    local applicationElement = hs.axuielement.applicationElement(zoom)
+    local _, audioButton = findZoomAudioButton(applicationElement)
+    local _, videoButton = findZoomVideoButton(applicationElement)
+
+    observer:callback(function(_, _, notification)
+        if notification == "AXUIElementDestroyed" then
+            if zoomObserverRestartTimer then
+                zoomObserverRestartTimer:stop()
+            end
+            zoomObserverRestartTimer = hs.timer.doAfter(0.25, function()
+                zoomObserverRestartTimer = nil
+                local currentZoom = hs.application.get(ZOOM_BUNDLE_ID)
+                if meetingActive and currentZoom then
+                    startZoomObserver(currentZoom)
+                end
+            end)
+        end
+        scheduleZoomStateRefresh()
+    end)
+
+    addZoomWatcher(observer, applicationElement, "AXFocusedUIElementChanged")
+    addZoomWatcher(observer, applicationElement, "AXFocusedWindowChanged")
+    addZoomWatcher(observer, applicationElement, "AXWindowCreated")
+
+    for _, button in pairs({ audioButton, videoButton }) do
+        addZoomWatcher(observer, button, "AXValueChanged")
+        addZoomWatcher(observer, button, "AXTitleChanged")
+        addZoomWatcher(observer, button, "AXUIElementDestroyed")
+    end
+
+    local started, startError = pcall(function()
+        observer:start()
+    end)
+    if not started then
+        log.w("Unable to start Zoom accessibility observer: " .. tostring(startError))
+        return
+    end
+
+    zoomObserver = observer
+end
+
 local function scheduleMeetingRefreshBurst()
     for _, timer in ipairs(meetingBurstTimers) do
         timer:stop()
@@ -565,9 +657,11 @@ local function checkMeetingPresence()
         meetingActive = true
         microphoneState.zoomMuted = nil
         zoomCameraOn = nil
+        startZoomObserver(zoom)
         scheduleMeetingRefreshBurst()
     elseif not active and meetingActive then
         meetingActive = false
+        stopZoomObserver()
         pendingZoomMuted = nil
         microphoneState.zoomMuted = nil
         zoomCameraOn = nil
@@ -575,14 +669,33 @@ local function checkMeetingPresence()
     end
 end
 
-meetingPresenceTimer = hs.timer.doEvery(1, checkMeetingPresence)
-meetingSafetyTimer = hs.timer.doEvery(15, function()
+local function scheduleMeetingPresenceCheck()
+    if meetingWindowRefreshTimer then
+        meetingWindowRefreshTimer:stop()
+    end
+
+    meetingWindowRefreshTimer = hs.timer.doAfter(0.25, function()
+        meetingWindowRefreshTimer = nil
+        checkMeetingPresence()
+    end)
+end
+
+meetingWindowFilter = hs.window.filter.new("zoom.us")
+meetingWindowFilter:subscribe({
+    hs.window.filter.windowCreated,
+    hs.window.filter.windowDestroyed,
+    hs.window.filter.windowVisible,
+    hs.window.filter.windowNotVisible,
+    hs.window.filter.windowTitleChanged,
+}, scheduleMeetingPresenceCheck)
+
+meetingSafetyTimer = hs.timer.doEvery(60, function()
     if meetingActive then
-        refreshMicrophoneState()
+        refreshMeetingState()
     end
 end)
 
-M.meetingPresenceTimer = meetingPresenceTimer
+M.meetingWindowFilter = meetingWindowFilter
 M.meetingSafetyTimer = meetingSafetyTimer
 M.refreshMeetingState = refreshMeetingState
 M.refreshMicrophoneState = refreshMicrophoneState
