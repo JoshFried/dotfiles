@@ -47,6 +47,7 @@ local modules = {
     "scratchpad",
     "battery",
     "aerospace",
+    "workspaceoverview",
     "meeting",
     "meeting_mode",
     "cheatsheet",

@@ -9,6 +9,7 @@ Hyper; tap either key to open the command palette.
 - `Hyper+/`: context-aware searchable workflow cheatsheet.
 - `Hyper+R`: desktop service manager.
 - `Hyper+W`: search open windows by application and title.
+- `Hyper+E`: show every AeroSpace workspace and its windows.
 - `Hyper+Delete` or `Hyper+Forward Delete`: return to the previous window.
 - `Hyper+Tab`: return to the previous AeroSpace workspace.
 - `Cmd+Option+C`: cycle windows for the focused application.
