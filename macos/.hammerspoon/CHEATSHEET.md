@@ -51,6 +51,7 @@ Pressing the shortcut for an already focused application cycles its windows.
 - `Cmd+Option+O`: audio output chooser.
 - `Cmd+Option+I`: audio input chooser.
 - `Cmd+Option+B`: paired Bluetooth device chooser.
+- `Cmd+Option+P`: persistent desktop profile chooser.
 - `Cmd+Option+W`: Wi-Fi network chooser.
 
 The Bluetooth chooser prioritizes connected devices. Selecting a disconnected
@@ -104,3 +105,5 @@ keys.
 - With the built-in display connected, workspaces 1-4 remain on it and
   workspaces 5-10 are distributed across external displays.
 - SketchyBar highlights the visible workspace on each display.
+- The active desktop profile routes new application windows to its configured
+  AeroSpace workspaces.

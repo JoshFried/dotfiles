@@ -48,6 +48,7 @@ local modules = {
     "battery",
     "aerospace",
     "workspaceoverview",
+    "desktopprofiles",
     "meeting",
     "meeting_mode",
     "cheatsheet",

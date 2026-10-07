@@ -21,6 +21,7 @@
 | `hsconsole.lua` | Opens Hammerspoon console centered on screen. |
 | `newspace.lua` | Space management: create, close empty, show current number. |
 | `workspaceoverview.lua` | Full-screen AeroSpace workspace and window overview. |
+| `desktopprofiles.lua` | Chooses persistent application-to-workspace profiles. |
 | `scratchpad.lua` | Toggle Ghostty terminal as dropdown scratchpad. |
 
 ## Dependencies
