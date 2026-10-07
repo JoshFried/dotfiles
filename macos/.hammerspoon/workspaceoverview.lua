@@ -13,6 +13,9 @@ local actionTask
 local requestId = 0
 local selectedIndex = 1
 local model
+local visibleWorkspaces = {}
+local visibleWindowCount = 0
+local searchQuery = ""
 
 local function color(hex, alpha)
     local value = kanagawa.rgb(hex)
@@ -110,7 +113,7 @@ local function createCanvas(frame, elements)
 
         local workspaceName = elementId and elementId:match("^workspace:(.+)$")
         if workspaceName then
-            for _, workspace in ipairs(model.workspaces) do
+            for _, workspace in ipairs(visibleWorkspaces) do
                 if workspace.name == workspaceName then
                     switchWorkspace(workspace)
                     return
@@ -161,25 +164,81 @@ local function gridColumns(frameWidth, workspaceCount)
     return frameWidth >= 1250 and math.min(5, workspaceCount) or math.min(2, workspaceCount)
 end
 
+local function fuzzyMatches(value, query)
+    local valueIndex = 1
+    local normalizedValue = value:lower()
+    local normalizedQuery = query:lower()
+
+    for queryIndex = 1, #normalizedQuery do
+        local character = normalizedQuery:sub(queryIndex, queryIndex)
+        local matchIndex = normalizedValue:find(character, valueIndex, true)
+        if not matchIndex then
+            return false
+        end
+        valueIndex = matchIndex + 1
+    end
+
+    return true
+end
+
+local function applySearch()
+    local selectedWorkspace =
+        visibleWorkspaces[selectedIndex] and visibleWorkspaces[selectedIndex].name
+    visibleWorkspaces = {}
+    visibleWindowCount = 0
+
+    for _, workspace in ipairs(model.workspaces) do
+        local matchingWindows = {}
+        for _, window in ipairs(workspace.windows) do
+            if fuzzyMatches(window.appName, searchQuery) then
+                matchingWindows[#matchingWindows + 1] = window
+            end
+        end
+
+        local hasVisibleWindows =
+            searchQuery == "" and #workspace.windows > 0 or #matchingWindows > 0
+        if hasVisibleWindows then
+            local visibleWorkspace = workspace
+            if searchQuery ~= "" then
+                visibleWorkspace = {
+                    name = workspace.name,
+                    monitorId = workspace.monitorId,
+                    monitorName = workspace.monitorName,
+                    focused = workspace.focused,
+                    visible = workspace.visible,
+                    windows = matchingWindows,
+                }
+            end
+            visibleWorkspaces[#visibleWorkspaces + 1] = visibleWorkspace
+            visibleWindowCount = visibleWindowCount + #visibleWorkspace.windows
+        end
+    end
+
+    selectedIndex = 1
+    for index, workspace in ipairs(visibleWorkspaces) do
+        if workspace.name == selectedWorkspace or
+            (not selectedWorkspace and workspace.focused)
+        then
+            selectedIndex = index
+            break
+        end
+    end
+end
+
 local function render()
-    if not model or #model.workspaces == 0 then
+    if not model then
         return
     end
 
     local screen = hs.mouse.getCurrentScreen() or hs.screen.mainScreen()
     local frame = screen:fullFrame()
-    local count = #model.workspaces
-    local columns = gridColumns(frame.w, count)
-    local rows = math.ceil(count / columns)
+    local topInset = math.max(40, screen:frame().y - frame.y)
+    local count = #visibleWorkspaces
     local margin = math.max(28, math.floor(frame.w * 0.025))
     local gap = 14
-    local headerHeight = 96
-    local footerHeight = 28
+    local headerHeight = topInset + 122
+    local footerHeight = 34
     local availableHeight = frame.h - headerHeight - footerHeight
-    local cardWidth = (frame.w - margin * 2 - gap * (columns - 1)) / columns
-    local cardHeight = math.min(300, (availableHeight - gap * (rows - 1)) / rows)
-    local gridHeight = cardHeight * rows + gap * (rows - 1)
-    local gridY = headerHeight + math.max(0, (availableHeight - gridHeight) / 2)
     local elements = {
         {
             id = "background",
@@ -194,18 +253,72 @@ local function render()
             text = "Workspace Overview",
             textColor = colors.foreground,
             textSize = 30,
-            frame = { x = margin, y = 28, w = frame.w - margin * 2, h = 38 },
+            frame = { x = margin, y = topInset + 12, w = frame.w - margin * 2, h = 38 },
         },
         {
             type = "text",
-            text = string.format("%d workspaces · %d windows", count, model.windowCount),
+            text = string.format("%d workspaces · %d windows", count, visibleWindowCount),
             textColor = colors.muted,
             textSize = 14,
-            frame = { x = margin, y = 65, w = frame.w - margin * 2, h = 24 },
+            frame = { x = margin, y = topInset + 48, w = frame.w - margin * 2, h = 24 },
+        },
+        {
+            type = "rectangle",
+            action = "strokeAndFill",
+            fillColor = colors.card,
+            strokeColor = searchQuery ~= "" and colors.selected or colors.border,
+            strokeWidth = searchQuery ~= "" and 2 or 1,
+            roundedRectRadii = { xRadius = 7, yRadius = 7 },
+            frame = { x = margin, y = topInset + 76, w = frame.w - margin * 2, h = 36 },
+        },
+        {
+            type = "text",
+            text = searchQuery ~= "" and searchQuery .. "▌" or "Type to filter applications…",
+            textColor = searchQuery ~= "" and colors.foreground or colors.muted,
+            textSize = 15,
+            frame = {
+                x = margin + 12,
+                y = topInset + 83,
+                w = frame.w - margin * 2 - 24,
+                h = 23,
+            },
+        },
+        {
+            type = "text",
+            text = "↑↓←→ navigate · Return select · Delete edit · Esc close",
+            textColor = colors.muted,
+            textSize = 12,
+            textAlignment = "center",
+            frame = { x = margin, y = frame.h - 27, w = frame.w - margin * 2, h = 20 },
         },
     }
 
-    for index, workspace in ipairs(model.workspaces) do
+    if count == 0 then
+        elements[#elements + 1] = {
+            type = "text",
+            text = "No applications match “" .. searchQuery .. "”",
+            textColor = colors.muted,
+            textSize = 18,
+            textAlignment = "center",
+            frame = {
+                x = margin,
+                y = headerHeight + availableHeight / 2 - 18,
+                w = frame.w - margin * 2,
+                h = 36,
+            },
+        }
+        createCanvas(frame, elements)
+        return
+    end
+
+    local columns = gridColumns(frame.w, count)
+    local rows = math.ceil(count / columns)
+    local cardWidth = (frame.w - margin * 2 - gap * (columns - 1)) / columns
+    local cardHeight = math.min(300, (availableHeight - gap * (rows - 1)) / rows)
+    local gridHeight = cardHeight * rows + gap * (rows - 1)
+    local gridY = headerHeight + math.max(0, (availableHeight - gridHeight) / 2)
+
+    for index, workspace in ipairs(visibleWorkspaces) do
         local column = (index - 1) % columns
         local row = math.floor((index - 1) / columns)
         local x = margin + column * (cardWidth + gap)
@@ -338,11 +451,28 @@ local function render()
 end
 
 local function moveSelection(delta)
-    if not model then
+    if not model or #visibleWorkspaces == 0 then
         return
     end
-    selectedIndex = ((selectedIndex - 1 + delta) % #model.workspaces) + 1
+    selectedIndex = ((selectedIndex - 1 + delta) % #visibleWorkspaces) + 1
     render()
+end
+
+local function removeLastSearchCharacter()
+    searchQuery = searchQuery:sub(1, math.max(0, #searchQuery - 1))
+    applySearch()
+    render()
+end
+
+local function appendSearchCharacters(characters)
+    if not characters or characters == "" or characters:find("[%c]") then
+        return false
+    end
+
+    searchQuery = searchQuery .. characters
+    applySearch()
+    render()
+    return true
 end
 
 local function startKeyWatcher()
@@ -360,33 +490,36 @@ local function startKeyWatcher()
             return false
         end
 
-        local screen = hs.mouse.getCurrentScreen() or hs.screen.mainScreen()
-        local columns = gridColumns(screen:fullFrame().w, #model.workspaces)
-        if key == "left" or key == "h" then
-            moveSelection(-1)
-            return true
-        elseif key == "right" or key == "l" then
-            moveSelection(1)
-            return true
-        elseif key == "up" or key == "k" then
-            moveSelection(-columns)
-            return true
-        elseif key == "down" or key == "j" then
-            moveSelection(columns)
-            return true
-        elseif key == "return" or key == "padenter" then
-            switchWorkspace(model.workspaces[selectedIndex])
+        if key == "delete" or key == "forwarddelete" then
+            if searchQuery ~= "" then
+                removeLastSearchCharacter()
+            end
             return true
         end
 
-        local workspaceName = key == "0" and "10" or key
-        if workspaceName and workspaceName:match("^%d$") then
-            for _, workspace in ipairs(model.workspaces) do
-                if workspace.name == workspaceName then
-                    switchWorkspace(workspace)
-                    return true
-                end
-            end
+        local screen = hs.mouse.getCurrentScreen() or hs.screen.mainScreen()
+        local columns = #visibleWorkspaces > 0 and
+            gridColumns(screen:fullFrame().w, #visibleWorkspaces) or 1
+        if key == "left" then
+            moveSelection(-1)
+            return true
+        elseif key == "right" then
+            moveSelection(1)
+            return true
+        elseif key == "up" then
+            moveSelection(-columns)
+            return true
+        elseif key == "down" then
+            moveSelection(columns)
+            return true
+        elseif key == "return" or key == "padenter" then
+            switchWorkspace(visibleWorkspaces[selectedIndex])
+            return true
+        end
+
+        local flags = event:getFlags()
+        if not flags.cmd and not flags.ctrl and not flags.alt then
+            return appendSearchCharacters(event:getCharacters())
         end
 
         return false
@@ -473,6 +606,9 @@ local function show()
     local currentRequest = requestId
     local results = {}
     selectedIndex = 1
+    visibleWorkspaces = {}
+    visibleWindowCount = 0
+    searchQuery = ""
     model = nil
     renderLoading()
     startKeyWatcher()
@@ -488,6 +624,7 @@ local function show()
             hs.alert.show("AeroSpace returned no workspaces")
             return
         end
+        applySearch()
         render()
     end
 
