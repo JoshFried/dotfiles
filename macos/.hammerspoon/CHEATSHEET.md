@@ -58,12 +58,9 @@ The Bluetooth chooser prioritizes connected devices. Selecting a disconnected
 device connects it; selecting a connected device disconnects it. Battery levels
 are shown when macOS exposes them.
 
-## Windows and Spaces
+## Windows and System
 
 - `Hyper+A`: toggle native fullscreen.
-- `Hyper+N`: create a macOS space.
-- `Hyper+X`: close empty macOS spaces.
-- ``Hyper+` ``: show the current macOS space number.
 - `Cmd+Option+S`: sleep.
 - `Cmd+Option+\`: open the Hammerspoon console.
 

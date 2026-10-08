@@ -43,7 +43,6 @@ local modules = {
     "bluetooth",
     "wifiswitch",
     "hsconsole",
-    "newspace",
     "scratchpad",
     "battery",
     "aerospace",

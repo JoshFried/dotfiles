@@ -19,7 +19,6 @@
 | `meeting_mode.lua` | Synchronizes system/Zoom mute and controls Zoom camera shortcuts. |
 | `wifiswitch.lua` | Chooser for WiFi networks. Sorts known networks first, then by signal. |
 | `hsconsole.lua` | Opens Hammerspoon console centered on screen. |
-| `newspace.lua` | Space management: create, close empty, show current number. |
 | `workspaceoverview.lua` | Full-screen AeroSpace workspace and window overview. |
 | `desktopprofiles.lua` | Chooses persistent application-to-workspace profiles. |
 | `scratchpad.lua` | Toggle Ghostty terminal as dropdown scratchpad. |
@@ -37,7 +36,7 @@ Hammerspoon triggers Raycast extensions via URL schemes:
 
 This config works alongside [Amethyst](https://ianyh.com/amethyst/) window manager:
 - Amethyst handles window tiling (Option+Shift modifiers)
-- Hammerspoon handles app launching, audio, spaces, scratchpad
+- Hammerspoon handles app launching, audio, and scratchpad
 - No keybinding conflicts between the two
 
 Amethyst config is stored in `~/.amethyst.yml`. Backup/restore with:
