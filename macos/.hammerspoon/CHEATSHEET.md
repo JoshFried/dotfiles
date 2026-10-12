@@ -103,4 +103,5 @@ keys.
   workspaces 5-10 are distributed across external displays.
 - SketchyBar highlights the visible workspace on each display.
 - The active desktop profile routes new application windows to its configured
-  AeroSpace workspaces.
+  AeroSpace workspaces. Existing windows stay where you move them; selecting a
+  profile again reapplies its layout to all matching windows.

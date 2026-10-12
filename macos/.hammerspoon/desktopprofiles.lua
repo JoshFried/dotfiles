@@ -8,7 +8,8 @@ local aerospace = "/opt/homebrew/bin/aerospace"
 local settingsKey = "desktopProfiles.active"
 local queryTask = nil
 local moveTasks = {}
-local reconcileTimer = nil
+local windowTimers = {}
+local knownWindowIds = {}
 local requestId = 0
 
 local profiles = {
@@ -62,6 +63,11 @@ local function stopTasks()
         end
     end
     moveTasks = {}
+
+    for _, timer in pairs(windowTimers) do
+        timer:stop()
+    end
+    windowTimers = {}
 end
 
 local function profileDescription(profile)
@@ -237,7 +243,20 @@ local function showProfiles()
 end
 
 local windowFilter = hs.window.filter.new()
+for _, window in ipairs(windowFilter:getWindows()) do
+    local windowId = window:id()
+    if windowId and windowId ~= 0 then
+        knownWindowIds[windowId] = true
+    end
+end
+
 windowFilter:subscribe(hs.window.filter.windowCreated, function(window)
+    local windowId = window and window:id()
+    if not windowId or windowId == 0 or knownWindowIds[windowId] then
+        return
+    end
+    knownWindowIds[windowId] = true
+
     local profile = profileById[activeProfileId]
     local application = window and window:application()
     local bundleID = application and application:bundleID()
@@ -245,17 +264,30 @@ windowFilter:subscribe(hs.window.filter.windowCreated, function(window)
         return
     end
 
-    if reconcileTimer then
-        reconcileTimer:stop()
-    end
-    reconcileTimer = hs.timer.doAfter(0.4, function()
-        reconcileTimer = nil
-        reconcile(false)
+    local currentRequest = requestId
+    windowTimers[windowId] = hs.timer.doAfter(0.4, function()
+        windowTimers[windowId] = nil
+        if currentRequest ~= requestId or window:id() ~= windowId then
+            return
+        end
+
+        moveWindows(profile, {
+            { id = tostring(windowId), bundleID = bundleID },
+        }, currentRequest, false)
     end)
 end)
 
-require("aerospace").onDesktopRefresh(function()
-    reconcile(false)
+windowFilter:subscribe(hs.window.filter.windowDestroyed, function(window)
+    local windowId = window and window:id()
+    if not windowId then
+        return
+    end
+
+    knownWindowIds[windowId] = nil
+    if windowTimers[windowId] then
+        windowTimers[windowId]:stop()
+        windowTimers[windowId] = nil
+    end
 end)
 
 bindings.bind({
