@@ -1,0 +1,239 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="744" height="456" viewBox="0 0 744 456">
+<rect width="100%" height="100%" rx="8" fill="#1f1f28"/>
+<g font-family="Menlo, DejaVu Sans Mono, monospace" font-size="14" xml:space="preserve">
+<rect x="12" y="12" width="64" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="76" y="12" width="656" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<text x="12" y="26" fill="#7e9cd8" font-weight="bold" textLength="64" lengthAdjust="spacingAndGlyphs"> memmap </text>
+<text x="76" y="26" fill="#dcd7ba" font-weight="normal" textLength="80" lengthAdjust="spacingAndGlyphs"> System · </text>
+<text x="156" y="26" fill="#98bb6c" font-weight="bold" textLength="56" lengthAdjust="spacingAndGlyphs">1.0 MiB</text>
+<rect x="12" y="30" width="720" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<text x="12" y="44" fill="#957fb8" font-weight="normal" textLength="16" lengthAdjust="spacingAndGlyphs">Ba</text>
+<text x="28" y="44" fill="#e6c384" font-weight="normal" textLength="688" lengthAdjust="spacingAndGlyphs">╭ Help ──────────────────────────────────────────────────────────────────────────────╮</text>
+<rect x="12" y="48" width="16" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="28" y="48" width="688" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="716" y="48" width="16" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<text x="12" y="62" fill="#e6c384" font-weight="normal" textLength="24" lengthAdjust="spacingAndGlyphs">╭─│</text>
+<text x="36" y="62" fill="#957fb8" font-weight="bold" textLength="232" lengthAdjust="spacingAndGlyphs"> Explore · inspect · navigate</text>
+<text x="708" y="62" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="716" y="62" fill="#2a2a37" font-weight="normal" textLength="16" lengthAdjust="spacingAndGlyphs">─╮</text>
+<rect x="12" y="66" width="16" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="28" y="66" width="688" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="716" y="66" width="16" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<text x="12" y="80" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="20" y="80" fill="#16161d" font-weight="bold" textLength="8" lengthAdjust="spacingAndGlyphs">A</text>
+<text x="28" y="80" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="708" y="80" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="724" y="80" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="84" width="16" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="28" y="84" width="8" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="36" y="84" width="120" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="156" y="84" width="560" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="716" y="84" width="16" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<text x="12" y="98" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="20" y="98" fill="#16161d" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">2</text>
+<text x="28" y="98" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="36" y="98" fill="#7e9cd8" font-weight="bold" textLength="120" lengthAdjust="spacingAndGlyphs"> hjkl / arrows </text>
+<text x="156" y="98" fill="#dcd7ba" font-weight="normal" textLength="552" lengthAdjust="spacingAndGlyphs"> Move between tiles or list entries                                  </text>
+<text x="708" y="98" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="724" y="98" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="102" width="16" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="28" y="102" width="8" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="36" y="102" width="120" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="156" y="102" width="560" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="716" y="102" width="16" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<text x="12" y="116" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="28" y="116" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="36" y="116" fill="#98bb6c" font-weight="bold" textLength="120" lengthAdjust="spacingAndGlyphs"> enter         </text>
+<text x="156" y="116" fill="#dcd7ba" font-weight="normal" textLength="552" lengthAdjust="spacingAndGlyphs"> Open folder, collection, app, or details                            </text>
+<text x="708" y="116" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="724" y="116" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="120" width="16" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="28" y="120" width="8" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="36" y="120" width="120" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="156" y="120" width="560" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="716" y="120" width="16" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<text x="12" y="134" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="28" y="134" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="36" y="134" fill="#7e9cd8" font-weight="bold" textLength="120" lengthAdjust="spacingAndGlyphs"> ctrl+o        </text>
+<text x="156" y="134" fill="#dcd7ba" font-weight="normal" textLength="552" lengthAdjust="spacingAndGlyphs"> Previous view; Backspace also works                                 </text>
+<text x="708" y="134" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="724" y="134" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="138" width="16" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="28" y="138" width="8" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="36" y="138" width="120" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="156" y="138" width="560" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="716" y="138" width="16" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<text x="12" y="152" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="28" y="152" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="36" y="152" fill="#957fb8" font-weight="bold" textLength="120" lengthAdjust="spacingAndGlyphs"> tab           </text>
+<text x="156" y="152" fill="#dcd7ba" font-weight="normal" textLength="552" lengthAdjust="spacingAndGlyphs"> Switch map / list focus                                             </text>
+<text x="708" y="152" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="724" y="152" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="156" width="16" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="28" y="156" width="8" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="36" y="156" width="120" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="156" y="156" width="560" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="716" y="156" width="16" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<text x="12" y="170" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="28" y="170" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="36" y="170" fill="#7e9cd8" font-weight="bold" textLength="120" lengthAdjust="spacingAndGlyphs"> gg / G        </text>
+<text x="156" y="170" fill="#dcd7ba" font-weight="normal" textLength="552" lengthAdjust="spacingAndGlyphs"> First / last entry; Home / End also work                            </text>
+<text x="708" y="170" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="724" y="170" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="174" width="16" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="28" y="174" width="8" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="36" y="174" width="120" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="156" y="174" width="560" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="716" y="174" width="16" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<text x="12" y="188" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="28" y="188" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="36" y="188" fill="#7e9cd8" font-weight="bold" textLength="120" lengthAdjust="spacingAndGlyphs"> pgup / pgdn   </text>
+<text x="156" y="188" fill="#dcd7ba" font-weight="normal" textLength="552" lengthAdjust="spacingAndGlyphs"> Move one page in the list                                           </text>
+<text x="708" y="188" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="724" y="188" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="192" width="16" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="28" y="192" width="8" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="36" y="192" width="120" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="156" y="192" width="560" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="716" y="192" width="16" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<text x="12" y="206" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="28" y="206" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="36" y="206" fill="#e6c384" font-weight="bold" textLength="120" lengthAdjust="spacingAndGlyphs"> /             </text>
+<text x="156" y="206" fill="#dcd7ba" font-weight="normal" textLength="552" lengthAdjust="spacingAndGlyphs"> Fuzzy search; Enter applies, Esc restores                           </text>
+<text x="708" y="206" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="724" y="206" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="210" width="16" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="28" y="210" width="8" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="36" y="210" width="120" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="156" y="210" width="560" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="716" y="210" width="16" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<text x="12" y="224" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="28" y="224" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="36" y="224" fill="#e6c384" font-weight="bold" textLength="120" lengthAdjust="spacingAndGlyphs"> s             </text>
+<text x="156" y="224" fill="#dcd7ba" font-weight="normal" textLength="552" lengthAdjust="spacingAndGlyphs"> Switch size descending / name ascending                             </text>
+<text x="708" y="224" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="724" y="224" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="228" width="16" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="28" y="228" width="8" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="36" y="228" width="120" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="156" y="228" width="560" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="716" y="228" width="16" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<text x="12" y="242" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="28" y="242" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="36" y="242" fill="#957fb8" font-weight="bold" textLength="120" lengthAdjust="spacingAndGlyphs"> b             </text>
+<text x="156" y="242" fill="#dcd7ba" font-weight="normal" textLength="552" lengthAdjust="spacingAndGlyphs"> Toggle balanced / proportional tile sizing                          </text>
+<text x="708" y="242" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="724" y="242" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="246" width="16" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="28" y="246" width="8" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="36" y="246" width="120" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="156" y="246" width="560" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="716" y="246" width="16" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<text x="12" y="260" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="28" y="260" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="36" y="260" fill="#98bb6c" font-weight="bold" textLength="120" lengthAdjust="spacingAndGlyphs"> y             </text>
+<text x="156" y="260" fill="#dcd7ba" font-weight="normal" textLength="552" lengthAdjust="spacingAndGlyphs"> Copy the selected file / executable path                            </text>
+<text x="708" y="260" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="724" y="260" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="264" width="16" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="28" y="264" width="8" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="36" y="264" width="120" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="156" y="264" width="560" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="716" y="264" width="16" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<text x="12" y="278" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="28" y="278" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="36" y="278" fill="#98bb6c" font-weight="bold" textLength="120" lengthAdjust="spacingAndGlyphs"> r             </text>
+<text x="156" y="278" fill="#dcd7ba" font-weight="normal" textLength="552" lengthAdjust="spacingAndGlyphs"> Fresh sample, size sort, and fresh layout                           </text>
+<text x="708" y="278" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="724" y="278" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="282" width="16" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="28" y="282" width="8" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="36" y="282" width="120" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="156" y="282" width="560" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="716" y="282" width="16" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<text x="12" y="296" fill="#e6c384" font-weight="normal" textLength="24" lengthAdjust="spacingAndGlyphs">╰─│</text>
+<text x="36" y="296" fill="#957fb8" font-weight="bold" textLength="120" lengthAdjust="spacingAndGlyphs"> v             </text>
+<text x="156" y="296" fill="#dcd7ba" font-weight="normal" textLength="552" lengthAdjust="spacingAndGlyphs"> Switch Apps / System memory                                         </text>
+<text x="708" y="296" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="716" y="296" fill="#2a2a37" font-weight="normal" textLength="16" lengthAdjust="spacingAndGlyphs">─╯</text>
+<rect x="12" y="300" width="24" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="36" y="300" width="120" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="156" y="300" width="576" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<text x="12" y="314" fill="#dcd7ba" font-weight="normal" textLength="16" lengthAdjust="spacingAndGlyphs">Ac</text>
+<text x="28" y="314" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="36" y="314" fill="#e6c384" font-weight="bold" textLength="120" lengthAdjust="spacingAndGlyphs"> space         </text>
+<text x="156" y="314" fill="#dcd7ba" font-weight="normal" textLength="552" lengthAdjust="spacingAndGlyphs"> Pause / resume samples                                              </text>
+<text x="708" y="314" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="318" width="24" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="36" y="318" width="120" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="156" y="318" width="576" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<text x="12" y="332" fill="#dcd7ba" font-weight="normal" textLength="16" lengthAdjust="spacingAndGlyphs">Ph</text>
+<text x="28" y="332" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="36" y="332" fill="#e6c384" font-weight="bold" textLength="120" lengthAdjust="spacingAndGlyphs"> esc           </text>
+<text x="156" y="332" fill="#dcd7ba" font-weight="normal" textLength="552" lengthAdjust="spacingAndGlyphs"> Clear filter / close dialog                                         </text>
+<text x="708" y="332" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="336" width="24" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="36" y="336" width="120" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="156" y="336" width="576" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<text x="12" y="350" fill="#dcd7ba" font-weight="normal" textLength="16" lengthAdjust="spacingAndGlyphs">Sp</text>
+<text x="28" y="350" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="36" y="350" fill="#7e9cd8" font-weight="bold" textLength="120" lengthAdjust="spacingAndGlyphs"> ? / q         </text>
+<text x="156" y="350" fill="#dcd7ba" font-weight="normal" textLength="552" lengthAdjust="spacingAndGlyphs"> Help / quit (Ctrl+C also quits)                                     </text>
+<text x="708" y="350" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="354" width="720" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<text x="12" y="368" fill="#727169" font-weight="normal" textLength="16" lengthAdjust="spacingAndGlyphs">un</text>
+<text x="28" y="368" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="708" y="368" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="716" y="368" fill="#727169" font-weight="normal" textLength="16" lengthAdjust="spacingAndGlyphs">██</text>
+<rect x="12" y="372" width="720" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<text x="12" y="386" fill="#727169" font-weight="normal" textLength="16" lengthAdjust="spacingAndGlyphs">RA</text>
+<text x="28" y="386" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="36" y="386" fill="#727169" font-weight="normal" textLength="560" lengthAdjust="spacingAndGlyphs">History keeps 120 samples; growth is measured since first observation.</text>
+<text x="708" y="386" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="390" width="16" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="28" y="390" width="8" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="36" y="390" width="40" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="76" y="390" width="72" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="148" y="390" width="40" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="188" y="390" width="544" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<text x="12" y="404" fill="#957fb8" font-weight="bold" textLength="16" lengthAdjust="spacingAndGlyphs"> M</text>
+<text x="28" y="404" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="36" y="404" fill="#7e9cd8" font-weight="bold" textLength="40" lengthAdjust="spacingAndGlyphs"> j/k </text>
+<text x="76" y="404" fill="#dcd7ba" font-weight="normal" textLength="72" lengthAdjust="spacingAndGlyphs"> scroll  </text>
+<text x="148" y="404" fill="#e6c384" font-weight="bold" textLength="40" lengthAdjust="spacingAndGlyphs"> esc </text>
+<text x="188" y="404" fill="#dcd7ba" font-weight="normal" textLength="520" lengthAdjust="spacingAndGlyphs"> close                                                           </text>
+<text x="708" y="404" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="408" width="16" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="28" y="408" width="704" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<text x="12" y="422" fill="#7e9cd8" font-weight="bold" textLength="16" lengthAdjust="spacingAndGlyphs"> h</text>
+<text x="28" y="422" fill="#e6c384" font-weight="normal" textLength="688" lengthAdjust="spacingAndGlyphs">╰────────────────────────────────────────────────────────────────────────────────────╯</text>
+<rect x="12" y="426" width="56" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="68" y="426" width="64" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="132" y="426" width="24" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="156" y="426" width="56" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="212" y="426" width="24" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="236" y="426" width="80" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="316" y="426" width="24" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="340" y="426" width="88" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="428" y="426" width="24" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="452" y="426" width="72" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="524" y="426" width="48" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="572" y="426" width="56" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="628" y="426" width="48" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="676" y="426" width="56" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<text x="12" y="440" fill="#e6c384" font-weight="bold" textLength="56" lengthAdjust="spacingAndGlyphs"> space </text>
+<text x="68" y="440" fill="#dcd7ba" font-weight="normal" textLength="64" lengthAdjust="spacingAndGlyphs"> pause  </text>
+<text x="132" y="440" fill="#957fb8" font-weight="bold" textLength="24" lengthAdjust="spacingAndGlyphs"> v </text>
+<text x="156" y="440" fill="#dcd7ba" font-weight="normal" textLength="56" lengthAdjust="spacingAndGlyphs"> apps  </text>
+<text x="212" y="440" fill="#98bb6c" font-weight="bold" textLength="24" lengthAdjust="spacingAndGlyphs"> r </text>
+<text x="236" y="440" fill="#dcd7ba" font-weight="normal" textLength="80" lengthAdjust="spacingAndGlyphs"> refresh  </text>
+<text x="316" y="440" fill="#957fb8" font-weight="bold" textLength="24" lengthAdjust="spacingAndGlyphs"> b </text>
+<text x="340" y="440" fill="#dcd7ba" font-weight="normal" textLength="88" lengthAdjust="spacingAndGlyphs"> balanced  </text>
+<text x="428" y="440" fill="#e6c384" font-weight="bold" textLength="24" lengthAdjust="spacingAndGlyphs"> s </text>
+<text x="452" y="440" fill="#dcd7ba" font-weight="normal" textLength="72" lengthAdjust="spacingAndGlyphs"> size ↓  </text>
+<text x="524" y="440" fill="#7e9cd8" font-weight="bold" textLength="48" lengthAdjust="spacingAndGlyphs"> gg/G </text>
+<text x="572" y="440" fill="#dcd7ba" font-weight="normal" textLength="56" lengthAdjust="spacingAndGlyphs"> ends  </text>
+<text x="628" y="440" fill="#7e9cd8" font-weight="bold" textLength="48" lengthAdjust="spacingAndGlyphs"> pg↑↓ </text>
+<text x="676" y="440" fill="#dcd7ba" font-weight="normal" textLength="56" lengthAdjust="spacingAndGlyphs"> page  </text>
+</g>
+</svg>

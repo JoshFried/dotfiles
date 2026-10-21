@@ -1,0 +1,24 @@
+ memmap  System · 1.0 MiB
+Ba╭ Help ──────────────────────────────────────────────────────────────────────────────╮
+╭─│ Explore · inspect · navigate                                                       │─╮
+│A│                                                                                    │ │
+│2│ hjkl / arrows  Move between tiles or list entries                                  │ │
+│ │ enter          Open folder, collection, app, or details                            │ │
+│ │ ctrl+o         Previous view; Backspace also works                                 │ │
+│ │ tab            Switch map / list focus                                             │ │
+│ │ gg / G         First / last entry; Home / End also work                            │ │
+│ │ pgup / pgdn    Move one page in the list                                           │ │
+│ │ /              Fuzzy search; Enter applies, Esc restores                           │ │
+│ │ s              Switch size descending / name ascending                             │ │
+│ │ b              Toggle balanced / proportional tile sizing                          │ │
+│ │ y              Copy the selected file / executable path                            │ │
+│ │ r              Fresh sample, size sort, and fresh layout                           │ │
+╰─│ v              Switch Apps / System memory                                         │─╯
+Ac│ space          Pause / resume samples                                              │
+Ph│ esc            Clear filter / close dialog                                         │
+Sp│ ? / q          Help / quit (Ctrl+C also quits)                                     │
+un│                                                                                    │██
+RA│History keeps 120 samples; growth is measured since first observation.              │
+ M│ j/k  scroll   esc  close                                                           │
+ h╰────────────────────────────────────────────────────────────────────────────────────╯
+ space  pause   v  apps   r  refresh   b  balanced   s  size ↓   gg/G  ends   pg↑↓  page

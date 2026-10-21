@@ -1,0 +1,24 @@
+ memmap  System · 1.0 MiB
+Balanced · smaller tiles enlarged · Physical RAM · non-overlapping OS categories
+╭──────────────╮╭──────────────╮╭──────────────╮╭────────────╮╭─────────────╮╭───────────╮
+│Active        ││Inactive      ││Other         ││Free        ││Wired        ││Compressed │
+│256.0 KiB     ││256.0 KiB     ││192.0 KiB     ││128.0 KiB   ││128.0 KiB    ││64.0 KiB   │
+│              ││              ││              ││            ││             ││           │
+│              ││              ││              ││            ││             ││           │
+│              ││              ││              ││            ││             ││           │
+│              ││              ││              ││            ││             ││           │
+│              ││              ││              ││            ││             ││           │
+│              ││              ││              ││            ││             ││           │
+│              ││              ││              ││            ││             ││           │
+│              ││              ││              ││            ││             ││           │
+│              ││              ││              ││            ││             ││           │
+│              ││              ││              ││            ││             ││           │
+╰──────────────╯╰──────────────╯╰──────────────╯╰────────────╯╰─────────────╯╰───────────╯
+Active · 256.0 KiB · 25.0%
+Physical RAM category: Active
+Speculative and purgeable pages already belong to categories
+unchanged since first sample                               ███████████████████████████████
+RAM 1.0 MiB · available 256.0 KiB · swap 0 B / 512.0 KiB
+ MAP  ● LIVE  3 apps · 4 processes
+ hjkl  nav   ↵  open   tab  focus   ^o  back   /  find   ?  help   q  quit
+ space  pause   v  apps   r  refresh   b  balanced   s  size ↓   gg/G  ends   pg↑↓  page

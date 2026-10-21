@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="744" height="456" viewBox="0 0 744 456">
+<rect width="100%" height="100%" rx="8" fill="#1f1f28"/>
+<g font-family="Menlo, DejaVu Sans Mono, monospace" font-size="14" xml:space="preserve">
+<rect x="12" y="12" width="64" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="76" y="12" width="656" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<text x="12" y="26" fill="#7e9cd8" font-weight="bold" textLength="64" lengthAdjust="spacingAndGlyphs"> memmap </text>
+<text x="76" y="26" fill="#dcd7ba" font-weight="normal" textLength="64" lengthAdjust="spacingAndGlyphs"> Apps · </text>
+<text x="140" y="26" fill="#98bb6c" font-weight="bold" textLength="72" lengthAdjust="spacingAndGlyphs">134.0 KiB</text>
+<rect x="12" y="30" width="720" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<text x="12" y="44" fill="#957fb8" font-weight="normal" textLength="264" lengthAdjust="spacingAndGlyphs">Balanced · smaller tiles enlarged</text>
+<text x="276" y="44" fill="#727169" font-weight="normal" textLength="456" lengthAdjust="spacingAndGlyphs"> · Reported resident memory · shared pages may count more</text>
+<rect x="12" y="48" width="264" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="276" y="48" width="256" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<rect x="532" y="48" width="200" height="18" fill="#7e9cd8" shape-rendering="crispEdges"/>
+<text x="12" y="62" fill="#e6c384" font-weight="normal" textLength="264" lengthAdjust="spacingAndGlyphs">╭───────────────────────────────╮</text>
+<text x="276" y="62" fill="#2a2a37" font-weight="normal" textLength="456" lengthAdjust="spacingAndGlyphs">╭──────────────────────────────╮╭───────────────────────╮</text>
+<rect x="12" y="66" width="264" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="276" y="66" width="256" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<rect x="532" y="66" width="200" height="18" fill="#7e9cd8" shape-rendering="crispEdges"/>
+<text x="12" y="80" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="20" y="80" fill="#16161d" font-weight="bold" textLength="80" lengthAdjust="spacingAndGlyphs">Editor.app</text>
+<text x="268" y="80" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="276" y="80" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="284" y="80" fill="#16161d" font-weight="bold" textLength="88" lengthAdjust="spacingAndGlyphs">Browser.app</text>
+<text x="524" y="80" fill="#2a2a37" font-weight="normal" textLength="16" lengthAdjust="spacingAndGlyphs">││</text>
+<text x="540" y="80" fill="#16161d" font-weight="bold" textLength="96" lengthAdjust="spacingAndGlyphs">Terminal.app</text>
+<text x="724" y="80" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="84" width="264" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="276" y="84" width="256" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<rect x="532" y="84" width="200" height="18" fill="#7e9cd8" shape-rendering="crispEdges"/>
+<text x="12" y="98" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="20" y="98" fill="#16161d" font-weight="normal" textLength="248" lengthAdjust="spacingAndGlyphs">70.0 KiB                       </text>
+<text x="268" y="98" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="276" y="98" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="284" y="98" fill="#16161d" font-weight="normal" textLength="240" lengthAdjust="spacingAndGlyphs">52.0 KiB                      </text>
+<text x="524" y="98" fill="#2a2a37" font-weight="normal" textLength="16" lengthAdjust="spacingAndGlyphs">││</text>
+<text x="540" y="98" fill="#16161d" font-weight="normal" textLength="184" lengthAdjust="spacingAndGlyphs">12.0 KiB               </text>
+<text x="724" y="98" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="102" width="264" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="276" y="102" width="256" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<rect x="532" y="102" width="200" height="18" fill="#7e9cd8" shape-rendering="crispEdges"/>
+<text x="12" y="116" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="268" y="116" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="276" y="116" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="524" y="116" fill="#2a2a37" font-weight="normal" textLength="16" lengthAdjust="spacingAndGlyphs">││</text>
+<text x="724" y="116" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="120" width="264" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="276" y="120" width="256" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<rect x="532" y="120" width="200" height="18" fill="#7e9cd8" shape-rendering="crispEdges"/>
+<text x="12" y="134" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="268" y="134" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="276" y="134" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="524" y="134" fill="#2a2a37" font-weight="normal" textLength="16" lengthAdjust="spacingAndGlyphs">││</text>
+<text x="724" y="134" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="138" width="264" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="276" y="138" width="256" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<rect x="532" y="138" width="200" height="18" fill="#7e9cd8" shape-rendering="crispEdges"/>
+<text x="12" y="152" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="268" y="152" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="276" y="152" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="524" y="152" fill="#2a2a37" font-weight="normal" textLength="16" lengthAdjust="spacingAndGlyphs">││</text>
+<text x="724" y="152" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="156" width="264" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="276" y="156" width="256" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<rect x="532" y="156" width="200" height="18" fill="#7e9cd8" shape-rendering="crispEdges"/>
+<text x="12" y="170" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="268" y="170" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="276" y="170" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="524" y="170" fill="#2a2a37" font-weight="normal" textLength="16" lengthAdjust="spacingAndGlyphs">││</text>
+<text x="724" y="170" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="174" width="264" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="276" y="174" width="256" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<rect x="532" y="174" width="200" height="18" fill="#7e9cd8" shape-rendering="crispEdges"/>
+<text x="12" y="188" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="268" y="188" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="276" y="188" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="524" y="188" fill="#2a2a37" font-weight="normal" textLength="16" lengthAdjust="spacingAndGlyphs">││</text>
+<text x="724" y="188" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="192" width="264" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="276" y="192" width="256" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<rect x="532" y="192" width="200" height="18" fill="#7e9cd8" shape-rendering="crispEdges"/>
+<text x="12" y="206" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="268" y="206" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="276" y="206" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="524" y="206" fill="#2a2a37" font-weight="normal" textLength="16" lengthAdjust="spacingAndGlyphs">││</text>
+<text x="724" y="206" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="210" width="264" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="276" y="210" width="256" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<rect x="532" y="210" width="200" height="18" fill="#7e9cd8" shape-rendering="crispEdges"/>
+<text x="12" y="224" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="268" y="224" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="276" y="224" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="524" y="224" fill="#2a2a37" font-weight="normal" textLength="16" lengthAdjust="spacingAndGlyphs">││</text>
+<text x="724" y="224" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="228" width="264" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="276" y="228" width="256" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<rect x="532" y="228" width="200" height="18" fill="#7e9cd8" shape-rendering="crispEdges"/>
+<text x="12" y="242" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="268" y="242" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="276" y="242" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="524" y="242" fill="#2a2a37" font-weight="normal" textLength="16" lengthAdjust="spacingAndGlyphs">││</text>
+<text x="724" y="242" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="246" width="264" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="276" y="246" width="256" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<rect x="532" y="246" width="200" height="18" fill="#7e9cd8" shape-rendering="crispEdges"/>
+<text x="12" y="260" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="268" y="260" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="276" y="260" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="524" y="260" fill="#2a2a37" font-weight="normal" textLength="16" lengthAdjust="spacingAndGlyphs">││</text>
+<text x="724" y="260" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="264" width="264" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="276" y="264" width="256" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<rect x="532" y="264" width="200" height="18" fill="#7e9cd8" shape-rendering="crispEdges"/>
+<text x="12" y="278" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="268" y="278" fill="#e6c384" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="276" y="278" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<text x="524" y="278" fill="#2a2a37" font-weight="normal" textLength="16" lengthAdjust="spacingAndGlyphs">││</text>
+<text x="724" y="278" fill="#2a2a37" font-weight="normal" textLength="8" lengthAdjust="spacingAndGlyphs">│</text>
+<rect x="12" y="282" width="264" height="18" fill="#76946a" shape-rendering="crispEdges"/>
+<rect x="276" y="282" width="256" height="18" fill="#957fb8" shape-rendering="crispEdges"/>
+<rect x="532" y="282" width="200" height="18" fill="#7e9cd8" shape-rendering="crispEdges"/>
+<text x="12" y="296" fill="#e6c384" font-weight="normal" textLength="264" lengthAdjust="spacingAndGlyphs">╰───────────────────────────────╯</text>
+<text x="276" y="296" fill="#2a2a37" font-weight="normal" textLength="456" lengthAdjust="spacingAndGlyphs">╰──────────────────────────────╯╰───────────────────────╯</text>
+<rect x="12" y="300" width="720" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<text x="12" y="314" fill="#dcd7ba" font-weight="normal" textLength="720" lengthAdjust="spacingAndGlyphs">Editor.app · 70.0 KiB · 52.2%                                                             </text>
+<rect x="12" y="318" width="720" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<text x="12" y="332" fill="#dcd7ba" font-weight="normal" textLength="720" lengthAdjust="spacingAndGlyphs">/Applications/Editor.app                                                                  </text>
+<rect x="12" y="336" width="720" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<text x="12" y="350" fill="#dcd7ba" font-weight="normal" textLength="720" lengthAdjust="spacingAndGlyphs">2 processes · reported resident memory                                                    </text>
+<rect x="12" y="354" width="720" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<text x="12" y="368" fill="#e46876" font-weight="normal" textLength="240" lengthAdjust="spacingAndGlyphs">+30.0 KiB since first sample  </text>
+<text x="484" y="368" fill="#e46876" font-weight="normal" textLength="248" lengthAdjust="spacingAndGlyphs">▄▄▄▅▅▅▅▅▅▅▅▅▆▅▆▆▆▆▆▆▇▆▇▇▇▇▇▇█▇█</text>
+<rect x="12" y="372" width="720" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<text x="12" y="386" fill="#727169" font-weight="normal" textLength="720" lengthAdjust="spacingAndGlyphs">RAM 1.0 MiB · available 256.0 KiB · swap 0 B / 512.0 KiB                                  </text>
+<rect x="12" y="390" width="104" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="116" y="390" width="616" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<text x="12" y="404" fill="#957fb8" font-weight="bold" textLength="40" lengthAdjust="spacingAndGlyphs"> MAP </text>
+<text x="52" y="404" fill="#98bb6c" font-weight="bold" textLength="64" lengthAdjust="spacingAndGlyphs"> ● LIVE </text>
+<text x="116" y="404" fill="#727169" font-weight="normal" textLength="168" lengthAdjust="spacingAndGlyphs"> 3 apps · 4 processes</text>
+<rect x="12" y="408" width="48" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="60" y="408" width="48" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="108" y="408" width="24" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="132" y="408" width="56" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="188" y="408" width="40" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="228" y="408" width="64" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="292" y="408" width="32" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="324" y="408" width="56" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="380" y="408" width="24" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="404" y="408" width="56" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="460" y="408" width="24" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="484" y="408" width="56" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="540" y="408" width="24" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="564" y="408" width="168" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<text x="12" y="422" fill="#7e9cd8" font-weight="bold" textLength="48" lengthAdjust="spacingAndGlyphs"> hjkl </text>
+<text x="60" y="422" fill="#dcd7ba" font-weight="normal" textLength="48" lengthAdjust="spacingAndGlyphs"> nav  </text>
+<text x="108" y="422" fill="#98bb6c" font-weight="bold" textLength="24" lengthAdjust="spacingAndGlyphs"> ↵ </text>
+<text x="132" y="422" fill="#dcd7ba" font-weight="normal" textLength="56" lengthAdjust="spacingAndGlyphs"> open  </text>
+<text x="188" y="422" fill="#957fb8" font-weight="bold" textLength="40" lengthAdjust="spacingAndGlyphs"> tab </text>
+<text x="228" y="422" fill="#dcd7ba" font-weight="normal" textLength="64" lengthAdjust="spacingAndGlyphs"> focus  </text>
+<text x="292" y="422" fill="#7e9cd8" font-weight="bold" textLength="32" lengthAdjust="spacingAndGlyphs"> ^o </text>
+<text x="324" y="422" fill="#dcd7ba" font-weight="normal" textLength="56" lengthAdjust="spacingAndGlyphs"> back  </text>
+<text x="380" y="422" fill="#e6c384" font-weight="bold" textLength="24" lengthAdjust="spacingAndGlyphs"> / </text>
+<text x="404" y="422" fill="#dcd7ba" font-weight="normal" textLength="56" lengthAdjust="spacingAndGlyphs"> find  </text>
+<text x="460" y="422" fill="#7e9cd8" font-weight="bold" textLength="24" lengthAdjust="spacingAndGlyphs"> ? </text>
+<text x="484" y="422" fill="#dcd7ba" font-weight="normal" textLength="56" lengthAdjust="spacingAndGlyphs"> help  </text>
+<text x="540" y="422" fill="#e46876" font-weight="bold" textLength="24" lengthAdjust="spacingAndGlyphs"> q </text>
+<text x="564" y="422" fill="#dcd7ba" font-weight="normal" textLength="168" lengthAdjust="spacingAndGlyphs"> quit                </text>
+<rect x="12" y="426" width="56" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="68" y="426" width="64" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="132" y="426" width="24" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="156" y="426" width="72" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="228" y="426" width="24" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="252" y="426" width="80" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="332" y="426" width="24" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="356" y="426" width="88" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="444" y="426" width="24" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="468" y="426" width="72" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="540" y="426" width="48" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="588" y="426" width="56" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<rect x="644" y="426" width="24" height="18" fill="#2a2a37" shape-rendering="crispEdges"/>
+<rect x="668" y="426" width="64" height="18" fill="#1f1f28" shape-rendering="crispEdges"/>
+<text x="12" y="440" fill="#e6c384" font-weight="bold" textLength="56" lengthAdjust="spacingAndGlyphs"> space </text>
+<text x="68" y="440" fill="#dcd7ba" font-weight="normal" textLength="64" lengthAdjust="spacingAndGlyphs"> pause  </text>
+<text x="132" y="440" fill="#957fb8" font-weight="bold" textLength="24" lengthAdjust="spacingAndGlyphs"> v </text>
+<text x="156" y="440" fill="#dcd7ba" font-weight="normal" textLength="72" lengthAdjust="spacingAndGlyphs"> system  </text>
+<text x="228" y="440" fill="#98bb6c" font-weight="bold" textLength="24" lengthAdjust="spacingAndGlyphs"> r </text>
+<text x="252" y="440" fill="#dcd7ba" font-weight="normal" textLength="80" lengthAdjust="spacingAndGlyphs"> refresh  </text>
+<text x="332" y="440" fill="#957fb8" font-weight="bold" textLength="24" lengthAdjust="spacingAndGlyphs"> b </text>
+<text x="356" y="440" fill="#dcd7ba" font-weight="normal" textLength="88" lengthAdjust="spacingAndGlyphs"> balanced  </text>
+<text x="444" y="440" fill="#e6c384" font-weight="bold" textLength="24" lengthAdjust="spacingAndGlyphs"> s </text>
+<text x="468" y="440" fill="#dcd7ba" font-weight="normal" textLength="72" lengthAdjust="spacingAndGlyphs"> size ↓  </text>
+<text x="540" y="440" fill="#7e9cd8" font-weight="bold" textLength="48" lengthAdjust="spacingAndGlyphs"> gg/G </text>
+<text x="588" y="440" fill="#dcd7ba" font-weight="normal" textLength="56" lengthAdjust="spacingAndGlyphs"> ends  </text>
+<text x="644" y="440" fill="#98bb6c" font-weight="bold" textLength="24" lengthAdjust="spacingAndGlyphs"> y </text>
+<text x="668" y="440" fill="#dcd7ba" font-weight="normal" textLength="64" lengthAdjust="spacingAndGlyphs"> copy   </text>
+</g>
+</svg>

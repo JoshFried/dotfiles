@@ -1,0 +1,33 @@
+[package]
+name = "usage-tui"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.88"
+description = "Kanagawa disk and memory treemaps for the terminal"
+license = "MIT"
+
+[[bin]]
+name = "diskmap"
+path = "src/bin/diskmap.rs"
+
+[[bin]]
+name = "memmap"
+path = "src/bin/memmap.rs"
+
+[dependencies]
+anyhow = "1"
+clap = { version = "4.5", features = ["derive"] }
+crossterm = "0.29"
+libc = "0.2"
+ratatui = "0.30"
+sysinfo = { version = "0.37", default-features = false, features = ["system"] }
+trash = "5"
+walkdir = "2"
+
+[dev-dependencies]
+tempfile = "3"
+
+[profile.release]
+codegen-units = 1
+lto = "thin"
+strip = true

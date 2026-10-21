@@ -55,6 +55,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 - [Audio & Visuals (Rice)](#audio--visuals-rice)
 - [Browser](#browser)
 - [Dotfiles TUI](#dotfiles-tui)
+- [Disk and Memory Treemaps](#disk-and-memory-treemaps)
 - [Legacy Full Bootstrap](#legacy-full-bootstrap)
 - [After Bootstrap](#after-bootstrap)
 
@@ -408,6 +409,20 @@ Every run writes structured trace-level JSON logs under
 `~/.local/state/dotfiles/logs`. Use `-v`, `-vv`, or `-vvv` for progressively
 more terminal detail, or `--log-directory PATH` to redirect persistent logs.
 TUI sessions remain file-only so diagnostic output cannot corrupt the screen.
+
+## Disk and Memory Treemaps
+
+Install the standalone Kanagawa disk and memory tools:
+
+```bash
+cargo install --path usage-tui --locked
+diskmap ~/Downloads
+memmap --view apps
+```
+
+Use Vim movement keys, Enter to drill down, Tab for the list, and `?` for help.
+See [usage-tui](usage-tui/README.md) for controls, accounting limitations, and
+Move to Trash behavior.
 
 ## Legacy Full Bootstrap
 

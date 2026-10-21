@@ -1,0 +1,24 @@
+ memmap  Apps · 134.0 KiB
+Balanced · smaller tiles enlarged · Reported resident memory · shared pages may count more
+╭───────────────────────────────╮╭──────────────────────────────╮╭───────────────────────╮
+│Editor.app                     ││Browser.app                   ││Terminal.app           │
+│70.0 KiB                       ││52.0 KiB                      ││12.0 KiB               │
+│                               ││                              ││                       │
+│                               ││                              ││                       │
+│                               ││                              ││                       │
+│                               ││                              ││                       │
+│                               ││                              ││                       │
+│                               ││                              ││                       │
+│                               ││                              ││                       │
+│                               ││                              ││                       │
+│                               ││                              ││                       │
+│                               ││                              ││                       │
+╰───────────────────────────────╯╰──────────────────────────────╯╰───────────────────────╯
+Editor.app · 70.0 KiB · 52.2%
+/Applications/Editor.app
+2 processes · reported resident memory
++30.0 KiB since first sample                               ▄▄▄▅▅▅▅▅▅▅▅▅▆▅▆▆▆▆▆▆▇▆▇▇▇▇▇▇█▇█
+RAM 1.0 MiB · available 256.0 KiB · swap 0 B / 512.0 KiB
+ MAP  ● LIVE  3 apps · 4 processes
+ hjkl  nav   ↵  open   tab  focus   ^o  back   /  find   ?  help   q  quit
+ space  pause   v  system   r  refresh   b  balanced   s  size ↓   gg/G  ends   y  copy
