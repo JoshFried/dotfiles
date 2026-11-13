@@ -56,6 +56,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 - [Browser](#browser)
 - [Dotfiles TUI](#dotfiles-tui)
 - [Disk and Memory Treemaps](#disk-and-memory-treemaps)
+- [Keyboard Firmware](#keyboard-firmware)
 - [Legacy Full Bootstrap](#legacy-full-bootstrap)
 - [After Bootstrap](#after-bootstrap)
 
@@ -423,6 +424,13 @@ memmap --view apps
 Use Vim movement keys, Enter to drill down, Tab for the list, and `?` for help.
 See [usage-tui](usage-tui/README.md) for controls, accounting limitations, and
 Move to Trash behavior.
+
+## Keyboard Firmware
+
+The Dactyl Manuform 5x7 configuration lives in [qmk](qmk/README.md).
+It includes the keymap and `MASTER_RIGHT` override for USB connected to
+the right half, with instructions for building locally and flashing
+through QMK Toolbox.
 
 ## Legacy Full Bootstrap
 
