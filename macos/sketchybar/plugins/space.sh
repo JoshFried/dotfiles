@@ -7,6 +7,9 @@ if [ -z "$WORKSPACES" ]; then
     exit 0
 fi
 
+source "$CONFIG_DIR/plugins/display_map.sh"
+load_display_map
+
 WORKSPACE_DISPLAYS=()
 WORKSPACE_VISIBLE=()
 WORKSPACE_FOCUSED=()
@@ -14,7 +17,10 @@ while IFS='|' read -r workspace display_id is_visible is_focused; do
     case "$workspace" in
         ''|*[!0-9]*) continue ;;
     esac
-    WORKSPACE_DISPLAYS[$workspace]="$display_id"
+    case "$display_id" in
+        ''|*[!0-9]*) continue ;;
+    esac
+    WORKSPACE_DISPLAYS[$workspace]="${SKETCHYBAR_DISPLAYS[$display_id]}"
     WORKSPACE_VISIBLE[$workspace]="$is_visible"
     WORKSPACE_FOCUSED[$workspace]="$is_focused"
 done <<< "$WORKSPACES"
@@ -45,7 +51,11 @@ for workspace in 1 2 3 4 5 6 7 8 9 10; do
     is_focused="${WORKSPACE_FOCUSED[$workspace]}"
 
     SKETCHYBAR_ARGS+=(--set "space.$workspace")
-    [ -n "$display_id" ] && SKETCHYBAR_ARGS+=("display=$display_id")
+    if [ -z "$display_id" ]; then
+        SKETCHYBAR_ARGS+=(drawing=off)
+        continue
+    fi
+    SKETCHYBAR_ARGS+=("display=$display_id")
 
     if [ "$is_visible" = "true" ]; then
         if [ "$is_focused" = "true" ]; then

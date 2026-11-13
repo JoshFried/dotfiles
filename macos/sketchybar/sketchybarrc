@@ -97,7 +97,7 @@ sketchybar --add event zoom_camera_change
 sketchybar --set space.1 \
         script="$PLUGIN_DIR/space.sh" \
         update_freq=60 \
-    --subscribe space.1 aerospace_state_change
+    --subscribe space.1 aerospace_state_change display_change system_woke
 
 # ── Left: Front app ──────────────────────────────────────
 sketchybar --add item front_app left \
@@ -111,7 +111,7 @@ sketchybar --add item front_app left \
     --subscribe front_app front_app_switched
 
 # ── Now Playing (shown on non-notch display center only) ──
-MEDIA_DISPLAY=$(
+MEDIA_APPKIT_DISPLAY=$(
     aerospace list-monitors \
         --format '%{monitor-name}|%{monitor-appkit-nsscreen-screens-id}|%{monitor-is-main}' \
         2>/dev/null |
@@ -133,6 +133,14 @@ MEDIA_DISPLAY=$(
             }
         '
 )
+
+source "$PLUGIN_DIR/display_map.sh"
+load_display_map
+MEDIA_DISPLAY=""
+case "$MEDIA_APPKIT_DISPLAY" in
+    ''|*[!0-9]*) ;;
+    *) MEDIA_DISPLAY="${SKETCHYBAR_DISPLAYS[$MEDIA_APPKIT_DISPLAY]}" ;;
+esac
 
 if [ -n "$MEDIA_DISPLAY" ]; then
     sketchybar --add item media center \
