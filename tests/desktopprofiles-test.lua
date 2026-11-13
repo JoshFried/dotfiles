@@ -173,4 +173,37 @@ profiles.apply("personal")
 settle()
 assert(windows[2].workspace == "3", "Explicitly selecting a profile should restore its layout")
 
+local homeRoutes = {
+    { "com.tinyspeck.slackmacgap", "1" },
+    { "com.apple.Notes", "1" },
+    { "com.apple.systempreferences", "1" },
+    { "com.github.wez.wezterm", "1" },
+    { "com.microsoft.Outlook", "2" },
+    { "com.mitchellh.ghostty", "5" },
+    { "io.github.keycastr", "5" },
+    { "us.zoom.xos", "7" },
+    { "fm.qmk.toolbox", "7" },
+    { "org.mozilla.firefox", "9" },
+}
+for index, route in ipairs(homeRoutes) do
+    addWindow(100 + index, route[1], "10")
+end
+profiles.apply("home-multi")
+settle()
+assert(activeProfile == "home-multi")
+for index, route in ipairs(homeRoutes) do
+    assert(windows[100 + index].workspace == route[2], "home-multi must restore " .. route[1])
+end
+local movedBeforeReselect = #moves
+profiles.apply("home-multi")
+settle()
+assert(#moves == movedBeforeReselect, "Selecting the captured layout should not move arranged windows")
+subscriptions.created(addWindow(200, "org.mozilla.firefox", "6"))
+settle()
+assert(windows[200].workspace == "9", "New Firefox windows belong on the right external monitor")
+windows[200].workspace = "8"
+subscriptions.created(windows[200])
+settle()
+assert(windows[200].workspace == "8", "home-multi must preserve manual window placement")
+
 print("Desktop profile regression checks passed")

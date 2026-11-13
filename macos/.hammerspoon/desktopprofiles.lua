@@ -25,6 +25,22 @@ local profiles = {
         },
     },
     {
+        id = "home-multi",
+        title = "home-multi",
+        routes = {
+            { app = "Slack", bundleID = "com.tinyspeck.slackmacgap", workspace = "1" },
+            { app = "Notes", bundleID = "com.apple.Notes", workspace = "1" },
+            { app = "System Settings", bundleID = "com.apple.systempreferences", workspace = "1" },
+            { app = "WezTerm", bundleID = "com.github.wez.wezterm", workspace = "1" },
+            { app = "Outlook", bundleID = "com.microsoft.Outlook", workspace = "2" },
+            { app = "Ghostty", bundleID = "com.mitchellh.ghostty", workspace = "5" },
+            { app = "KeyCastr", bundleID = "io.github.keycastr", workspace = "5" },
+            { app = "Zoom", bundleID = "us.zoom.xos", workspace = "7" },
+            { app = "QMK Toolbox", bundleID = "fm.qmk.toolbox", workspace = "7" },
+            { app = "Firefox", bundleID = "org.mozilla.firefox", workspace = "9" },
+        },
+    },
+    {
         id = "personal",
         title = "Personal",
         routes = {
@@ -295,7 +311,7 @@ bindings.bind({
     title = "Desktop profiles",
     modifiers = { "cmd", "alt" },
     key = "P",
-    keywords = { "office", "personal", "workspace", "layout", "aerospace" },
+    keywords = { "office", "home", "home-multi", "personal", "workspace", "layout", "aerospace" },
     priority = 10,
     action = showProfiles,
 })

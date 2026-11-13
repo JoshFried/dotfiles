@@ -1,4 +1,4 @@
---- Synchronizes system/Zoom mute and controls Zoom camera shortcuts.
+--- Synchronizes system, Zoom, and Slack mute and controls Zoom camera shortcuts.
 
 local M = {}
 local log = hs.logger.new("meeting_mode", "warning")
@@ -14,8 +14,8 @@ local zoomObserverRestartTimer = nil
 local meetingActive = false
 local reconcileMicrophoneState = nil
 local reconcileZoomCameraState = nil
-local pendingZoomMuted = nil
-local pendingZoomDeadline = 0
+local microphoneSync = require("microphone_sync").new()
+local slackHuddle = require("slack_huddle")
 local SKETCHYBAR = "/opt/homebrew/bin/sketchybar"
 local ZOOM_BUNDLE_ID = "us.zoom.xos"
 local microphoneState = {
@@ -241,10 +241,10 @@ local function zoomMicrophoneState()
     local accessibilityMuted, audioButton = findZoomAudioButton(applicationElement)
     if audioButton then
         return accessibilityMuted, function()
-            local ok = pcall(function()
-                audioButton:performAction("AXPress")
+            local ok, accepted = pcall(function()
+                return audioButton:performAction("AXPress")
             end)
-            return ok
+            return ok and accepted and true or false
         end
     end
 
@@ -341,100 +341,40 @@ local function zoomCameraState()
     return nil, nil
 end
 
---- Applies the requested mute state through Zoom's active meeting control.
----@param muted boolean
----@param currentMuted boolean
----@param toggleAction fun(): boolean
----@return boolean
-local function setZoomMicrophoneMuted(muted, currentMuted, toggleAction)
-    if muted == currentMuted then
-        return true
-    end
-
-    local selected = toggleAction()
-    if selected then
-        pendingZoomMuted = muted
-        pendingZoomDeadline = os.time() + 2
-    end
-    return selected
-end
-
---- Reconciles system and Zoom mute state without unmuting on meeting entry.
+--- Reconciles active calls without unmuting when a muted call joins.
 ---@param preferSystem? boolean
 reconcileMicrophoneState = function(preferSystem)
     local device = hs.audiodevice.defaultInputDevice()
     if not device then
+        microphoneSync:reset()
         microphoneState.systemMuted = nil
         microphoneState.zoomMuted = nil
         publishMicrophoneState()
         return
     end
 
-    local systemMuted = device:inputMuted()
-    local zoomMuted, toggleZoomMicrophone = zoomMicrophoneState()
+    local zoomMuted, toggleZoomMicrophone = nil, nil
+    if meetingActive then
+        zoomMuted, toggleZoomMicrophone = zoomMicrophoneState()
+    end
+    local slackMuted, toggleSlackMicrophone = slackHuddle.read()
     local previousSystemMuted = microphoneState.systemMuted
-
-    if not preferSystem and zoomMuted == true and systemMuted == false then
-        if device:setInputMuted(true) then
-            systemMuted = true
-        end
+    local participants = {}
+    if zoomMuted ~= nil then
+        participants[#participants + 1] = {
+            id = "zoom", muted = zoomMuted, toggle = toggleZoomMicrophone, muteOnJoin = true,
+        }
     end
-
-    if zoomMuted == nil then
-        pendingZoomMuted = nil
-        microphoneState.systemMuted = systemMuted
-        microphoneState.zoomMuted = nil
-    elseif pendingZoomMuted ~= nil and zoomMuted ~= pendingZoomMuted and os.time() <= pendingZoomDeadline then
-        microphoneState.systemMuted = systemMuted
-        microphoneState.zoomMuted = pendingZoomMuted
-        if previousSystemMuted ~= systemMuted then
-            publishMicrophoneState()
-        end
-        return
-    elseif microphoneState.zoomMuted == nil then
-        pendingZoomMuted = nil
-        local initialMuted = true
-        if systemMuted ~= initialMuted and device:setInputMuted(initialMuted) then
-            systemMuted = initialMuted
-        end
-        if zoomMuted ~= initialMuted
-            and setZoomMicrophoneMuted(initialMuted, zoomMuted, toggleZoomMicrophone)
-        then
-            zoomMuted = initialMuted
-        end
-        microphoneState.systemMuted = systemMuted
-        microphoneState.zoomMuted = zoomMuted
-    elseif preferSystem then
-        pendingZoomMuted = nil
-        if setZoomMicrophoneMuted(systemMuted, zoomMuted, toggleZoomMicrophone) then
-            zoomMuted = systemMuted
-        end
-        microphoneState.systemMuted = systemMuted
-        microphoneState.zoomMuted = zoomMuted
-    else
-        pendingZoomMuted = nil
-        local systemChanged = systemMuted ~= microphoneState.systemMuted
-        local zoomChanged = zoomMuted ~= microphoneState.zoomMuted
-
-        if zoomChanged and not systemChanged then
-            if device:setInputMuted(zoomMuted) then
-                systemMuted = zoomMuted
-            end
-        elseif systemChanged and systemMuted ~= zoomMuted then
-            if setZoomMicrophoneMuted(systemMuted, zoomMuted, toggleZoomMicrophone) then
-                zoomMuted = systemMuted
-            end
-        elseif systemMuted ~= zoomMuted then
-            if device:setInputMuted(zoomMuted) then
-                systemMuted = zoomMuted
-            end
-        end
-
-        microphoneState.systemMuted = systemMuted
-        microphoneState.zoomMuted = zoomMuted
+    if slackMuted ~= nil then
+        participants[#participants + 1] = {
+            id = "slack", muted = slackMuted, toggle = toggleSlackMicrophone,
+        }
     end
-
-    if previousSystemMuted ~= systemMuted then
+    microphoneSync:reconcile(device, participants, preferSystem, hs.timer.secondsSinceEpoch())
+    microphoneState.systemMuted = device:inputMuted()
+    local zoomState = microphoneSync.apps.zoom
+    microphoneState.zoomMuted = zoomState and zoomState.muted
+    if previousSystemMuted ~= microphoneState.systemMuted then
         publishMicrophoneState()
     end
 end
@@ -456,7 +396,7 @@ reconcileZoomCameraState = function()
     end
 end
 
---- Toggles mute on the current default input device and active Zoom meeting.
+--- Toggles mute on the current input device and active Zoom and Slack calls.
 local function toggleMicrophone()
     local device = hs.audiodevice.defaultInputDevice()
     if not device then
@@ -510,8 +450,8 @@ require("bindings").bind({
     title = "Toggle microphone mute",
     modifiers = { "cmd", "alt", "ctrl", "shift" },
     key = "M",
-    apps = { "zoom.us", "Zoom Workplace", "us.zoom.xos" },
-    keywords = { "zoom", "mic", "mute", "unmute" },
+    apps = { "zoom.us", "Zoom Workplace", "us.zoom.xos", "Slack", "com.tinyspeck.slackmacgap" },
+    keywords = { "zoom", "slack", "huddle", "mic", "mute", "unmute" },
     action = toggleMicrophone,
 })
 
@@ -662,7 +602,7 @@ local function checkMeetingPresence()
     elseif not active and meetingActive then
         meetingActive = false
         stopZoomObserver()
-        pendingZoomMuted = nil
+        microphoneSync.apps.zoom = nil
         microphoneState.zoomMuted = nil
         zoomCameraOn = nil
         publishZoomCameraState(false)
@@ -701,6 +641,7 @@ M.refreshMeetingState = refreshMeetingState
 M.refreshMicrophoneState = refreshMicrophoneState
 M.refreshCameraState = refreshCameraState
 
+slackHuddle.start(refreshMicrophoneState)
 checkMeetingPresence()
 publishMicrophoneState()
 

@@ -45,7 +45,7 @@ Pressing the shortcut for an already focused application cycles its windows.
 ## Productivity and Devices
 
 - `Hyper+M`: refresh and choose an upcoming meeting.
-- `Hyper+Shift+M`: toggle system and Zoom microphone mute together.
+- `Hyper+Shift+M`: toggle system, Zoom, and Slack huddle microphone mute together.
 - `Hyper+Shift+C`: toggle the Zoom camera.
 - `Hyper+V`: Raycast clipboard history.
 - `Cmd+Option+O`: audio output chooser.
@@ -53,6 +53,17 @@ Pressing the shortcut for an already focused application cycles its windows.
 - `Cmd+Option+B`: paired Bluetooth device chooser.
 - `Cmd+Option+P`: persistent desktop profile chooser.
 - `Cmd+Option+W`: Wi-Fi network chooser.
+
+The SketchyBar microphone button uses the same toggle. Mute changes made
+inside Slack huddles or Zoom also update the system microphone and the bar.
+Slack uses accessibility events with a one-second fallback while a huddle
+is active, and sends Slack's `Cmd+Shift+Space` shortcut to change huddle mute.
+A muted call joining never automatically unmutes the microphone;
+Zoom retains its muted-on-entry behavior.
+
+To pause automatic Slack observation while retaining the hotkey and bar
+button, run `hs.settings.set("slackHuddleAutomaticSync", false)` in the
+Hammerspoon console and reload. Set it to `true` and reload to resume.
 
 The Bluetooth chooser prioritizes connected devices. Selecting a disconnected
 device connects it; selecting a connected device disconnects it. Battery levels
@@ -105,3 +116,16 @@ keys.
 - The active desktop profile routes new application windows to its configured
   AeroSpace workspaces. Existing windows stay where you move them; selecting a
   profile again reapplies its layout to all matching windows.
+
+The `home-multi` profile captures the laptop and two external monitor setup:
+
+- Workspace 1: Slack, Notes, System Settings, and WezTerm.
+- Workspace 2: Outlook.
+- Workspace 5: Ghostty and KeyCastr.
+- Workspace 7: Zoom and QMK Toolbox.
+- Workspace 9: Firefox.
+
+With the captured monitor arrangement, workspaces 1–4 use the laptop,
+5–7 use the left external monitor, and 8–10 use the right external monitor.
+Profiles restore application workspace assignments; they use AeroSpace's
+current tiling rather than storing window coordinates or opening applications.
