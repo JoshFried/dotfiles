@@ -82,9 +82,6 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 
-# Added by AIM CLI
-export PATH="$HOME/.aim/mcp-servers:$PATH"
-
 # zoxide — smarter cd (used by sesh for directory history)
 command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
 

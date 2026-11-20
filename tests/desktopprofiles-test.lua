@@ -183,7 +183,7 @@ local homeRoutes = {
     { "io.github.keycastr", "5" },
     { "us.zoom.xos", "7" },
     { "fm.qmk.toolbox", "7" },
-    { "org.mozilla.firefox", "9" },
+    { "org.mozilla.firefox", "8" },
 }
 for index, route in ipairs(homeRoutes) do
     addWindow(100 + index, route[1], "10")
@@ -200,10 +200,10 @@ settle()
 assert(#moves == movedBeforeReselect, "Selecting the captured layout should not move arranged windows")
 subscriptions.created(addWindow(200, "org.mozilla.firefox", "6"))
 settle()
-assert(windows[200].workspace == "9", "New Firefox windows belong on the right external monitor")
-windows[200].workspace = "8"
+assert(windows[200].workspace == "8", "New Firefox windows belong on the right external monitor")
+windows[200].workspace = "9"
 subscriptions.created(windows[200])
 settle()
-assert(windows[200].workspace == "8", "home-multi must preserve manual window placement")
+assert(windows[200].workspace == "9", "home-multi must preserve manual window placement")
 
 print("Desktop profile regression checks passed")

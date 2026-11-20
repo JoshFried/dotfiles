@@ -37,7 +37,7 @@ local profiles = {
             { app = "KeyCastr", bundleID = "io.github.keycastr", workspace = "5" },
             { app = "Zoom", bundleID = "us.zoom.xos", workspace = "7" },
             { app = "QMK Toolbox", bundleID = "fm.qmk.toolbox", workspace = "7" },
-            { app = "Firefox", bundleID = "org.mozilla.firefox", workspace = "9" },
+            { app = "Firefox", bundleID = "org.mozilla.firefox", workspace = "8" },
         },
     },
     {

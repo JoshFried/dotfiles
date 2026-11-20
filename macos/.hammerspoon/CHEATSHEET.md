@@ -123,7 +123,7 @@ The `home-multi` profile captures the laptop and two external monitor setup:
 - Workspace 2: Outlook.
 - Workspace 5: Ghostty and KeyCastr.
 - Workspace 7: Zoom and QMK Toolbox.
-- Workspace 9: Firefox.
+- Workspace 8: Firefox.
 
 With the captured monitor arrangement, workspaces 1–4 use the laptop,
 5–7 use the left external monitor, and 8–10 use the right external monitor.

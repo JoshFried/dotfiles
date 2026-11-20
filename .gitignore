@@ -9,3 +9,5 @@ macos/.hammerspoon/work.lua
 .work.zshrc
 sesh/sesh.toml.work
 /sesh/sesh.toml.work.example
+/scripts/update-aim.sh
+/tests/update-aim-test.sh
