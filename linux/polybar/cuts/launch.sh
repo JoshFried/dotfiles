@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+# Window-manager startup entry point for the X11 bars. Stops running Polybar
+# instances, waits for shutdown, then starts the configured bars for the connected
+# xrandr outputs.
+
 
 # Add this script to your wm startup file.
 

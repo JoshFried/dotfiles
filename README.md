@@ -1,38 +1,13 @@
 # dotfiles
 
-Development environment with Kanagawa Wave theme. Each tool can be installed
-and symlinked independently—no need to run the full bootstrap script.
+Shared macOS and Linux development environment with a Kanagawa Wave theme. Each tool can be installed and symlinked independently — no need to run the full bootstrap script.
 
-## Linux development hosts
-
-The Linux bootstrap installs the shared command-line and development
-environment through Homebrew while excluding macOS applications, services, and
-configuration:
-
-```bash
-./bootstrap-linux.sh
-```
-
-Audit without changing the host:
-
-```bash
-./bootstrap-linux.sh --check
-```
-
-If the script is copied or symlinked outside the repository, provide the clone
-location explicitly:
-
-```bash
-./bootstrap-linux.sh --repo ~/repos/dotfiles
-```
-
-The `DOTFILES_REPO` environment variable provides the same override.
-
-The system package manager is used only for Homebrew build prerequisites.
-Existing configuration files are backed up before managed symlinks replace
-them. The script supports apt-, dnf-, and yum-based distributions.
+For the install sequence, shell load order, source layout and checks to run after
+an edit, see the [maintainer guide](MAINTAINING.md).
 
 ## Prerequisites
+
+For a full install on macOS or Amazon Linux 2, run `./bootstrap.sh` from the checkout. The individual Homebrew examples below target macOS.
 
 ```bash
 # Install Homebrew
@@ -57,7 +32,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 - [Dotfiles TUI](#dotfiles-tui)
 - [Disk and Memory Treemaps](#disk-and-memory-treemaps)
 - [Keyboard Firmware](#keyboard-firmware)
-- [Legacy Full Bootstrap](#legacy-full-bootstrap)
+- [Full Bootstrap](#full-bootstrap)
 - [After Bootstrap](#after-bootstrap)
 
 ---
@@ -253,20 +228,16 @@ Smart tmux session manager. Combines tmux sessions + zoxide dirs + named project
 **Config files:**
 
 - `sesh/sesh.toml` — personal, checked in (symlinked to `~/.config/sesh/sesh.toml`). Defines the `dotfiles`, `nvim-config`, `tmux-config`, `tmp`, `downloads` sessions and a `~/repos/*` wildcard that auto-opens nvim.
-- `~/.work.sesh.toml` — optional private machine-specific configuration that remains outside this repository.
-
-The `sesh` launcher uses `~/.work.sesh.toml` instead of the public config when
-the private configuration exists. The private file should therefore include
-any personal sessions that should remain available on that machine.
+- `~/.work.sesh.toml` adds this host’s work sessions. Shell, tmux, and Television use the installed `dotfiles-sesh` launcher. Older complete work configs containing `[default_session]` or `[tui]` still load independently. When migrating a full config, retain its unique sessions and reconcile any customized defaults before switching to an additive file.
 
 **Tmux bindings** (prefix `Ctrl-S`):
 
 - `prefix + C-e` — sesh fzf popup with source-cycling (`Ctrl-a` all, `Ctrl-t` tmux, `Ctrl-g` configs, `Ctrl-x` zoxide, `Ctrl-f` find dirs, `Ctrl-d` kill session)
-- `prefix + T` — television sesh picker (alternative; `Ctrl-s` cycles sources, `Ctrl-d` kills)
+- `prefix + T` — television sesh picker (`Enter` connects, `Ctrl-d` kills)
 
 **Zsh binding:** `Alt-s` opens a fuzzy session picker at any shell prompt (works in and out of tmux).
 
-**Tmux-aware bookmarks:** `@dotfiles`, `@nvim-config`, and the work `@osms` / `@odidao` / etc. bookmarks are functions that call `sesh connect` inside tmux and fall back to plain `cd` outside. Helper lives in `.alias.zsh` as `_sesh_or_cd`. Plain directory bookmarks (`@downloads`, `@documents`, etc.) stay as `cd` aliases.
+`@dotfiles` and `@nvim-config` call `_sesh_or_cd` in `.alias.zsh`. Inside tmux they connect to a named session. Outside tmux they change directory. The private checkout defines work bookmarks for each host. On AL2 those directory aliases use `cd` and require the corresponding checkout to exist.
 
 ### television
 
@@ -385,7 +356,7 @@ are declared in `dotfiles.toml`. Applying a symlink first moves an existing
 destination into `~/.local/state/dotfiles/backups`. Formula resources can
 declare an executable override or fallback file paths so tools installed by
 another package manager are reported as misplaced or drifted instead of
-missing. Formulae otherwise probe a same-named executable on `PATH`,
+missing. This manifest opts into installing the Homebrew formula when an executable comes from another installer. The CLI leaves that existing executable in place. Formulae otherwise probe a same-named executable on `PATH`,
 `~/.local/bin`, `~/.cargo/bin`, `~/go/bin`, `~/bin`, and common system
 prefixes.
 
@@ -432,25 +403,19 @@ It includes the keymap and `MASTER_RIGHT` override for USB connected to
 the right half, with instructions for building locally and flashing
 through QMK Toolbox.
 
-## Legacy Full Bootstrap
+## Full Bootstrap
 
-The bootstrap targets Apple Silicon macOS. It installs missing dependencies,
-links the checked-in configuration, and leaves existing installations alone.
-It is safe to run after every pull on either a personal or work machine.
+Run `./bootstrap.sh --check` to audit, then `./bootstrap.sh` to install. The installer and `dotfiles` CLI use `core` and `development` on Linux and add `desktop` on macOS. Use explicit `--profile` flags for a different selection.
 
-```bash
-cd ~/repos/dotfiles
-./bootstrap.sh
-```
+Existing Linux installs can continue using `./bootstrap-linux.sh`. It forwards to the shared installer. If you copied the launcher outside the checkout, pass `--repo ~/repos/dotfiles` or set `DOTFILES_REPO`.
 
-An existing file or directory at a managed symlink destination is moved to a
-timestamped `.bak` path before the repository version is linked. Installation
-failures are written to `bootstrap.log`, and the script exits unsuccessfully if
-any required step fails.
+The installer uses Homebrew on both hosts. Linux bootstraps missing build prerequisites through the system package manager and selects a compatible Node build on older x86_64 glibc systems. macOS registers OpenJDK and installs the Firefox style when a profile exists. The CLI backs up replaced links and files under `~/.local/state/dotfiles/backups`. Bootstrap logs are in `${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/`.
+
+Both hosts install `~/.local/bin/dotfiles-copy`, `~/.local/bin/dotfiles-sesh`, and the Television sesh channel. On a remote terminal, clipboard forwarding requires the connecting terminal to allow OSC 52 writes.
 
 ## After Bootstrap
 
-Complete these steps after the first successful run:
+After a successful run on macOS:
 
 1. Open a new terminal or run `exec zsh`. Run `p10k configure` if the prompt has
    not been configured on this machine.
@@ -476,12 +441,7 @@ Complete these steps after the first successful run:
 7. Open Firefox once to create its profile, re-run `./bootstrap.sh`, then set
    `toolkit.legacyUserProfileCustomizations.stylesheets` to `true` in
    `about:config` and restart Firefox.
-8. On a work machine, restore or create `~/.work.zshrc` and
-   `~/.work.sesh.toml` for private configuration. These files remain outside
-   version control and must be transferred through an approved private method.
-
-Later runs only install missing packages and tools. They also update managed
-symlinks and copy Firefox's `userChrome.css` only when its content changed.
+8. On a work host, follow the private checkout’s migration instructions to install the optional work shell, editor plugins, and session list.
 
 ---
 

@@ -1,3 +1,5 @@
+-- Request the Rust parser through Tree-sitter's shared plugin spec.
+
 local M = {
     "nvim-treesitter/nvim-treesitter",
     opts = function()

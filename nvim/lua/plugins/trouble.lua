@@ -1,3 +1,6 @@
+-- Register the Trouble diagnostics and navigation views on demand through the
+-- Trouble command and its mappings.
+
 local M = {
     "folke/trouble.nvim",
     cmd = "Trouble",

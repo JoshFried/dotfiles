@@ -1,3 +1,6 @@
+//! Keep bounded sample histories for active memory entries. Preserve the first
+//! observed value for change labels even after it leaves the sparkline window.
+
 use std::collections::{HashMap, VecDeque};
 
 use crate::memory::Snapshot;

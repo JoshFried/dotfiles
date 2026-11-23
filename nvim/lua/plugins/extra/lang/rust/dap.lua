@@ -1,3 +1,6 @@
+-- Reserved for custom Rust debugger settings. The commented CodeLLDB example
+-- contributes no active plugin options.
+
 local M = {
     -- "mfussenegger/nvim-dap",
     -- opts = {

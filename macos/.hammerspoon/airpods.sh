@@ -1,3 +1,6 @@
+# Pass pro or max to connect the corresponding paired headset via blueutil. The
+# Bluetooth addresses below identify this workstation's devices.
+
 echo "DJSKLJDSLKFJDLSKJFL"
 case "$1" in
 "pro")

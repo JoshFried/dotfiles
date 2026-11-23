@@ -1,3 +1,6 @@
+-- Request vtsls, the JavaScript debug adapter, ESLint's server and prettierd through
+-- Mason.
+
 return {
     "williamboman/mason.nvim",
     opts = function(_, opts)

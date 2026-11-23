@@ -1,3 +1,5 @@
+-- Register Flash motion keys for jumping to matches in the visible buffer.
+
 return {
 	{
 		"folke/flash.nvim",

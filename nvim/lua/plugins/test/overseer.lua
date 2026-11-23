@@ -1,3 +1,6 @@
+-- Register task commands and mappings for running commands, managing tasks and
+-- inspecting their output with Overseer.
+
 local M = {
     "stevearc/overseer.nvim",
     keys = {

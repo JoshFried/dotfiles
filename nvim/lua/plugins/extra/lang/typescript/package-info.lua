@@ -1,3 +1,5 @@
+-- Load npm package metadata and version commands when opening package.json.
+
 return {
     "vuki656/package-info.nvim",
     dependencies = { "MunifTanjim/nui.nvim" },

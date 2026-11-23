@@ -1,3 +1,6 @@
+//! Parse the starting directory and allocated or apparent byte mode, then
+//! launch the shared application with a disk scan.
+
 use clap::Parser;
 use std::path::PathBuf;
 

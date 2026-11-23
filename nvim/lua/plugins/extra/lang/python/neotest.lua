@@ -1,3 +1,5 @@
+-- Extend the shared Neotest runner with its Python adapter.
+
 local M = {
     "nvim-neotest/neotest",
     dependencies = {

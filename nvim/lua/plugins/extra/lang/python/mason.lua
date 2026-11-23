@@ -1,3 +1,5 @@
+-- Add debugpy, Black and Ruff to the tools requested from Mason.
+
 local M = {
     "williamboman/mason.nvim",
     opts = function(_, opts)

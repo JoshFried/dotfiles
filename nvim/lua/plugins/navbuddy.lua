@@ -1,3 +1,6 @@
+-- Register Navbuddy's symbol browser and the dependencies it uses to navigate LSP
+-- document symbols.
+
 return {
     {
         "SmiteshP/nvim-navbuddy",

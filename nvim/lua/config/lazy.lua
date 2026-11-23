@@ -1,3 +1,6 @@
+-- Bootstrap lazy.nvim under the Neovim data directory and import plugin specs. The
+-- private installer adds plugins/work in the active config on work machines.
+
 --- Install lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then

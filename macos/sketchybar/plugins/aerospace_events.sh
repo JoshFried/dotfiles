@@ -1,4 +1,8 @@
 #!/bin/bash
+# Keep one AeroSpace subscription per user. Forward changes to SketchyBar so
+# workspace indicators refresh on events without polling every window on a
+# timer.
+
 
 PID_FILE="/tmp/sketchybar-aerospace-events-${UID}.pid"
 FIFO="/tmp/sketchybar-aerospace-events-${UID}.fifo"

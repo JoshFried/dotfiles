@@ -1,3 +1,6 @@
+-- Configure Telescope pickers and extensions, including the native fzf sorter built
+-- with make.
+
 return {
 	{
 		"nvim-telescope/telescope.nvim",

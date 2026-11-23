@@ -4,6 +4,9 @@
 // Orion Saturn subring
 
 #version 330
+// Combine the radial spectrum with a thin inner ring. The core mask controls the
+// ring thickness independently of the outer bars.
+
 
 in vec2 fragCoord;
 out vec4 fragColor;

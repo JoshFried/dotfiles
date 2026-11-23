@@ -1,3 +1,6 @@
+-- Map Neotest run and debug actions. The language modules add the adapters that
+-- discover tests in each project.
+
 local M = {
     "nvim-neotest/neotest",
     keys = {

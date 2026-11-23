@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+# Render the workflow and keyboard Markdown sources with Pandoc and XeLaTeX,
+# then join their PDFs using pdfunite. An optional first argument overrides the
+# default CHEATSHEETS.pdf destination.
+
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

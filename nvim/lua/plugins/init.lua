@@ -1,3 +1,5 @@
+-- Base specs imported by config.lazy. Shared libraries and standalone
+-- integrations live here. Larger features have their own spec modules.
 return {
 	{ "nvim-lua/plenary.nvim", lazy = true },
 	{ "MunifTanjim/nui.nvim", lazy = true },

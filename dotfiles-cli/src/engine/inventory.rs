@@ -311,6 +311,8 @@ mod tests {
     fn service_config(name: &str) -> Config {
         Config {
             version: 1,
+            install_misplaced_formulae: false,
+            platform_profiles: Default::default(),
             default_profiles: Vec::new(),
             profiles: BTreeMap::new(),
             resources: vec![Resource {
@@ -328,6 +330,8 @@ mod tests {
     fn formula_config(name: &str) -> Config {
         Config {
             version: 1,
+            install_misplaced_formulae: false,
+            platform_profiles: Default::default(),
             default_profiles: Vec::new(),
             profiles: BTreeMap::new(),
             resources: vec![Resource {

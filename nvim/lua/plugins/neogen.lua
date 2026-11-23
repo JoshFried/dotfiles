@@ -1,3 +1,6 @@
+-- Generate annotations for the current class, function or type with Neogen and edit
+-- the resulting fields with LuaSnip.
+
 return {
 	"danymat/neogen",
 	opts = {

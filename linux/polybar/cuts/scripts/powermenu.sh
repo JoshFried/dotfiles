@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Open the rofi session menu. Its actions operate on the live desktop, including
+# locking, logging out, suspending, rebooting and shutting down.
+
 
 ## Author  : Aditya Shakya
 ## Mail    : adi1090x@gmail.com

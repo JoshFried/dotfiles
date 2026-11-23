@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Accept --mode1 through --mode10 from the style picker. Each preset writes the
+# shared Polybar and rofi colors and requests a bar restart.
+
 
 # Color files
 PFILE="$HOME/.config/polybar/cuts/colors.ini"

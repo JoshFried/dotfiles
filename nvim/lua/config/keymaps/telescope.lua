@@ -1,3 +1,6 @@
+-- Normal-mode picker definitions consumed by config.keymaps. Each tuple pairs a
+-- shortcut with a deferred Telescope call and a description.
+
 -- Telescope keymaps
 return {
     { "<leader>sf", function() require("telescope.builtin").find_files() end, desc = "Find Files" },

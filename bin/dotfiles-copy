@@ -1,17 +1,19 @@
 #!/usr/bin/env bash
+# Read stdin once and send it to the current graphical or terminal clipboard.
+# On a headless SSH connection, tmux and OSC 52 forward to the client terminal.
 set -euo pipefail
 
 if command -v pbcopy >/dev/null 2>&1; then
     exec pbcopy
-elif command -v wl-copy >/dev/null 2>&1; then
+elif [ -n "${WAYLAND_DISPLAY:-}" ] && command -v wl-copy >/dev/null 2>&1; then
     exec wl-copy
-elif command -v xclip >/dev/null 2>&1; then
+elif [ -n "${DISPLAY:-}" ] && command -v xclip >/dev/null 2>&1; then
     exec xclip -selection clipboard
-elif command -v xsel >/dev/null 2>&1; then
+elif [ -n "${DISPLAY:-}" ] && command -v xsel >/dev/null 2>&1; then
     exec xsel --clipboard --input
 elif [ -n "${TMUX:-}" ]; then
-    exec tmux load-buffer -
-else
-    printf 'No supported clipboard command is available\n' >&2
-    exit 127
+    exec tmux load-buffer -w -
 fi
+
+encoded=$(base64 | tr -d '\n')
+printf '\033]52;c;%s\a' "$encoded" >/dev/tty

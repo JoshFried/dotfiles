@@ -1,3 +1,6 @@
+-- Configure go.nvim's Go development commands and their integration with Neovim
+-- tooling.
+
 local M = {
     "ray-x/go.nvim",
     dependencies = { -- optional packages

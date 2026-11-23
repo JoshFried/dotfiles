@@ -1,3 +1,6 @@
+-- Diagnostic navigation and editor-wide LSP shortcuts. Server-specific buffer
+-- mappings are defined in plugins/lsp/keymaps.lua.
+
 return {
     { "n", "[d",         function() vim.diagnostic.jump({ count = -1 }) end, { desc = "Previous diagnostic" } },
     { "n", "]d",         function() vim.diagnostic.jump({ count = 1 }) end,  { desc = "Next diagnostic" } },

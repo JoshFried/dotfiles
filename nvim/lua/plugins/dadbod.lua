@@ -1,3 +1,6 @@
+-- Register database query tools and DBUI commands. The leader-D mappings open the UI
+-- and operate on query buffers.
+
 return {
     {
         "tpope/vim-dadbod",

@@ -1,3 +1,6 @@
+//! Construct the badges, labels and keyboard hints shared by the disk and
+//! memory screens.
+
 use crate::theme;
 use ratatui::{
     style::{Color, Modifier, Style},

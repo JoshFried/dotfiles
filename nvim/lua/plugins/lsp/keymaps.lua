@@ -1,3 +1,6 @@
+-- Attach buffer-local mappings when a language client connects. Keep server actions
+-- next to their capability and buffer checks.
+
 local M = {}
 
 function M.on_attach(client, buffer)

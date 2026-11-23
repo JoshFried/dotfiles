@@ -1,3 +1,7 @@
+//! Shared library behind diskmap and memmap. Collectors produce data for the
+//! common terminal UI. Byte formatting and fuzzy text matching live here so
+//! both binaries present results consistently.
+
 pub mod app;
 pub mod chrome;
 pub mod clipboard;

@@ -1,4 +1,7 @@
 #!/bin/bash
+# Handle space_windows_change events. Decode the space and application names from
+# SketchyBar's JSON INFO payload with jq.
+
 
 source "$CONFIG_DIR/plugins/centered_apps.sh"
 

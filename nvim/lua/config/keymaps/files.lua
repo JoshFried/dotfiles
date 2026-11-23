@@ -1,3 +1,6 @@
+-- File navigation and path-copy mappings. The Oil command opens a directory buffer
+-- and path actions act on the current file.
+
 local utils = require('config.utils')
 
 return {

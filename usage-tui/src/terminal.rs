@@ -1,3 +1,6 @@
+//! Own raw mode and the alternate screen during an interactive run. Cleanup
+//! restores the cursor and terminal state on exit or unwinding.
+
 use std::io::{self, IsTerminal};
 
 use anyhow::{Result, bail};

@@ -1,3 +1,6 @@
+-- Run from the repository root with Lua. Mock the Hammerspoon window and
+-- application state used by the desktop profile module.
+
 package.path = "./macos/.hammerspoon/?.lua;" .. package.path
 
 local windows = {}

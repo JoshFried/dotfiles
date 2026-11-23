@@ -1,3 +1,5 @@
+-- Attach Git hunk signs and buffer-local hunk operations as files are opened.
+
 local M = {
     "lewis6991/gitsigns.nvim",
     event = "BufReadPre",

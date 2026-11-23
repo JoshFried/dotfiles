@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Apply the selected light accent to the installed Polybar and rofi color files, then
+# ask Polybar to restart.
+
 
 # Color files
 PFILE="$HOME/.config/polybar/cuts/colors.ini"

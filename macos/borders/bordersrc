@@ -1,4 +1,7 @@
 #!/bin/bash
+# JankyBorders reads these settings when the service starts. The active and inactive
+# outline colors below follow the Kanagawa palette.
+
 
 # Kanagawa Wave colors
 # Active:   crystalBlue #7E9CD8 (bright, visible)

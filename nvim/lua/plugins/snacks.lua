@@ -1,3 +1,6 @@
+-- Load Snacks early and configure its editor features. Private plugin specs can
+-- extend these options on work machines.
+
 return {
     {
         "folke/snacks.nvim",

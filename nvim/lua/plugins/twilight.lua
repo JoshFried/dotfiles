@@ -1,3 +1,5 @@
+-- Dim surrounding text while keeping context around the active line visible.
+
 return {
     "folke/twilight.nvim",
     event = "VeryLazy",

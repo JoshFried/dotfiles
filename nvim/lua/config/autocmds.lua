@@ -1,3 +1,7 @@
+-- Register editor event handlers in named groups that can be recreated on reload.
+-- Add buffer and filetype behavior here when it belongs to the editor rather than an
+-- individual plugin.
+
 local function augroup(name)
     return vim.api.nvim_create_augroup("mnv_" .. name, { clear = true })
 end

@@ -1,3 +1,6 @@
+-- Small editing overrides, including discarding empty lines into the black-hole
+-- register so deleting one preserves the last yank.
+
 return {
     { "n", "Q", "<nop>", { desc = "Disable Ex mode" } },
     { "n", "dd", function()

@@ -4,6 +4,8 @@
 // Rotate Orion
 
 #version 330
+// Render the circular spectrum with a changing angular offset to rotate the display.
+
 
 in vec2 fragCoord;
 out vec4 fragColor;

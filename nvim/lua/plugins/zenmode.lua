@@ -1,3 +1,5 @@
+-- Toggle the distraction-free editing view with the leader-zz mapping.
+
 return {
     "folke/zen-mode.nvim",
     keys = {

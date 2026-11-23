@@ -1,3 +1,7 @@
+//! Walk the scan root on a worker thread and attribute file sizes to the tree.
+//! Filesystem identity checks support hard-link accounting and revalidation
+//! before moving a selected entry to Trash.
+
 use std::{
     collections::{BTreeSet, HashMap, HashSet},
     fs,

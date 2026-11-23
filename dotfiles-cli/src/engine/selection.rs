@@ -11,7 +11,9 @@ use super::Engine;
 impl Engine {
     /// Resolves filters into a dependency-ordered list of resource identifiers.
     ///
-    /// With no explicit filters, the manifest's default profiles are selected.
+    /// With no filters, use the host's platform profiles or fall back to the
+    /// manifest defaults. Explicit profiles, tags and resource IDs form a union.
+    /// In both cases, expand transitive dependencies before returning the order.
     ///
     /// # Errors
     ///
@@ -30,7 +32,10 @@ impl Engine {
         let profiles = if has_filter {
             &filter.profile
         } else {
-            &self.config.default_profiles
+            self.config
+                .platform_profiles
+                .get(std::env::consts::OS)
+                .unwrap_or(&self.config.default_profiles)
         };
 
         for profile in profiles {
@@ -151,6 +156,8 @@ mod tests {
         Engine::with_runner(
             Config {
                 version: 1,
+                install_misplaced_formulae: false,
+                platform_profiles: Default::default(),
                 default_profiles: vec!["default".to_owned()],
                 profiles,
                 resources,

@@ -1,3 +1,7 @@
+//! Own the interactive views, selection and command handling. Process
+//! collector updates and keyboard events in the UI loop so background scans
+//! can finish while the user navigates.
+
 use std::{
     collections::HashMap,
     io,

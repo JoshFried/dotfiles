@@ -1,3 +1,6 @@
+-- Tell Gopher which external commands to use for tag editing, test generation, and
+-- gopls formatting and imports.
+
 local M = {
     "olexsmir/gopher.nvim",
     dependencies = {

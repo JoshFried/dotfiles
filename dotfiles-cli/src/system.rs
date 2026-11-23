@@ -168,12 +168,14 @@ pub fn find_program_with_home(
             [
                 home.join(".local/bin").join(name),
                 home.join(".cargo/bin").join(name),
+                home.join(".linuxbrew/bin").join(name),
                 home.join("go/bin").join(name),
                 home.join("bin").join(name),
             ]
         }))
         .chain([
             Path::new("/opt/homebrew/bin").join(name),
+            Path::new("/home/linuxbrew/.linuxbrew/bin").join(name),
             Path::new("/usr/local/bin").join(name),
         ])
         .find(|candidate| {

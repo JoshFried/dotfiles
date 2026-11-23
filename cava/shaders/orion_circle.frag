@@ -4,6 +4,9 @@
 // Static Orion (non-rotating)
 
 #version 330
+// Draw spectrum bins around a fixed circle, using the angular position to select the
+// band.
+
 
 in vec2 fragCoord;
 out vec4 fragColor;

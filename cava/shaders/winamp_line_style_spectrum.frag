@@ -1,4 +1,7 @@
 #version 330
+// Draw the spectrum in the Winamp line style. The example settings below describe
+// the bar geometry expected by this shader.
+
 
 // Emulate the "line style" spectrum analyzer from Winamp 2.
 // Try this config for a demonstration:

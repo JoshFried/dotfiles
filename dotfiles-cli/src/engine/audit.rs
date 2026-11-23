@@ -97,7 +97,7 @@ impl Engine {
                 "Executable exists but is not managed by Homebrew",
                 format!("Homebrew formula {name}"),
                 path.display().to_string(),
-                false,
+                self.config.install_misplaced_formulae,
             );
         }
         if let Some(path) = fallback_paths
@@ -394,6 +394,8 @@ mod tests {
         Engine::with_runner(
             Config {
                 version: 1,
+                install_misplaced_formulae: false,
+                platform_profiles: Default::default(),
                 default_profiles: Vec::new(),
                 profiles: Default::default(),
                 resources: Vec::new(),
@@ -512,6 +514,15 @@ mod tests {
         assert_eq!(result.actual, "/home/test/.cargo/bin/eza");
         assert!(!result.fixable);
         assert!(result.action.is_none());
+
+        let mut managed = engine(directory.path(), directory.path());
+        managed.config.install_misplaced_formulae = true;
+
+        let result = managed.audit(&resource, &inventory);
+
+        assert_eq!(result.status, Status::Misplaced);
+        assert!(result.fixable);
+        assert_eq!(result.action.as_deref(), Some("brew install eza"));
     }
 
     #[test]

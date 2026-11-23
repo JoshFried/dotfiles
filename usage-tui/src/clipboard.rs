@@ -1,3 +1,7 @@
+//! Try native desktop clipboard programs when running locally. Report
+//! availability to the UI so it can handle terminal-based copying on remote
+//! sessions.
+
 use std::io::{self, Write};
 use std::process::{Command, Stdio};
 

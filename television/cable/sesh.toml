@@ -1,3 +1,8 @@
+# Installed under ~/.config/television/cable. The session list includes an icon
+# column. Strip that column before passing the selected name to preview, connect or
+# kill. The tmux picker opens in the home directory to avoid a local directory named
+# sesh shadowing this channel.
+
 # Television channel using the private-override-aware sesh launcher.
 
 [metadata]

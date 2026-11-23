@@ -1,4 +1,8 @@
 #!/bin/bash
+# SketchyBar runs this file to create items, subscribe them to events and assign
+# scripts from plugins/. Change subscriptions and refresh intervals here and item
+# rendering in the corresponding plugin.
+
 
 # ── Kanagawa Wave palette ──────────────────────────────────
 export BAR_COLOR=0xd0181820        # sumiInk1 (slightly transparent)

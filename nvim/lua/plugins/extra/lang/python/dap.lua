@@ -1,3 +1,6 @@
+-- Extend the debugger with nvim-dap-python. Keep Python adapter setup on the
+-- dependency so the common DAP configuration still runs.
+
 local M = {
     "mfussenegger/nvim-dap",
     dependencies = {

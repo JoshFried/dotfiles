@@ -1,3 +1,6 @@
+-- Assemble language server defaults and dependencies. Language-specific specs extend
+-- the options passed to the common server setup.
+
 return {
     {
         "neovim/nvim-lspconfig",

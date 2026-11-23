@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+# Source the compatibility entry point and use temporary tools and directories
+# to check CLI arguments, Linux prerequisites, Node version extraction and
+# clipboard input.
+
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

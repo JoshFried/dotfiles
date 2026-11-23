@@ -1,3 +1,6 @@
+-- Request the Smithy parser and language server. Server enablement is handled by the
+-- shared LSP configuration.
+
 return {
     {
         "nvim-treesitter/nvim-treesitter",

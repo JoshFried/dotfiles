@@ -1,4 +1,7 @@
 #version 330
+// Mirror the frequency bins around the horizontal centerline and taper each band
+// toward its edges.
+
 
 in vec2 fragCoord;
 out vec4 fragColor;

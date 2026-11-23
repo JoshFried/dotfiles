@@ -1,3 +1,6 @@
+//! Validate the sampling interval and select the application or system view
+//! before starting the memory collector and UI.
+
 use clap::{Parser, ValueEnum};
 use std::time::Duration;
 

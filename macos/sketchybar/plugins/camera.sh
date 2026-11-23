@@ -1,4 +1,7 @@
 #!/bin/bash
+# Render the camera indicator from zoom_camera_change events emitted by the
+# meeting integration.
+
 
 GREEN=0xff98BB6C
 RED=0xffE46876

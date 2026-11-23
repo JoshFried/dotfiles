@@ -1,4 +1,6 @@
 #!/bin/bash
+# Look up en0's IPv4 address to decide whether the bar displays a connected or
+# offline indicator.
 
 if [ "$SENDER" = "mouse.exited.global" ]; then
     "$CONFIG_DIR/plugins/toggle_popup.sh" close

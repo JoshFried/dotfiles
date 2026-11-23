@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+# Long-running Polybar module. Print a package count, poll more frequently while
+# updates are pending, and send urgency-based desktop notifications when notify-send
+# is available.
+
 
 NOTIFY_ICON=/usr/share/icons/Papirus/32x32/apps/system-software-update.svg
 

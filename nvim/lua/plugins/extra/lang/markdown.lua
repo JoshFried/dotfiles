@@ -1,3 +1,6 @@
+-- Load Mkdnflow for Markdown buffers. Its options and mappings control link and
+-- document navigation.
+
 return {
 	{
 		"jakewvincent/mkdnflow.nvim",

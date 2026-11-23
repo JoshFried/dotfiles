@@ -1,4 +1,7 @@
 #version 330
+// Audio bins scale the curves and spirals independently. Shader time animates
+// their phase, so the pattern changes even at a constant volume.
+
 
 // this shader was stolen from shadertoy user ChunderFPV
 

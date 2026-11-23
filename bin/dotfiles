@@ -1,7 +1,20 @@
 #!/usr/bin/env bash
+# Run dotfiles audit, plan, or apply from any directory. Follow the installed symlink
+# back to the checkout so Cargo uses the matching CLI and dotfiles.toml. Arguments
+# and the process exit status pass through to the Rust program.
+
 set -euo pipefail
 
-REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+launcher="${BASH_SOURCE[0]}"
+while [ -L "$launcher" ]; do
+    directory="$(cd "$(dirname "$launcher")" && pwd -P)"
+    launcher="$(readlink "$launcher")"
+    case "$launcher" in
+        /*) ;;
+        *) launcher="$directory/$launcher" ;;
+    esac
+done
+REPO_DIR="$(cd "$(dirname "$launcher")/.." && pwd -P)"
 MANIFEST="$REPO_DIR/dotfiles-cli/Cargo.toml"
 
 if ! command -v cargo >/dev/null 2>&1; then

@@ -1,3 +1,7 @@
+-- Pin the Kotlin language server and map OS and architecture to the vendor
+-- archive and executable. Update the version and verify the archive layout
+-- together.
+
 local version = "263.6379.0"
 local version_template = '{{ version | strip_prefix "kotlin-lsp/v" }}'
 local download_root = "https://download.jetbrains.com/language-server/kotlin-server/" .. version_template

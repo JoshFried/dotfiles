@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+# Render one pane-border label from pane ID, directory, PID and command. Cache
+# it for five seconds so status refreshes can reuse process-tree and listening-
+# port lookups.
+
 set -euo pipefail
 
 pane_id="${1:-}"

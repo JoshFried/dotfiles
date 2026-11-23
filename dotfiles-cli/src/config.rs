@@ -18,6 +18,12 @@ pub struct Config {
     /// Profiles selected when no explicit filter is provided.
     #[serde(default)]
     pub default_profiles: Vec<String>,
+    /// Install managed formulae even when another provider supplies the executable.
+    #[serde(default)]
+    pub install_misplaced_formulae: bool,
+    /// Host-specific defaults, keyed by Rust operating system name.
+    #[serde(default)]
+    pub platform_profiles: BTreeMap<String, Vec<String>>,
     /// Named groups of resource identifiers.
     #[serde(default)]
     pub profiles: BTreeMap<String, Vec<String>>,
@@ -144,7 +150,11 @@ impl Config {
             }
         }
 
-        for profile in &self.default_profiles {
+        for profile in self
+            .default_profiles
+            .iter()
+            .chain(self.platform_profiles.values().flatten())
+        {
             if !self.profiles.contains_key(profile) {
                 bail!("unknown default profile '{profile}'");
             }

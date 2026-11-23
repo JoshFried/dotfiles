@@ -1,3 +1,6 @@
+-- Build reusable lualine sections and obtain highlight colors from the current
+-- theme.
+
 local icons = require("config.icons")
 
 local function fg(name)

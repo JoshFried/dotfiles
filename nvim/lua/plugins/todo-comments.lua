@@ -1,3 +1,6 @@
+-- Highlight TODO-style annotations and expose searches for them through Telescope
+-- and Trouble.
+
 return {
 	{
 		"folke/todo-comments.nvim",

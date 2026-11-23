@@ -1,3 +1,6 @@
+-- Initialize the main-branch Tree-sitter API and its parser list. Language imports
+-- request additional parsers separately.
+
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",

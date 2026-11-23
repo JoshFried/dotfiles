@@ -1,3 +1,7 @@
+//! Deliver terminal input, clipboard results and wake notifications to the UI.
+//! Workers use a nonblocking wake signal so a full event queue cannot stall a
+//! collector.
+
 use std::sync::{Arc, Mutex, mpsc::SyncSender};
 
 pub enum AppEvent {

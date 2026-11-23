@@ -4,6 +4,9 @@
 // Orion Saturn core
 
 #version 330
+// Combine a radial spectrum with a filled central disc. The two alpha masks
+// determine which parts of each pixel are visible.
+
 
 in vec2 fragCoord;
 out vec4 fragColor;

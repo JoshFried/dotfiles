@@ -1,3 +1,5 @@
+-- Configure editing actions for resolving Git conflict markers in a buffer.
+
 local M = {
     "akinsho/git-conflict.nvim",
     --stylua: ignore

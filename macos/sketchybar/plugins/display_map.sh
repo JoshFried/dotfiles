@@ -1,4 +1,7 @@
 #!/bin/bash
+# Join AppKit and SketchyBar display records by physical ID. The resulting
+# array maps an AeroSpace screen index to the correct SketchyBar arrangement.
+
 
 load_display_map() {
     local displays screen_ids mapped_ids appkit_id arrangement_id

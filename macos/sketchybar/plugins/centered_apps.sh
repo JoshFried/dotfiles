@@ -1,4 +1,7 @@
 #!/bin/bash
+# Sourced by workspace renderers. Match floating utility apps by name or bundle
+# ID so they can be excluded from the workspace icon strip.
+
 
 is_centered_app() {
     case "$1" in

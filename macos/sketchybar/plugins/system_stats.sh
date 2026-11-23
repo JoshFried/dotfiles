@@ -1,4 +1,7 @@
 #!/bin/bash
+# Sample host resources once and publish system_stats_update. Persist byte
+# counters and sample time between invocations to calculate network throughput.
+
 
 STATE_FILE="/tmp/sketchybar-system-stats-${UID}"
 NOW="$(date +%s)"

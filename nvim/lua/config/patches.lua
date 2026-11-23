@@ -28,8 +28,13 @@ vim.api.nvim_create_autocmd("BufReadCmd", {
 		vim.bo[buf].modifiable = true
 
 		local cfr = vim.fn.exepath("cfr-decompiler")
+		if cfr == "" then
+			vim.api.nvim_buf_set_lines(buf, 0, -1, false, { "// Install cfr-decompiler to view this class." })
+			vim.bo[buf].modifiable = false
+			return
+		end
 		local class_name = class_path:gsub("/", "."):gsub("%.class$", "")
-		local result = cfr ~= "" and vim.fn.systemlist({ cfr, jar, class_name }) or {}
+		local result = vim.fn.systemlist({ cfr, jar, class_name })
 		if vim.v.shell_error == 0 and #result > 0 then
 			vim.api.nvim_buf_set_lines(buf, 0, -1, false, result)
 			vim.bo[buf].filetype = "java"

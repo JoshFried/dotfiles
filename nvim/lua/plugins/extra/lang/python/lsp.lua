@@ -1,3 +1,6 @@
+-- Configure Pyright and Ruff together. Pyright handles hover, with buffer-local
+-- actions for imports and Python debugging.
+
 local M = {
     "neovim/nvim-lspconfig",
     opts = {

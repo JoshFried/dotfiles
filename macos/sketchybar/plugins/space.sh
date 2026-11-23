@@ -1,4 +1,7 @@
 #!/bin/bash
+# Join AeroSpace workspace, monitor and window listings to update the bar's workspace
+# indicators after a layout or focus change.
+
 
 WORKSPACES="$(aerospace list-workspaces --monitor all --format '%{workspace}|%{monitor-appkit-nsscreen-screens-id}|%{workspace-is-visible}|%{workspace-is-focused}' 2>/dev/null)"
 WINDOWS="$(aerospace list-windows --all --format '%{workspace}|%{app-name}|%{app-bundle-id}' 2>/dev/null)"

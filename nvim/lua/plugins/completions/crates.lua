@@ -1,3 +1,5 @@
+-- Activate crate metadata and version assistance when editing Cargo.toml.
+
 return {
     "saecki/Crates.nvim",
     event = { "BufRead Cargo.toml" },

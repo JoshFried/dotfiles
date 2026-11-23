@@ -1,3 +1,6 @@
+-- Map test class, file and related commands to vim-test's runner for the current
+-- buffer.
+
 local M = {
     "vim-test/vim-test",
     keys = {

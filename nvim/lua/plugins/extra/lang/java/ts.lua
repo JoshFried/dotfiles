@@ -1,3 +1,5 @@
+-- Install Java and Kotlin parsers through the shared Tree-sitter plugin.
+
 local M = {
     "nvim-treesitter/nvim-treesitter",
     opts = function()

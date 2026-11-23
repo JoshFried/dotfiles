@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Generate a palette, rewrite the bar and rofi color files, then restart Polybar to
+# display the result.
+
 
 # Color files
 PFILE="$HOME/.config/polybar/cuts/colors.ini"

@@ -1,3 +1,7 @@
+-- WezTerm reads this table at startup. The selected scheme comes from the colors
+-- directory alongside this file. Option and Command key mappings send terminal
+-- sequences for shell line editing.
+
 local wezterm = require("wezterm")
 
 return {

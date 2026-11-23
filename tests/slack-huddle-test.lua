@@ -1,3 +1,6 @@
+-- Supply synthetic Slack accessibility elements so huddle detection and mute
+-- handling can run without Slack or macOS permissions.
+
 package.path = "./macos/.hammerspoon/?.lua;" .. package.path
 
 local app = nil

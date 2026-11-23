@@ -1,3 +1,6 @@
+-- Configure Conform's formatters and editor triggers. Inspect the active formatter
+-- for a buffer with :ConformInfo.
+
 return {
 	"stevearc/conform.nvim",
 	event = "BufWritePre",

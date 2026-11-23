@@ -1,3 +1,6 @@
+-- Enable Tree-sitter-based tag closing and renaming on the markup filetypes listed
+-- in this spec.
+
 return {
 	"windwp/nvim-ts-autotag",
 	-- was `lazy = true` with no trigger, so it never loaded; load on the

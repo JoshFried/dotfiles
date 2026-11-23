@@ -1,3 +1,6 @@
+-- Configure how Noice presents messages, command-line input and notifications in the
+-- editor.
+
 return {
     {
         "folke/noice.nvim",

@@ -1,3 +1,6 @@
+//! Lay out weighted items in a terminal rectangle, maintain stable tile
+//! placement and resolve directional movement between neighboring tiles.
+
 use ratatui::layout::Rect;
 use std::collections::HashSet;
 

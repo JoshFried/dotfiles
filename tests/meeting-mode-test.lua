@@ -1,3 +1,6 @@
+-- Use fake Zoom, Slack and audio devices to check meeting-state updates and
+-- the cost of repeated observations.
+
 package.path = "./macos/.hammerspoon/?.lua;" .. package.path
 table.unpack = table.unpack or unpack
 

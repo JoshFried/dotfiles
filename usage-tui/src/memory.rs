@@ -1,3 +1,7 @@
+//! Collect resident memory snapshots, group processes into applications and
+//! derive system totals from platform data. The UI consumes snapshots through
+//! a channel.
+
 use std::{
     collections::BTreeMap,
     path::{Path, PathBuf},

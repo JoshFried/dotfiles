@@ -1,3 +1,6 @@
+-- Configure the YAML parser and language server, including custom tags used in
+-- CloudFormation templates.
+
 return {
     {
         "nvim-treesitter/nvim-treesitter",

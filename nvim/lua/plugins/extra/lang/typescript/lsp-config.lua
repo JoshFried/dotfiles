@@ -1,3 +1,6 @@
+-- Configure vtsls and TypeScript-specific editor actions through the shared LSP
+-- setup.
+
 local utils = require("plugins.lsp.utils")
 
 return {

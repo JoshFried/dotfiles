@@ -1,3 +1,6 @@
+-- Reusable LSP helpers for attach callbacks and reporting the formatters and clients
+-- available in a buffer.
+
 local M = {}
 
 function M.list_formatters(ft)

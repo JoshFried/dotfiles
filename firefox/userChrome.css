@@ -1,4 +1,6 @@
 /* Kanagawa Wave theme for Firefox */
+/* The macOS bootstrap copies this file into the release profile's chrome
+   directory. Reapply it and restart Firefox to pick up edits in the checkout. */
 
 /* ── Variables ──────────────────────────────────────────── */
 :root {

@@ -1,3 +1,6 @@
+-- Extend the shared Mason tool list with jdtls, Checkstyle, Google Java Format and
+-- kotlin-lsp.
+
 local M = {
     "williamboman/mason.nvim",
     opts = function(_, opts)

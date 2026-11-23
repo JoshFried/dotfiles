@@ -1,3 +1,6 @@
+-- Exercise mute reconciliation with synthetic devices and participants,
+-- including changes made externally and pending app updates.
+
 package.path = "./macos/.hammerspoon/?.lua;" .. package.path
 local Sync = require("microphone_sync")
 

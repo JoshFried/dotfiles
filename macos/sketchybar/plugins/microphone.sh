@@ -1,4 +1,7 @@
 #!/bin/bash
+# Render the microphone indicator from microphone_change events emitted by the
+# meeting integration.
+
 
 GREEN=0xff98BB6C
 RED=0xffE46876

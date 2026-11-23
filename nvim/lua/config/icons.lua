@@ -1,3 +1,6 @@
+-- Shared glyph tables indexed by completion kind, diagnostic level and other UI
+-- categories. Consumers can change their display without redefining icon sets.
+
 return {
 	kind = {
 		Array = "",

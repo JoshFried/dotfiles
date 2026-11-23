@@ -1,3 +1,6 @@
+-- Helpers used by the window and file mappings. The file reference includes
+-- the current line and uses the Git origin and branch when available.
+
 local M = {}
 
 function M.EqualizeSplits()

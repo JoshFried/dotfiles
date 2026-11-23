@@ -1,3 +1,6 @@
+-- Text manipulation shortcuts, including moving lines or visual selections while
+-- retaining indentation.
+
 return {
     -- Move lines
     { "n", "<A-j>", ":m .+1<CR>==", { desc = "Move line down" } },

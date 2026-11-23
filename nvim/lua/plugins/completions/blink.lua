@@ -1,3 +1,6 @@
+-- Configure the completion menu and its sources on InsertEnter. The build step
+-- compiles Blink's native matcher with Cargo.
+
 return {
 	"saghen/blink.cmp",
 	event = "InsertEnter",

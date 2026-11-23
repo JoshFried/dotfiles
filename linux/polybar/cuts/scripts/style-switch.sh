@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Translate the style selected in rofi into a numbered preset argument for styles.sh.
+
 
 SDIR="$HOME/.config/polybar/cuts/scripts"
 

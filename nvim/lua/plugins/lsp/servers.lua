@@ -1,3 +1,6 @@
+-- Consume the merged server options, install diagnostics and register language
+-- clients. Language-specific settings feed this setup through lazy.nvim options.
+
 local M = {}
 
 local lsp_utils = require("plugins.lsp.utils")

@@ -1,3 +1,7 @@
+-- Reconcile the system microphone with active meeting apps. Track pending
+-- changes per app so delayed observations do not immediately reverse a mute
+-- request.
+
 local M = {}
 M.__index = M
 

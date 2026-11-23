@@ -1,3 +1,6 @@
+-- Import Python-specific debugging, language server, installer, test and editing
+-- specs.
+
 local prefix = 'plugins.extra.lang.python'
 return {
     require(prefix .. ".dap"),

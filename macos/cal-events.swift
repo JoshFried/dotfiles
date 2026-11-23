@@ -1,3 +1,8 @@
+// Source for the bundled cal-events executable. Read today's remaining events via
+// EventKit and write one pipe-delimited record per event for the Hammerspoon meeting
+// chooser. Calendar permission failures go to stderr and produce a failing exit
+// status.
+
 import Darwin
 import EventKit
 import Foundation

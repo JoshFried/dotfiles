@@ -1,3 +1,6 @@
+-- Configure external linters and the buffer events that trigger them through
+-- nvim-lint.
+
 return {
     "mfussenegger/nvim-lint",
     event = { "BufReadPost", "BufNewFile", "BufWritePost" },

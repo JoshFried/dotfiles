@@ -1,3 +1,5 @@
+-- Load Kanagawa during startup so later UI plugins can use its highlight groups.
+
 return {
     {
         "rebelot/kanagawa.nvim",

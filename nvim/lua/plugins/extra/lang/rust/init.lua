@@ -1,3 +1,6 @@
+-- Collect Rust editor, parser, testing and debugger specs. The CodeLLDB helper
+-- builds paths to Mason's adapter and macOS library.
+
 function Get_codelldb()
     local extension_path = vim.fn.expand("$MASON/packages/codelldb/extension/")
     local codelldb_path = extension_path .. "adapter/codelldb"

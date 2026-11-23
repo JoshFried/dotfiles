@@ -1,3 +1,6 @@
+-- Describe leader-key groups for which-key and expose searchable commands through
+-- Legendary's palette.
+
 return {
 	{
 		"mrjones2014/legendary.nvim",

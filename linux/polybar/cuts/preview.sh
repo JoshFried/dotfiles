@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Replace the current Polybar processes with the top, mid and bottom bars from
+# preview.ini. Running this affects the visible desktop.
+
 
 DIR="$HOME/.config/polybar/cuts"
 

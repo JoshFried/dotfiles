@@ -1,4 +1,7 @@
 #version 330
+// Map the horizontal coordinate to a frequency bin. Draw each bar up to its
+// amplitude using the configured spacing and gradient.
+
 
 in vec2 fragCoord;
 out vec4 fragColor;

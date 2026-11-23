@@ -1,3 +1,6 @@
+-- Configure kotlin-lsp for JVM 21 and consult the optional work module for a
+-- project-specific target when the client initializes.
+
 local jvm_target = "21"
 
 local default_apply_workspace_edit = vim.lsp.handlers["workspace/applyEdit"]

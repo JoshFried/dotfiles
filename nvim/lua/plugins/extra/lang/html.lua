@@ -1,3 +1,6 @@
+-- Register the HTML and CSS parsers with Tree-sitter as part of the language plugin
+-- imports.
+
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",

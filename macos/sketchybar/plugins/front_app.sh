@@ -1,4 +1,7 @@
 #!/bin/bash
+# Handle front_app_switched. INFO supplies the application name used for the label
+# and the icon lookup.
+
 
 source "$CONFIG_DIR/plugins/centered_apps.sh"
 

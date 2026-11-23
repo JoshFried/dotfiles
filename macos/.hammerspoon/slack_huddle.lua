@@ -1,3 +1,7 @@
+-- Adapt Slack's accessibility controls to the meeting synchronizer. Read
+-- huddle mute state, supply a toggle callback and notify the caller when the
+-- observed UI changes.
+
 local M = {}
 local BUNDLE_ID = "com.tinyspeck.slackmacgap"
 local log = hs.logger.new("slack_huddle", "warning")

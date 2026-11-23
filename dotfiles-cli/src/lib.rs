@@ -1,5 +1,5 @@
 #![warn(missing_docs)]
-//! Audits and reconciles a macOS workstation against a declarative dotfiles manifest.
+//! Audits and reconciles a macOS or Linux workstation against a declarative dotfiles manifest.
 //!
 //! Configuration, inspection, planning, application, presentation, and logging
 //! are separated so the same engine can support CLI and TUI workflows.

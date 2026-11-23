@@ -1,3 +1,6 @@
+//! Kanagawa terminal colors shared by treemap tiles, labels, borders and
+//! selection highlights.
+
 use ratatui::style::Color;
 
 pub const BACKGROUND: Color = Color::Rgb(31, 31, 40);

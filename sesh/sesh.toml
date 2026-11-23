@@ -1,7 +1,6 @@
 #:schema https://github.com/joshmedeski/sesh/raw/main/sesh.schema.json
 
-# Public sesh configuration. The launcher uses a private machine-specific
-# configuration from ~/.work.sesh.toml when one is present.
+# Shared session defaults. dotfiles-sesh appends host-specific work sessions.
 
 # ── Defaults ───────────────────────────────────────────────
 # Every new session opens nvim. Preview uses eza.

@@ -1,3 +1,5 @@
+-- Configure the gutter drawn beside each line, including signs and line numbering.
+
 return {
     {
         "luukvbaal/statuscol.nvim",

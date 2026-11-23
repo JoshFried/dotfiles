@@ -1,3 +1,6 @@
+-- Load snippet definitions and configure expansion and jump behavior for the
+-- completion engine.
+
 local M = {
     "L3MON4D3/LuaSnip",
     dependencies = {

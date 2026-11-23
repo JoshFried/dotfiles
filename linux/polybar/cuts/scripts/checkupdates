@@ -1,4 +1,7 @@
 #!/usr/bin/bash
+# Polybar's update counter reads one pending package per output line. This helper
+# requires Arch Linux pacman tooling and a separate sync database.
+
 #
 #   checkupdates: Safely print a list of pending updates.
 #

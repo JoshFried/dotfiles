@@ -1,3 +1,6 @@
+-- Expose the shared format toggle and asynchronous format action. Conform falls back
+-- to LSP formatting when appropriate.
+
 local M = {}
 
 M.autoformat = true

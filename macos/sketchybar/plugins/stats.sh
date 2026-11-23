@@ -1,4 +1,7 @@
 #!/bin/bash
+# Consume system_stats_update fields to render bar labels and popup details.
+# The sampler in system_stats.sh owns the expensive system queries.
+
 
 ORANGE="${ORANGE:-0xffFFA066}"
 RED="${RED:-0xffE46876}"

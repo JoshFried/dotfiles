@@ -68,6 +68,8 @@ impl Engine {
         ]))
     }
 
+    /// Move the existing entry, including a dangling symlink, into the backup
+    /// tree before creating the link. Restore that entry if link creation fails.
     fn apply_symlink(&self, source: &str, destination: &str) -> Result<()> {
         let source = self.repo.join(source);
         let destination = self.expand_home(destination);
@@ -168,6 +170,8 @@ mod tests {
     fn config(resource: Resource) -> Config {
         Config {
             version: 1,
+            install_misplaced_formulae: false,
+            platform_profiles: Default::default(),
             default_profiles: Vec::new(),
             profiles: Default::default(),
             resources: vec![resource],

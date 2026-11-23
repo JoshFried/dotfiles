@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Pass a wallpaper path to generate a palette with pywal and propagate its cached
+# colors into the Polybar and rofi themes.
+
 
 # Color files
 PFILE="$HOME/.config/polybar/cuts/colors.ini"

@@ -1,4 +1,7 @@
 #version 330
+// Draw the newest frequency column at the right edge. Sample the preceding render
+// pass for earlier columns to scroll the history.
+
 
 in vec2 fragCoord;
 out vec4 fragColor;

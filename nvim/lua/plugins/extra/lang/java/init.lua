@@ -1,3 +1,6 @@
+-- Collect Java and Kotlin parser, language server and tool installer specs for
+-- lazy.nvim.
+
 local prefix = 'plugins.extra.lang.java'
 return {
     require(prefix .. ".ts"),

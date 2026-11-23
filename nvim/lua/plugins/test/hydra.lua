@@ -1,3 +1,6 @@
+-- Group test-related commands into a Hydra menu so related actions can be repeated
+-- from one set of keys.
+
 local M = {
     "anuvyklack/hydra.nvim",
     opts = {

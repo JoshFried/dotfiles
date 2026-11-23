@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Present color choices through rofi and pass the selected name to colors-light.sh or
+# colors-dark.sh.
+
 
 SDIR="$HOME/.config/polybar/cuts/scripts"
 

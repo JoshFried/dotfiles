@@ -1,3 +1,6 @@
+-- Attach jdtls to JVM projects. Kotlin buffers also use jdtls for class-file
+-- navigation alongside their Kotlin language server.
+
 local M = {
     {
         "mfussenegger/nvim-jdtls",

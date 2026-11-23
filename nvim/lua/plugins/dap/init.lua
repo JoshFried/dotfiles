@@ -1,3 +1,6 @@
+-- Configure the Debug Adapter Protocol client, debugger UI and signs. Individual
+-- languages supply their own adapters.
+
 local icons = require("config.icons")
 
 local M = {

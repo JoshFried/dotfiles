@@ -1,3 +1,6 @@
+-- Provide a callable conflict-resolution menu. A caller must open the Hydra to
+-- activate its keys.
+
 local M = {}
 
 M.open_git_conflict_hydra = function()

@@ -1,3 +1,6 @@
+-- Open directories as editable Oil buffers. The file navigation mappings invoke
+-- :Oil.
+
 return {
     {
         'stevearc/oil.nvim',

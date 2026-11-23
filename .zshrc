@@ -1,3 +1,7 @@
+# Interactive shell startup for both hosts. Initialize package paths and shell
+# plugins before loading .alias.zsh and the optional private .work.zshrc. Open a
+# fresh zsh to exercise this order after changing a loader or host override.
+
 export XDG_CONFIG_HOME="$HOME/.config"
 
 if (( $+commands[brew] )); then

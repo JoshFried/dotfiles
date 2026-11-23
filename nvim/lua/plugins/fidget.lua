@@ -1,3 +1,5 @@
+-- Start the LSP progress display when the first language client attaches.
+
 return {
     {
         "j-hui/fidget.nvim",

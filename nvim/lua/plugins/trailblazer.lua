@@ -1,3 +1,6 @@
+-- Configure TrailBlazer's saved cursor locations for navigation between points of
+-- interest across buffers.
+
 return {
     {
         "LeonHeidelbach/trailblazer.nvim",

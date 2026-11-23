@@ -1,4 +1,7 @@
 #!/bin/bash
+# Toggle the requested SketchyBar popup or pass close to dismiss it. A state
+# file identifies the currently open item across separate script invocations.
+
 
 ITEM="${1:?item name required}"
 STATE_FILE="/tmp/sketchybar-open-popup"

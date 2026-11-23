@@ -1,3 +1,6 @@
+-- Configure Harpoon's project file list and the shortcuts for switching between
+-- marked files.
+
 return {
     -- real nice way to navigate common files that i hop between but seem to use telescope more tbh
     {

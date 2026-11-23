@@ -1,4 +1,6 @@
 #!/bin/bash
+# Read percentage and AC power state from pmset and update the SketchyBar battery
+# item named by NAME.
 
 ITEM_BG="${ITEM_BG:-0xff2A2A37}"
 FG="${FG:-0xffDCD7BA}"

@@ -1,3 +1,7 @@
+//! Run the compiled CLI against disposable homes and manifests. These tests exercise
+//! argument parsing, process exit codes and observable filesystem changes across the
+//! executable boundary.
+
 use std::{fs, os::unix::fs::PermissionsExt, path::Path};
 
 use assert_cmd::{Command, cargo::cargo_bin_cmd};
@@ -233,4 +237,48 @@ fn no_color_disables_human_readable_output_colors() {
         .assert()
         .code(1)
         .stdout(predicate::str::contains("\u{1b}[").not());
+}
+
+#[test]
+fn host_defaults_only_apply_to_unfiltered_commands() {
+    let fixture = Fixture::new(true);
+    let path = fixture.repo.path().join("dotfiles.toml");
+    let config = fs::read_to_string(&path).unwrap().replace(
+        "[profiles]",
+        &format!(
+            "[platform_profiles]\n{} = [\"empty\"]\n[profiles]\nempty = []",
+            std::env::consts::OS
+        ),
+    );
+    fs::write(path, config).unwrap();
+
+    fixture
+        .command()
+        .args(["audit", "--json"])
+        .assert()
+        .success()
+        .stdout("[]\n");
+
+    fixture
+        .command()
+        .args(["audit", "--profile", "test", "--json"])
+        .assert()
+        .success()
+        .stdout(predicate::str::contains("symlink.test"));
+}
+
+#[test]
+fn repository_defaults_select_the_host_resources() {
+    let repo = Path::new(env!("CARGO_MANIFEST_DIR")).parent().unwrap();
+    let config = dotfiles_cli::config::Config::load(&repo.join("dotfiles.toml")).unwrap();
+    let engine = dotfiles_cli::engine::Engine::new(config, repo.to_owned()).unwrap();
+
+    let ids = engine.select(&Default::default()).unwrap();
+
+    assert!(ids.iter().any(|id| id == "symlink.clipboard"));
+    assert!(ids.iter().any(|id| id == "formula.cfr-decompiler"));
+    assert_eq!(
+        ids.iter().any(|id| id == "cask.ghostty"),
+        cfg!(target_os = "macos")
+    );
 }

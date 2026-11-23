@@ -1,3 +1,6 @@
+# Map the application name in the first argument to a SketchyBar app-font glyph name
+# for the foreground and workspace indicators.
+
 
 function icon_map() {
   case "$1" in

@@ -1,4 +1,7 @@
 #!/bin/bash
+# Handle volume_change. SketchyBar provides the new volume in INFO so the script can
+# update the item without polling audio devices.
+
 
 if [ "$SENDER" = "volume_change" ]; then
     VOLUME="$INFO"

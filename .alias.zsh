@@ -1,3 +1,7 @@
+# Shared interactive commands sourced by .zshrc. The sesh function sends shell
+# bookmarks through the same launcher used by tmux. Keep checkout-specific work
+# aliases in the private host configuration loaded afterward.
+
 export EDITOR='nvim'
 
 unalias brew nvim 2>/dev/null
@@ -11,7 +15,6 @@ alias ea="$EDITOR ~/.alias.zsh"   # alias for Edit Alias
 alias ew="$EDITOR ~/.work.alias.zsh"
 alias el="$EDITOR ~/.local.zsh"   # alias for Edit Local
 alias sz='exec zsh'               # alias for Source Zsh
-
 
 alias eh="cd ~/.hammerspoon && $EDITOR"
 alias ek="cd ~/.config/karabiner/assets/complex_modifications/ && $EDITOR"

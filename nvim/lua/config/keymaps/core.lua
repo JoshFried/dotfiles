@@ -1,3 +1,6 @@
+-- Core editing and movement mappings used across filetypes, including inserting
+-- lines and joining text while preserving the cursor position.
+
 return {
     -- Line manipulation
     { "n", "zj", "o<Esc>k", { desc = "Create line below without insert" } },

@@ -1,3 +1,6 @@
+-- Collect TypeScript server, tooling, parser and package.json integrations into the
+-- language import.
+
 local prefix = 'plugins.extra.lang.typescript'
 return {
     require(prefix .. ".lsp-config"),

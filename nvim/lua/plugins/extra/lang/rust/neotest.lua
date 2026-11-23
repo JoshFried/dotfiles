@@ -1,3 +1,6 @@
+-- Register rustaceanvim's test adapter with Neotest so Rust tests appear in the
+-- shared test interface.
+
 local M = {
     "nvim-neotest/neotest",
     opts = function(_, opts)

@@ -1,3 +1,6 @@
+-- Load rustaceanvim for Rust buffers and configure the Rust language tooling it
+-- manages.
+
 local M = {
 	"mrcjkb/rustaceanvim",
 	ft = { "rust" },

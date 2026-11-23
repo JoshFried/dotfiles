@@ -1,7 +1,7 @@
-vim.opt.fileformat = "unix"
--- Set JAVA_HOME for coursier (Java is already in PATH)
-vim.env.JAVA_HOME = vim.env.JAVA_HOME or "/Library/Java/JavaVirtualMachines/amazon-corretto-21.jdk/Contents/Home"
+-- Set global editor defaults before lazy.nvim loads. Look here for line numbering,
+-- indentation, undo, clipboard and display behavior.
 
+vim.opt.fileformat = "unix"
 vim.opt.guicursor = ""
 vim.opt.nu = true
 vim.opt.relativenumber = true
@@ -44,6 +44,13 @@ vim.opt.mouse = "a"
 
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
+if vim.env.SSH_TTY and vim.fn.has("linux") == 1 then
+    if vim.env.TMUX then
+        vim.g.clipboard = "tmux"
+    else
+        vim.g.clipboard = "osc52"
+    end
+end
 vim.opt.clipboard = "unnamedplus"
 
 -- Enable break indent

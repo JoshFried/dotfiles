@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Exercise the workspace renderers with fixture monitor IDs and app listings to
+# catch display ordering and icon-selection regressions.
+
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

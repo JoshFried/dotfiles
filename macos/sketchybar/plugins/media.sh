@@ -1,4 +1,7 @@
 #!/bin/bash
+# Read track metadata and playback rate through nowplaying-cli to decide when the bar
+# should show a media label.
+
 
 TITLE="$(nowplaying-cli get title 2>/dev/null)"
 ARTIST="$(nowplaying-cli get artist 2>/dev/null)"

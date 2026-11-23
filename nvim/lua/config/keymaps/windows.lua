@@ -1,3 +1,6 @@
+-- Window management mappings depend on config.utils. If that dependency fails,
+-- report the error before returning an empty mapping list.
+
 local ok, utils = pcall(require, 'config.utils')
 if not ok then
     vim.notify("Failed to load config.utils", vim.log.levels.ERROR)

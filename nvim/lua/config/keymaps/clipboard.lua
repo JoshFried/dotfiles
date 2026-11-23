@@ -1,3 +1,6 @@
+-- Visual paste preserves the previous yank. Leader mappings explicitly select the
+-- system clipboard register.
+
 return {
     { "x", "<leader>p", [["_dP]], { desc = "Paste without overwrite" } },
     { { "n", "v" }, "<leader>y", [["+y]], { desc = "Yank to system clipboard" } },

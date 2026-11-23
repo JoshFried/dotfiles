@@ -1,3 +1,6 @@
+-- Collect experimental Hydra menus. Their registration calls are commented out, so
+-- loading this spec does not activate those menus.
+
 -- local function gitsigns_menu()
 --     local gitsigns = require("gitsigns")
 

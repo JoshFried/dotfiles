@@ -1,3 +1,6 @@
+// Executed by osascript with the JavaScript language option. Emit one AppKit
+// screen index and physical display ID per line for display_map.sh.
+
 ObjC.import("AppKit");
 
 var screens = $.NSScreen.screens;

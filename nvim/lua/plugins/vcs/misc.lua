@@ -1,3 +1,6 @@
+-- Register Diffview, Neogit, Fugitive and Git blame for inspecting repository state
+-- from the editor.
+
 local M = {
 	{
 		"sindrets/diffview.nvim",

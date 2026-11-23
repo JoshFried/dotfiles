@@ -1,4 +1,6 @@
 #![cfg(unix)]
+//! Launch the binaries in Unix pseudo-terminals to exercise navigation,
+//! asynchronous updates and terminal restoration after exits and failures.
 
 use std::{
     fs::File,

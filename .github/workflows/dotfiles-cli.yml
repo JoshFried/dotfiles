@@ -1,3 +1,7 @@
+# Changes to the listed setup paths exercise the shell fixture and Rust quality
+# checks on both macOS and Ubuntu. Host selection for AL2 also has a Linux branch in
+# the shell fixture.
+
 name: Dotfiles CLI
 
 on:
@@ -7,6 +11,16 @@ on:
       - "dotfiles-cli/**"
       - "dotfiles.toml"
       - "rust-toolchain.toml"
+      - "bootstrap.sh"
+      - "bootstrap-linux.sh"
+      - "*/bootstrap.sh"
+      - "bin/**"
+      - "sesh/**"
+      - "television/**"
+      - "tests/**"
+      - ".zshrc"
+      - ".alias.zsh"
+      - ".tmux.conf"
   push:
     branches:
       - main
@@ -15,16 +29,36 @@ on:
       - "dotfiles-cli/**"
       - "dotfiles.toml"
       - "rust-toolchain.toml"
+      - "bootstrap.sh"
+      - "bootstrap-linux.sh"
+      - "*/bootstrap.sh"
+      - "bin/**"
+      - "sesh/**"
+      - "television/**"
+      - "tests/**"
+      - ".zshrc"
+      - ".alias.zsh"
+      - ".tmux.conf"
 
 permissions:
   contents: read
 
 jobs:
   quality:
-    runs-on: macos-15
+    strategy:
+      matrix:
+        os: [macos-15, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - name: Install zsh for startup checks
+        if: runner.os == 'Linux'
+        run: command -v zsh || sudo apt-get install -y zsh
+      - name: Check bootstrap, launchers and session composition
+        run: |
+          bash tests/setup.sh
+          bash tests/bootstrap-linux-test.sh
       - name: Check formatting
         run: cargo fmt --manifest-path dotfiles-cli/Cargo.toml -- --check
       - name: Run Clippy

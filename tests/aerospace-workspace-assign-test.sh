@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Feed simulated monitor transitions to the production assignment script and
+# check workspace and window restoration without moving real windows.
+
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

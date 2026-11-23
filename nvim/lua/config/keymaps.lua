@@ -1,3 +1,6 @@
+-- Install mapping groups on VeryLazy. Most groups return mode, lhs, rhs and options.
+-- The Telescope group uses normal-mode entries with a named desc field.
+
 local keymap = vim.keymap.set
 
 -- Load all keymap modules

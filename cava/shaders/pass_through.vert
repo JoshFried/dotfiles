@@ -1,4 +1,7 @@
 #version 330
+// Pass the fullscreen geometry and coordinates to the selected fragment shader.
+// Frequency data is consumed by the fragment stage.
+
 
 
 // Input vertex data, different for all executions of this shader.

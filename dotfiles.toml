@@ -1,5 +1,14 @@
+# Desired state read by the CLI. Add a resource definition and reference its ID from
+# the profiles that should install it. depends_on pulls in prerequisites even for a
+# single-resource apply. Platform defaults below apply only when the caller supplies
+# no filters.
+
 version = 1
-default_profiles = ["core", "development", "desktop"]
+install_misplaced_formulae = true
+default_profiles = ["core", "development"]
+
+[platform_profiles]
+macos = ["core", "development", "desktop"]
 
 [profiles]
 core = [
@@ -50,6 +59,7 @@ development = [
     "formula.rustup",
     "formula.openjdk",
     "formula.kotlin",
+    "formula.cfr-decompiler",
     "formula.nvm",
     "formula.python",
     "formula.bun",
@@ -85,6 +95,7 @@ desktop = [
     "symlink.sketchybar",
     "symlink.borders",
     "symlink.cal-events",
+    "formula.virtualenv",
     "service.sketchybar",
     "service.borders",
 ]
@@ -720,3 +731,15 @@ tags = ["desktop", "service"]
 kind = "brew_service"
 name = "borders"
 depends_on = ["formula.borders", "symlink.borders"]
+
+[[resources]]
+id = "formula.cfr-decompiler"
+description = "cfr-decompiler"
+kind = "brew_formula"
+name = "cfr-decompiler"
+
+[[resources]]
+id = "formula.virtualenv"
+description = "virtualenv"
+kind = "brew_formula"
+name = "virtualenv"

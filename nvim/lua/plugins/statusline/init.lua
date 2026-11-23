@@ -1,3 +1,6 @@
+-- Assemble the status line from lualine, its extensions and the local components
+-- module.
+
 return {
     {
         "nvim-lualine/lualine.nvim",

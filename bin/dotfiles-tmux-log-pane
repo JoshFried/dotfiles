@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+# Toggle the pane marked @dotfiles_log_pane in the current window. Creating one
+# preserves the original pane's focus and inherits its working directory.
+# Invoking again closes the marked pane.
+
 set -euo pipefail
 
 window_id="$(tmux display-message -p '#{window_id}')"

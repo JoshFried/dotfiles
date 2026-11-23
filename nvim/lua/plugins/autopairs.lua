@@ -1,3 +1,5 @@
+-- Initialize automatic bracket and quote pairing after startup on VeryLazy.
+
 return {
 	{
 		"windwp/nvim-autopairs",
